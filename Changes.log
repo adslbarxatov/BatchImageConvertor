@@ -5,9 +5,15 @@ Version 1.3:
  • Maximum image dimension (width and height) increased to 4096 px;
  • Some interface artifacts fixed;
  • Image mode (color/greyscale/bitmap) selection added; greyscale conversion uses HDTV coeffs;
- • Image flip and rotation added.
+ • Image flip and rotation added;
+ • Alpha-channel now supported in all available directions.
  In this version of application we are not recommend to use next combinations of conversion:
  • From image with alpha-channel to bitmap image mode;
  • From image with alpha-channel to BMP, JPEG or GIF image format.
  These variants may break your images.
  Also greyscale conversion may take more time than other types.
+
+Version 2.0:
+ • Application's core has been upgraded for adding new file formats and effects support;
+ • 'Portable bitmaps' reading and writing support added;
+ • 'Windows metafiles' and 'Windows icons' formats reading support added.
