@@ -1,4 +1,4 @@
-# BatchImageConvertor v 2.1
+# BatchImageConvertor v 2.2
 A tool for automatic images groups processing
 
 #
@@ -23,9 +23,9 @@ wmf/emf,
 ico, 
 *tga/vda/icb/vst*, 
 *pcx/pcc*, 
-pnm/pbm/pgm/ppm.
+*pnm/pbm/pgm/ppm*.
 
-Supported output formats: BMP, GIF, PNG, JPEG, TIFF, *PCX*, *TGA*, PBM (color/greyscale/bitmap).
+Supported output formats: BMP, GIF, PNG, JPEG, TIFF, *PCX*, *TGA*, *PBM* (color/greyscale/bitmap).
 
 #
 
