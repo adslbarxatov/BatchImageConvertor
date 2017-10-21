@@ -1,4 +1,4 @@
-# BatchImageConvertor v 2.0
+# BatchImageConvertor v 2.1
 A tool for automatic images groups processing
 
 #
@@ -10,9 +10,22 @@ and images mode (color/greyscale/bitmap).
 Just place source images to the same folder, select target folder and launch conversion. Progress and
 problems that occur will be displayed in the application window.
 
-Supported input extensions: bmp/dib/rle, gif, tif/tiff, png, jpe/jpg/jpeg/jfif, pnm/pbm/pgm/ppm.
+Some formats support (*italicized*) provided by codec library. Utility can work without it, but these
+formats will not be processed.
 
-Supported output formats: BMP, GIF, PNG, JPEG, TIFF, PBM (color/greyscale/bitmap).
+Supported input extensions: 
+bmp/dib/rle, 
+png, 
+gif, 
+tif/tiff, 
+jpe/jpg/jpeg/jfif, 
+wmf/emf, 
+ico, 
+*tga/vda/icb/vst*, 
+*pcx/pcc*, 
+pnm/pbm/pgm/ppm.
+
+Supported output formats: BMP, GIF, PNG, JPEG, TIFF, *PCX*, *TGA*, PBM (color/greyscale/bitmap).
 
 #
 
