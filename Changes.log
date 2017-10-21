@@ -17,6 +17,10 @@ Version 2.1:
  • Added library of external format codecs;
  • Added TGA and PCX formats support (read/write).
 
+Version 2.2:
+ • Added 'relative image size change' option;
+ • Some core improvements added.
+
 We are not recommend to use next combinations of conversion:
  • From image with alpha-channel to bitmap image mode;
  • From image with alpha-channel to BMP, JPEG or GIF image format.
