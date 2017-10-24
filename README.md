@@ -18,21 +18,21 @@ Supported formats:
 ```
 Supported by application
 
-Input file extension*         Read         Write
-.bmp, .dib, .rle               +          as .bmp
-.png                           +             +
-.gif                           +             +
-.tif, .tiff                    +          as .tiff
-.jpe, .jpg, .jpeg, .jfif       +          as .jpeg
-.wmf, .emf                     +             -
-.ico                           +             -
+Input file extension*         Read         Write             Based on
+.bmp, .dib, .rle               +          as .bmp              .NET
+.png                           +             +                 .NET
+.gif                           +             +                 .NET
+.tif, .tiff                    +          as .tiff             .NET
+.jpe, .jpg, .jpeg, .jfif       +          as .jpeg             .NET
+.wmf, .emf                     +             -                 .NET
+.ico                           +             -                 .NET
 
 Supported by codec library
 
-.tga, .vda, .icb, .vst         +          as .tga
-.pcx, .pcc                     +          as .pcx
-.pnm, .pbm, .pgm, .ppm         +          as .pnm
-.jp2, .j2k, .j2c, .jpc, .jpt   +**       in process
+.tga, .vda, .icb, .vst         +          as .tga          Xash3D engine
+.pcx, .pcc                     +          as .pcx      Codenet parsing manual
+.pnm, .pbm, .pgm, .ppm         +          as .pnm                -
+.jp2, .j2k, .j2c, .jpc, .jpt   +**     (-) in process     OpenJPEG library
 
 * All of these extensions are allowed in the input folder. Other ones will be ignored
 ** .j2k, .j2c, .jpc and .jpt reading has not been tested yet. Support have been promised by OpenJPEG developers
