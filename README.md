@@ -1,4 +1,4 @@
-# BatchImageConvertor v 2.2
+# BatchImageConvertor v 2.3
 A tool for automatic images groups processing
 
 #
@@ -13,9 +13,11 @@ problems that occur will be displayed in the application window.
 Some formats support (*italicized*) provided by codec library. Utility can work without it, but these
 formats will not be processed.
 
-Supported input extensions: 
-bmp/dib/rle, 
-png, 
+Supported formats: 
+
+__Input file extension*__         __Read__          __Write__
+.bmp, .dib, .rle                     +               as .bmp
+.png
 gif, 
 tif/tiff, 
 jpe/jpg/jpeg/jfif, 
