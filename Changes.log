@@ -15,11 +15,21 @@ Version 2.0:
 
 Version 2.1:
  • Added library of external format codecs;
- • Added TGA and PCX formats support (read/write).
+ • Added TGA and PCX formats support (read/write). Thanks for materials from Codenet and Xash3D project.
 
 Version 2.2:
  • Added 'relative image size change' option;
  • Some core improvements added.
+
+Vesrion 2.3:
+ • JPEG2000 format added. Used OpenJPEG default codec;
+ • Max linear image size increased to 8192 px (special for smartphone's photos with 3120x4160 quality);
+ • Fatal library linking defect fixed. Now it can be really used on another PC's;
+ • .tif and .tiff, .jpe and .jpeg extensions double processing fixed;
+ • PCX format parser memory leak fixed;
+ • Images processing interface have been improved.
+ Known issues:
+ • 'Bitmap' conversion mode may work unstably. We work on it.
 
 We are not recommend to use next combinations of conversion:
  • From image with alpha-channel to bitmap image mode;
