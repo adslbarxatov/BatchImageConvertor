@@ -10,24 +10,33 @@ and images mode (color/greyscale/bitmap).
 Just place source images to the same folder, select target folder and launch conversion. Progress and
 problems that occur will be displayed in the application window.
 
-Some formats support (*italicized*) provided by codec library. Utility can work without it, but these
-formats will not be processed.
+Some formats support provided by codec library. Utility can work without it, but these formats will not
+be processed.
 
 Supported formats: 
 
-__Input file extension*__         __Read__          __Write__
-.bmp, .dib, .rle                     +               as .bmp
-.png
-gif, 
-tif/tiff, 
-jpe/jpg/jpeg/jfif, 
-wmf/emf, 
-ico, 
-*tga/vda/icb/vst*, 
-*pcx/pcc*, 
-*pnm/pbm/pgm/ppm*.
+```
+Supported by application
 
-Supported output formats: BMP, GIF, PNG, JPEG, TIFF, *PCX*, *TGA*, *PBM* (color/greyscale/bitmap).
+Input file extension*         Read         Write
+.bmp, .dib, .rle               +          as .bmp
+.png                           +             +
+.gif                           +             +
+.tif, .tiff                    +          as .tiff
+.jpe, .jpg, .jpeg, .jfif       +          as .jpeg
+.wmf, .emf                     +             -
+.ico                           +             -
+
+Supported by codec library
+
+.tga, .vda, .icb, .vst         +          as .tga
+.pcx, .pcc                     +          as .pcx
+.pnm, .pbm, .pgm, .ppm         +          as .pnm
+.jp2, .j2k, .j2c, .jpc, .jpt   +**       in process
+
+* All of these extensions are allowed in the input folder. Other ones will be ignored
+** .j2k, .j2c, .jpc and .jpt reading has not been tested yet. Support have been promised by OpenJPEG developers
+```
 
 #
 
