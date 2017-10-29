@@ -1,4 +1,4 @@
-# BatchImageConvertor v 2.3
+# BatchImageConvertor v 2.4
 A tool for automatic images groups processing
 
 #
@@ -42,7 +42,7 @@ Supported by codec library
 .pal (Microsoft)               +             +               Own codec
 .pal (JASC)                    +             +               Own codec
 .bmp                      Extracting     Replacing           Own codec
-.pcx, .pcc                Extracting         -               Own codec
+.pcx, .pcc                Extracting   (-) in process        Own codec
 
 * All of these extensions (except palettes) are allowed in the input folder. Other ones will be ignored
 ** .j2k, .j2c, .jpc and .jpt reading has not been tested yet. Support have been promised by OpenJPEG developers
