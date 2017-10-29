@@ -13,6 +13,8 @@ problems that occur will be displayed in the application window.
 Some formats support provided by codec library. Utility can work without it, but these formats will not
 be processed.
 
+Since v 2.4 utility allows you to operate with color palettes (see changes.log for user manual).
+
 Supported formats: 
 
 ```
@@ -30,11 +32,19 @@ Input file extension*         Read         Write             Based on
 Supported by codec library
 
 .tga, .vda, .icb, .vst         +          as .tga          Xash3D engine
-.pcx, .pcc                     +          as .pcx      Codenet parsing manual
-.pnm, .pbm, .pgm, .ppm         +          as .pnm                -
+.pcx, .pcc                     +          as .pcx            Own codec
+.pnm, .pbm, .pgm, .ppm         +          as .pnm            Own codec
 .jp2, .j2k, .j2c, .jpc, .jpt   +**     (-) in process     OpenJPEG library
 
-* All of these extensions are allowed in the input folder. Other ones will be ignored
+- including palettes formats
+
+.act                           +             +               Own codec
+.pal (Microsoft)               +             +               Own codec
+.pal (JASC)                    +             +               Own codec
+.bmp                      Extracting     Replacing           Own codec
+.pcx, .pcc                Extracting         -               Own codec
+
+* All of these extensions (except palettes) are allowed in the input folder. Other ones will be ignored
 ** .j2k, .j2c, .jpc and .jpt reading has not been tested yet. Support have been promised by OpenJPEG developers
 ```
 
