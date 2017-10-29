@@ -28,8 +28,20 @@ Vesrion 2.3:
  • .tif and .tiff, .jpe and .jpeg extensions double processing fixed;
  • PCX format parser memory leak fixed;
  • Images processing interface have been improved.
- Known issues:
- • 'Bitmap' conversion mode may work unstably. We work on it.
+
+Version 2.4:
+ • Some class structure optimizations performed;
+ • Palettes manager added:
+   • Supports Adobe Color Tables (.act), Microsoft Palette and JASC palette (.pal) reading and writing;
+   • Supports Windows bitmap (.bmp) and ZSoft paintbrush (.pcx) palettes extracting;
+   • Supports creation, editing, loading and saving operations;
+   • Supports alpha-channel setting;
+   • Supports Windows bitmap image palette replacing.
+   Usage:
+   • Use + and – buttons for adding/deleting colors;
+   • Use left doubleclick on the color column (or F1 key) for color setting;
+   • Use left doubleclick on the alpha column (or F2 key) for alpha setting.
+ • Some interface improvements performed.
 
 We are not recommend to use next combinations of conversion:
  • From image with alpha-channel to bitmap image mode;
