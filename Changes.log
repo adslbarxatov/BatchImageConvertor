@@ -37,14 +37,15 @@ Version 2.4:
    • Supports creation, editing, loading and saving operations;
    • Supports alpha-channel setting;
    • Supports Windows bitmap image palette replacing.
-   Usage:
-   • Use + and – buttons for adding/deleting colors;
-   • Use left doubleclick on the color column (or F1 key) for color setting;
-   • Use left doubleclick on the alpha column (or F2 key) for alpha setting.
  • Some interface improvements performed.
 
-We are not recommend to use next combinations of conversion:
+Version 2.5:
+ • Some palettes manager's interface improvements applied;
+ • Some image processing bugs fixed;
+ • Color table's visualization bug fixed;
+ • ACO and ASE palettes formats support added.
+
+We are not recommend you using next combinations of conversion:
  • From image with alpha-channel to bitmap image mode;
  • From image with alpha-channel to BMP, JPEG or GIF image format.
 These variants may break your images.
-Also greyscale conversion may take more time than other types.
