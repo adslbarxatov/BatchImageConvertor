@@ -2,8 +2,10 @@
  • Use '...' buttons for input and output image directories specifying;
  • Use formats combo for output format specifying;
  • Use 'image size' field for specifying relative or absolute output image size;
- • Use 'color mode' field for setting image color conversion type (color/greyscale/bitmap);
-   in last case use bitmap brightness edge track for output image brightness specifying;
+ • Use 'color mode' field for setting image's conversion type (color/greyscale/bitmap);
+   in last case use bitmap brightness edge track for output image's brightness specifying;
+ • Use 'flip/rotation' filed for specifying output images flip and rotaion settings;
+ • Press 'start' button and use log field for checking conversion results.
 
 # Palettes manager
  • Use Load and Save buttons for loading and saving palettes files;
