@@ -43,7 +43,8 @@ Version 2.5:
  • Some palettes manager's interface improvements applied;
  • Some image processing bugs fixed;
  • Color table's visualization bug fixed;
- • ACO and ASE palettes formats support added.
+ • ACO and ASE palettes formats support added;
+ • Brightness edge for bitmap conversion now can be specified.
 
 We are not recommend you using next combinations of conversion:
  • From image with alpha-channel to bitmap image mode;
