@@ -1,4 +1,4 @@
-# BatchImageConvertor v 2.5
+# BatchImageConvertor v 2.6
 A tool for automatic images groups processing
 
 #
@@ -13,20 +13,20 @@ Supported formats:
 Supported by application
 
 Input file extension*         Read         Write             Based on
-.bmp, .dib, .rle               +          as .bmp              .NET
+.bmp, .dib, .rle               +             +                 .NET
 .png                           +             +                 .NET
 .gif                           +             +                 .NET
-.tif, .tiff                    +          as .tiff             .NET
-.jpe, .jpg, .jpeg, .jfif       +          as .jpeg             .NET
+.tif, .tiff                    +             +                 .NET
+.jpe, .jpg, .jpeg, .jfif       +             +                 .NET
 .wmf, .emf                     +             -                 .NET
 .ico                           +             -                 .NET
 
-Supported by codec library***
+Supported by codec library**
 
-.tga, .vda, .icb, .vst         +          as .tga          Xash3D engine
-.pcx, .pcc                     +          as .pcx            Own codec
-.pnm, .pbm, .pgm, .ppm         +          as .pnm            Own codec
-.jp2, .j2k, .j2c, .jpc, .jpt   +**     (-) in process     OpenJPEG library
+.tga, .vda, .icb, .vst         +             +             Xash3D engine
+.pcx, .pcc                     +             +               Own codec
+.pnm, .pbm, .pgm, .ppm         +             +               Own codec
+.jp2, .j2{k|c}, .jp{c|f|x}     +             +***        OpenJPEG library
 
 - palettes formats
 
@@ -39,8 +39,8 @@ Supported by codec library***
 .pcx, .pcc                Extracting         -               Own codec
 
 * All of these extensions (except palettes) are allowed in the input folder. Other ones will be ignored
-** .j2k, .j2c, .jpc and .jpt reading has not been tested yet. Support have been promised by OpenJPEG developers
-*** Some formats support provided by codec library. Utility can work without it, but these formats will not be processed
+** Some formats support provided by codec library. Utility can work without it, but these formats will not be processed
+*** Reading tested fully (including alpha-channel). OpenJPEG writer doesn't support alpha-channel for now
 
 ```
 
