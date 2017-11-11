@@ -35,7 +35,7 @@ Supported by codec library**
 .pal (JASC)                    +             +               Own codec
 .aco                           +             -               Own codec
 .ase                           +             -               Own codec
-.bmp                      Extracting     Replacing           Own codec
+.bmp, .dib, .rle          Extracting     Replacing           Own codec
 .pcx, .pcc                Extracting         -               Own codec
 
 * All of these extensions (except palettes) are allowed in the input folder. Other ones will be ignored
