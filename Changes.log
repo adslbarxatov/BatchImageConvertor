@@ -46,7 +46,11 @@ Version 2.5:
  • ACO and ASE palettes formats support added;
  • Brightness edge for bitmap conversion now can be specified.
 
-We are not recommend you using next combinations of conversion:
- • From image with alpha-channel to bitmap image mode;
- • From image with alpha-channel to BMP, JPEG or GIF image format.
-These variants may break your images.
+Version 2.6:
+ • JPEG2000 files with no colorspace specified now open properly;
+ • JPEG2000 .jpt format support removed (because OpenJPEG has no real support for it);
+ • Set of JPEG2000 file extensions expanded;
+ • JPEG2000 alpha channel support added (for reading; writing doesn't work properly);
+ • JPEG2000 format writing added;
+ • 'Alpha-channel to bitmap mode' conversion bug fixed;
+ • Other alpha-channel processing bugs fixed.
