@@ -1,5 +1,6 @@
 # BatchImageConvertor v 2.6
 A tool for automatic images groups processing
+Инструмент для автоматической обработки групп изображений
 
 #
 
