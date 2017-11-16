@@ -13,6 +13,8 @@
  
  • Press 'start' button and use log field for checking conversion results.
 
+ • Press 'stop' button for interrupting process. It will stop after the finish of current conversion.
+
 # Palettes manager
 
  • Use 'load' and 'save' buttons for loading and saving palettes files;
