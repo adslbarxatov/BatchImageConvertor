@@ -1,5 +1,6 @@
 # BatchImageConvertor v 2.6
 A tool for automatic images groups processing
+
 Инструмент для автоматической обработки групп изображений
 
 #
@@ -8,7 +9,12 @@ This tool allows you to convert group of image files (including different format
 a single format. If it is necessary, you can specify uniform size, rotation, flip direction
 and images mode (color/greyscale/bitmap).
 
-Supported formats: 
+Инструмент позволяет преобразовывать группы изображений разных форматов в единый формат
+и применять к каждому из них нужные настройки: размер, поворот/отражение, цветовой режим
+(цветное/оттенки серого/чёрно-белое).
+
+
+Supported formats / поддерживаемые форматы:
 
 ```
 Supported by application
@@ -39,12 +45,24 @@ Supported by codec library**
 .bmp, .dib, .rle          Extracting     Replacing           Own codec
 .pcx, .pcc                Extracting         -               Own codec
 
-* All of these extensions (except palettes) are allowed in the input folder. Other ones will be ignored
-** Some formats support provided by codec library. Utility can work without it, but these formats will not be processed
-*** Reading tested fully (including alpha-channel). OpenJPEG writer doesn't support alpha-channel for now
-
 ```
+
+* *All of these extensions (except palettes) are allowed in the input folder. Other ones will be ignored*
+
+** *Some formats support provided by codec library. Utility can work without it, but these formats will not be processed*
+
+*** *Reading tested fully (including alpha-channel). OpenJPEG writer doesn't support alpha-channel for now*
+
+* *Все перечисленные форматы (кроме форматов палитр) могут находиться в исходной папке. Остальные будут проигнорированы*
+
+** *Поддержка части форматов обеспечивается только при наличии библиотеки кодеков. Утилита может работать без неё, но 
+соответствующие форматы поддерживаться не будут*
+
+*** *Чтение формата работает исправно (в т.ч. альфа-канал). Функция записи в библиотеке OpenJPEG альфа-канал не поддерживает*
+
 
 #
 
 Needs Windows XP and newer, Framework 4.0 and newer. Interface language: ru_ru
+
+Требуется ОС Windows XP и новее, Framework 4.0 и новее. Язык интерфейса: ru_ru
