@@ -54,3 +54,9 @@ Version 2.6:
  • JPEG2000 format writing added;
  • 'Alpha-channel to bitmap mode' conversion bug fixed;
  • Other alpha-channel processing bugs fixed.
+
+Version 2.7:
+ • Image cropping added. For now it is an area in the center of image. Its width and height may be
+   specified manually. Moving of area will be implemented later;
+ • B&W PBM format processing bugs fixed;
+ • JPEG2000 format writing disabled due to unpredictable crushes; we work on it now.
