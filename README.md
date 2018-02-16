@@ -1,15 +1,15 @@
-# BatchImageConvertor v 2.6
+# BatchImageConvertor v 2.7
 A tool for automatic images groups processing
 
 Инструмент для автоматической обработки групп изображений
 #
 This tool allows you to convert group of image files (including different formats) into
-a single format. If it is necessary, you can specify uniform size, rotation, flip direction
-and images mode (color/greyscale/bitmap).
+a single format. If it is necessary, you can specify uniform size or cropping method,
+rotation, flip direction and images mode (color/greyscale/bitmap).
 
 Инструмент позволяет преобразовывать группы изображений разных форматов в единый формат
-и применять к каждому из них нужные настройки: размер, поворот/отражение, цветовой режим
-(цветное/оттенки серого/чёрно-белое).
+и применять к каждому из них нужные настройки: размер или обрезку, поворот/отражение,
+цветовой режим (цветное/оттенки серого/чёрно-белое).
 
 
 Supported formats / поддерживаемые форматы:
@@ -31,7 +31,7 @@ Supported by codec library**
 .tga, .vda, .icb, .vst         +             +             Xash3D engine
 .pcx, .pcc                     +             +               Own codec
 .pnm, .pbm, .pgm, .ppm         +             +               Own codec
-.jp2, .j2{k|c}, .jp{c|f|x}     +             +***        OpenJPEG library
+.jp2, .j2{k|c}, .jp{c|f|x}     +             -            OpenJPEG library
 
 - palettes formats
 
@@ -47,14 +47,10 @@ Supported by codec library**
     will be ignored
 **  Some formats support provided by codec library. Utility can work without it, but these 
     formats will not be processed
-*** Reading tested fully (including alpha-channel). OpenJPEG writer doesn't support 
-    alpha-channel for now
 *   Все перечисленные форматы (кроме форматов палитр) могут находиться в исходной папке. 
     Остальные будут проигнорированы
 **  Поддержка части форматов обеспечивается только при наличии библиотеки кодеков. Утилита 
     может работать без неё, но соответствующие форматы поддерживаться не будут
-*** Чтение формата работает исправно (в т.ч. альфа-канал). Функция записи в библиотеке 
-    OpenJPEG альфа-канал не поддерживает
 
 ```
 #
