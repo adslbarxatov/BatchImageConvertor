@@ -1,4 +1,4 @@
-# BatchImageConvertor v 2.7
+# BatchImageConvertor v 2.8
 A tool for automatic images groups processing
 
 Инструмент для автоматической обработки групп изображений
@@ -31,7 +31,6 @@ Supported by codec library**
 .tga, .vda, .icb, .vst         +             +             Xash3D engine
 .pcx, .pcc                     +             +               Own codec
 .pnm, .pbm, .pgm, .ppm         +             +               Own codec
-.jp2, .j2{k|c}, .jp{c|f|x}     +             -            OpenJPEG library
 
 - palettes formats
 
@@ -55,6 +54,6 @@ Supported by codec library**
 ```
 #
 
-Needs Windows XP and newer, Framework 4.0 and newer. Interface language: ru_ru
+Needs Windows XP and newer, Framework 4.0 and newer. Interface languages: ru_ru, en_us
 
-Требуется ОС Windows XP и новее, Framework 4.0 и новее. Язык интерфейса: ru_ru
+Требуется ОС Windows XP и новее, Framework 4.0 и новее. Языки интерфейса: ru_ru, en_us
