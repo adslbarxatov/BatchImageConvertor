@@ -62,6 +62,6 @@ Version 2.7:
  • JPEG2000 format writing disabled due to unpredictable crushes; we work on it now.
 
 Version 2.8:
- • Support if JPEG2000 removed due to unstability of OpenJPEG library;
+ • Support of JPEG2000 removed due to instability of OpenJPEG library;
  • Added english language support for main interface;
  • Free input of source and target paths allowed.
