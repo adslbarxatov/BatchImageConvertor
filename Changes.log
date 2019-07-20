@@ -1,62 +1,67 @@
 Version 1.2:
- • Publication on GitHub.
+ â€¢ Publication on GitHub.
 
 Version 1.3:
- • Maximum image dimension (width and height) increased to 4096 px;
- • Some interface artifacts fixed;
- • Image mode (color/greyscale/bitmap) selection added; greyscale conversion uses HDTV coeffs;
- • Image flip and rotation added;
- • Alpha-channel now supported in all available directions.
+ â€¢ Maximum image dimension (width and height) increased to 4096 px;
+ â€¢ Some interface artifacts fixed;
+ â€¢ Image mode (color/greyscale/bitmap) selection added; greyscale conversion uses HDTV coeffs;
+ â€¢ Image flip and rotation added;
+ â€¢ Alpha-channel now supported in all available directions.
 
 Version 2.0:
- • Application's core has been upgraded for adding new file formats and effects support;
- • 'Portable bitmaps' (PBM/PGM/PPM/PNM) reading and writing support added;
- • 'Windows metafiles' (WMF/EMF) and 'Windows icons' formats reading support added.
+ â€¢ Application's core has been upgraded for adding new file formats and effects support;
+ â€¢ 'Portable bitmaps' (PBM/PGM/PPM/PNM) reading and writing support added;
+ â€¢ 'Windows metafiles' (WMF/EMF) and 'Windows icons' formats reading support added.
 
 Version 2.1:
- • Added library of external format codecs;
- • Added TGA and PCX formats support (read/write). Thanks for materials from Codenet and Xash3D project.
+ â€¢ Added library of external format codecs;
+ â€¢ Added TGA and PCX formats support (read/write). Thanks for materials from Codenet and Xash3D project.
 
 Version 2.2:
- • Added 'relative image size change' option;
- • Some core improvements added.
+ â€¢ Added 'relative image size change' option;
+ â€¢ Some core improvements added.
 
 Vesrion 2.3:
- • JPEG2000 format added. Used OpenJPEG default codec;
- • Max linear image size increased to 8192 px (special for smartphone's photos with 3120x4160 quality);
- • Fatal library linking defect fixed. Now it can be really used on another PC's;
- • .tif and .tiff, .jpe and .jpeg extensions double processing fixed;
- • PCX format parser memory leak fixed;
- • Images processing interface have been improved.
+ â€¢ JPEG2000 format added. Used OpenJPEG default codec;
+ â€¢ Max linear image size increased to 8192 px (special for smartphone's photos with 3120x4160 quality);
+ â€¢ Fatal library linking defect fixed. Now it can be really used on another PC's;
+ â€¢ .tif and .tiff, .jpe and .jpeg extensions double processing fixed;
+ â€¢ PCX format parser memory leak fixed;
+ â€¢ Images processing interface have been improved.
 
 Version 2.4:
- • Some class structure optimizations performed;
- • Palettes manager added:
-   • Supports Adobe Color Tables (.act), Microsoft Palette and JASC palette (.pal) reading and writing;
-   • Supports Windows bitmap (.bmp) and ZSoft paintbrush (.pcx) palettes extracting;
-   • Supports creation, editing, loading and saving operations;
-   • Supports alpha-channel setting;
-   • Supports Windows bitmap image palette replacing.
- • Some interface improvements performed.
+ â€¢ Some class structure optimizations performed;
+ â€¢ Palettes manager added:
+   â€¢ Supports Adobe Color Tables (.act), Microsoft Palette and JASC palette (.pal) reading and writing;
+   â€¢ Supports Windows bitmap (.bmp) and ZSoft paintbrush (.pcx) palettes extracting;
+   â€¢ Supports creation, editing, loading and saving operations;
+   â€¢ Supports alpha-channel setting;
+   â€¢ Supports Windows bitmap image palette replacing.
+ â€¢ Some interface improvements performed.
 
 Version 2.5:
- • Some palettes manager's interface improvements applied;
- • Some image processing bugs fixed;
- • Color table's visualization bug fixed;
- • ACO and ASE palettes formats support added;
- • Brightness edge for bitmap conversion now can be specified.
+ â€¢ Some palettes manager's interface improvements applied;
+ â€¢ Some image processing bugs fixed;
+ â€¢ Color table's visualization bug fixed;
+ â€¢ ACO and ASE palettes formats support added;
+ â€¢ Brightness edge for bitmap conversion now can be specified.
 
 Version 2.6:
- • JPEG2000 files with no colorspace specified now open properly;
- • JPEG2000 .jpt format support removed (because OpenJPEG has no real support for it);
- • Set of JPEG2000 file extensions expanded;
- • JPEG2000 alpha channel support added (for reading; writing doesn't work properly);
- • JPEG2000 format writing added;
- • 'Alpha-channel to bitmap mode' conversion bug fixed;
- • Other alpha-channel processing bugs fixed.
+ â€¢ JPEG2000 files with no colorspace specified now open properly;
+ â€¢ JPEG2000 .jpt format support removed (because OpenJPEG has no real support for it);
+ â€¢ Set of JPEG2000 file extensions expanded;
+ â€¢ JPEG2000 alpha channel support added (for reading; writing doesn't work properly);
+ â€¢ JPEG2000 format writing added;
+ â€¢ 'Alpha-channel to bitmap mode' conversion bug fixed;
+ â€¢ Other alpha-channel processing bugs fixed.
 
 Version 2.7:
- • Image cropping added. For now it is an area in the center of image. Its width and height may be
+ â€¢ Image cropping added. For now it is an area in the center of image. Its width and height may be
    specified manually. Moving of area will be implemented later;
- • B&W PBM format processing bugs fixed;
- • JPEG2000 format writing disabled due to unpredictable crushes; we work on it now.
+ â€¢ B&W PBM format processing bugs fixed;
+ â€¢ JPEG2000 format writing disabled due to unpredictable crushes; we work on it now.
+
+Version 2.8:
+ â€¢ Support if JPEG2000 removed due to unstability of OpenJPEG library;
+ â€¢ Added english language support for main interface;
+ â€¢ Free input of source and target paths allowed.
