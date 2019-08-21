@@ -1,4 +1,4 @@
-# BatchImageConvertor v 2.8
+# BatchImageConvertor v 2.8.1
 A tool for automatic images groups processing
 
 Инструмент для автоматической обработки групп изображений
