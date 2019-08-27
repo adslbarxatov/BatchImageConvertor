@@ -24,6 +24,9 @@ namespace BatchImageConvertor
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
 		private static extern Int16 PCX_SavePalette (string FileName, byte[] Buffer, UInt16 ColorsCount);			// RGB
 
+		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		private static extern void BIC_ReleaseBuffer (IntPtr Buffer);
+
 		/// <summary>
 		/// Метод загружает указанное изображение и возвращает его в виде объекта Bitmap
 		/// </summary>
@@ -34,7 +37,7 @@ namespace BatchImageConvertor
 			{
 			// Загрузка изображения
 			UInt16 width, height;
-			IntPtr buffer;
+			IntPtr buffer = IntPtr.Zero;
 			ProgramErrorCodes error = (ProgramErrorCodes)PCX_Load (FilePath, out width, out height, out buffer);
 
 			if (error != ProgramErrorCodes.EXEC_OK)
@@ -61,6 +64,7 @@ namespace BatchImageConvertor
 				}
 
 			// Завершено
+			BIC_ReleaseBuffer (buffer);			// Давно пора!
 			return ProgramErrorCodes.EXEC_OK;
 			}
 
@@ -120,7 +124,12 @@ namespace BatchImageConvertor
 				}
 
 			// Обращение
-			return (ProgramErrorCodes)PCX_Save (fullPath, (UInt16)Image.Width, (UInt16)Image.Height, array);
+			ProgramErrorCodes res = (ProgramErrorCodes)PCX_Save (fullPath, (UInt16)Image.Width, (UInt16)Image.Height, array);
+
+			// Инициирование очистки памяти
+			array = null;
+			//GC.Collect ();
+			return res;
 			}
 
 		/// <summary>

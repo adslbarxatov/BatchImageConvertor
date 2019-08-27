@@ -17,6 +17,9 @@ namespace BatchImageConvertor
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
 		private static extern Int16 TGA_Save (string FileName, UInt16 Width, UInt16 Height, byte[] Buffer);
 
+		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		private static extern void BIC_ReleaseBuffer (IntPtr Buffer);
+
 		/// <summary>
 		/// Метод загружает указанное изображение и возвращает его в виде объекта Bitmap
 		/// </summary>
@@ -54,6 +57,7 @@ namespace BatchImageConvertor
 				}
 
 			// Завершено
+			BIC_ReleaseBuffer (buffer);
 			return ProgramErrorCodes.EXEC_OK;
 			}
 
@@ -114,7 +118,12 @@ namespace BatchImageConvertor
 				}
 
 			// Обращение
-			return (ProgramErrorCodes)TGA_Save (fullPath, (UInt16)Image.Width, (UInt16)Image.Height, array);
+			ProgramErrorCodes res = (ProgramErrorCodes)TGA_Save (fullPath, (UInt16)Image.Width, (UInt16)Image.Height, array);
+
+			// Инициирование очистки памяти
+			array = null;
+			//GC.Collect ();
+			return res;
 			}
 
 		/// <summary>

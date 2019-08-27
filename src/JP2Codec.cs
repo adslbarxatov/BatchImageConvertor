@@ -17,6 +17,9 @@ namespace BatchImageConvertor
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
 		private static extern Int16 JP2_Save (string FileName, UInt16 Width, UInt16 Height, byte[] Buffer, byte CodecType);
 
+		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		private static extern void BIC_ReleaseBuffer (IntPtr Buffer);
+
 		/// <summary>
 		/// Возможные типы изображений
 		/// </summary>
@@ -70,6 +73,7 @@ namespace BatchImageConvertor
 				}
 
 			// Завершено
+			BIC_ReleaseBuffer (buffer);
 			return ProgramErrorCodes.EXEC_OK;
 			}
 
@@ -131,7 +135,12 @@ namespace BatchImageConvertor
 				}
 
 			// Обращение
-			return (ProgramErrorCodes)JP2_Save (fullPath, (UInt16)Image.Width, (UInt16)Image.Height, array, (byte)imageType);
+			ProgramErrorCodes res = (ProgramErrorCodes)JP2_Save (fullPath, (UInt16)Image.Width, (UInt16)Image.Height, array, (byte)imageType);
+
+			// Инициирование очистки памяти
+			array = null;
+			//GC.Collect ();
+			return res;
 			}
 
 		/// <summary>

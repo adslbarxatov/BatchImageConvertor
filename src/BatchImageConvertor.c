@@ -282,3 +282,10 @@ BIC_API sint BIC_CONV ASE_SavePalette (schar *FileName, uchar *Palette, uint Col
 	{
 	return ASE_SavePaletteEx (FileName, ((union RGB_Color *)Palette), ColorsCount);
 	}
+
+// Интерфейс освобождения памяти для создаваемых буферов
+BIC_API void BIC_CONV BIC_ReleaseBuffer (uchar *Buffer)
+	{
+	if (Buffer)
+		free (Buffer);
+	}

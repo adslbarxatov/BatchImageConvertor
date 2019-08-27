@@ -170,6 +170,9 @@ namespace BatchImageConvertor
 		// Основной метод обработки изображений
 		private void MasterImageProcessor (object sender, DoWorkEventArgs e)
 			{
+			// Переменные
+			string postMsg = RU.Checked ? ". Обработка следующего изображения..." : ". Next image processing...";
+
 			// Сбор списка изображений
 			List<List<string>> fileNames = new List<List<string>> ();
 			for (int i = 0; i < codecs.Count; i++)
@@ -299,7 +302,7 @@ namespace BatchImageConvertor
 								"result file already exists";
 
 						messages.Add (msg);
-						((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg);
+						((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg + postMsg);
 						continue;
 						}
 					#endregion
@@ -332,7 +335,7 @@ namespace BatchImageConvertor
 						msg = (RU.Checked ? "Файл «" : "File '") + Path.GetFileName (fileNames[c][n]) +
 							(RU.Checked ? "»: " : "': ") + msg;
 						messages.Add (msg);
-						((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg);
+						((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg + postMsg);
 						continue;
 						}
 					#endregion
@@ -399,7 +402,7 @@ namespace BatchImageConvertor
 
 						messages.Add (msg);
 						img.Dispose ();
-						((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg);
+						((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg + postMsg);
 
 						e.Cancel = true;
 						return;
@@ -413,7 +416,7 @@ namespace BatchImageConvertor
 						msg = "File '" + Path.GetFileName (fileNames[c][n]) + "' processed";
 
 					messages.Add (msg);
-					((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg);
+					((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg + postMsg);
 					successes++;
 					img.Dispose ();
 					}

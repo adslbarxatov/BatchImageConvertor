@@ -68,3 +68,7 @@ Version 2.8:
 
 Version 2.8.1:
  • Inability to opening PCX files  with monochrome palettes fixed.
+
+Version 2.9:
+ • Bad memory management fixed: it will be used properly since v 2.9;
+ • Some interface improvements applied.

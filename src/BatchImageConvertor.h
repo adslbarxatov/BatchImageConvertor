@@ -98,6 +98,9 @@ union RGB_Color GreytoRGB_f (float V);
 uint LEBE_i (uint Value);
 ulong LEBE_l (ulong Value);
 
+// Общие декларации
+BIC_API void BIC_CONV BIC_ReleaseBuffer (uchar *Buffer);
+
 // Декларации (все функции работают с изображениями в формате RGBA32)
 BIC_API sint BIC_CONV TGA_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
 BIC_API sint BIC_CONV TGA_Save (schar *FileName, uint Width, uint Height, uchar *Buffer);
