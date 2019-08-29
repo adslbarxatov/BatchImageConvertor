@@ -170,9 +170,6 @@ namespace BatchImageConvertor
 		// Основной метод обработки изображений
 		private void MasterImageProcessor (object sender, DoWorkEventArgs e)
 			{
-			// Переменные
-			string postMsg = RU.Checked ? ". Обработка следующего изображения..." : ". Next image processing...";
-
 			// Сбор списка изображений
 			List<List<string>> fileNames = new List<List<string>> ();
 			for (int i = 0; i < codecs.Count; i++)
@@ -183,7 +180,7 @@ namespace BatchImageConvertor
 					try
 						{
 						fileNames[fileNames.Count - 1].AddRange (Directory.GetFiles (InputPath.Text, codecs[i].FileExtensions[j],
-							SearchOption.TopDirectoryOnly));
+							IncludeSubdirs.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly));
 						}
 					catch
 						{
@@ -280,8 +277,17 @@ namespace BatchImageConvertor
 
 			for (int c = 0; c < fileNames.Count; c++)
 				{
-				for (int n = 0; n < fileNames[c].Count; n++, currentImage++)
+				for (int n = 0; n < fileNames[c].Count; n++)
 					{
+					// Счётчик
+					currentImage++;
+
+					if (RU.Checked)
+						msg = "Обрабатывается «" + Path.GetFileName (fileNames[c][n]) + "»...";
+					else
+						msg = "Processing '" + Path.GetFileName (fileNames[c][n]) + "'...";
+					((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg);
+
 					// Завершение работы, если получено требование от диалога (в том числе - на этапе сборки списка)
 					if (((BackgroundWorker)sender).CancellationPending || e.Cancel)
 						{
@@ -302,7 +308,7 @@ namespace BatchImageConvertor
 								"result file already exists";
 
 						messages.Add (msg);
-						((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg + postMsg);
+						((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg);
 						continue;
 						}
 					#endregion
@@ -335,7 +341,7 @@ namespace BatchImageConvertor
 						msg = (RU.Checked ? "Файл «" : "File '") + Path.GetFileName (fileNames[c][n]) +
 							(RU.Checked ? "»: " : "': ") + msg;
 						messages.Add (msg);
-						((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg + postMsg);
+						((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg);
 						continue;
 						}
 					#endregion
@@ -402,7 +408,7 @@ namespace BatchImageConvertor
 
 						messages.Add (msg);
 						img.Dispose ();
-						((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg + postMsg);
+						((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg);
 
 						e.Cancel = true;
 						return;
@@ -416,7 +422,7 @@ namespace BatchImageConvertor
 						msg = "File '" + Path.GetFileName (fileNames[c][n]) + "' processed";
 
 					messages.Add (msg);
-					((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg + postMsg);
+					((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg);
 					successes++;
 					img.Dispose ();
 					}
@@ -426,11 +432,11 @@ namespace BatchImageConvertor
 		// Установка блокировки/разблокировки интерфейса
 		private void SetInterfaceState (bool State)
 			{
-			SetInputPath.Enabled = SetOutputPath.Enabled =
+			SetInputPath.Enabled = SetOutputPath.Enabled = InputPath.Enabled = OutputPath.Enabled =
 				ImageTypeCombo.Enabled = StartButton.Enabled = ExitButton.Enabled = Palettes.Enabled =
 				RotationCombo.Enabled = FlipCombo.Enabled = Label04.Enabled = Label05.Enabled =
 				AbsoluteSize.Enabled = RelativeSize.Enabled = RelativeCrop.Enabled =
-				RU.Enabled = EN.Enabled = State;
+				RU.Enabled = EN.Enabled = IncludeSubdirs.Enabled = State;
 
 			if (State)
 				{
@@ -516,6 +522,7 @@ namespace BatchImageConvertor
 			if (RU.Checked)
 				{
 				InputFolder.Description = "Выберите директорию, изображения из которой требуется преобразовать";
+				IncludeSubdirs.Text = "Включая подпапки";
 				OutputFolder.Description = "Выберите директорию для сохранения преобразованных изображений. " +
 					"ПРИ СОВПАДЕНИИ ИМЁН ФАЙЛОВ ПЕРЕЗАПИСЬ НЕ ВЫПОЛНЯЕТСЯ!";
 
@@ -550,6 +557,7 @@ namespace BatchImageConvertor
 			else
 				{
 				InputFolder.Description = "Select directory with source images";
+				IncludeSubdirs.Text = "Include subdirectories";
 				OutputFolder.Description = "Select directory for result images. " +
 					"MATCHING FILES WILL NOT BE OVERWRITTEN!";
 

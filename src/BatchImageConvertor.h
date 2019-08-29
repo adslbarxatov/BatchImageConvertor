@@ -12,7 +12,7 @@
 #define BIC_CONV	__stdcall
 
 // Максимальные размеры входных изображений
-#define IMAGE_MAXWIDTH			(1 << 13)
+#define IMAGE_MAXWIDTH			(1 << 14)
 #define IMAGE_MAXHEIGHT			IMAGE_MAXWIDTH
 
 // Коды ошибок
