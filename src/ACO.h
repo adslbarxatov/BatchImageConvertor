@@ -28,7 +28,7 @@ union ACOColor
 #define ACO_HSB			1
 #define ACO_GREY		8
 
-// Needs color profining
+// Needs color profiling
 #define ACO_CMYK		2
 #define ACO_LAB			7
 

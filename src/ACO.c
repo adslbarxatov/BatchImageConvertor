@@ -41,7 +41,7 @@ sint ACO_LoadPaletteEx (schar *FileName, union RGB_Color **Palette, uint *Colors
 			break;
 
 		case ACO_VERSION_2:
-			hasColorNames++;
+			hasColorNames = 1;
 			break;
 
 		default:
@@ -102,7 +102,9 @@ sint ACO_LoadPaletteEx (schar *FileName, union RGB_Color **Palette, uint *Colors
 		// Пропуск имени цвета
 		if (hasColorNames)
 			{
-			stringLength = ((ulong)fgetc (FS) << 24) | ((ulong)fgetc (FS) << 16) | ((ulong)fgetc (FS) << 8) | (ulong)fgetc (FS);
+			fread (&stringLength, 1, sizeof (stringLength), FS);
+			stringLength = LEBE_l (stringLength);
+
 			if (stringLength > 32)
 				{
 				fclose (FS);
