@@ -1,8 +1,9 @@
 # BatchImageConvertor v 2.10
-A tool for automatic images groups processing
 
-Инструмент для автоматической обработки групп изображений
+A tool for automatic images groups processing / Инструмент для автоматической обработки групп изображений
+
 #
+
 This tool allows you to convert group of image files (including different formats) into
 a single format. If it is necessary, you can specify uniform size or cropping method,
 rotation, flip direction and images mode (color/greyscale/bitmap).
