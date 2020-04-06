@@ -7,7 +7,7 @@ Version 2.11u:
 • ASE palette processing bug fixed;
 • Some interface improvements applied
 
-Version 2.10:
+Version 2.10: 
 • Max linear size of pictures increased up to 2^14;
 • Some interface bugs fixed;
 • 'Include subfolders' flag added; it allows scanning all files in all tree of directories
