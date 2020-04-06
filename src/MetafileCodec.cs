@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace BatchImageConvertor
+namespace RD_AAOW
 	{
 	/// <summary>
 	/// Класс описывает кодек для метафайлов Windows

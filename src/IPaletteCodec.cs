@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace BatchImageConvertor
+namespace RD_AAOW
 	{
 	/// <summary>
 	/// Интерфейс описывает требования к кодекам палитр, используемым в программе

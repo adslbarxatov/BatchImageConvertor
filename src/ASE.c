@@ -47,7 +47,7 @@ sint ASE_LoadPaletteEx (schar *FileName, union RGB_Color **Palette, uint *Colors
 		}
 
 	// Чтение файла
-	for (i = 0; i < *ColorsCount; i++)
+	for (i = d = 0; i < *ColorsCount; i++)
 		{
 		// Чтение типа блока
 		if ((fread (asebt.Ptr, 1, sizeof (union ASEBlockType), FS)) != sizeof (union ASEBlockType))

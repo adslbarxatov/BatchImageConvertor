@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 
-namespace BatchImageConvertor
+namespace RD_AAOW
 	{
 	/// <summary>
 	/// Интерфейс описывает требования к кодекам, используемым в программе

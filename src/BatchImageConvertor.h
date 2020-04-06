@@ -6,7 +6,12 @@
 #include <string.h>
 
 // —тандартное переопределение типов
-#include "CSTypes.h"
+#include "..\\Generics\\CSTypes.h"
+
+#define BIC_VERSION					2,11,0,0
+#define BIC_VERSION_S				"2.11.0.0"
+#define BIC_PRODUCT					"Batch image convertor codecs library v 2.11u"
+#define BIC_COMPANY					"RD AAOW"
 
 #define BIC_API		extern __declspec(dllexport)
 #define BIC_CONV	__stdcall

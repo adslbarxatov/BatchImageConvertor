@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace BatchImageConvertor
+namespace RD_AAOW
 	{
 	/// <summary>
 	/// Класс описывает кодек для палитр типа JASC Palette

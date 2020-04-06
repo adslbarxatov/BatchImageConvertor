@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace BatchImageConvertor
+namespace RD_AAOW
 	{
 	/// <summary>
 	/// Класс описывает основную программу
 	/// </summary>
-	public static class Program
+	public static class BatchImageConvertorProgram
 		{
 		/// <summary>
 		/// Конструктор. Описывает точку входа приложения
@@ -16,7 +16,7 @@ namespace BatchImageConvertor
 			{
 			Application.EnableVisualStyles ();
 			Application.SetCompatibleTextRenderingDefault (false);
-			Application.Run (new MainForm ());
+			Application.Run (new BICForm ());
 			}
 		}
 	}

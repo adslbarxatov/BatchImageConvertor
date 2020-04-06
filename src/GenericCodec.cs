@@ -2,7 +2,7 @@
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace BatchImageConvertor
+namespace RD_AAOW
 	{
 	/// <summary>
 	/// Класс описывает кодек для стандартных изображений, поддерживаемых платформой .NET
@@ -95,13 +95,21 @@ namespace BatchImageConvertor
 				}
 
 			// Преобразование битности
-			if ((imageType != ImageFormat.Png) && (ImageColorFormat == OutputImageColorFormat.Bitmap))
+			if (ImageColorFormat == OutputImageColorFormat.Bitmap)
 				{
 				Bitmap img2 = img.Clone (new Rectangle (0, 0, img.Width, img.Height), PixelFormat.Format1bppIndexed);
 				img.Dispose ();
 				img = (Bitmap)img2.Clone ();
 				img2.Dispose ();
 				}
+
+			/*if (imageType == ImageFormat.Bmp)
+				{
+				Bitmap img2 = img.Clone (new Rectangle (0, 0, img.Width, img.Height), PixelFormat.Format24bppRgb );
+				img.Dispose ();
+				img = (Bitmap)img2.Clone ();
+				img2.Dispose ();
+				}*/
 
 			// Сохранение
 			try

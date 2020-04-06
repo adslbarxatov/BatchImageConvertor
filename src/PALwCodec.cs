@@ -4,7 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace BatchImageConvertor
+namespace RD_AAOW
 	{
 	/// <summary>
 	/// Класс описывает кодек для палитр типа Microsoft Palette

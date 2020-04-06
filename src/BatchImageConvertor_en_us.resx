@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbsoluteSizeText" xml:space="preserve">
+    <value>Set size to</value>
+  </data>
+  <data name="AlphaColumn" xml:space="preserve">
+    <value>Alpha channel</value>
+  </data>
+  <data name="BCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="BExit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="BitmapRadioText" xml:space="preserve">
+    <value>Only black and white</value>
+  </data>
+  <data name="BLoad" xml:space="preserve">
+    <value>Load...</value>
+  </data>
+  <data name="BReplace" xml:space="preserve">
+    <value>Replace...</value>
+  </data>
+  <data name="BSave" xml:space="preserve">
+    <value>Save...</value>
+  </data>
+  <data name="BStart" xml:space="preserve">
+    <value>4. Begin conversion</value>
+  </data>
+  <data name="ChangePaletteDialogTitle" xml:space="preserve">
+    <value>Select file for palette's replacement</value>
+  </data>
+  <data name="ColorColumn" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="ColorsCountExceedsRecommended" xml:space="preserve">
+    <value>Quantity of colors in current palette exceeds recommended value (256). Some applications may not support it. Continue?</value>
+  </data>
+  <data name="ColorsSectionText" xml:space="preserve">
+    <value>Output images' colors</value>
+  </data>
+  <data name="CWLabelText" xml:space="preserve">
+    <value>Rotate CW</value>
+  </data>
+  <data name="DebugRequired" xml:space="preserve">
+    <value>Functions call sequence is incorrect. Debug is required</value>
+  </data>
+  <data name="FileGeneric" xml:space="preserve">
+    <value>File '{0:S}': </value>
+  </data>
+  <data name="FileIncorrect" xml:space="preserve">
+    <value>file is broken or has unsupported format</value>
+  </data>
+  <data name="FileOverwrite" xml:space="preserve">
+    <value>failed to save: result file already exists</value>
+  </data>
+  <data name="FileProcessed" xml:space="preserve">
+    <value>File processed: '{0:S}'</value>
+  </data>
+  <data name="FileUnavailable" xml:space="preserve">
+    <value>file is unavailable</value>
+  </data>
+  <data name="FlipComboItems1" xml:space="preserve">
+    <value>(no flip)</value>
+  </data>
+  <data name="FlipComboItems2" xml:space="preserve">
+    <value>horizontally</value>
+  </data>
+  <data name="FlipComboItems3" xml:space="preserve">
+    <value>vertically</value>
+  </data>
+  <data name="FlipComboItems4" xml:space="preserve">
+    <value>both</value>
+  </data>
+  <data name="FlipLabelText" xml:space="preserve">
+    <value>Flip</value>
+  </data>
+  <data name="GreyscaleRadioText" xml:space="preserve">
+    <value>Greyscale</value>
+  </data>
+  <data name="IncludeSubdirsText" xml:space="preserve">
+    <value>Include subdirectories</value>
+  </data>
+  <data name="IncorrectAlpha" xml:space="preserve">
+    <value>Specified alpha channel value is incorrect. Must be between 0 and 255 (including)</value>
+  </data>
+  <data name="InputFolderDescription" xml:space="preserve">
+    <value>Select directory with source images</value>
+  </data>
+  <data name="InputPathNotSpecified" xml:space="preserve">
+    <value>Directory with source images not specified</value>
+  </data>
+  <data name="InputPathUnavailable" xml:space="preserve">
+    <value>Specified input directory is unavailable</value>
+  </data>
+  <data name="InputSectionText" xml:space="preserve">
+    <value>1. Specify directory with source images:</value>
+  </data>
+  <data name="NotEnoughMemory" xml:space="preserve">
+    <value>not enough memory for processing</value>
+  </data>
+  <data name="OpacityLabel" xml:space="preserve">
+    <value>Opacity (alpha channel; 0 – 255):</value>
+  </data>
+  <data name="OpenPaletteDialogTitle" xml:space="preserve">
+    <value>Select file for palette loading/extracting</value>
+  </data>
+  <data name="OutputFolderDescription" xml:space="preserve">
+    <value>Select directory for result images. MATCHING FILES WILL NOT BE OVERWRITTEN!</value>
+  </data>
+  <data name="OutputPathNotSpecified" xml:space="preserve">
+    <value>Directory for result images not specified</value>
+  </data>
+  <data name="OutputPathUnavailable" xml:space="preserve">
+    <value>cannot save: output file or directory are not writable</value>
+  </data>
+  <data name="OutputSectionText" xml:space="preserve">
+    <value>3. Set output images' directory and type:</value>
+  </data>
+  <data name="PalettesManager" xml:space="preserve">
+    <value>Palettes manager</value>
+  </data>
+  <data name="PalettesNotFound" xml:space="preserve">
+    <value>file doesn't contain palettes</value>
+  </data>
+  <data name="ProcessingList" xml:space="preserve">
+    <value>Assembling of processing list...</value>
+  </data>
+  <data name="ProcessingSectionText" xml:space="preserve">
+    <value>2. Specify conversion parameters:</value>
+  </data>
+  <data name="ProcessingText" xml:space="preserve">
+    <value>Processing:
+{0:S}</value>
+  </data>
+  <data name="RelativeCropText" xml:space="preserve">
+    <value>Crop to</value>
+  </data>
+  <data name="RelativeSizeText" xml:space="preserve">
+    <value>Resize to</value>
+  </data>
+  <data name="ResultText" xml:space="preserve">
+    <value>Processed – {0:D}; successes – {1:D}</value>
+  </data>
+  <data name="RotationSectionText" xml:space="preserve">
+    <value>Output images' flip and rotation</value>
+  </data>
+  <data name="SaveColorsRadioText" xml:space="preserve">
+    <value>Save colors</value>
+  </data>
+  <data name="SavePaletteDialogTitle" xml:space="preserve">
+    <value>Specify output file's placement</value>
+  </data>
+  <data name="ShowVideo" xml:space="preserve">
+    <value>Do you want to view user videoguide on our YouTube channel?</value>
+  </data>
+  <data name="SizesSectionText" xml:space="preserve">
+    <value>Output images' size</value>
+  </data>
+  <data name="SupportedFileTypes" xml:space="preserve">
+    <value>Supported file types</value>
+  </data>
+  <data name="TooMuchColors" xml:space="preserve">
+    <value>Current format doesn't support this quantity of colors. It must be between 1 and </value>
+  </data>
+  <data name="UnsupportedColors" xml:space="preserve">
+    <value>some colors haven't been loaded because of absence of support for their color spaces in the current version of application</value>
+  </data>
+</root>

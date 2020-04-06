@@ -6,12 +6,12 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 
-namespace BatchImageConvertor
+namespace RD_AAOW
 	{
 	/// <summary>
 	/// Начальная форма программы
 	/// </summary>
-	public partial class MainForm:Form
+	public partial class BICForm:Form
 		{
 		// Переменные
 		private List<ICodec> codecs = new List<ICodec> ();
@@ -28,14 +28,25 @@ namespace BatchImageConvertor
 		private const string PBMgreyscale = "PBM (greyscale)";
 		private const string PBMbitmap = "PBM (bitmap)";
 
+		private SupportedLanguages al = Localization.CurrentLanguage;	// Язык интерфейса
+
 		/// <summary>
 		/// Главная форма программы
 		/// </summary>
-		public MainForm ()
+		public BICForm ()
 			{
 			// Начальная настройка
 			InitializeComponent ();
-			RU_CheckedChanged (null, null);
+			for (int i = 0; i < Localization.AvailableLanguages; i++)
+				LanguageCombo.Items.Add (((SupportedLanguages)i).ToString ());
+			try
+				{
+				LanguageCombo.SelectedIndex = (int)al;
+				}
+			catch
+				{
+				LanguageCombo.SelectedIndex = 0;
+				}
 
 			// Настройка контролов
 			RotationCombo.Items.Add ("0°");
@@ -96,18 +107,14 @@ namespace BatchImageConvertor
 		private void SetInputPath_Click (object sender, EventArgs e)
 			{
 			if (InputFolder.ShowDialog () == DialogResult.OK)
-				{
 				InputPath.Text = InputFolder.SelectedPath;
-				}
 			}
 
 		// Выбор выходной папки
 		private void SetOutputPath_Click (object sender, EventArgs e)
 			{
 			if (OutputFolder.ShowDialog () == DialogResult.OK)
-				{
 				OutputPath.Text = OutputFolder.SelectedPath;
-				}
 			}
 
 		// Выход
@@ -122,16 +129,14 @@ namespace BatchImageConvertor
 			// Проверка состояния
 			if (InputPath.Text == "")
 				{
-				MessageBox.Show (RU.Checked ? "Директория с исходными изображениями не задана" :
-					"Directory with source images not specified",
+				MessageBox.Show (Localization.GetText ("InputPathNotSpecified", al),
 					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return;
 				}
 
 			if (OutputPath.Text == "")
 				{
-				MessageBox.Show (RU.Checked ? "Директория для преобразованных изображений не задана" :
-					"Directory for result images not specified",
+				MessageBox.Show (Localization.GetText ("OutputPathNotSpecified", al),
 					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return;
 				}
@@ -154,14 +159,11 @@ namespace BatchImageConvertor
 			// Завершение
 			ResultsList.Items.AddRange (messages.ToArray ());
 			ResultsList.Items.Add ("   ");
-			ResultsList.Items.Add ((RU.Checked ? "Обработано – " : "Processed – ") + totalImages.ToString () +
-				(RU.Checked ? "; успешно – " : "; successes – ") + successes.ToString ());
+			ResultsList.Items.Add (string.Format (Localization.GetText ("ResultText", al), (uint)totalImages, successes));
 
 			// Выбор последней строки списка, если возможно
 			if (ResultsList.Items.Count != 0)
-				{
 				ResultsList.SelectedIndex = ResultsList.Items.Count - 1;
-				}
 
 			// Разблокировка
 			SetInterfaceState (true);
@@ -184,16 +186,15 @@ namespace BatchImageConvertor
 						}
 					catch
 						{
-						MessageBox.Show (RU.Checked ? "Указанная директория с исходными изображениями недоступна" :
-							"Specified input directory is unavailable",
+						MessageBox.Show (Localization.GetText ("InputPathUnavailable", al),
 							ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
 						e.Cancel = true;
 						return;
 						}
 
-					((BackgroundWorker)sender).ReportProgress (0, RU.Checked ? "Формирование списка изображений для обработки..." :
-						"Assembling of processing list...");
+					((BackgroundWorker)sender).ReportProgress ((int)HardWorkExecutor.ProgressBarSize,
+						Localization.GetText ("ProcessingList", al));
 					}
 				}
 
@@ -255,13 +256,9 @@ namespace BatchImageConvertor
 			// Определение типа цветового преобразования
 			OutputImageColorFormat imageColorFormat = OutputImageColorFormat.Color;
 			if (GreyscaleRadio.Checked)
-				{
 				imageColorFormat = OutputImageColorFormat.Greyscale;
-				}
 			if (BitmapRadio.Checked)
-				{
 				imageColorFormat = OutputImageColorFormat.Bitmap;
-				}
 
 			// Определение общего числа обрабатываемых изображений
 			double currentImage = 0.0;
@@ -273,7 +270,6 @@ namespace BatchImageConvertor
 
 			// Обработка
 			Bitmap img = null;
-			string msg;
 
 			for (int c = 0; c < fileNames.Count; c++)
 				{
@@ -282,11 +278,8 @@ namespace BatchImageConvertor
 					// Счётчик
 					currentImage++;
 
-					if (RU.Checked)
-						msg = "Обрабатывается «" + Path.GetFileName (fileNames[c][n]) + "»...";
-					else
-						msg = "Processing '" + Path.GetFileName (fileNames[c][n]) + "'...";
-					((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg);
+					((BackgroundWorker)sender).ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
+						totalImages), string.Format (Localization.GetText ("ProcessingText", al), Path.GetFileName (fileNames[c][n])));
 
 					// Завершение работы, если получено требование от диалога (в том числе - на этапе сборки списка)
 					if (((BackgroundWorker)sender).CancellationPending || e.Cancel)
@@ -300,33 +293,32 @@ namespace BatchImageConvertor
 					if (codecs[outputCodecsNumbers[selectedOutputType]].TestOutputFile (outputPath,
 						outputFormats[selectedOutputType]) == "")
 						{
-						if (RU.Checked)
-							msg = "Файл «" + Path.GetFileName (fileNames[c][n]) + "»: не удалось сохранить " +
-								"файл, т.к. конечный файл уже существует";
-						else
-							msg = "File '" + Path.GetFileName (fileNames[c][n]) + "': failed to save: " +
-								"result file already exists";
+						messages.Add (string.Format (Localization.GetText ("FileGeneric", al), Path.GetFileName (fileNames[c][n])) +
+							Localization.GetText ("FileOverwrite", al));
 
-						messages.Add (msg);
-						((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg);
+						((BackgroundWorker)sender).ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
+							totalImages), messages[messages.Count - 1]);
 						continue;
 						}
 					#endregion
 
 					#region Открытие изображения
-					msg = "";
+					string msg = "";
 					switch (codecs[c].LoadImage (fileNames[c][n], out img))
 						{
 						case ProgramErrorCodes.EXEC_FILE_UNAVAILABLE:
-							msg = RU.Checked ? "файл не найден или недоступен" : "file is unavailable";
+							//msg = RU.Checked ? "файл не найден или недоступен" : "file is unavailable";
+							msg = Localization.GetText ("FileUnavailable", al);
 							break;
 
 						case ProgramErrorCodes.EXEC_INVALID_FILE:
-							msg = RU.Checked ? "файл повреждён или не поддерживается" : "file is broken or has unsupported format";
+							//msg = RU.Checked ? "файл повреждён или не поддерживается" : "file is broken or has unsupported format";
+							msg = Localization.GetText ("FileIncorrect", al);
 							break;
 
 						case ProgramErrorCodes.EXEC_MEMORY_ALLOC_FAIL:
-							msg = RU.Checked ? "недостаточно памяти для обработки" : "not enough memory for processing";
+							//msg = RU.Checked ? "недостаточно памяти для обработки" : "not enough memory for processing";
+							msg = Localization.GetText ("NotEnoughMemory", al);
 							break;
 
 						case ProgramErrorCodes.EXEC_OK:
@@ -334,14 +326,14 @@ namespace BatchImageConvertor
 
 						// Других вариантов быть не должно
 						default:
-							throw new Exception ("Ошибка порядка вызова функций. Требуется отладка приложения");
+							throw new Exception (Localization.GetText ("DebugRequired", al) + " (1)");
 						}
 					if (msg != "")
 						{
-						msg = (RU.Checked ? "Файл «" : "File '") + Path.GetFileName (fileNames[c][n]) +
-							(RU.Checked ? "»: " : "': ") + msg;
+						msg = string.Format (Localization.GetText ("FileGeneric", al), Path.GetFileName (fileNames[c][n])) + msg;
 						messages.Add (msg);
-						((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg);
+						((BackgroundWorker)sender).ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
+							totalImages), msg);
 						continue;
 						}
 					#endregion
@@ -399,16 +391,12 @@ namespace BatchImageConvertor
 					if (codecs[outputCodecsNumbers[selectedOutputType]].SaveImage (img, outputPath, imageColorFormat,
 						bitmapEdge, outputFormats[selectedOutputType]) != ProgramErrorCodes.EXEC_OK)
 						{
-						if (RU.Checked)
-							msg = "Файл «" + Path.GetFileName (fileNames[c][n]) + "»: не удалось сохранить " +
-								"файл, т.к. конечная директория недоступна для записи";
-						else
-							msg = "File '" + Path.GetFileName (fileNames[c][n]) + "': cannot save: " +
-								"output directory is not writable";
+						messages.Add (string.Format (Localization.GetText ("FileGeneric", al), Path.GetFileName (fileNames[c][n])) +
+							Localization.GetText ("OutputPathUnavailable", al));
 
-						messages.Add (msg);
 						img.Dispose ();
-						((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg);
+						((BackgroundWorker)sender).ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
+							totalImages), messages[messages.Count - 1]);
 
 						e.Cancel = true;
 						return;
@@ -416,13 +404,9 @@ namespace BatchImageConvertor
 					#endregion
 
 					// Выполнено
-					if (RU.Checked)
-						msg = "Файл «" + Path.GetFileName (fileNames[c][n]) + "» обработан";
-					else
-						msg = "File '" + Path.GetFileName (fileNames[c][n]) + "' processed";
-
-					messages.Add (msg);
-					((BackgroundWorker)sender).ReportProgress ((int)(100.0 * currentImage / totalImages), msg);
+					messages.Add (string.Format (Localization.GetText ("FileProcessed", al), Path.GetFileName (fileNames[c][n])));
+					((BackgroundWorker)sender).ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
+						totalImages), messages[messages.Count - 1]);
 					successes++;
 					img.Dispose ();
 					}
@@ -434,9 +418,9 @@ namespace BatchImageConvertor
 			{
 			SetInputPath.Enabled = SetOutputPath.Enabled = InputPath.Enabled = OutputPath.Enabled =
 				ImageTypeCombo.Enabled = StartButton.Enabled = ExitButton.Enabled = Palettes.Enabled =
-				RotationCombo.Enabled = FlipCombo.Enabled = Label04.Enabled = Label05.Enabled =
+				RotationCombo.Enabled = FlipCombo.Enabled = CWLabel.Enabled = FlipLabel.Enabled =
 				AbsoluteSize.Enabled = RelativeSize.Enabled = RelativeCrop.Enabled =
-				RU.Enabled = EN.Enabled = IncludeSubdirs.Enabled = State;
+				LanguageCombo.Enabled = IncludeSubdirs.Enabled = State;
 
 			if (State)
 				{
@@ -474,19 +458,28 @@ namespace BatchImageConvertor
 		// Информация о поддерживаемых форматах
 		private void InputFormats_Click (object sender, EventArgs e)
 			{
-			string types = RU.Checked ? "Поддерживаемые типы файлов:\n\n" : "Supported file types:\n\n";
+			// Общая информация
+			ProgramDescription.ShowAbout ();
+
+			// Справка по форматам
+			string types = Localization.GetText ("SupportedFileTypes", al) + ":\n\n";
 			for (int c = 0; c < codecs.Count; c++)
 				{
 				types += (" • " + codecs[c].ToString () + ": ");
 				for (int t = 0; t < codecs[c].FileExtensions.Length - 1; t++)
 					{
-					types += (codecs[c].FileExtensions[t].Substring (1) + ", ");
+					types += (codecs[c].FileExtensions[t].Substring (1).ToUpper () + ", ");
 					}
-				types += (codecs[c].FileExtensions[codecs[c].FileExtensions.Length - 1].Substring (1) + ".\n\n");
+				types += (codecs[c].FileExtensions[codecs[c].FileExtensions.Length - 1].Substring (1).ToUpper () + ".\n\n");
 				}
 
 			MessageBox.Show (types, ProgramDescription.AssemblyTitle, MessageBoxButtons.OK,
 				MessageBoxIcon.Information);
+
+			// Общая информация
+			if (MessageBox.Show (Localization.GetText ("ShowVideo", al), ProgramDescription.AssemblyTitle,
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+				ProgramDescription.ShowVideoManual ();
 			}
 
 		// Выбор варианта задания размера
@@ -508,88 +501,51 @@ namespace BatchImageConvertor
 			if (!Palettes.Enabled)
 				return;
 
-			PalettesManager pm = new PalettesManager (RU.Checked);
+			PalettesManager pm = new PalettesManager (al);
 			}
 
 		// Выбор языка интерфейса
-		private void RU_CheckedChanged (object sender, EventArgs e)
+		private void LanguageCombo_SelectedIndexChanged (object sender, EventArgs e)
 			{
 			// Подготовка
 			int flipType = (FlipCombo.SelectedIndex < 0) ? 0 : FlipCombo.SelectedIndex;
 			FlipCombo.Items.Clear ();
 
+			// Сохранение языка
+			Localization.CurrentLanguage = al = (SupportedLanguages)LanguageCombo.SelectedIndex;
+
 			// Замена
-			if (RU.Checked)
-				{
-				InputFolder.Description = "Выберите директорию, изображения из которой требуется преобразовать";
-				IncludeSubdirs.Text = "Включая подпапки";
-				OutputFolder.Description = "Выберите директорию для сохранения преобразованных изображений. " +
-					"ПРИ СОВПАДЕНИИ ИМЁН ФАЙЛОВ ПЕРЕЗАПИСЬ НЕ ВЫПОЛНЯЕТСЯ!";
+			InputFolder.Description = Localization.GetText ("InputFolderDescription", al);
+			OutputFolder.Description = Localization.GetText ("OutputFolderDescription", al);
+			IncludeSubdirs.Text = Localization.GetText ("IncludeSubdirsText", al);
 
-				FlipCombo.Items.Add ("(не отражать)");
-				FlipCombo.Items.Add ("по горизонтали");
-				FlipCombo.Items.Add ("по вертикали");
-				FlipCombo.Items.Add ("по обеим осям");
+			for (int i = 1; i <= 4; i++)
+				FlipCombo.Items.Add (Localization.GetText ("FlipComboItems" + i.ToString (), al));
 
-				Label01.Text = "1. Выберите директорию с исходными изображениями:";
-				Label02.Text = "2. Задайте параметры преобразования:";
+			InputSection.Text = Localization.GetText ("InputSectionText", al);
+			ProcessingSection.Text = Localization.GetText ("ProcessingSectionText", al);
 
-				GroupBox01.Text = "Размер конечных изображений";
-				AbsoluteSize.Text = "Задать размер";
-				RelativeSize.Text = "Изменить до";
-				RelativeCrop.Text = "Обрезать до";
+			SizesSection.Text = Localization.GetText ("SizesSectionText", al);
+			AbsoluteSize.Text = Localization.GetText ("AbsoluteSizeText", al);
+			RelativeSize.Text = Localization.GetText ("RelativeSizeText", al);
+			RelativeCrop.Text = Localization.GetText ("RelativeCropText", al);
 
-				GroupBox02.Text = "Цвета конечных изображений";
-				SaveColorsRadio.Text = "Сохранить цвета";
-				GreyscaleRadio.Text = "Оттенки серого";
-				BitmapRadio.Text = "Чёрно-белый с порогом";
+			ColorsSection.Text = Localization.GetText ("ColorsSectionText", al);
+			SaveColorsRadio.Text = Localization.GetText ("SaveColorsRadioText", al);
+			GreyscaleRadio.Text = Localization.GetText ("GreyscaleRadioText", al);
+			BitmapRadio.Text = Localization.GetText ("BitmapRadioText", al);
 
-				GroupBox03.Text = "Поворот и отражение конечных изображений";
-				Label04.Text = "Повернуть по ч. с. на";
-				Label05.Text = "Отразить по";
+			RotationSection.Text = Localization.GetText ("RotationSectionText", al);
+			CWLabel.Text = Localization.GetText ("CWLabelText", al);
+			FlipLabel.Text = Localization.GetText ("FlipLabelText", al);
 
-				Label03.Text = "3. Укажите директорию для преобразованных изображений и их тип:";
+			OutputSection.Text = Localization.GetText ("OutputSectionText", al);
 
-				StartButton.Text = "4. Начать преобразование";
-				Palettes.Text = "Менеджер палитр";
-				ExitButton.Text = "Выход";
-				}
-			else
-				{
-				InputFolder.Description = "Select directory with source images";
-				IncludeSubdirs.Text = "Include subdirectories";
-				OutputFolder.Description = "Select directory for result images. " +
-					"MATCHING FILES WILL NOT BE OVERWRITTEN!";
+			StartButton.Text = Localization.GetText ("BStart", al);
+			Palettes.Text = Localization.GetText ("PalettesManager", al);
+			ExitButton.Text = Localization.GetText ("BExit", al);
 
-				FlipCombo.Items.Add ("(no flip)");
-				FlipCombo.Items.Add ("horizontally");
-				FlipCombo.Items.Add ("vertically");
-				FlipCombo.Items.Add ("both");
-
-				Label01.Text = "1. Specify directory with source images:";
-				Label02.Text = "2. Specify conversion parameters:";
-
-				GroupBox01.Text = "Output images' size";
-				AbsoluteSize.Text = "Set size to";
-				RelativeSize.Text = "Resize to";
-				RelativeCrop.Text = "Crop to";
-
-				GroupBox02.Text = "Output images' colors";
-				SaveColorsRadio.Text = "Save colors";
-				GreyscaleRadio.Text = "Greyscale";
-				BitmapRadio.Text = "Bitmap with threshold";
-
-				GroupBox03.Text = "Output images' flip and rotation";
-				Label04.Text = "Rotate CW";
-				Label05.Text = "Flip";
-
-				Label03.Text = "3. Set output images' directory and type:";
-
-				StartButton.Text = "4. Begin conversion";
-				Palettes.Text = "Palettes manager";
-				ExitButton.Text = "Quit";
-				}
-
+			// Завершено
 			FlipCombo.SelectedIndex = flipType;
 			}
 		}

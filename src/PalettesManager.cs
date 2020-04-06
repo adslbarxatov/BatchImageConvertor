@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace BatchImageConvertor
+namespace RD_AAOW
 	{
 	/// <summary>
 	/// Класс описывает интерфейс работы с палитрами
@@ -16,6 +16,7 @@ namespace BatchImageConvertor
 			"Adobe Color Table (*.act)|*.act",
 			"Microsoft palette (*.pal)|*.pal",
 			"JASC palette (*.pal)|*.pal",
+
 			"Adobe Color Swatches (*.aco)|*.aco",
 			"Adobe Swatches Exchange (*.ase)|*.ase",
 			"Windows bitmap (*.bmp, *.dib, *.rle)|*.bmp;*.dib;*.rle",
@@ -23,32 +24,31 @@ namespace BatchImageConvertor
 			};
 		private bool allowExit = false;
 		private BMPCodec bmpCodec = new BMPCodec ();
-		private bool ru_ru;
+		private SupportedLanguages al;
 
 		/// <summary>
 		/// Конструктор. Запускает форму
 		/// </summary>
-		/// <param name="RU_ru">Флаг отображения подсказок на русском языке</param>
-		public PalettesManager (bool RU_ru)
+		/// <param name="InterfaceLanguage">Язык интерфейса</param>
+		public PalettesManager (SupportedLanguages InterfaceLanguage)
 			{
 			InitializeComponent ();
-			ru_ru = RU_ru;
+			al = InterfaceLanguage;
 
 			// Настройка контролов
-			this.Text = RU_ru ? "Менеджер палитр" : "Palettes manager";
+			this.Text = Localization.GetText ("PalettesManager", al);
 
-			OFDialog.Title = RU_ru ? "Выберите файл для загрузки/извлечения палитры" : "Select file for palette loading/extracting";
-			SFDialog.Title = RU_ru ? "Укажите расположение для сохранения файла" : "Specify output file's placement";
-			CFDialog.Title = RU_ru ? "Укажите файл для замены палитры" : "Select file for palette's replacement";
+			OFDialog.Title = Localization.GetText ("OpenPaletteDialogTitle", al);
+			SFDialog.Title = Localization.GetText ("SavePaletteDialogTitle", al);
+			CFDialog.Title = Localization.GetText ("ChangePaletteDialogTitle", al);
 
 			OFDialog.Filter = SFDialog.Filter = filters[0];
 			for (int i = 1; i < 7; i++)
 				{
 				OFDialog.Filter += ("|" + filters[i]);
+
 				if (i < 3)
-					{
 					SFDialog.Filter += ("|" + filters[i]);
-					}
 				}
 			CFDialog.Filter = filters[5];
 
@@ -67,17 +67,17 @@ namespace BatchImageConvertor
 			cell2.ValueType = Type.GetType ("System.Byte");
 
 			ColorGrid.Columns.Add (new DataGridViewColumn (cell1));
-			ColorGrid.Columns[0].Name = RU_ru ? "Цвет" : "Color";
+			ColorGrid.Columns[0].Name = Localization.GetText ("ColorColumn", al);
 			ColorGrid.Columns.Add (new DataGridViewColumn (cell2));
-			ColorGrid.Columns[1].Name = RU_ru ? "Альфа-канал" : "Alpha channel";
+			ColorGrid.Columns[1].Name = Localization.GetText ("AlphaColumn", al);
 
-			ExitButton.Text = RU_ru ? "Закрыть" : "Quit";
-			Label01.Text = RU_ru ? "Непрозрачность (альфа-канал; 0 – 255):" : "Opacity (alpha channel; 0 – 255):";
-			AbortAlpha.Text = RU_ru ? "Отмена" : "Cancel";
+			ExitButton.Text = Localization.GetText ("BExit", al);
+			Label01.Text = Localization.GetText ("OpacityLabel", al);
+			AbortAlpha.Text = Localization.GetText ("BCancel", al);
 
-			LoadPalette.Text = RU_ru ? "Загрузить..." : "Load...";
-			SavePalette.Text = RU_ru ? "Сохранить..." : "Save...";
-			SetPalette.Text = RU_ru ? "Заменить..." : "Replace...";
+			LoadPalette.Text = Localization.GetText ("BLoad", al);
+			SavePalette.Text = Localization.GetText ("BSave", al);
+			SetPalette.Text = Localization.GetText ("BReplace", al);
 
 			// Запуск
 			this.ShowDialog ();
@@ -137,8 +137,7 @@ namespace BatchImageConvertor
 		// Обработка ошибок ввода
 		private void ColorGrid_DataError (object sender, DataGridViewDataErrorEventArgs e)
 			{
-			MessageBox.Show (ru_ru ? "Введённое значение альфа-канала некорректно. Допустимые значения: [0; 255]" :
-				"Specified alpha channel value is incorrect. Must be between 0 and 255 (including)",
+			MessageBox.Show (Localization.GetText ("IncorrectAlpha", al),
 				ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			}
 
@@ -168,9 +167,7 @@ namespace BatchImageConvertor
 
 			// Включение кнопки удаления и отображение количества
 			if (!DeleteColor.Enabled)
-				{
 				DeleteColor.Enabled = true;
-				}
 			ColorsCountLabel.Text = ColorGrid.Rows.Count.ToString ();
 			}
 
@@ -193,12 +190,10 @@ namespace BatchImageConvertor
 		private void SetFormState (bool State)
 			{
 			LoadPalette.Enabled = SavePalette.Enabled = SetPalette.Enabled =
-			ExitButton.Enabled =
-			AddColor.Enabled = DeleteColor.Enabled =
-			ColorGrid.Enabled = State;
+				ExitButton.Enabled = AddColor.Enabled = DeleteColor.Enabled =
+				ColorGrid.Enabled = State;
 
-			AlphaPanel.Visible =
-			AlphaValue.Enabled = AbortAlpha.Enabled = ApplyAlpha.Enabled = !State;
+			AlphaPanel.Visible = AlphaValue.Enabled = AbortAlpha.Enabled = ApplyAlpha.Enabled = !State;
 			}
 
 		// Работа с альфа-каналом
@@ -210,9 +205,8 @@ namespace BatchImageConvertor
 		private void ApplyAlpha_Click (object sender, EventArgs e)
 			{
 			if (ColorGrid.SelectedRows.Count > 0)
-				{
 				ColorGrid.SelectedRows[0].Cells[1].Value = (uint)AlphaValue.Value;
-				}
+
 			SetFormState (true);
 			}
 
@@ -233,9 +227,7 @@ namespace BatchImageConvertor
 			{
 			// Контроль
 			if (ColorGrid.SelectedRows.Count <= 0)
-				{
 				return;
-				}
 
 			// Перенаправление
 			if (e.KeyCode == Keys.F1)
@@ -263,39 +255,24 @@ namespace BatchImageConvertor
 			switch (codecs[OFDialog.FilterIndex - 1].LoadPalette (OFDialog.FileName, out palette))
 				{
 				case ProgramErrorCodes.EXEC_FILE_UNAVAILABLE:
-					if (ru_ru)
-						msg = "Файл «" + OFDialog.FileName + "»: файл не найден или недоступен";
-					else
-						msg = "File '" + OFDialog.FileName + "': file is unavailable";
+					msg = Localization.GetText ("FileUnavailable", al);
 					break;
 
 				case ProgramErrorCodes.EXEC_INVALID_FILE:
-					if (ru_ru)
-						msg = "Файл «" + OFDialog.FileName + "»: файл повреждён или не поддерживается";
-					else
-						msg = "File '" + OFDialog.FileName + "': file is broken or has unsupported format";
+					msg = Localization.GetText ("FileIncorrect", al);
 					break;
 
 				case ProgramErrorCodes.EXEC_MEMORY_ALLOC_FAIL:
-					if (ru_ru)
-						msg = "Файл «" + OFDialog.FileName + "»: недостаточно памяти для обработки";
-					else
-						msg = "File '" + OFDialog.FileName + "': not enough memory for processing";
+					msg = Localization.GetText ("NotEnoughMemory", al);
 					break;
 
 				case ProgramErrorCodes.EXEC_NO_PALETTE_AVAILABLE:
-					if (ru_ru)
-						msg = "Файл «" + OFDialog.FileName + "»: файл не содержит палитр";
-					else
-						msg = "File '" + OFDialog.FileName + "': file doesn't contain palettes";
+					msg = Localization.GetText ("PalettesNotFound", al);
 					break;
 
 				case ProgramErrorCodes.EXEC_UNSUPPORTED_COLORS:
-					MessageBox.Show (ru_ru ? "Файл «" + OFDialog.FileName + "»: некоторые цвета не были загружены, т.к. " +
-						"их цветовые пространства не поддерживаются в данной реализации программы"
-						:
-						"File '" + OFDialog.FileName + "': some colors haven't been loaded because of absent of support " +
-						"for their color spaces in the current version of application",
+					MessageBox.Show (string.Format (Localization.GetText ("FileGeneric", al), OFDialog.FileName) +
+						Localization.GetText ("UnsupportedColors", al),
 						ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 					// Без отмены загрузки (msg не заполняется)
 					break;
@@ -305,10 +282,12 @@ namespace BatchImageConvertor
 
 				// Других вариантов быть не должно
 				default:
-					throw new Exception ("Ошибка порядка вызова функций. Требуется отладка приложения");
+					throw new Exception (Localization.GetText ("DebugRequired", al) + " (2)");
 				}
+
 			if (msg != "")
 				{
+				msg = string.Format (Localization.GetText ("FileGeneric", al), OFDialog.FileName) + msg;
 				MessageBox.Show (msg, ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return;
 				}
@@ -350,20 +329,14 @@ namespace BatchImageConvertor
 			// Контроль
 			if ((ColorGrid.Rows.Count == 0) || (ColorGrid.Rows.Count > codecs[SFDialog.FilterIndex - 1].MaxColors))
 				{
-				MessageBox.Show ((ru_ru ?
-					"Количество цветов в текущей палитре недопустимо для выбранного формата. Допустимый диапазон: 1 – " :
-					"Current format doesn't support this quantity of colors. It must be between 1 and ") +
+				MessageBox.Show (Localization.GetText ("TooMuchColors", al) +
 					codecs[SFDialog.FilterIndex - 1].MaxColors.ToString (), ProgramDescription.AssemblyTitle,
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return;
 				}
 
 			if ((ColorGrid.Rows.Count > 256) &&
-				(MessageBox.Show (ru_ru ? "Количество цветов в текущей палитре больше рекомендуемого (256). " +
-					"Некоторые приложения могут не поддерживать палитры таких размеров. Продолжить?"
-					:
-					"Quantity of colors in current palette exceeds recommended value (256). " +
-					"Some applications may not support it. Continue?",
+				(MessageBox.Show (Localization.GetText ("ColorsCountExceedsRecommended", al),
 					ProgramDescription.AssemblyTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes))
 				{
 				return;
@@ -382,8 +355,7 @@ namespace BatchImageConvertor
 			// Сохранение
 			if (codecs[SFDialog.FilterIndex - 1].SavePalette (SFDialog.FileName, palette) != ProgramErrorCodes.EXEC_OK)
 				{
-				MessageBox.Show (ru_ru ? "Не удалось сохранить файл. Возможно, указанная директория недоступна для записи" :
-					"Failed to save file. Target directory may be not writable",
+				MessageBox.Show (Localization.GetText ("OutputPathUnavailable", al),
 					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				}
 			}
@@ -400,9 +372,7 @@ namespace BatchImageConvertor
 			int neededCodec = codecs.IndexOf (bmpCodec);
 			if ((ColorGrid.Rows.Count == 0) || (ColorGrid.Rows.Count > codecs[neededCodec].MaxColors))
 				{
-				MessageBox.Show ((ru_ru ?
-					"Количество цветов в текущей палитре недопустимо для выбранного формата. Допустимый диапазон: 1 – " :
-					"Current format doesn't support this quantity of colors. It must be between 1 and ") +
+				MessageBox.Show (Localization.GetText ("TooMuchColors", al) +
 					codecs[neededCodec].MaxColors.ToString (), ProgramDescription.AssemblyTitle,
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return;
@@ -421,8 +391,7 @@ namespace BatchImageConvertor
 			// Сохранение
 			if (codecs[neededCodec].SavePalette (CFDialog.FileName, palette) != ProgramErrorCodes.EXEC_OK)
 				{
-				MessageBox.Show (ru_ru ? "Не удалось записать файл. Возможно, указанный файл недоступен для записи" :
-					"Specified file is not writable",
+				MessageBox.Show (Localization.GetText ("OutputPathUnavailable", al),
 					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				}
 			}
