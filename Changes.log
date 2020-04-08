@@ -1,5 +1,9 @@
 ﻿Batch image convertor changes log
 
+Version 2.12:
+• Added compatibility control for codecs library;
+• User interface has been reviewed using tab control
+
 Version 2.11u:
 • Application namespace, icon and development environment have been unified;
 • Localization system unified;

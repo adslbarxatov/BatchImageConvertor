@@ -8,9 +8,9 @@
 // Стандартное переопределение типов
 #include "..\\Generics\\CSTypes.h"
 
-#define BIC_VERSION					2,11,0,0
-#define BIC_VERSION_S				"2.11.0.0"
-#define BIC_PRODUCT					"Batch image convertor codecs library v 2.11u"
+#define BIC_VERSION					2,12,0,0
+#define BIC_VERSION_S				"2.12.0.0"
+#define BIC_PRODUCT					"Batch image convertor codecs library v 2.12"
 #define BIC_COMPANY					"RD AAOW"
 
 #define BIC_API		extern __declspec(dllexport)
@@ -105,6 +105,7 @@ ulong LEBE_l (ulong Value);
 
 // Общие декларации
 BIC_API void BIC_CONV BIC_ReleaseBuffer (uchar *Buffer);
+BIC_API schar* BIC_CONV BIC_GetLibVersion ();
 
 // Декларации (все функции работают с изображениями в формате RGBA32)
 BIC_API sint BIC_CONV TGA_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);

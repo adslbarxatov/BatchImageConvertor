@@ -74,20 +74,29 @@ namespace RD_AAOW
 			// Перечисление дополнительных кодеков
 			if (File.Exists (Application.StartupPath + "\\" + ProgramDescription.AssemblyCodecsLibrary))
 				{
-				codecs.Add (new PBMCodec ());
-				codecs.Add (new TGACodec ());
-				codecs.Add (new PCXCodec ());
-				//codecs.Add (new JP2Codec ());		// Декодеры нестабильны
+				// Контроль совместимости
+				if (BatchImageConvertorLibrary.LibraryVersion != ProgramDescription.AssemblyVersion)
+					{
+					MessageBox.Show ("Incompatible", ProgramDescription.AssemblyTitle,
+						MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+					}
+				else
+					{
+					codecs.Add (new PBMCodec ());
+					codecs.Add (new TGACodec ());
+					codecs.Add (new PCXCodec ());
+					//codecs.Add (new JP2Codec ());		// Декодеры нестабильны
 
-				//AddOutputCodec ("JP2", 5, JP2Codec.ImageTypes.JP2);	// Кодеры неисправны
-				//AddOutputCodec ("J2K", 5, JP2Codec.ImageTypes.J2K);
-				AddOutputCodec ("TGA", 3, null);
-				AddOutputCodec ("PCX", 4, null);
-				AddOutputCodec (PBMcolors, 2, PBMCodec.ImageTypes.ColorAsBinary);
-				AddOutputCodec (PBMgreyscale, 2, PBMCodec.ImageTypes.GreyscaleAsBinary);
-				AddOutputCodec (PBMbitmap, 2, PBMCodec.ImageTypes.BitmapAsBinary);
+					//AddOutputCodec ("JP2", 5, JP2Codec.ImageTypes.JP2);	// Кодеры неисправны
+					//AddOutputCodec ("J2K", 5, JP2Codec.ImageTypes.J2K);
+					AddOutputCodec ("TGA", 3, null);
+					AddOutputCodec ("PCX", 4, null);
+					AddOutputCodec (PBMcolors, 2, PBMCodec.ImageTypes.ColorAsBinary);
+					AddOutputCodec (PBMgreyscale, 2, PBMCodec.ImageTypes.GreyscaleAsBinary);
+					AddOutputCodec (PBMbitmap, 2, PBMCodec.ImageTypes.BitmapAsBinary);
 
-				Palettes.Enabled = true;
+					Palettes.Enabled = true;
+					}
 				}
 			ImageTypeCombo.SelectedIndex = 0;
 
@@ -525,17 +534,17 @@ namespace RD_AAOW
 			InputSection.Text = Localization.GetText ("InputSectionText", al);
 			ProcessingSection.Text = Localization.GetText ("ProcessingSectionText", al);
 
-			SizesSection.Text = Localization.GetText ("SizesSectionText", al);
+			SizeTab.Text = Localization.GetText ("SizesSectionText", al);
 			AbsoluteSize.Text = Localization.GetText ("AbsoluteSizeText", al);
 			RelativeSize.Text = Localization.GetText ("RelativeSizeText", al);
 			RelativeCrop.Text = Localization.GetText ("RelativeCropText", al);
 
-			ColorsSection.Text = Localization.GetText ("ColorsSectionText", al);
+			ColorTab.Text = Localization.GetText ("ColorsSectionText", al);
 			SaveColorsRadio.Text = Localization.GetText ("SaveColorsRadioText", al);
 			GreyscaleRadio.Text = Localization.GetText ("GreyscaleRadioText", al);
 			BitmapRadio.Text = Localization.GetText ("BitmapRadioText", al);
 
-			RotationSection.Text = Localization.GetText ("RotationSectionText", al);
+			RotationTab.Text = Localization.GetText ("RotationSectionText", al);
 			CWLabel.Text = Localization.GetText ("CWLabelText", al);
 			FlipLabel.Text = Localization.GetText ("FlipLabelText", al);
 

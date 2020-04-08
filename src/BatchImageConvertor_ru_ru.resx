@@ -154,7 +154,7 @@
     <value>Количество цветов в текущей палитре больше рекомендуемого (256). Некоторые приложения могут не поддерживать палитры таких размеров. Продолжить?</value>
   </data>
   <data name="ColorsSectionText" xml:space="preserve">
-    <value>Цвета конечных изображений</value>
+    <value>Итоговые цвета</value>
   </data>
   <data name="CWLabelText" xml:space="preserve">
     <value>Повернуть по ч. с. на</value>
@@ -260,7 +260,7 @@
     <value>Обработано – {0:D}; успешно – {1:D}</value>
   </data>
   <data name="RotationSectionText" xml:space="preserve">
-    <value>Поворот и отражение конечных изображений</value>
+    <value>Поворот и отражение</value>
   </data>
   <data name="SaveColorsRadioText" xml:space="preserve">
     <value>Сохранить цвета</value>
@@ -272,7 +272,7 @@
     <value>Показать видеоруководство пользователя на нашем YouTube-канале?</value>
   </data>
   <data name="SizesSectionText" xml:space="preserve">
-    <value>Размер конечных изображений</value>
+    <value>Итоговый размер</value>
   </data>
   <data name="SupportedFileTypes" xml:space="preserve">
     <value>Поддерживаемые типы файлов</value>
