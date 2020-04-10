@@ -8,9 +8,9 @@
 // —тандартное переопределение типов
 #include "..\\Generics\\CSTypes.h"
 
-#define BIC_VERSION					2,12,0,0
-#define BIC_VERSION_S				"2.12.0.0"
-#define BIC_PRODUCT					"Batch image convertor codecs library v 2.12"
+#define BIC_VERSION					2,12,2,0
+#define BIC_VERSION_S				"2.12.2.0"
+#define BIC_PRODUCT					"Batch image convertor codecs library v 2.12.2"
 #define BIC_COMPANY					"RD AAOW"
 
 #define BIC_API		extern __declspec(dllexport)

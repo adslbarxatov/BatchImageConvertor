@@ -283,4 +283,7 @@
   <data name="UnsupportedColors" xml:space="preserve">
     <value>некоторые цвета не были загружены, т.к. их цветовые пространства не поддерживаются в данной реализации программы</value>
   </data>
+  <data name="IncompatibleLibraryVersion" xml:space="preserve">
+    <value>Данная версия {0:S} несовместима с текущей версией приложения</value>
+  </data>
 </root>

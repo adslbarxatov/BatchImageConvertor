@@ -1,5 +1,9 @@
 ﻿Batch image convertor changes log
 
+Version 2.12.2:
+• Application icon updated;
+• Minor interface bugs fixed
+
 Version 2.12:
 • Added compatibility control for codecs library;
 • User interface has been reviewed using tab control

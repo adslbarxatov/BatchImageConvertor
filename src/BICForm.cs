@@ -77,7 +77,8 @@ namespace RD_AAOW
 				// Контроль совместимости
 				if (BatchImageConvertorLibrary.LibraryVersion != ProgramDescription.AssemblyVersion)
 					{
-					MessageBox.Show ("Incompatible", ProgramDescription.AssemblyTitle,
+					MessageBox.Show (string.Format (Localization.GetText ("IncompatibleLibraryVersion", al),
+						ProgramDescription.AssemblyCodecsLibrary), ProgramDescription.AssemblyTitle,
 						MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 					}
 				else
@@ -477,9 +478,9 @@ namespace RD_AAOW
 				types += (" • " + codecs[c].ToString () + ": ");
 				for (int t = 0; t < codecs[c].FileExtensions.Length - 1; t++)
 					{
-					types += (codecs[c].FileExtensions[t].Substring (1).ToUpper () + ", ");
+					types += (codecs[c].FileExtensions[t].Substring (2).ToUpper () + ", ");
 					}
-				types += (codecs[c].FileExtensions[codecs[c].FileExtensions.Length - 1].Substring (1).ToUpper () + ".\n\n");
+				types += (codecs[c].FileExtensions[codecs[c].FileExtensions.Length - 1].Substring (2).ToUpper () + ".\n\n");
 				}
 
 			MessageBox.Show (types, ProgramDescription.AssemblyTitle, MessageBoxButtons.OK,
