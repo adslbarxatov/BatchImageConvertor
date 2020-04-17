@@ -1,9 +1,9 @@
-// Стандартное переопределение типов
+// РЎС‚Р°РЅРґР°СЂС‚РЅРѕРµ РїРµСЂРµРѕРїСЂРµРґРµР»РµРЅРёРµ С‚РёРїРѕРІ
 #define __u		unsigned
 
-#define schar	__int8			// Старый char
-#define sint	__int16			// Старый int
-#define slong	__int32			// Старый long
+#define schar	__int8			// РЎС‚Р°СЂС‹Р№ char
+#define sint	__int16			// РЎС‚Р°СЂС‹Р№ int
+#define slong	__int32			// РЎС‚Р°СЂС‹Р№ long
 #define sdlong	__int64
 
 #define uchar	__u schar
