@@ -14,10 +14,10 @@ namespace RD_AAOW
 	public partial class BICForm:Form
 		{
 		// Переменные
-		private List<ICodec> codecs = new List<ICodec> ();
+		private List<ICodec> codecs = new List<ICodec> ();			// Списки обработчиков изображений
 		private List<int> outputCodecsNumbers = new List<int> ();
 		private List<object> outputFormats = new List<object> ();
-		private uint successes = 0;		// Счётчики успешных обработок и общего числа изображений
+		private uint successes = 0;									// Счётчики успешных обработок и общего числа изображений
 		private double totalImages = 0.0;
 
 		private int selectedFlip, selectedRotation, selectedOutputType;	// Транзактные переменные
@@ -29,6 +29,7 @@ namespace RD_AAOW
 		private const string PBMbitmap = "PBM (bitmap)";
 
 		private SupportedLanguages al = Localization.CurrentLanguage;	// Язык интерфейса
+		private bool allowPalettes = false;
 
 		/// <summary>
 		/// Главная форма программы
@@ -37,8 +38,8 @@ namespace RD_AAOW
 			{
 			// Начальная настройка
 			InitializeComponent ();
-			for (int i = 0; i < Localization.AvailableLanguages; i++)
-				LanguageCombo.Items.Add (((SupportedLanguages)i).ToString ());
+
+			LanguageCombo.Items.AddRange (Localization.LanguagesNames);
 			try
 				{
 				LanguageCombo.SelectedIndex = (int)al;
@@ -96,7 +97,7 @@ namespace RD_AAOW
 					AddOutputCodec (PBMgreyscale, 2, PBMCodec.ImageTypes.GreyscaleAsBinary);
 					AddOutputCodec (PBMbitmap, 2, PBMCodec.ImageTypes.BitmapAsBinary);
 
-					Palettes.Enabled = true;
+					Palettes.Enabled = allowPalettes = true;
 					}
 				}
 			ImageTypeCombo.SelectedIndex = 0;
@@ -427,7 +428,7 @@ namespace RD_AAOW
 		private void SetInterfaceState (bool State)
 			{
 			SetInputPath.Enabled = SetOutputPath.Enabled = InputPath.Enabled = OutputPath.Enabled =
-				ImageTypeCombo.Enabled = StartButton.Enabled = ExitButton.Enabled = Palettes.Enabled =
+				ImageTypeCombo.Enabled = StartButton.Enabled = ExitButton.Enabled =
 				RotationCombo.Enabled = FlipCombo.Enabled = CWLabel.Enabled = FlipLabel.Enabled =
 				AbsoluteSize.Enabled = RelativeSize.Enabled = RelativeCrop.Enabled =
 				LanguageCombo.Enabled = IncludeSubdirs.Enabled = State;
@@ -437,12 +438,13 @@ namespace RD_AAOW
 				ImageTypeCombo_SelectedIndexChanged (null, null);
 				AbsoluteSize_CheckedChanged (null, null);
 				BitmapRadio_CheckedChanged (null, null);
+				Palettes.Enabled = allowPalettes;
 				}
 			else
 				{
 				SaveColorsRadio.Enabled = GreyscaleRadio.Enabled = BitmapRadio.Enabled =
 					AbsoluteWidth.Enabled = AbsoluteHeight.Enabled = RelativeWidth.Enabled = RelativeHeight.Enabled =
-					Label06.Enabled = BitmapEdgeTrack.Visible = State;
+					Label06.Enabled = BitmapEdgeTrack.Visible = Palettes.Enabled = State;
 				}
 			}
 
@@ -508,7 +510,7 @@ namespace RD_AAOW
 		// Запуск менеджера палитр
 		private void Palettes_Click (object sender, EventArgs e)
 			{
-			if (!Palettes.Enabled)
+			if (!allowPalettes)
 				return;
 
 			PalettesManager pm = new PalettesManager (al);

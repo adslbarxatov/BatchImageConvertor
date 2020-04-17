@@ -1,5 +1,9 @@
 ﻿Batch image convertor changes log
 
+Version 2.12.5L:
+• Applied correct representation of supported languages list;
+• Fixed reactivation of palettes button after first conversion when it must be blocked due to absence of codecs library
+
 Version 2.12.2:
 • Application icon updated;
 • Minor interface bugs fixed
