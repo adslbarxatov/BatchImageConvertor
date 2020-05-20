@@ -1,6 +1,8 @@
 # BatchImageConvertor v 2.13h
 
-A tool for automatic images groups processing / Инструмент для автоматической обработки групп изображений
+A tool for automatic images groups processing
+
+Инструмент для автоматической обработки групп изображений
 
 #
 
