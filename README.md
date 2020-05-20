@@ -1,4 +1,4 @@
-# BatchImageConvertor v 2.12.5L
+# BatchImageConvertor v 2.13h
 
 A tool for automatic images groups processing / Инструмент для автоматической обработки групп изображений
 
@@ -64,6 +64,8 @@ We're strongly recommend reading it before using our products.
 
 #
 
-Needs Windows XP and newer, Framework 4.0 and newer. Interface languages: ru_ru, en_us
+Needs Windows XP and newer, Framework 4.0 and newer. Interface languages: ru_ru, en_us.
+User manual languages: en_us, ru_ru (subs)
 
-Требуется ОС Windows XP и новее, Framework 4.0 и новее. Языки интерфейса: ru_ru, en_us
+Требуется ОС Windows XP и новее, Framework 4.0 и новее. Языки интерфейса: ru_ru, en_us.
+Языки руководства пользователя: en_us, ru_ru (субтитры)

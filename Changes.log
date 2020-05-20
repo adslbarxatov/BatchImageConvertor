@@ -1,5 +1,9 @@
 ﻿Batch image convertor changes log
 
+Version 2.13h:
+• Input and output paths will be saved on exit and restored on startup of application;
+• New application info interface implemented
+
 Version 2.12.5L:
 • Applied correct representation of supported languages list;
 • Fixed reactivation of palettes button after first conversion when it must be blocked due to absence of codecs library

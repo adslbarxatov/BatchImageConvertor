@@ -122,7 +122,6 @@ namespace RD_AAOW
 
 			// Инициирование очистки памяти
 			array = null;
-			//GC.Collect ();
 			return res;
 			}
 

@@ -154,7 +154,7 @@
     <value>Quantity of colors in current palette exceeds recommended value (256). Some applications may not support it. Continue?</value>
   </data>
   <data name="ColorsSectionText" xml:space="preserve">
-    <value>Output images' colors</value>
+    <value>Colors</value>
   </data>
   <data name="CWLabelText" xml:space="preserve">
     <value>Rotate CW</value>
@@ -260,7 +260,7 @@
     <value>Processed – {0:D}; successes – {1:D}</value>
   </data>
   <data name="RotationSectionText" xml:space="preserve">
-    <value>Output images' flip and rotation</value>
+    <value>Flip and rotation</value>
   </data>
   <data name="SaveColorsRadioText" xml:space="preserve">
     <value>Save colors</value>
@@ -272,7 +272,7 @@
     <value>Do you want to view user videoguide on our YouTube channel?</value>
   </data>
   <data name="SizesSectionText" xml:space="preserve">
-    <value>Output images' size</value>
+    <value>Size</value>
   </data>
   <data name="SupportedFileTypes" xml:space="preserve">
     <value>Supported file types</value>

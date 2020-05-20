@@ -154,7 +154,7 @@
     <value>Количество цветов в текущей палитре больше рекомендуемого (256). Некоторые приложения могут не поддерживать палитры таких размеров. Продолжить?</value>
   </data>
   <data name="ColorsSectionText" xml:space="preserve">
-    <value>Итоговые цвета</value>
+    <value>Цвета</value>
   </data>
   <data name="CWLabelText" xml:space="preserve">
     <value>Повернуть по ч. с. на</value>
@@ -272,7 +272,7 @@
     <value>Показать видеоруководство пользователя на нашем YouTube-канале?</value>
   </data>
   <data name="SizesSectionText" xml:space="preserve">
-    <value>Итоговый размер</value>
+    <value>Размеры</value>
   </data>
   <data name="SupportedFileTypes" xml:space="preserve">
     <value>Поддерживаемые типы файлов</value>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -102,6 +103,16 @@ namespace RD_AAOW
 				}
 			ImageTypeCombo.SelectedIndex = 0;
 
+			// Запрос сохранённых настроек
+			try
+				{
+				InputPath.Text = Registry.GetValue (ProgramDescription.AssemblySettingsKey, InputPath.Name, "").ToString ();
+				OutputPath.Text = Registry.GetValue (ProgramDescription.AssemblySettingsKey, OutputPath.Name, "").ToString ();
+				}
+			catch
+				{
+				}
+
 			// Назначение заголовка окна
 			this.Text = ProgramDescription.AssemblyTitle;
 			}
@@ -150,6 +161,16 @@ namespace RD_AAOW
 				MessageBox.Show (Localization.GetText ("OutputPathNotSpecified", al),
 					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return;
+				}
+
+			// Сохранение настроек
+			try
+				{
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, InputPath.Name, InputPath.Text);
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, OutputPath.Name, OutputPath.Text);
+				}
+			catch
+				{
 				}
 
 			// Подготовка транзактных переменных
@@ -468,13 +489,13 @@ namespace RD_AAOW
 			}
 
 		// Информация о поддерживаемых форматах
-		private void InputFormats_Click (object sender, EventArgs e)
+		private void BICForm_HelpButtonClicked (object sender, CancelEventArgs e)
 			{
-			// Общая информация
-			ProgramDescription.ShowAbout ();
+			// Отмена общей обработки
+			e.Cancel = true;
 
-			// Справка по форматам
-			string types = Localization.GetText ("SupportedFileTypes", al) + ":\n\n";
+			// Формирование и отображение справочных сведений
+			string types = Localization.GetText ("SupportedFileTypes", al) + ":\r\n\r\n";
 			for (int c = 0; c < codecs.Count; c++)
 				{
 				types += (" • " + codecs[c].ToString () + ": ");
@@ -482,16 +503,16 @@ namespace RD_AAOW
 					{
 					types += (codecs[c].FileExtensions[t].Substring (2).ToUpper () + ", ");
 					}
-				types += (codecs[c].FileExtensions[codecs[c].FileExtensions.Length - 1].Substring (2).ToUpper () + ".\n\n");
+
+				types += codecs[c].FileExtensions[codecs[c].FileExtensions.Length - 1].Substring (2).ToUpper ();
+				if (c < codecs.Count - 1)
+					types += "\r\n\r\n";
 				}
 
-			MessageBox.Show (types, ProgramDescription.AssemblyTitle, MessageBoxButtons.OK,
-				MessageBoxIcon.Information);
-
-			// Общая информация
-			if (MessageBox.Show (Localization.GetText ("ShowVideo", al), ProgramDescription.AssemblyTitle,
-				MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-				ProgramDescription.ShowVideoManual ();
+			AboutForm af = new AboutForm (al, "https://github.com/adslbarxatov/BatchImageConvertor",
+				"https://github.com/adslbarxatov/BatchImageConvertor/releases",
+				"https://www.youtube.com/watch?v=bejx-r1C6j0&list=PLe7qKwHNkZTvIOPvUtnt_D3RZd6gOTzNu&index=3",
+				types);
 			}
 
 		// Выбор варианта задания размера

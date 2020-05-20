@@ -25,8 +25,10 @@ namespace RD_AAOW
 	/// </summary>
 	public static class Localization
 		{
-		// Название параметра, хранящего текущий язык интерфейса
-		private const string LanguageValueName = "Language";
+		/// <summary>
+		/// Название параметра, хранящего текущий язык интерфейса
+		/// </summary>
+		public const string LanguageValueName = "Language";
 
 		/// <summary>
 		/// Возвращает список доступных языков интерфейса
