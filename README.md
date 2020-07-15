@@ -56,7 +56,7 @@ Supported by codec library**
 
 ```
 
-## Требования
+## Requirements / Требования
 
 Needs Windows XP and newer, Framework 4.0 and newer. Interface languages: ru_ru, en_us.
 User manual languages: en_us, ru_ru (subs)
@@ -64,7 +64,7 @@ User manual languages: en_us, ru_ru (subs)
 Требуется ОС Windows XP и новее, Framework 4.0 и новее. Языки интерфейса: ru_ru, en_us.
 Языки руководства пользователя: en_us, ru_ru (субтитры)
 
-## Политика разработки приложений и EULA
+## Development policy and EULA / Политика разработки и EULA
 
 This [Policy (ADP)](https://vk.com/@rdaaow_fupl-adp), its positions, conclusion, EULA and application methods
 describes general rules that we follow in all of our development processes, released applications and implemented
