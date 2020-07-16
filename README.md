@@ -1,4 +1,4 @@
-# BatchImageConvertor v 2.13h
+# BatchImageConvertor v 2.13.1p
 
 A tool for automatic images groups processing
 
@@ -15,7 +15,8 @@ rotation, flip direction and images mode (color/greyscale/bitmap).
 цветовой режим (цветное/оттенки серого/чёрно-белое).
 
 
-Supported formats / поддерживаемые форматы:
+
+## Supported formats / поддерживаемые форматы:
 
 ```
 Supported by application
@@ -56,6 +57,8 @@ Supported by codec library**
 
 ```
 
+
+
 ## Requirements / Требования
 
 Needs Windows XP and newer, Framework 4.0 and newer. Interface languages: ru_ru, en_us.
@@ -63,6 +66,8 @@ User manual languages: en_us, ru_ru (subs)
 
 Требуется ОС Windows XP и новее, Framework 4.0 и новее. Языки интерфейса: ru_ru, en_us.
 Языки руководства пользователя: en_us, ru_ru (субтитры)
+
+
 
 ## Development policy and EULA / Политика разработки и EULA
 

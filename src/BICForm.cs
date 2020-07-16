@@ -108,6 +108,8 @@ namespace RD_AAOW
 				{
 				InputPath.Text = Registry.GetValue (ProgramDescription.AssemblySettingsKey, InputPath.Name, "").ToString ();
 				OutputPath.Text = Registry.GetValue (ProgramDescription.AssemblySettingsKey, OutputPath.Name, "").ToString ();
+				IncludeSubdirs.Checked =
+					(Registry.GetValue (ProgramDescription.AssemblySettingsKey, IncludeSubdirs.Name, "").ToString () != "0");
 				}
 			catch
 				{
@@ -161,16 +163,6 @@ namespace RD_AAOW
 				MessageBox.Show (Localization.GetText ("OutputPathNotSpecified", al),
 					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return;
-				}
-
-			// Сохранение настроек
-			try
-				{
-				Registry.SetValue (ProgramDescription.AssemblySettingsKey, InputPath.Name, InputPath.Text);
-				Registry.SetValue (ProgramDescription.AssemblySettingsKey, OutputPath.Name, OutputPath.Text);
-				}
-			catch
-				{
 				}
 
 			// Подготовка транзактных переменных
@@ -580,6 +572,20 @@ namespace RD_AAOW
 
 			// Завершено
 			FlipCombo.SelectedIndex = flipType;
+			}
+
+		// Сохранение настроек
+		private void BICForm_FormClosing (object sender, FormClosingEventArgs e)
+			{
+			try
+				{
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, InputPath.Name, InputPath.Text);
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, OutputPath.Name, OutputPath.Text);
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, IncludeSubdirs.Name, IncludeSubdirs.Checked ? "IDS" : "0");
+				}
+			catch
+				{
+				}
 			}
 		}
 	}
