@@ -1,5 +1,8 @@
 ﻿Batch image convertor changes log
 
+Version 2.13.2p:
+• Added ability to accept/decline ADP at first start to the application info interface
+
 Version 2.13.1p:
 • 'Include subfolders' flag now will be saved / restored on application exit / startup;
 • Updated application info interface (more convenient font is used for now);

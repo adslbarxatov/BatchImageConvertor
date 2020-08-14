@@ -486,8 +486,8 @@ namespace RD_AAOW
 			// Отмена общей обработки
 			e.Cancel = true;
 
-			// Формирование и отображение справочных сведений
-			string types = Localization.GetText ("SupportedFileTypes", al) + ":\r\n\r\n";
+			// Сборка справки
+			string types = "\r\n\r\n" + Localization.GetText ("SupportedFileTypes", al) + ":\r\n\r\n";
 			for (int c = 0; c < codecs.Count; c++)
 				{
 				types += (" • " + codecs[c].ToString () + ": ");
@@ -501,10 +501,8 @@ namespace RD_AAOW
 					types += "\r\n\r\n";
 				}
 
-			AboutForm af = new AboutForm (al, "https://github.com/adslbarxatov/BatchImageConvertor",
-				"https://github.com/adslbarxatov/BatchImageConvertor/releases",
-				"https://www.youtube.com/watch?v=bejx-r1C6j0&list=PLe7qKwHNkZTvIOPvUtnt_D3RZd6gOTzNu&index=3",
-				types);
+			// Отображение
+			ProgramDescription.ShowAbout (Localization.GetText ("HelpText", al) + types, false);
 			}
 
 		// Выбор варианта задания размера

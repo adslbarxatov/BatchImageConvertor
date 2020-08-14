@@ -15,8 +15,16 @@ namespace RD_AAOW
 		[STAThread]
 		public static void Main ()
 			{
+			// Инициализация
 			Application.EnableVisualStyles ();
 			Application.SetCompatibleTextRenderingDefault (false);
+
+			// Отображение справки и запроса на принятие Политики
+			if (!ProgramDescription.AcceptEULA ())
+				return;
+			ProgramDescription.ShowAbout (Localization.GetText ("HelpText", Localization.CurrentLanguage), true);
+
+			// Запуск
 			Application.Run (new BICForm ());
 			}
 		}

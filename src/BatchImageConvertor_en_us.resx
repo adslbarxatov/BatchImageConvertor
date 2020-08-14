@@ -286,4 +286,7 @@
   <data name="IncompatibleLibraryVersion" xml:space="preserve">
     <value>This version of {0:S} is incompatible with current version of application</value>
   </data>
+  <data name="HelpText" xml:space="preserve">
+    <value>This tool allows you to convert group of image files (including different formats) into a single format. If it is necessary, you can specify uniform size or cropping method, rotation, flip direction and images mode (color/greyscale/bitmap)</value>
+  </data>
 </root>
