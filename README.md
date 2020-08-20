@@ -47,13 +47,13 @@ Supported by codec library²
 .pcx, .pcc                Extracting         -               Own codec
 ```
 
-¹ All of these extensions (except palettes) are allowed in the input folder. Other ones will be ignored
+*¹ All of these extensions (except palettes) are allowed in the input folder. Other ones will be ignored
 
-² Some formats support provided by codec library. Utility can work without it, but these formats will not be processed
+*² Some formats support provided by codec library. Utility can work without it, but these formats will not be processed
 
-¹ Все перечисленные форматы (кроме форматов палитр) могут находиться в исходной папке. Остальные будут проигнорированы
+*¹ Все перечисленные форматы (кроме форматов палитр) могут находиться в исходной папке. Остальные будут проигнорированы
 
-²  Поддержка части форматов обеспечивается только при наличии библиотеки кодеков. Утилита может работать без неё, но соответствующие форматы поддерживаться не будут
+*²  Поддержка части форматов обеспечивается только при наличии библиотеки кодеков. Утилита может работать без неё, но соответствующие форматы поддерживаться не будут
 
 
 
