@@ -45,17 +45,17 @@ Supported by codec library**
 .ase                           +             -               Own codec
 .bmp, .dib, .rle          Extracting     Replacing           Own codec
 .pcx, .pcc                Extracting         -               Own codec
+```
 
 *   All of these extensions (except palettes) are allowed in the input folder. Other ones 
     will be ignored
 **  Some formats support provided by codec library. Utility can work without it, but these 
     formats will not be processed
+
 *   Все перечисленные форматы (кроме форматов палитр) могут находиться в исходной папке. 
     Остальные будут проигнорированы
 **  Поддержка части форматов обеспечивается только при наличии библиотеки кодеков. Утилита 
     может работать без неё, но соответствующие форматы поддерживаться не будут
-
-```
 
 
 
