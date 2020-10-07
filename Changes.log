@@ -3,6 +3,9 @@
 ToDo:
 - Controllable left-top position for crop operation
 
+Version 2.14 (preparing):
+• Application info interface now able to get last release's changes log
+
 Version 2.13.3i:
 • Found and fixed hidden bug that caused an error when starting the application from local network;
 • Fixed bug that caused the web page request method to fail if server disconnected
