@@ -251,7 +251,7 @@
 {0:S}</value>
   </data>
   <data name="RelativeCropText" xml:space="preserve">
-    <value>Обрезать до</value>
+    <value>Обрезать до (a x b) с отступом (c; d)</value>
   </data>
   <data name="RelativeSizeText" xml:space="preserve">
     <value>Изменить до</value>
@@ -288,5 +288,11 @@
   </data>
   <data name="HelpText" xml:space="preserve">
     <value>Инструмент позволяет преобразовывать группы изображений разных форматов в единый формат и применять к каждому из них нужные настройки: размер или обрезку, поворот/отражение, цветовой режим (цветное/оттенки серого/чёрно-белое)</value>
+  </data>
+  <data name="IncorrectCropValues" xml:space="preserve">
+    <value>Сумма смещения и размера обрезки превышает размеры изображения (&gt; 100%)</value>
+  </data>
+  <data name="CropCenterText" xml:space="preserve">
+    <value>Центр</value>
   </data>
 </root>

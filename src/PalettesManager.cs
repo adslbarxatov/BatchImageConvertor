@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -12,7 +13,7 @@ namespace RD_AAOW
 		{
 		// Переменные
 		private List<IPaletteCodec> codecs = new List<IPaletteCodec> ();
-		private string[] filters = new string[] { 
+		private string[] filters = new string[] {
 			"Adobe Color Table (*.act)|*.act",
 			"Microsoft palette (*.pal)|*.pal",
 			"JASC palette (*.pal)|*.pal",
@@ -58,7 +59,7 @@ namespace RD_AAOW
 
 			codecs.Add (new ACOCodec ());
 			codecs.Add (new ASECodec ());
-			codecs.Add (bmpCodec);	// Для автоопределения
+			codecs.Add (bmpCodec);  // Для автоопределения
 			codecs.Add (new PCXCodec ());
 
 			// Настройка поля таблицы цветов
@@ -152,7 +153,7 @@ namespace RD_AAOW
 				}
 
 			// Добавление цвета
-			ColorGrid.Rows.Add (new object[] { "(" + CDialog.Color.R.ToString () + "; " + CDialog.Color.G.ToString () + "; " + 
+			ColorGrid.Rows.Add (new object[] { "(" + CDialog.Color.R.ToString () + "; " + CDialog.Color.G.ToString () + "; " +
 					CDialog.Color.B.ToString () + ")", "255" });
 			ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.BackColor =
 				ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.SelectionBackColor = CDialog.Color;
@@ -246,7 +247,7 @@ namespace RD_AAOW
 			OFDialog.ShowDialog ();
 			}
 
-		private void OFDialog_FileOk (object sender, System.ComponentModel.CancelEventArgs e)
+		private void OFDialog_FileOk (object sender, CancelEventArgs e)
 			{
 			// Получение палитры
 			List<Color> palette;
@@ -296,7 +297,7 @@ namespace RD_AAOW
 			ColorGrid.Rows.Clear ();
 			for (int i = 0; i < palette.Count; i++)
 				{
-				ColorGrid.Rows.Add (new object[] { "(" + palette[i].R.ToString () + "; " + palette[i].G.ToString () + "; " + 
+				ColorGrid.Rows.Add (new object[] { "(" + palette[i].R.ToString () + "; " + palette[i].G.ToString () + "; " +
 					palette[i].B.ToString () + ")", palette[i].A.ToString () });
 				ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.BackColor =
 					ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.SelectionBackColor =
@@ -324,7 +325,7 @@ namespace RD_AAOW
 			SFDialog.ShowDialog ();
 			}
 
-		private void SFDialog_FileOk (object sender, System.ComponentModel.CancelEventArgs e)
+		private void SFDialog_FileOk (object sender, CancelEventArgs e)
 			{
 			// Контроль
 			if ((ColorGrid.Rows.Count == 0) || (ColorGrid.Rows.Count > codecs[SFDialog.FilterIndex - 1].MaxColors))
@@ -366,7 +367,7 @@ namespace RD_AAOW
 			CFDialog.ShowDialog ();
 			}
 
-		private void CFDialog_FileOk (object sender, System.ComponentModel.CancelEventArgs e)
+		private void CFDialog_FileOk (object sender, CancelEventArgs e)
 			{
 			// Контроль
 			int neededCodec = codecs.IndexOf (bmpCodec);

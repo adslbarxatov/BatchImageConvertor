@@ -5,12 +5,15 @@
 #include <malloc.h>
 #include <string.h>
 
+// Ресурсы
+#include <windows.h>
+
 // Стандартное переопределение типов
 #include "..\\Generics\\CSTypes.h"
 
-#define BIC_VERSION					2,13,3,0
-#define BIC_VERSION_S				"2.13.3.0"
-#define BIC_PRODUCT					"Batch image convertor codecs library v 2.13.3i"
+#define BIC_VERSION					2,14,0,0
+#define BIC_VERSION_S				"2.14.0.0"
+#define BIC_PRODUCT					"Batch image convertor codecs library v 2.14"
 #define BIC_COMPANY					"RD AAOW"
 
 #define BIC_API		extern __declspec(dllexport)

@@ -15,13 +15,13 @@ namespace RD_AAOW
 	public partial class BICForm:Form
 		{
 		// Переменные
-		private List<ICodec> codecs = new List<ICodec> ();			// Списки обработчиков изображений
+		private List<ICodec> codecs = new List<ICodec> ();          // Списки обработчиков изображений
 		private List<int> outputCodecsNumbers = new List<int> ();
 		private List<object> outputFormats = new List<object> ();
-		private uint successes = 0;									// Счётчики успешных обработок и общего числа изображений
+		private uint successes = 0;                                 // Счётчики успешных обработок и общего числа изображений
 		private double totalImages = 0.0;
 
-		private int selectedFlip, selectedRotation, selectedOutputType;	// Транзактные переменные
+		private int selectedFlip, selectedRotation, selectedOutputType; // Транзактные переменные
 		private byte bitmapEdge;
 		private List<string> messages = new List<string> ();
 
@@ -29,7 +29,7 @@ namespace RD_AAOW
 		private const string PBMgreyscale = "PBM (greyscale)";
 		private const string PBMbitmap = "PBM (bitmap)";
 
-		private SupportedLanguages al = Localization.CurrentLanguage;	// Язык интерфейса
+		private SupportedLanguages al = Localization.CurrentLanguage;   // Язык интерфейса
 		private bool allowPalettes = false;
 
 		/// <summary>
@@ -61,7 +61,10 @@ namespace RD_AAOW
 			AbsoluteWidth.Minimum = AbsoluteHeight.Minimum = ProgramDescription.MinLinearSize;
 			AbsoluteWidth.Maximum = AbsoluteHeight.Maximum = ProgramDescription.MaxLinearSize;
 			RelativeWidth.Minimum = RelativeHeight.Minimum = 1;
+			RelativeLeft.Minimum = RelativeTop.Minimum = 0;
 			RelativeWidth.Maximum = RelativeHeight.Maximum = 100;
+			RelativeLeft.Maximum = RelativeTop.Maximum = 99;
+			AbsoluteSize_CheckedChanged (null, null);
 
 			// Перечисление основных кодеков
 			codecs.Add (new GenericCodec ());
@@ -165,6 +168,14 @@ namespace RD_AAOW
 				return;
 				}
 
+			if (RelativeCrop.Checked && ((RelativeLeft.Value + RelativeWidth.Value > RelativeWidth.Maximum) ||
+				(RelativeTop.Value + RelativeHeight.Value > RelativeHeight.Maximum)))
+				{
+				MessageBox.Show (Localization.GetText ("IncorrectCropValues", al),
+					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return;
+				}
+
 			// Подготовка транзактных переменных
 			messages.Clear ();
 			selectedFlip = FlipCombo.SelectedIndex;
@@ -235,7 +246,7 @@ namespace RD_AAOW
 						rfType = RotateFlipType.RotateNoneFlipY;
 					else if (selectedFlip == 3)
 						rfType = RotateFlipType.RotateNoneFlipXY;
-					else	// Default
+					else    // Default
 						rfType = RotateFlipType.RotateNoneFlipNone;
 					break;
 
@@ -331,17 +342,14 @@ namespace RD_AAOW
 					switch (codecs[c].LoadImage (fileNames[c][n], out img))
 						{
 						case ProgramErrorCodes.EXEC_FILE_UNAVAILABLE:
-							//msg = RU.Checked ? "файл не найден или недоступен" : "file is unavailable";
 							msg = Localization.GetText ("FileUnavailable", al);
 							break;
 
 						case ProgramErrorCodes.EXEC_INVALID_FILE:
-							//msg = RU.Checked ? "файл повреждён или не поддерживается" : "file is broken or has unsupported format";
 							msg = Localization.GetText ("FileIncorrect", al);
 							break;
 
 						case ProgramErrorCodes.EXEC_MEMORY_ALLOC_FAIL:
-							//msg = RU.Checked ? "недостаточно памяти для обработки" : "not enough memory for processing";
 							msg = Localization.GetText ("NotEnoughMemory", al);
 							break;
 
@@ -363,8 +371,8 @@ namespace RD_AAOW
 					#endregion
 
 					#region Размеры
-					if (AbsoluteSize.Checked ||
-						(RelativeSize.Checked || RelativeCrop.Checked) && ((RelativeWidth.Value != 100) || (RelativeHeight.Value != 100)))
+					if (AbsoluteSize.Checked || (RelativeSize.Checked || RelativeCrop.Checked) &&
+						((RelativeWidth.Value != 100) || (RelativeHeight.Value != 100)))
 						{
 						Bitmap img2;
 						if (AbsoluteSize.Checked)
@@ -373,13 +381,13 @@ namespace RD_AAOW
 							}
 						else
 							{
-							int w = (int)((double)RelativeWidth.Value / 100.0 * (double)img.Width);
+							int w = (int)((double)RelativeWidth.Value / 100.0 * img.Width);
 							if (w < ProgramDescription.MinLinearSize)
 								{
 								w = (int)ProgramDescription.MinLinearSize;
 								}
 
-							int h = (int)((double)RelativeHeight.Value / 100.0 * (double)img.Height);
+							int h = (int)((double)RelativeHeight.Value / 100.0 * img.Height);
 							if (h < ProgramDescription.MinLinearSize)
 								{
 								h = (int)ProgramDescription.MinLinearSize;
@@ -393,7 +401,11 @@ namespace RD_AAOW
 								{
 								img2 = new Bitmap (w, h);
 								Graphics g = Graphics.FromImage (img2);
-								g.DrawImage (img, new Point ((img.Width - w) / -2, (img.Height - h) / -2));
+
+								int l = (int)((double)RelativeLeft.Value / 100.0 * img.Width);
+								int t = (int)((double)RelativeTop.Value / 100.0 * img.Height);
+
+								g.DrawImage (img, new Point (-l, -t));
 								g.Dispose ();
 								}
 							}
@@ -404,10 +416,10 @@ namespace RD_AAOW
 					#endregion
 
 					#region Поворот/отражение (только если преобразование действительно есть (см. описание RotateFlipType enum))
-					if ((int)rfType != 0)
-						{
+
+					if (rfType != 0)
 						img.RotateFlip (rfType);
-						}
+
 					#endregion
 
 					#region Сохранение
@@ -508,8 +520,9 @@ namespace RD_AAOW
 		// Выбор варианта задания размера
 		private void AbsoluteSize_CheckedChanged (object sender, EventArgs e)
 			{
-			AbsoluteWidth.Enabled = AbsoluteHeight.Enabled = AbsoluteSize.Checked;
+			AbsoluteWidth.Enabled = AbsoluteHeight.Enabled = Label07.Enabled = AbsoluteSize.Checked;
 			RelativeWidth.Enabled = RelativeHeight.Enabled = Label06.Enabled = (RelativeSize.Checked || RelativeCrop.Checked);
+			RelativeLeft.Enabled = RelativeTop.Enabled = Label08.Enabled = CropCenter.Enabled = RelativeCrop.Checked;
 			}
 
 		// Установка порога яркости для чёрно-белого преобразования
@@ -525,6 +538,13 @@ namespace RD_AAOW
 				return;
 
 			PalettesManager pm = new PalettesManager (al);
+			}
+
+		// Центрирование области обрезки
+		private void CropCenter_Click (object sender, EventArgs e)
+			{
+			RelativeLeft.Value = (RelativeWidth.Maximum - RelativeWidth.Value) / 2;
+			RelativeTop.Value = (RelativeHeight.Maximum - RelativeHeight.Value) / 2;
 			}
 
 		// Выбор языка интерфейса
@@ -552,6 +572,7 @@ namespace RD_AAOW
 			AbsoluteSize.Text = Localization.GetText ("AbsoluteSizeText", al);
 			RelativeSize.Text = Localization.GetText ("RelativeSizeText", al);
 			RelativeCrop.Text = Localization.GetText ("RelativeCropText", al);
+			CropCenter.Text = Localization.GetText ("CropCenterText", al);
 
 			ColorTab.Text = Localization.GetText ("ColorsSectionText", al);
 			SaveColorsRadio.Text = Localization.GetText ("SaveColorsRadioText", al);

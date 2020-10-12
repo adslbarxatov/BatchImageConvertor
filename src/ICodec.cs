@@ -101,9 +101,8 @@ namespace RD_AAOW
 			{
 			byte rgbValue = GetGreyscaleValue (OldColor);
 			if (rgbValue < Edge)
-				{
 				return Color.FromArgb (OldColor.A, 0, 0, 0);
-				}
+
 			return Color.FromArgb (OldColor.A, 255, 255, 255);
 			}
 		}

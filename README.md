@@ -1,4 +1,4 @@
-# BatchImageConvertor v 2.13.3i
+# BatchImageConvertor v 2.14
 
 A tool for automatic images groups processing
 
@@ -59,10 +59,10 @@ Supported by codec library²
 
 ## Requirements / Требования
 
-Needs Windows XP and newer, Framework 4.0 and newer. Interface languages: ru_ru, en_us.
+Needs Windows XP or newer, Framework 4.0 or newer. Interface languages: ru_ru, en_us.
 User manual languages: en_us, ru_ru (subs)
 
-Требуется ОС Windows XP и новее, Framework 4.0 и новее. Языки интерфейса: ru_ru, en_us.
+Требуется ОС Windows XP или новее, Framework 4.0 или новее. Языки интерфейса: ru_ru, en_us.
 Языки руководства пользователя: en_us, ru_ru (субтитры)
 
 

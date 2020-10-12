@@ -47,8 +47,8 @@ namespace RD_AAOW
 		/// <param name="ImageColorFormat">Цветовое представление выходного изображения</param>
 		/// <param name="BitmapEdge">Порог яркости для чёрно-белого преобразования</param>
 		/// <returns>Возвращает true в случае успеха</returns>
-		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat, byte BitmapEdge,
-			object Parameters)
+		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat,
+			byte BitmapEdge, object Parameters)
 			{
 			// Контроль
 			if ((Image == null) || (Parameters == null))
@@ -102,14 +102,6 @@ namespace RD_AAOW
 				img = (Bitmap)img2.Clone ();
 				img2.Dispose ();
 				}
-
-			/*if (imageType == ImageFormat.Bmp)
-				{
-				Bitmap img2 = img.Clone (new Rectangle (0, 0, img.Width, img.Height), PixelFormat.Format24bppRgb );
-				img.Dispose ();
-				img = (Bitmap)img2.Clone ();
-				img2.Dispose ();
-				}*/
 
 			// Сохранение
 			try

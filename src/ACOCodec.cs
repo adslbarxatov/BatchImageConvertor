@@ -11,10 +11,10 @@ namespace RD_AAOW
 	public class ACOCodec:IPaletteCodec
 		{
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
-		private static extern Int16 ACO_LoadPalette (string FileName, out IntPtr Buffer, out UInt16 ColorsCount);	// RGB
+		private static extern Int16 ACO_LoadPalette (string FileName, out IntPtr Buffer, out UInt16 ColorsCount);   // RGB
 
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
-		private static extern Int16 ACO_SavePalette (string FileName, byte[] Buffer, UInt16 ColorsCount);			// RGB
+		private static extern Int16 ACO_SavePalette (string FileName, byte[] Buffer, UInt16 ColorsCount);           // RGB
 
 		/// <summary>
 		/// Метод загружает указанную палитру и возвращает его в виде объекта List of Color
