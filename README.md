@@ -2,11 +2,9 @@
 > PCC: 0003996F3A85B86B
 
 
-
 A tool for automatic images groups processing
 
 Инструмент для автоматической обработки групп изображений
-
 
 
 #
@@ -15,9 +13,13 @@ This tool allows you to convert group of image files (including different format
 a single format. If it is necessary, you can specify uniform size or cropping method,
 rotation, flip direction and images mode (color/greyscale/bitmap).
 
+#
+
 Инструмент позволяет преобразовывать группы изображений разных форматов в единый формат
 и применять к каждому из них нужные настройки: размер или обрезку, поворот/отражение,
 цветовой режим (цветное/оттенки серого/чёрно-белое).
+
+&nbsp;
 
 
 
@@ -60,6 +62,8 @@ Supported by codec library²
 
 *²  Поддержка части форматов обеспечивается только при наличии библиотеки кодеков. Утилита может работать без неё, но соответствующие форматы поддерживаться не будут*
 
+&nbsp;
+
 
 
 ## Requirements / Требования
@@ -70,6 +74,8 @@ User manual languages: en_us, ru_ru (subs)
 Требуется ОС Windows XP или новее, Framework 4.0 или новее. Языки интерфейса: ru_ru, en_us.
 Языки руководства пользователя: en_us, ru_ru (субтитры)
 
+&nbsp;
+
 
 
 ## Development policy and EULA / Политика разработки и EULA
@@ -79,6 +85,8 @@ describes general rules that we follow in all of our development processes, rele
 ideas.
 **It must be acquainted by participants and users before using any of laboratory's products.
 By downloading them, you agree to this Policy**
+
+#
 
 Данная [Политика (ADP)](https://vk.com/@rdaaow_fupl-adp), её положения, заключение, EULA и способы применения
 описывают общие правила, которым мы следуем во всех наших процессах разработки, вышедших в релиз приложениях
