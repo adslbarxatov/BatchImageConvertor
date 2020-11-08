@@ -1,5 +1,5 @@
-# BatchImageConvertor v 2.14
-> PCC: 00039D706833A81D
+# BatchImageConvertor v 2.14.2
+> PCC: 0003AB6F425C4F09
 
 
 A tool for automatic images groups processing

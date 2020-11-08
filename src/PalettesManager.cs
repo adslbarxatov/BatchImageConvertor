@@ -9,7 +9,7 @@ namespace RD_AAOW
 	/// <summary>
 	/// Класс описывает интерфейс работы с палитрами
 	/// </summary>
-	public partial class PalettesManager:Form
+	public partial class PalettesManager: Form
 		{
 		// Переменные
 		private List<IPaletteCodec> codecs = new List<IPaletteCodec> ();

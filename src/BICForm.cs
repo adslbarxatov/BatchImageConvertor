@@ -12,7 +12,7 @@ namespace RD_AAOW
 	/// <summary>
 	/// Начальная форма программы
 	/// </summary>
-	public partial class BICForm:Form
+	public partial class BICForm: Form
 		{
 		// Переменные
 		private List<ICodec> codecs = new List<ICodec> ();          // Списки обработчиков изображений
@@ -39,6 +39,8 @@ namespace RD_AAOW
 			{
 			// Начальная настройка
 			InitializeComponent ();
+			AcceptButton = StartButton;
+			CancelButton = ExitButton;
 
 			LanguageCombo.Items.AddRange (Localization.LanguagesNames);
 			try
@@ -80,7 +82,7 @@ namespace RD_AAOW
 			if (File.Exists (Application.StartupPath + "\\" + ProgramDescription.AssemblyCodecsLibrary))
 				{
 				// Контроль совместимости
-				if (BatchImageConvertorLibrary.LibraryVersion != ProgramDescription.AssemblyVersion)
+				if (BatchImageConvertorLibrary.LibraryVersion != ProgramDescription.LibraryVersion)
 					{
 					MessageBox.Show (string.Format (Localization.GetText ("IncompatibleLibraryVersion", al),
 						ProgramDescription.AssemblyCodecsLibrary), ProgramDescription.AssemblyTitle,
@@ -104,15 +106,55 @@ namespace RD_AAOW
 					Palettes.Enabled = allowPalettes = true;
 					}
 				}
-			ImageTypeCombo.SelectedIndex = 0;
 
 			// Запрос сохранённых настроек
+			ImageTypeCombo.SelectedIndex = 0;
 			try
 				{
+				// Безопасные настройки
 				InputPath.Text = Registry.GetValue (ProgramDescription.AssemblySettingsKey, InputPath.Name, "").ToString ();
 				OutputPath.Text = Registry.GetValue (ProgramDescription.AssemblySettingsKey, OutputPath.Name, "").ToString ();
-				IncludeSubdirs.Checked =
-					(Registry.GetValue (ProgramDescription.AssemblySettingsKey, IncludeSubdirs.Name, "").ToString () != "0");
+				IncludeSubdirs.Checked = (Registry.GetValue (ProgramDescription.AssemblySettingsKey,
+					IncludeSubdirs.Name, "").ToString () != "0");
+
+				if (Registry.GetValue (ProgramDescription.AssemblySettingsKey, AbsoluteSize.Name, "").ToString () != "0")
+					AbsoluteSize.Checked = true;
+				if (Registry.GetValue (ProgramDescription.AssemblySettingsKey, RelativeCrop.Name, "").ToString () != "0")
+					RelativeCrop.Checked = true;
+				if (Registry.GetValue (ProgramDescription.AssemblySettingsKey, RelativeSize.Name, "").ToString () != "0")
+					RelativeSize.Checked = true;    // Стандартная
+
+				if (Registry.GetValue (ProgramDescription.AssemblySettingsKey, GreyscaleRadio.Name, "").ToString () != "0")
+					GreyscaleRadio.Checked = true;
+				if (Registry.GetValue (ProgramDescription.AssemblySettingsKey, BitmapRadio.Name, "").ToString () != "0")
+					BitmapRadio.Checked = true;
+				if (Registry.GetValue (ProgramDescription.AssemblySettingsKey, SaveColorsRadio.Name, "").ToString () != "0")
+					SaveColorsRadio.Checked = true; // Стандартная
+
+				// Сбросовые настройки
+				AbsoluteWidth.Value = decimal.Parse (Registry.GetValue (ProgramDescription.AssemblySettingsKey,
+					AbsoluteWidth.Name, "").ToString ());
+				AbsoluteHeight.Value = decimal.Parse (Registry.GetValue (ProgramDescription.AssemblySettingsKey,
+					AbsoluteHeight.Name, "").ToString ());
+				RelativeWidth.Value = decimal.Parse (Registry.GetValue (ProgramDescription.AssemblySettingsKey,
+					RelativeWidth.Name, "").ToString ());
+				RelativeHeight.Value = decimal.Parse (Registry.GetValue (ProgramDescription.AssemblySettingsKey,
+					RelativeHeight.Name, "").ToString ());
+				RelativeTop.Value = decimal.Parse (Registry.GetValue (ProgramDescription.AssemblySettingsKey,
+					RelativeTop.Name, "").ToString ());
+				RelativeLeft.Value = decimal.Parse (Registry.GetValue (ProgramDescription.AssemblySettingsKey,
+					RelativeLeft.Name, "").ToString ());
+
+				BitmapEdgeTrack.Value = int.Parse (Registry.GetValue (ProgramDescription.AssemblySettingsKey,
+					BitmapEdgeTrack.Name, "").ToString ());
+
+				RotationCombo.SelectedIndex = int.Parse (Registry.GetValue (ProgramDescription.AssemblySettingsKey,
+					RotationCombo.Name, "").ToString ());
+				FlipCombo.SelectedIndex = int.Parse (Registry.GetValue (ProgramDescription.AssemblySettingsKey,
+					FlipCombo.Name, "").ToString ());
+
+				ImageTypeCombo.SelectedIndex = int.Parse (Registry.GetValue (ProgramDescription.AssemblySettingsKey,
+					ImageTypeCombo.Name, "").ToString ());
 				}
 			catch
 				{
@@ -600,7 +642,46 @@ namespace RD_AAOW
 				{
 				Registry.SetValue (ProgramDescription.AssemblySettingsKey, InputPath.Name, InputPath.Text);
 				Registry.SetValue (ProgramDescription.AssemblySettingsKey, OutputPath.Name, OutputPath.Text);
-				Registry.SetValue (ProgramDescription.AssemblySettingsKey, IncludeSubdirs.Name, IncludeSubdirs.Checked ? "IDS" : "0");
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, IncludeSubdirs.Name,
+					IncludeSubdirs.Checked ? "ISD" : "0");
+
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, AbsoluteSize.Name,
+					AbsoluteSize.Checked ? "AS" : "0");
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, RelativeSize.Name,
+					RelativeSize.Checked ? "RS" : "0");
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, RelativeCrop.Name,
+					RelativeCrop.Checked ? "RC" : "0");
+
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, SaveColorsRadio.Name,
+					SaveColorsRadio.Checked ? "SC" : "0");
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, GreyscaleRadio.Name,
+					GreyscaleRadio.Checked ? "GS" : "0");
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, BitmapRadio.Name,
+					BitmapRadio.Checked ? "BM" : "0");
+
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, AbsoluteWidth.Name,
+					((int)AbsoluteWidth.Value).ToString ());
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, AbsoluteHeight.Name,
+					((int)AbsoluteHeight.Value).ToString ());
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, RelativeWidth.Name,
+					((int)RelativeWidth.Value).ToString ());
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, RelativeHeight.Name,
+					((int)RelativeHeight.Value).ToString ());
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, RelativeLeft.Name,
+					((int)RelativeLeft.Value).ToString ());
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, RelativeTop.Name,
+					((int)RelativeTop.Value).ToString ());
+
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, BitmapEdgeTrack.Name,
+					BitmapEdgeTrack.Value.ToString ());
+
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, RotationCombo.Name,
+					RotationCombo.SelectedIndex.ToString ());
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, FlipCombo.Name,
+					FlipCombo.SelectedIndex.ToString ());
+
+				Registry.SetValue (ProgramDescription.AssemblySettingsKey, ImageTypeCombo.Name,
+					ImageTypeCombo.SelectedIndex.ToString ());
 				}
 			catch
 				{
