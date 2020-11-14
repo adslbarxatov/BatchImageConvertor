@@ -11,9 +11,9 @@
 // Стандартное переопределение типов
 #include "..\\Generics\\CSTypes.h"
 
-#define BIC_VERSION					2,14,0,0
-#define BIC_VERSION_S				"2.14.0.0"
-#define BIC_PRODUCT					"Batch image convertor codecs library v 2.14"
+#define BIC_VERSION					2,15,0,0
+#define BIC_VERSION_S				"2.15.0.0"
+#define BIC_PRODUCT					"Batch image convertor codecs library v 2.15"
 #define BIC_COMPANY					"RD AAOW"
 
 #define BIC_API		extern __declspec(dllexport)
@@ -122,6 +122,9 @@ BIC_API sint BIC_CONV PBM_Save (schar *FileName, uint Width, uint Height, uchar 
 
 BIC_API sint BIC_CONV JP2_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
 BIC_API sint BIC_CONV JP2_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uchar CodecType);
+
+BIC_API sint BIC_CONV ICO_Load (schar* FileName, uint* Width, uint* Height, uchar** Buffer);
+BIC_API sint BIC_CONV ICO_Save (schar* FileName, uint Width, uint Height, uchar* Buffer);
 
 // Декларации для палитр (битность цветов может различаться)
 BIC_API sint BIC_CONV PCX_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);	// RGB

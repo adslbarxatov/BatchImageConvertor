@@ -7,34 +7,15 @@ using System.Runtime.InteropServices;
 namespace RD_AAOW
 	{
 	/// <summary>
-	/// Класс описывает кодек для изображений типа JPEG2000 image
+	/// Класс описывает кодек для иконок Windows
 	/// </summary>
-	public class JP2Codec: ICodec
+	public class ICOCodec: ICodec
 		{
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
-		private static extern Int16 JP2_Load (string FileName, out UInt16 Width, out UInt16 Height, out IntPtr Buffer);
-
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
-		private static extern Int16 JP2_Save (string FileName, UInt16 Width, UInt16 Height, byte[] Buffer, byte CodecType);
+		private static extern Int16 ICO_Load (string FileName, out UInt16 Width, out UInt16 Height, out IntPtr Buffer);
 
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
 		private static extern void BIC_ReleaseBuffer (IntPtr Buffer);
-
-		/// <summary>
-		/// Возможные типы изображений
-		/// </summary>
-		public enum ImageTypes
-			{
-			/// <summary>
-			/// JP2
-			/// </summary>
-			JP2 = 1,
-
-			/// <summary>
-			/// J2K
-			/// </summary>
-			J2K = 2
-			}
 
 		/// <summary>
 		/// Метод загружает указанное изображение и возвращает его в виде объекта Bitmap
@@ -47,7 +28,7 @@ namespace RD_AAOW
 			// Загрузка изображения
 			UInt16 width, height;
 			IntPtr buffer;
-			ProgramErrorCodes error = (ProgramErrorCodes)JP2_Load (FilePath, out width, out height, out buffer);
+			ProgramErrorCodes error = (ProgramErrorCodes)ICO_Load (FilePath, out width, out height, out buffer);
 
 			if (error != ProgramErrorCodes.EXEC_OK)
 				{
@@ -78,7 +59,7 @@ namespace RD_AAOW
 			}
 
 		/// <summary>
-		/// Метод сохраняет указанное изображение в требуемом формате
+		/// Метод сохраняет указанное изображение в требуемом формате (заглушка, не используется)
 		/// </summary>
 		/// <param name="Image">Сохраняемое изображение</param>
 		/// <param name="FilePath">Имя и путь к файлу изображения без расширения</param>
@@ -89,57 +70,7 @@ namespace RD_AAOW
 		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat, byte BitmapEdge,
 			object Parameters)
 			{
-			// Контроль
-			if ((Image == null) || (Parameters == null))
-				{
-				return ProgramErrorCodes.EXEC_INVALID_PARAMETERS;
-				}
-			ImageTypes imageType = (ImageTypes)Parameters;
-
-			// Контроль наличия файла (защита от перезаписи)
-			string fullPath = TestOutputFile (FilePath, Parameters);
-			if (fullPath == "")
-				{
-				return ProgramErrorCodes.EXEC_FILE_UNAVAILABLE;
-				}
-
-			// Подготовка параметров
-			byte[] array = new byte[Image.Width * Image.Height * 4];
-
-			for (int h = 0; h < Image.Height; h++)
-				{
-				for (int w = 0; w < Image.Width; w++)
-					{
-					Color c;
-					switch (ImageColorFormat)
-						{
-						case OutputImageColorFormat.Bitmap:
-							c = ColorTransition.ToBitmap (Image.GetPixel (w, h), BitmapEdge);
-							break;
-
-						case OutputImageColorFormat.Greyscale:
-							c = ColorTransition.ToGreyscale (Image.GetPixel (w, h));
-							break;
-
-						case OutputImageColorFormat.Color:
-						default:
-							c = Image.GetPixel (w, h);
-							break;
-						}
-
-					array[(h * Image.Width + w) * 4 + 0] = c.R;
-					array[(h * Image.Width + w) * 4 + 1] = c.G;
-					array[(h * Image.Width + w) * 4 + 2] = c.B;
-					array[(h * Image.Width + w) * 4 + 3] = c.A;
-					}
-				}
-
-			// Обращение
-			ProgramErrorCodes res = (ProgramErrorCodes)JP2_Save (fullPath, (UInt16)Image.Width, (UInt16)Image.Height, array, (byte)imageType);
-
-			// Инициирование очистки памяти
-			array = null;
-			return res;
+			return ProgramErrorCodes.EXEC_NOT_IMPLEMENTED;
 			}
 
 		/// <summary>
@@ -150,19 +81,8 @@ namespace RD_AAOW
 		/// <returns>Возвращает полное имя файла в случае допустимости записи</returns>
 		public string TestOutputFile (string FilePath, object Parameters)
 			{
-			// Контроль
-			if (Parameters == null)
-				{
-				return "";
-				}
-			ImageTypes imageType = (ImageTypes)Parameters;
-
-			// Подбор расширения
-			string fullPath = FilePath + ".jp2";
-			if (imageType == ImageTypes.J2K)
-				fullPath = FilePath + ".j2k";
-
 			// Контроль наличия файла (защита от перезаписи)
+			string fullPath = FilePath + FileExtensions[0].Substring (1);
 			if (File.Exists (fullPath))
 				{
 				return "";
@@ -177,10 +97,7 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new string[] {
-					"*.jp2",											// JP2 subformat
-					"*.j2c", "*.j2k", "*.jpc", "*.jpf", "*.jpx"			// J2K subformat
-					};
+				return new string[] { "*.ico" };
 				}
 			}
 		}

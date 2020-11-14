@@ -7,7 +7,7 @@ namespace RD_AAOW
 	/// <summary>
 	/// Класс описывает кодек для стандартных изображений, поддерживаемых платформой .NET
 	/// </summary>
-	public class GenericCodec:ICodec
+	public class GenericCodec: ICodec
 		{
 		/// <summary>
 		/// Метод загружает указанное изображение и возвращает его в виде объекта Bitmap
@@ -87,7 +87,7 @@ namespace RD_AAOW
 								}
 							else
 								{
-								img.SetPixel (w, h, Color.FromArgb (255, 255, 255));	// В этом преобразовании нужно уничтожить альфа-канал
+								img.SetPixel (w, h, Color.FromArgb (255, 255, 255));    // В этом преобразовании нужно уничтожить альфа-канал
 								}
 							}
 						}
@@ -158,13 +158,12 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new string[] { 
+				return new string[] {
 					"*.bmp", "*.dib", "*.rle",				// Bitmaps
-					"*.gif", 
-					"*.png", 
+					"*.gif",
+					"*.png",
 					"*.jpe*", /*"*.jpeg",*/ "*.jpg", "*.jfif",	// JPEGs
 					"*.tif*", /*"*.tiff",*/						// TIFFs
-					"*.ico"									// Как ни странно
 					};
 				}
 			}

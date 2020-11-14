@@ -93,6 +93,7 @@ namespace RD_AAOW
 					codecs.Add (new PBMCodec ());
 					codecs.Add (new TGACodec ());
 					codecs.Add (new PCXCodec ());
+					codecs.Add (new ICOCodec ());
 					//codecs.Add (new JP2Codec ());		// Декодеры нестабильны
 
 					//AddOutputCodec ("JP2", 5, JP2Codec.ImageTypes.JP2);	// Кодеры неисправны

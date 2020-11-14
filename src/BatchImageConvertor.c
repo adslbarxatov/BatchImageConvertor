@@ -5,6 +5,7 @@
 #include "PCX.h"
 #include "PBM.h"
 #include "JP2.h"
+#include "ICO.h"
 
 #include "ACT.h"
 #include "BMP.h"
@@ -158,6 +159,21 @@ BIC_API sint BIC_CONV JP2_Save (schar *FileName, uint Width, uint Height, uchar 
 	//return JP2_SaveImage (FileName, Width, Height, Buffer, CodecType);
 	
 	// Функция неисправна
+	return EXEC_NOT_IMPLEMENTED;
+	}
+
+// Интерфейсы для функций JPEG2000 (буфер в формате RGB)
+BIC_API sint BIC_CONV ICO_Load (schar* FileName, uint* Width, uint* Height, uchar** Buffer)
+	{
+	return ICO_LoadImage (FileName, Width, Height, Buffer);
+
+	// Функция неисправна
+	return EXEC_NOT_IMPLEMENTED;
+	}
+
+BIC_API sint BIC_CONV ICO_Save (schar* FileName, uint Width, uint Height, uchar* Buffer, uchar CodecType)
+	{
+	// Функция не используется
 	return EXEC_NOT_IMPLEMENTED;
 	}
 

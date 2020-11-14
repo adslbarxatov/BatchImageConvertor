@@ -1,5 +1,8 @@
 ﻿Batch image convertor changes log
 
+Version 2.15:
+• Replaced .ico file format codec; now it properly extracts largest icon image; .cur format may be added later
+
 Version 2.14.2:
 • Some code improvements applied;
 • All settings will be saved on exit from application and restored on next start;
