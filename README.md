@@ -1,5 +1,5 @@
-# BatchImageConvertor v 2.15.2
-> PCC: 0003B76FD169B0E5
+# BatchImageConvertor v 2.15.3
+> PCC: 0003B73D272B7DA7
 
 
 A tool for automatic images groups processing
@@ -35,13 +35,13 @@ Input file extension¹         Read         Write             Based on
 .tif, .tiff                    +             +                 .NET
 .jpe, .jpg, .jpeg, .jfif       +             +                 .NET
 .wmf, .emf                     +             -                 .NET
-.ico                           +             -                 .NET
 
 Supported by codec library²
 
 .tga, .vda, .icb, .vst         +             +             Xash3D engine
 .pcx, .pcc                     +             +               Own codec
 .pnm, .pbm, .pgm, .ppm         +             +               Own codec
+.ico                           +             -               Own codec
 
 - palettes formats
 

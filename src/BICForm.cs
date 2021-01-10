@@ -79,7 +79,7 @@ namespace RD_AAOW
 			AddOutputCodec ("TIFF", 0, ImageFormat.Tiff);
 
 			// Перечисление дополнительных кодеков
-			if (File.Exists (Application.StartupPath + "\\" + ProgramDescription.AssemblyCodecsLibrary))
+			if (File.Exists (AboutForm.AppStartupPath + ProgramDescription.AssemblyCodecsLibrary))
 				{
 				// Контроль совместимости
 				if (BatchImageConvertorLibrary.LibraryVersion != ProgramDescription.LibraryVersion)
