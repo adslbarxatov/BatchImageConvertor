@@ -1,4 +1,4 @@
-_Changes for v 2.16_:
+_Changes for v 2.16b_:
 - New identity applied;
 - New links to RD AAOW FDL added;
 - Added direct lab link;
