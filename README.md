@@ -1,5 +1,5 @@
-# BatchImageConvertor v 2.16b
-> PCC: 0004B8805BAC9D70
+# BatchImageConvertor v 2.16.1
+> PCC: 0004B8814A29AC11
 
 
 A tool for batch images processing

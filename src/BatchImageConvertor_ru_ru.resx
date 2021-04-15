@@ -124,25 +124,25 @@
     <value>Альфа-канал</value>
   </data>
   <data name="BCancel" xml:space="preserve">
-    <value>Отмена</value>
+    <value>О&amp;тмена</value>
   </data>
   <data name="BExit" xml:space="preserve">
-    <value>Выход</value>
+    <value>В&amp;ыход</value>
   </data>
   <data name="BitmapRadioText" xml:space="preserve">
     <value>Только чёрный и белый</value>
   </data>
   <data name="BLoad" xml:space="preserve">
-    <value>Загрузить...</value>
+    <value>&amp;Загрузить...</value>
   </data>
   <data name="BReplace" xml:space="preserve">
-    <value>Заменить...</value>
+    <value>За&amp;менить...</value>
   </data>
   <data name="BSave" xml:space="preserve">
-    <value>Сохранить...</value>
+    <value>&amp;Сохранить...</value>
   </data>
   <data name="BStart" xml:space="preserve">
-    <value>4. Начать преобразование</value>
+    <value>4. &amp;Начать преобразование</value>
   </data>
   <data name="ChangePaletteDialogTitle" xml:space="preserve">
     <value>Укажите файл для замены палитры</value>
@@ -196,7 +196,7 @@
     <value>Оттенки серого</value>
   </data>
   <data name="IncludeSubdirsText" xml:space="preserve">
-    <value>Включая подпапки</value>
+    <value>Включая по&amp;дпапки</value>
   </data>
   <data name="IncorrectAlpha" xml:space="preserve">
     <value>Введённое значение альфа-канала некорректно. Допустимые значения – между 0 и 255 (включительно)</value>
@@ -211,7 +211,7 @@
     <value>Указанная директория с исходными изображениями недоступна</value>
   </data>
   <data name="InputSectionText" xml:space="preserve">
-    <value>1. Выберите директорию с исходными изображениями:</value>
+    <value>1. Выберите директорию с &amp;исходными изображениями:</value>
   </data>
   <data name="NotEnoughMemory" xml:space="preserve">
     <value>недостаточно памяти для обработки</value>
@@ -232,10 +232,10 @@
     <value>не удалось сохранить файл, т.к. файл или конечная директория недоступны для записи</value>
   </data>
   <data name="OutputSectionText" xml:space="preserve">
-    <value>3. Укажите директорию для преобразованных изображений и их тип:</value>
+    <value>3. Укажите директорию для &amp;преобразованных изображений и их тип:</value>
   </data>
   <data name="PalettesManager" xml:space="preserve">
-    <value>Менеджер палитр</value>
+    <value>&amp;Менеджер палитр</value>
   </data>
   <data name="PalettesNotFound" xml:space="preserve">
     <value>файл не содержит палитр</value>
@@ -244,7 +244,7 @@
     <value>Формирование списка изображений для обработки...</value>
   </data>
   <data name="ProcessingSectionText" xml:space="preserve">
-    <value>2. Задайте параметры преобразования:</value>
+    <value>2. &amp;Задайте параметры преобразования:</value>
   </data>
   <data name="ProcessingText" xml:space="preserve">
     <value>Обрабатывается:
@@ -294,5 +294,8 @@
   </data>
   <data name="CropCenterText" xml:space="preserve">
     <value>Центр</value>
+  </data>
+  <data name="BOK" xml:space="preserve">
+    <value>&amp;ОК</value>
   </data>
 </root>

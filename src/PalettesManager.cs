@@ -37,7 +37,7 @@ namespace RD_AAOW
 			al = InterfaceLanguage;
 
 			// Настройка контролов
-			this.Text = Localization.GetText ("PalettesManager", al);
+			this.Text = Localization.GetText ("PalettesManager", al).Replace ("&", "");
 
 			OFDialog.Title = Localization.GetText ("OpenPaletteDialogTitle", al);
 			SFDialog.Title = Localization.GetText ("SavePaletteDialogTitle", al);
@@ -75,6 +75,7 @@ namespace RD_AAOW
 			ExitButton.Text = Localization.GetText ("BExit", al);
 			Label01.Text = Localization.GetText ("OpacityLabel", al);
 			AbortAlpha.Text = Localization.GetText ("BCancel", al);
+			ApplyAlpha.Text = Localization.GetText ("BOK", al);
 
 			LoadPalette.Text = Localization.GetText ("BLoad", al);
 			SavePalette.Text = Localization.GetText ("BSave", al);
