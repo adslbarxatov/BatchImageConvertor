@@ -64,7 +64,7 @@ namespace RD_AAOW
 			AbsoluteWidth.Maximum = AbsoluteHeight.Maximum = ProgramDescription.MaxLinearSize;
 			RelativeWidth.Minimum = RelativeHeight.Minimum = 1;
 			RelativeLeft.Minimum = RelativeTop.Minimum = 0;
-			RelativeWidth.Maximum = RelativeHeight.Maximum = 100;
+			//RelativeWidth.Maximum = RelativeHeight.Maximum = 100;	// Определяется далее
 			RelativeLeft.Maximum = RelativeTop.Maximum = 99;
 			AbsoluteSize_CheckedChanged (null, null);
 
@@ -357,7 +357,8 @@ namespace RD_AAOW
 					currentImage++;
 
 					((BackgroundWorker)sender).ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
-						totalImages), string.Format (Localization.GetText ("ProcessingText", al), Path.GetFileName (fileNames[c][n])));
+						totalImages), string.Format (Localization.GetText ("ProcessingText", al),
+						Path.GetFileName (fileNames[c][n])));
 
 					// Завершение работы, если получено требование от диалога (в том числе - на этапе сборки списка)
 					if (((BackgroundWorker)sender).CancellationPending || e.Cancel)
@@ -566,6 +567,8 @@ namespace RD_AAOW
 			AbsoluteWidth.Enabled = AbsoluteHeight.Enabled = Label07.Enabled = AbsoluteSize.Checked;
 			RelativeWidth.Enabled = RelativeHeight.Enabled = Label06.Enabled = (RelativeSize.Checked || RelativeCrop.Checked);
 			RelativeLeft.Enabled = RelativeTop.Enabled = Label08.Enabled = CropCenter.Enabled = RelativeCrop.Checked;
+
+			RelativeWidth.Maximum = RelativeHeight.Maximum = RelativeSize.Checked ? 400 : 100;
 			}
 
 		// Установка порога яркости для чёрно-белого преобразования
