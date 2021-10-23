@@ -12,7 +12,7 @@ namespace RD_AAOW
 	/// <summary>
 	/// Начальная форма программы
 	/// </summary>
-	public partial class BICForm: Form
+	public partial class BICForm:Form
 		{
 		// Переменные
 		private List<ICodec> codecs = new List<ICodec> ();          // Списки обработчиков изображений
@@ -232,7 +232,7 @@ namespace RD_AAOW
 			SetInterfaceState (false);
 
 			// Запуск
-			HardWorkExecutor hwe = new HardWorkExecutor (MasterImageProcessor);
+			HardWorkExecutor hwe = new HardWorkExecutor (MasterImageProcessor, null, " ", true, true);
 
 			// Завершение
 			ResultsList.Items.AddRange (messages.ToArray ());
