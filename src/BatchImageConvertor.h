@@ -13,8 +13,8 @@
 
 #define BIC_VERSION					2,18,0,0
 #define BIC_VERSION_S				"2.18.0.0"
-#define BIC_PRODUCT					"Batch image convertor codecs library v 2.18"
-#define BIC_COMPANY					"RD AAOW Free development lab"
+#define BIC_PRODUCT					"Batch image convertor codecs library"
+#define BIC_COMPANY					FDL_COMPANY
 
 #define BIC_API		extern __declspec(dllexport)
 #define BIC_CONV	__stdcall
