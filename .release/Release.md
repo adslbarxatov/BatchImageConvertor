@@ -1,3 +1,2 @@
-_Changes for v 2.18.3_:
-- App got the scalable icon and the digital signature (only self-signed for now);
-- Applied some updates for core assemblies
+_Changes for v 2.18.37_:
+- Implemented the updates downloading directly from the “About the app” interface. This function requires DPModule. It allows you to download DPModule if it was not previously installed
