@@ -1,4 +1,4 @@
-_Changes for v 2.19_:
-- Parsing methods for ADP and projects descriptions have been upgraded;
-- Current updates and improvements applied;
-- Implemented the updates downloading directly from the “About the app” interface. This function requires DPModule. It allows you to download DPModule if it was not previously installed
+_Changes for v 2.19.142_:
+- Rebuilding the app for the MSVC RTL 142 (2015 – 2022);
+- Current improvements and updates applied;
+- Parsing methods for ADP and projects descriptions have been upgraded

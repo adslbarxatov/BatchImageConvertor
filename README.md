@@ -1,5 +1,5 @@
-# BatchImageConvertor v 2.19
-> PCC: 00057891368FEB85
+# BatchImageConvertor v 2.19.142
+> PCC: 00059BB27364E62F
 
 
 A tool for batch images processing
@@ -70,7 +70,7 @@ Supported by codec library²
 
 - Windows XP or newer / или новее;
 - [Microsoft .NET Framework 4.0](https://microsoft.com/en-us/download/details.aspx?id=17718);
-- [Microsoft VC++ 2010 redistributables](https://microsoft.com/en-us/download/details.aspx?id=26999).
+- [Microsoft Visual C++ 2015 – 2022 redistributable](https://aka.ms/vs/17/release/vc_redist.x86.exe).
 
 Interface languages / языки интерфейса: ru_ru, en_us.
 

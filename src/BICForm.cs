@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -113,27 +112,63 @@ namespace RD_AAOW
 			try
 				{
 				// Безопасные настройки
-				InputPath.Text = Registry.GetValue (RDGenerics.AssemblySettingsKey, InputPath.Name, "").ToString ();
+				/*InputPath.Text = Registry.GetValue (RDGenerics.AssemblySettingsKey, InputPath.Name, "").ToString ();
 				OutputPath.Text = Registry.GetValue (RDGenerics.AssemblySettingsKey, OutputPath.Name, "").ToString ();
 				IncludeSubdirs.Checked = (Registry.GetValue (RDGenerics.AssemblySettingsKey,
-					IncludeSubdirs.Name, "").ToString () != "0");
+					IncludeSubdirs.Name, "").ToString () != "0");*/
 
-				if (Registry.GetValue (RDGenerics.AssemblySettingsKey, AbsoluteSize.Name, "").ToString () != "0")
+				InputPath.Text = RDGenerics.GetAppSettingsValue (InputPath.Name);
+				OutputPath.Text = RDGenerics.GetAppSettingsValue (OutputPath.Name);
+				IncludeSubdirs.Checked = RDGenerics.GetAppSettingsValue (IncludeSubdirs.Name) != "0";
+
+				/*if (Registry.GetValue (RDGenerics.AssemblySettingsKey, AbsoluteSize.Name, "").ToString () != "0")
 					AbsoluteSize.Checked = true;
 				if (Registry.GetValue (RDGenerics.AssemblySettingsKey, RelativeCrop.Name, "").ToString () != "0")
 					RelativeCrop.Checked = true;
 				if (Registry.GetValue (RDGenerics.AssemblySettingsKey, RelativeSize.Name, "").ToString () != "0")
-					RelativeSize.Checked = true;    // Стандартная
+					RelativeSize.Checked = true;    // Стандартная */
 
-				if (Registry.GetValue (RDGenerics.AssemblySettingsKey, GreyscaleRadio.Name, "").ToString () != "0")
+				switch (RDGenerics.GetAppSettingsValue (AbsoluteSize.Name))
+					{
+					default:
+					case "0":
+						RelativeSize.Checked = true;
+						break;
+
+					case "1":
+						RelativeCrop.Checked = true;
+						break;
+
+					case "2":
+						AbsoluteSize.Checked = true;
+						break;
+					}
+
+				/*if (Registry.GetValue (RDGenerics.AssemblySettingsKey, GreyscaleRadio.Name, "").ToString () != "0")
 					GreyscaleRadio.Checked = true;
 				if (Registry.GetValue (RDGenerics.AssemblySettingsKey, BitmapRadio.Name, "").ToString () != "0")
 					BitmapRadio.Checked = true;
 				if (Registry.GetValue (RDGenerics.AssemblySettingsKey, SaveColorsRadio.Name, "").ToString () != "0")
-					SaveColorsRadio.Checked = true; // Стандартная
+					SaveColorsRadio.Checked = true; // Стандартная */
+
+				switch (RDGenerics.GetAppSettingsValue (GreyscaleRadio.Name))
+					{
+					default:
+					case "0":
+						SaveColorsRadio.Checked = true;
+						break;
+
+					case "1":
+						BitmapRadio.Checked = true;
+						break;
+
+					case "2":
+						GreyscaleRadio.Checked = true;
+						break;
+					}
 
 				// Сбросовые настройки
-				AbsoluteWidth.Value = decimal.Parse (Registry.GetValue (RDGenerics.AssemblySettingsKey,
+				/*AbsoluteWidth.Value = decimal.Parse (Registry.GetValue (RDGenerics.AssemblySettingsKey,
 					AbsoluteWidth.Name, "").ToString ());
 				AbsoluteHeight.Value = decimal.Parse (Registry.GetValue (RDGenerics.AssemblySettingsKey,
 					AbsoluteHeight.Name, "").ToString ());
@@ -144,9 +179,16 @@ namespace RD_AAOW
 				RelativeTop.Value = decimal.Parse (Registry.GetValue (RDGenerics.AssemblySettingsKey,
 					RelativeTop.Name, "").ToString ());
 				RelativeLeft.Value = decimal.Parse (Registry.GetValue (RDGenerics.AssemblySettingsKey,
-					RelativeLeft.Name, "").ToString ());
+					RelativeLeft.Name, "").ToString ());*/
 
-				BitmapEdgeTrack.Value = int.Parse (Registry.GetValue (RDGenerics.AssemblySettingsKey,
+				AbsoluteWidth.Value = decimal.Parse (RDGenerics.GetAppSettingsValue (AbsoluteWidth.Name));
+				AbsoluteHeight.Value = decimal.Parse (RDGenerics.GetAppSettingsValue (AbsoluteHeight.Name));
+				RelativeWidth.Value = decimal.Parse (RDGenerics.GetAppSettingsValue (RelativeWidth.Name));
+				RelativeHeight.Value = decimal.Parse (RDGenerics.GetAppSettingsValue (RelativeHeight.Name));
+				RelativeTop.Value = decimal.Parse (RDGenerics.GetAppSettingsValue (RelativeTop.Name));
+				RelativeLeft.Value = decimal.Parse (RDGenerics.GetAppSettingsValue (RelativeLeft.Name));
+
+				/*BitmapEdgeTrack.Value = int.Parse (Registry.GetValue (RDGenerics.AssemblySettingsKey,
 					BitmapEdgeTrack.Name, "").ToString ());
 
 				RotationCombo.SelectedIndex = int.Parse (Registry.GetValue (RDGenerics.AssemblySettingsKey,
@@ -155,7 +197,12 @@ namespace RD_AAOW
 					FlipCombo.Name, "").ToString ());
 
 				ImageTypeCombo.SelectedIndex = int.Parse (Registry.GetValue (RDGenerics.AssemblySettingsKey,
-					ImageTypeCombo.Name, "").ToString ());
+					ImageTypeCombo.Name, "").ToString ());*/
+
+				BitmapEdgeTrack.Value = int.Parse (RDGenerics.GetAppSettingsValue (BitmapEdgeTrack.Name));
+				RotationCombo.SelectedIndex = int.Parse (RDGenerics.GetAppSettingsValue (RotationCombo.Name));
+				FlipCombo.SelectedIndex = int.Parse (RDGenerics.GetAppSettingsValue (FlipCombo.Name));
+				ImageTypeCombo.SelectedIndex = int.Parse (RDGenerics.GetAppSettingsValue (ImageTypeCombo.Name));
 				}
 			catch
 				{
@@ -644,48 +691,47 @@ namespace RD_AAOW
 			{
 			try
 				{
-				Registry.SetValue (RDGenerics.AssemblySettingsKey, InputPath.Name, InputPath.Text);
-				Registry.SetValue (RDGenerics.AssemblySettingsKey, OutputPath.Name, OutputPath.Text);
-				Registry.SetValue (RDGenerics.AssemblySettingsKey, IncludeSubdirs.Name,
-					IncludeSubdirs.Checked ? "ISD" : "0");
+				RDGenerics.SetAppSettingsValue (InputPath.Name, InputPath.Text);
+				RDGenerics.SetAppSettingsValue (OutputPath.Name, OutputPath.Text);
+				RDGenerics.SetAppSettingsValue (IncludeSubdirs.Name, IncludeSubdirs.Checked ? "ISD" : "0");
 
-				Registry.SetValue (RDGenerics.AssemblySettingsKey, AbsoluteSize.Name,
+				/*Registry.SetValue (RDGenerics.AssemblySettingsKey, AbsoluteSize.Name,
 					AbsoluteSize.Checked ? "AS" : "0");
 				Registry.SetValue (RDGenerics.AssemblySettingsKey, RelativeSize.Name,
 					RelativeSize.Checked ? "RS" : "0");
 				Registry.SetValue (RDGenerics.AssemblySettingsKey, RelativeCrop.Name,
-					RelativeCrop.Checked ? "RC" : "0");
+					RelativeCrop.Checked ? "RC" : "0");*/
+				if (RelativeCrop.Checked)
+					RDGenerics.SetAppSettingsValue (AbsoluteSize.Name, "1");
+				else if (AbsoluteSize.Checked)
+					RDGenerics.SetAppSettingsValue (AbsoluteSize.Name, "2");
+				else
+					RDGenerics.SetAppSettingsValue (AbsoluteSize.Name, "0");
 
-				Registry.SetValue (RDGenerics.AssemblySettingsKey, SaveColorsRadio.Name,
+				/*Registry.SetValue (RDGenerics.AssemblySettingsKey, SaveColorsRadio.Name,
 					SaveColorsRadio.Checked ? "SC" : "0");
 				Registry.SetValue (RDGenerics.AssemblySettingsKey, GreyscaleRadio.Name,
 					GreyscaleRadio.Checked ? "GS" : "0");
 				Registry.SetValue (RDGenerics.AssemblySettingsKey, BitmapRadio.Name,
-					BitmapRadio.Checked ? "BM" : "0");
+					BitmapRadio.Checked ? "BM" : "0");*/
+				if (GreyscaleRadio.Checked)
+					RDGenerics.SetAppSettingsValue (GreyscaleRadio.Name, "2");
+				else if (BitmapRadio.Checked)
+					RDGenerics.SetAppSettingsValue (GreyscaleRadio.Name, "1");
+				else
+					RDGenerics.SetAppSettingsValue (GreyscaleRadio.Name, "0");
 
-				Registry.SetValue (RDGenerics.AssemblySettingsKey, AbsoluteWidth.Name,
-					((int)AbsoluteWidth.Value).ToString ());
-				Registry.SetValue (RDGenerics.AssemblySettingsKey, AbsoluteHeight.Name,
-					((int)AbsoluteHeight.Value).ToString ());
-				Registry.SetValue (RDGenerics.AssemblySettingsKey, RelativeWidth.Name,
-					((int)RelativeWidth.Value).ToString ());
-				Registry.SetValue (RDGenerics.AssemblySettingsKey, RelativeHeight.Name,
-					((int)RelativeHeight.Value).ToString ());
-				Registry.SetValue (RDGenerics.AssemblySettingsKey, RelativeLeft.Name,
-					((int)RelativeLeft.Value).ToString ());
-				Registry.SetValue (RDGenerics.AssemblySettingsKey, RelativeTop.Name,
-					((int)RelativeTop.Value).ToString ());
+				RDGenerics.SetAppSettingsValue (AbsoluteWidth.Name, ((int)AbsoluteWidth.Value).ToString ());
+				RDGenerics.SetAppSettingsValue (AbsoluteHeight.Name, ((int)AbsoluteHeight.Value).ToString ());
+				RDGenerics.SetAppSettingsValue (RelativeWidth.Name, ((int)RelativeWidth.Value).ToString ());
+				RDGenerics.SetAppSettingsValue (RelativeHeight.Name, ((int)RelativeHeight.Value).ToString ());
+				RDGenerics.SetAppSettingsValue (RelativeLeft.Name, ((int)RelativeLeft.Value).ToString ());
+				RDGenerics.SetAppSettingsValue (RelativeTop.Name, ((int)RelativeTop.Value).ToString ());
 
-				Registry.SetValue (RDGenerics.AssemblySettingsKey, BitmapEdgeTrack.Name,
-					BitmapEdgeTrack.Value.ToString ());
-
-				Registry.SetValue (RDGenerics.AssemblySettingsKey, RotationCombo.Name,
-					RotationCombo.SelectedIndex.ToString ());
-				Registry.SetValue (RDGenerics.AssemblySettingsKey, FlipCombo.Name,
-					FlipCombo.SelectedIndex.ToString ());
-
-				Registry.SetValue (RDGenerics.AssemblySettingsKey, ImageTypeCombo.Name,
-					ImageTypeCombo.SelectedIndex.ToString ());
+				RDGenerics.SetAppSettingsValue (BitmapEdgeTrack.Name, BitmapEdgeTrack.Value.ToString ());
+				RDGenerics.SetAppSettingsValue (RotationCombo.Name, RotationCombo.SelectedIndex.ToString ());
+				RDGenerics.SetAppSettingsValue (FlipCombo.Name, FlipCombo.SelectedIndex.ToString ());
+				RDGenerics.SetAppSettingsValue (ImageTypeCombo.Name, ImageTypeCombo.SelectedIndex.ToString ());
 				}
 			catch { }
 			}
