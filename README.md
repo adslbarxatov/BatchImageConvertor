@@ -11,13 +11,13 @@ A tool for batch images processing
 
 This tool allows you to convert group of image files (including different formats) into
 a single format. If it is necessary, you can specify uniform size or cropping method,
-rotation, flip direction and images mode (color/greyscale/bitmap).
+rotation, flip direction and images mode (color / greyscale / bitmap).
 
 #
 
 Инструмент позволяет преобразовывать группы изображений разных форматов в единый формат
 и применять к каждому из них нужные настройки: размер или обрезку, поворот/отражение,
-цветовой режим (цветное/оттенки серого/чёрно-белое).
+цветовой режим (цветное / оттенки серого / чёрно-белое).
 
 &nbsp;
 
@@ -78,7 +78,7 @@ Interface languages / языки интерфейса: ru_ru, en_us.
 
 
 
-## [Development policy and EULA / Политика разработки и EULA](https://adslbarxatov.github.io/ADP)
+## [Development policy and EULA](https://adslbarxatov.github.io/ADP) / [Политика разработки и EULA](https://adslbarxatov.github.io/ADP/ru)
 
 This Policy (ADP), its positions, conclusion, EULA and application methods
 describes general rules that we follow in all of our development processes, released applications and implemented ideas.
