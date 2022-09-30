@@ -9,8 +9,8 @@
 // —тандартное переопределение типов
 #include "..\\Generics\\CSTypes.h"
 
-#define BIC_VERSION					2,19,243,0
-#define BIC_VERSION_S				"2.19.243.0"
+#define BIC_VERSION					3,0,243,0
+#define BIC_VERSION_S				"3.0.243.0"
 #define BIC_PRODUCT					"Codecs library for Batch image convertor"
 #define BIC_COMPANY					FDL_COMPANY
 
