@@ -14,13 +14,14 @@ uchar IsBitsPerPixelValueValid (uint Value)
 		{
 		return 1;
 		}
+
 	return 0;
 	}
 
 // Функция загружает палитру из файла BMP (можно расширить до загрузки изображения)
 sint BMP_PaletteExchange (schar *FileName, union RGBA_Color **Palette, uint *ColorsCount, uchar SetPalette)
 	{
-		// Переменные
+	// Переменные
 	union BMPHeader bmph;			// Заголовок файла
 	union BMPInfoVCore infoVCore;	// Структуры-описатели
 	union BMPInfoV3 infoV3;

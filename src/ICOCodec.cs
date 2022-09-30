@@ -67,8 +67,8 @@ namespace RD_AAOW
 		/// <param name="ImageColorFormat">Цветовое представление выходного изображения</param>
 		/// <param name="BitmapEdge">Порог яркости для чёрно-белого преобразования</param>
 		/// <returns>Возвращает true в случае успеха</returns>
-		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat, byte BitmapEdge,
-			object Parameters)
+		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat,
+			byte BitmapEdge, object Parameters)
 			{
 			return ProgramErrorCodes.EXEC_NOT_IMPLEMENTED;
 			}
@@ -84,9 +84,8 @@ namespace RD_AAOW
 			// Контроль наличия файла (защита от перезаписи)
 			string fullPath = FilePath + FileExtensions[0].Substring (1);
 			if (File.Exists (fullPath))
-				{
 				return "";
-				}
+
 			return fullPath;
 			}
 

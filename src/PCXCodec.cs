@@ -10,7 +10,7 @@ namespace RD_AAOW
 	/// <summary>
 	/// Класс описывает кодек для изображений типа ZSoft Paintbrush image
 	/// </summary>
-	public class PCXCodec:ICodec, IPaletteCodec
+	public class PCXCodec: ICodec, IPaletteCodec
 		{
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
 		private static extern Int16 PCX_Load (string FileName, out UInt16 Width, out UInt16 Height, out IntPtr Buffer);
@@ -19,10 +19,12 @@ namespace RD_AAOW
 		private static extern Int16 PCX_Save (string FileName, UInt16 Width, UInt16 Height, byte[] Buffer);
 
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
-		private static extern Int16 PCX_LoadPalette (string FileName, out IntPtr Buffer, out UInt16 ColorsCount);	// RGB
+		private static extern Int16 PCX_LoadPalette (string FileName, out IntPtr Buffer, out UInt16 ColorsCount);
+		// RGB
 
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
-		private static extern Int16 PCX_SavePalette (string FileName, byte[] Buffer, UInt16 ColorsCount);			// RGB
+		private static extern Int16 PCX_SavePalette (string FileName, byte[] Buffer, UInt16 ColorsCount);
+		// RGB
 
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
 		private static extern void BIC_ReleaseBuffer (IntPtr Buffer);
@@ -64,7 +66,7 @@ namespace RD_AAOW
 				}
 
 			// Завершено
-			BIC_ReleaseBuffer (buffer);			// Давно пора!
+			BIC_ReleaseBuffer (buffer);         // Давно пора!
 			return ProgramErrorCodes.EXEC_OK;
 			}
 
@@ -77,21 +79,17 @@ namespace RD_AAOW
 		/// <param name="ImageColorFormat">Цветовое представление выходного изображения</param>
 		/// <param name="BitmapEdge">Порог яркости для чёрно-белого преобразования</param>
 		/// <returns>Возвращает true в случае успеха</returns>
-		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat, byte BitmapEdge,
-			object Parameters)
+		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat,
+			byte BitmapEdge, object Parameters)
 			{
 			// Контроль (блок параметров не используется)
 			if (Image == null)
-				{
 				return ProgramErrorCodes.EXEC_INVALID_PARAMETERS;
-				}
 
 			// Контроль наличия файла (защита от перезаписи)
 			string fullPath = TestOutputFile (FilePath, Parameters);
 			if (fullPath == "")
-				{
 				return ProgramErrorCodes.EXEC_FILE_UNAVAILABLE;
-				}
 
 			// Подготовка параметров
 			byte[] array = new byte[Image.Width * Image.Height * 3];
@@ -124,11 +122,11 @@ namespace RD_AAOW
 				}
 
 			// Обращение
-			ProgramErrorCodes res = (ProgramErrorCodes)PCX_Save (fullPath, (UInt16)Image.Width, (UInt16)Image.Height, array);
+			ProgramErrorCodes res = (ProgramErrorCodes)PCX_Save (fullPath, (UInt16)Image.Width,
+				(UInt16)Image.Height, array);
 
 			// Инициирование очистки памяти
 			array = null;
-			//GC.Collect ();
 			return res;
 			}
 
@@ -142,9 +140,8 @@ namespace RD_AAOW
 			{
 			string fullPath = FilePath + FileExtensions[0].Substring (1);
 			if (File.Exists (fullPath))
-				{
 				return "";
-				}
+
 			return fullPath;
 			}
 
@@ -174,9 +171,7 @@ namespace RD_AAOW
 			ProgramErrorCodes error = (ProgramErrorCodes)PCX_LoadPalette (FilePath, out buffer, out colorsCount);
 
 			if (error != ProgramErrorCodes.EXEC_OK)
-				{
 				return error;
-				}
 
 			// Извлечение массива данных и сборка изображения
 			unsafe
@@ -203,9 +198,7 @@ namespace RD_AAOW
 			{
 			// Контроль (блок параметров не используется)
 			if ((Palette == null) || (Palette.Count == 0) || (Palette.Count > MaxColors))
-				{
 				return ProgramErrorCodes.EXEC_INVALID_PARAMETERS;
-				}
 
 			// Подготовка параметров
 			byte[] array = new byte[Palette.Count * 3];

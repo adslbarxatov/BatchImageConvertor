@@ -52,17 +52,13 @@ namespace RD_AAOW
 			{
 			// Контроль
 			if ((Image == null) || (Parameters == null))
-				{
 				return ProgramErrorCodes.EXEC_INVALID_PARAMETERS;
-				}
 			ImageFormat imageType = (ImageFormat)Parameters;
 
 			// Контроль наличия файла (защита от перезаписи)
 			string fullPath = TestOutputFile (FilePath, Parameters);
 			if (fullPath == "")
-				{
 				return ProgramErrorCodes.EXEC_FILE_UNAVAILABLE;
-				}
 
 			// Перегонка
 			Bitmap img = new Bitmap (Image);
@@ -127,9 +123,7 @@ namespace RD_AAOW
 			{
 			// Контроль
 			if (Parameters == null)
-				{
 				return "";
-				}
 			ImageFormat imageType = (ImageFormat)Parameters;
 
 			// Подбор расширения
@@ -145,9 +139,8 @@ namespace RD_AAOW
 
 			// Контроль наличия файла (защита от перезаписи)
 			if (File.Exists (fullPath))
-				{
 				return "";
-				}
+
 			return fullPath;
 			}
 

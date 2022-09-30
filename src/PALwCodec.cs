@@ -9,13 +9,15 @@ namespace RD_AAOW
 	/// <summary>
 	/// Класс описывает кодек для палитр типа Microsoft Palette
 	/// </summary>
-	public class PALwCodec:IPaletteCodec
+	public class PALwCodec: IPaletteCodec
 		{
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
-		private static extern Int16 PALw_LoadPalette (string FileName, out IntPtr Buffer, out UInt16 ColorsCount);	// RGBA
+		private static extern Int16 PALw_LoadPalette (string FileName, out IntPtr Buffer, out UInt16 ColorsCount);
+		// RGBA
 
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
-		private static extern Int16 PALw_SavePalette (string FileName, byte[] Buffer, UInt16 ColorsCount);			// RGBA
+		private static extern Int16 PALw_SavePalette (string FileName, byte[] Buffer, UInt16 ColorsCount);
+		// RGBA
 
 		/// <summary>
 		/// Метод загружает указанную палитру и возвращает его в виде объекта List of Color
@@ -32,9 +34,7 @@ namespace RD_AAOW
 			ProgramErrorCodes error = (ProgramErrorCodes)PALw_LoadPalette (FilePath, out buffer, out colorsCount);
 
 			if (error != ProgramErrorCodes.EXEC_OK)
-				{
 				return error;
-				}
 
 			// Извлечение массива данных и сборка изображения
 			unsafe
@@ -61,9 +61,7 @@ namespace RD_AAOW
 			{
 			// Контроль (блок параметров не используется)
 			if ((Palette == null) || (Palette.Count == 0) || (Palette.Count > MaxColors))
-				{
 				return ProgramErrorCodes.EXEC_INVALID_PARAMETERS;
-				}
 
 			// Подготовка параметров
 			byte[] array = new byte[Palette.Count * 4];
@@ -73,7 +71,7 @@ namespace RD_AAOW
 				array[c * 4 + 0] = Palette[c].R;
 				array[c * 4 + 1] = Palette[c].G;
 				array[c * 4 + 2] = Palette[c].B;
-				array[c * 4 + 3] = 0;	// В этом формате это не альфа-канал
+				array[c * 4 + 3] = 0;   // В этом формате это не альфа-канал
 				}
 
 			// Обращение

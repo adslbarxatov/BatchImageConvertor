@@ -36,7 +36,7 @@ namespace RD_AAOW
 		{
 		// Внешние функции
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
-		private static extern string BIC_GetLibVersion ();
+		private static extern IntPtr BIC_GetLibVersion ();
 
 		/// <summary>
 		/// Возвращает версию библиотеки кодеков
@@ -45,7 +45,7 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return BIC_GetLibVersion ();
+				return Marshal.PtrToStringAnsi (BIC_GetLibVersion ());
 				}
 			}
 		}

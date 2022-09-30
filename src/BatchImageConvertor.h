@@ -9,13 +9,12 @@
 // Стандартное переопределение типов
 #include "..\\Generics\\CSTypes.h"
 
-#define BIC_VERSION					2,19,142,0
-#define BIC_VERSION_S				"2.19.142.0"
+#define BIC_VERSION					2,19,243,0
+#define BIC_VERSION_S				"2.19.243.0"
 #define BIC_PRODUCT					"Codecs library for Batch image convertor"
 #define BIC_COMPANY					FDL_COMPANY
 
 #define BIC_API		extern __declspec(dllexport)
-#define BIC_CONV	__stdcall
 
 // Максимальные размеры входных изображений
 #define IMAGE_MAXWIDTH			(1 << 14)
@@ -105,43 +104,43 @@ uint LEBE_i (uint Value);
 ulong LEBE_l (ulong Value);
 
 // Общие декларации
-BIC_API void BIC_CONV BIC_ReleaseBuffer (uchar *Buffer);
-BIC_API schar* BIC_CONV BIC_GetLibVersion ();
+BIC_API void BIC_ReleaseBuffer (uchar *Buffer);
+BIC_API schar* BIC_GetLibVersion ();
 
 // Декларации (все функции работают с изображениями в формате RGBA32)
-BIC_API sint BIC_CONV TGA_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
-BIC_API sint BIC_CONV TGA_Save (schar *FileName, uint Width, uint Height, uchar *Buffer);
+BIC_API sint TGA_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
+BIC_API sint TGA_Save (schar *FileName, uint Width, uint Height, uchar *Buffer);
 
-BIC_API sint BIC_CONV PCX_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
-BIC_API sint BIC_CONV PCX_Save (schar *FileName, uint Width, uint Height, uchar *Buffer);
+BIC_API sint PCX_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
+BIC_API sint PCX_Save (schar *FileName, uint Width, uint Height, uchar *Buffer);
 
-BIC_API sint BIC_CONV PBM_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
-BIC_API sint BIC_CONV PBM_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uchar ImageType);
+BIC_API sint PBM_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
+BIC_API sint PBM_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uchar ImageType);
 
-BIC_API sint BIC_CONV JP2_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
-BIC_API sint BIC_CONV JP2_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uchar CodecType);
+BIC_API sint JP2_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
+BIC_API sint JP2_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uchar CodecType);
 
-BIC_API sint BIC_CONV ICO_Load (schar* FileName, uint* Width, uint* Height, uchar** Buffer);
+BIC_API sint ICO_Load (schar* FileName, uint* Width, uint* Height, uchar** Buffer);
 /*BIC_API sint BIC_CONV ICO_Save (schar* FileName, uint Width, uint Height, uchar* Buffer);*/
 
 // Декларации для палитр (битность цветов может различаться)
-BIC_API sint BIC_CONV PCX_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);	// RGB
-BIC_API sint BIC_CONV PCX_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount);		// RGB
+BIC_API sint PCX_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);		// RGB
+BIC_API sint PCX_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount);		// RGB
 
-BIC_API sint BIC_CONV BMP_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);	// RGBA
-BIC_API sint BIC_CONV BMP_SetPalette (schar *FileName, uchar *Palette, uint ColorsCount);		// RGBA
+BIC_API sint BMP_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);		// RGBA
+BIC_API sint BMP_SetPalette (schar *FileName, uchar *Palette, uint ColorsCount);		// RGBA
 
-BIC_API sint BIC_CONV ACT_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);	// RGBA
-BIC_API sint BIC_CONV ACT_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount);		// RGBA
+BIC_API sint ACT_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);		// RGBA
+BIC_API sint ACT_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount);		// RGBA
 
-BIC_API sint BIC_CONV PALw_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);	// RGBA
-BIC_API sint BIC_CONV PALw_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount);		// RGBA
+BIC_API sint PALw_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);	// RGBA
+BIC_API sint PALw_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount);		// RGBA
 
-BIC_API sint BIC_CONV PALj_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);	// RGB
-BIC_API sint BIC_CONV PALj_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount);		// RGB
+BIC_API sint PALj_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);	// RGB
+BIC_API sint PALj_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount);		// RGB
 
-BIC_API sint BIC_CONV ACO_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);	// RGB
-BIC_API sint BIC_CONV ACO_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount);		// RGB
+BIC_API sint ACO_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);		// RGB
+BIC_API sint ACO_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount);		// RGB
 
-BIC_API sint BIC_CONV ASE_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);	// RGB
-BIC_API sint BIC_CONV ASE_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount);		// RGB
+BIC_API sint ASE_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);		// RGB
+BIC_API sint ASE_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount);		// RGB

@@ -8,13 +8,15 @@ namespace RD_AAOW
 	/// <summary>
 	/// Класс описывает кодек для палитр типа Adobe Color Table
 	/// </summary>
-	public class ACTCodec:IPaletteCodec
+	public class ACTCodec: IPaletteCodec
 		{
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
-		private static extern Int16 ACT_LoadPalette (string FileName, out IntPtr Buffer, out UInt16 ColorsCount);	// RGBA
+		private static extern Int16 ACT_LoadPalette (string FileName, out IntPtr Buffer, out UInt16 ColorsCount);
+		// RGBA
 
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
-		private static extern Int16 ACT_SavePalette (string FileName, byte[] Buffer, UInt16 ColorsCount);			// RGBA
+		private static extern Int16 ACT_SavePalette (string FileName, byte[] Buffer, UInt16 ColorsCount);
+		// RGBA
 
 		/// <summary>
 		/// Метод загружает указанную палитру и возвращает его в виде объекта List of Color
@@ -31,9 +33,7 @@ namespace RD_AAOW
 			ProgramErrorCodes error = (ProgramErrorCodes)ACT_LoadPalette (FilePath, out buffer, out colorsCount);
 
 			if (error != ProgramErrorCodes.EXEC_OK)
-				{
 				return error;
-				}
 
 			// Извлечение массива данных и сборка изображения
 			unsafe
@@ -60,9 +60,7 @@ namespace RD_AAOW
 			{
 			// Контроль (блок параметров не используется)
 			if ((Palette == null) || (Palette.Count == 0) || (Palette.Count > MaxColors))
-				{
 				return ProgramErrorCodes.EXEC_INVALID_PARAMETERS;
-				}
 
 			// Подготовка параметров
 			byte[] array = new byte[Palette.Count * 4];

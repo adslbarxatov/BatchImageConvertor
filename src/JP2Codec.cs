@@ -15,7 +15,8 @@ namespace RD_AAOW
 		private static extern Int16 JP2_Load (string FileName, out UInt16 Width, out UInt16 Height, out IntPtr Buffer);
 
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
-		private static extern Int16 JP2_Save (string FileName, UInt16 Width, UInt16 Height, byte[] Buffer, byte CodecType);
+		private static extern Int16 JP2_Save (string FileName, UInt16 Width, UInt16 Height, byte[] Buffer,
+			byte CodecType);
 
 		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
 		private static extern void BIC_ReleaseBuffer (IntPtr Buffer);
@@ -86,22 +87,18 @@ namespace RD_AAOW
 		/// <param name="ImageColorFormat">Цветовое представление выходного изображения</param>
 		/// <param name="BitmapEdge">Порог яркости для чёрно-белого преобразования</param>
 		/// <returns>Возвращает true в случае успеха</returns>
-		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat, byte BitmapEdge,
-			object Parameters)
+		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat,
+			byte BitmapEdge, object Parameters)
 			{
 			// Контроль
 			if ((Image == null) || (Parameters == null))
-				{
 				return ProgramErrorCodes.EXEC_INVALID_PARAMETERS;
-				}
 			ImageTypes imageType = (ImageTypes)Parameters;
 
 			// Контроль наличия файла (защита от перезаписи)
 			string fullPath = TestOutputFile (FilePath, Parameters);
 			if (fullPath == "")
-				{
 				return ProgramErrorCodes.EXEC_FILE_UNAVAILABLE;
-				}
 
 			// Подготовка параметров
 			byte[] array = new byte[Image.Width * Image.Height * 4];
@@ -135,7 +132,8 @@ namespace RD_AAOW
 				}
 
 			// Обращение
-			ProgramErrorCodes res = (ProgramErrorCodes)JP2_Save (fullPath, (UInt16)Image.Width, (UInt16)Image.Height, array, (byte)imageType);
+			ProgramErrorCodes res = (ProgramErrorCodes)JP2_Save (fullPath, (UInt16)Image.Width,
+				(UInt16)Image.Height, array, (byte)imageType);
 
 			// Инициирование очистки памяти
 			array = null;
@@ -152,9 +150,7 @@ namespace RD_AAOW
 			{
 			// Контроль
 			if (Parameters == null)
-				{
 				return "";
-				}
 			ImageTypes imageType = (ImageTypes)Parameters;
 
 			// Подбор расширения
@@ -164,9 +160,8 @@ namespace RD_AAOW
 
 			// Контроль наличия файла (защита от перезаписи)
 			if (File.Exists (fullPath))
-				{
 				return "";
-				}
+
 			return fullPath;
 			}
 

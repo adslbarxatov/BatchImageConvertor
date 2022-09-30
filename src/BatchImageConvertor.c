@@ -26,7 +26,7 @@ ulong LEBE_l (ulong Value)
 	}
 
 // Интерфейсы для функций TGA (буфер в формате RGBA)
-BIC_API sint BIC_CONV TGA_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
+BIC_API sint TGA_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
 	{
 	// Переменные
 	struct rgbdata_t buf;
@@ -38,9 +38,7 @@ BIC_API sint BIC_CONV TGA_Load (schar *FileName, uint *Width, uint *Height, ucha
 
 	// Запрос на нижний уровень
 	if ((res = Image_LoadTGA (FileName, &buf)) < 0)
-		{
 		return res;
-		}
 
 	// Сборка ответа
 	*Buffer = buf.buffer;
@@ -59,7 +57,7 @@ BIC_API sint BIC_CONV TGA_Load (schar *FileName, uint *Width, uint *Height, ucha
 	return EXEC_OK;
 	}
 
-BIC_API sint BIC_CONV TGA_Save (schar *FileName, uint Width, uint Height, uchar *Buffer)
+BIC_API sint TGA_Save (schar *FileName, uint Width, uint Height, uchar *Buffer)
 	{
 	// Переменные
 	struct rgbdata_t buf;
@@ -91,19 +89,19 @@ BIC_API sint BIC_CONV TGA_Save (schar *FileName, uint Width, uint Height, uchar 
 	}
 
 // Интерфейсы для функций PCX (буфер в формате RGB)
-BIC_API sint BIC_CONV PCX_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
+BIC_API sint PCX_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
 	{
 	union RGB_Palette_16 *dp = NULL;
 	union RGB_Palette_256 *ep = NULL;
 	return PCX_LoadImage (FileName, Width, Height, Buffer, &dp, &ep);
 	}
 
-BIC_API sint BIC_CONV PCX_Save (schar *FileName, uint Width, uint Height, uchar *Buffer)
+BIC_API sint PCX_Save (schar *FileName, uint Width, uint Height, uchar *Buffer)
 	{
 	return PCX_SaveImage (FileName, Width, Height, Buffer);
 	}
 
-BIC_API sint BIC_CONV PCX_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
+BIC_API sint PCX_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
 	{
 	uint Width = 0;
 	uint Height = 0;
@@ -113,9 +111,7 @@ BIC_API sint BIC_CONV PCX_LoadPalette (schar *FileName, uchar **Palette, uint *C
 	
 	int res = PCX_LoadImage (FileName, &Width, &Height, &Buffer, &dp, &ep);
 	if (res < 0)
-		{
 		return res;
-		}
 
 	// Возврат
 	*ColorsCount = 16;
@@ -129,24 +125,24 @@ BIC_API sint BIC_CONV PCX_LoadPalette (schar *FileName, uchar **Palette, uint *C
 	return res;
 	}
 
-BIC_API sint BIC_CONV PCX_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount)
+BIC_API sint PCX_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount)
 	{
 	return EXEC_NOT_IMPLEMENTED;
 	}
 
 // Интерфейсы для функций PBM (буфер в формате RGB)
-BIC_API sint BIC_CONV PBM_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
+BIC_API sint PBM_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
 	{
 	return PBM_LoadImage (FileName, Width, Height, Buffer);
 	}
 
-BIC_API sint BIC_CONV PBM_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uchar ImageType)
+BIC_API sint PBM_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uchar ImageType)
 	{
 	return PBM_SaveImage (FileName, Width, Height, Buffer, ImageType);
 	}
 
 // Интерфейсы для функций JPEG2000 (буфер в формате RGB)
-BIC_API sint BIC_CONV JP2_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
+BIC_API sint JP2_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
 	{
 	//return JP2_LoadImage (FileName, Width, Height, Buffer);
 
@@ -154,7 +150,7 @@ BIC_API sint BIC_CONV JP2_Load (schar *FileName, uint *Width, uint *Height, ucha
 	return EXEC_NOT_IMPLEMENTED;
 	}
 
-BIC_API sint BIC_CONV JP2_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uchar CodecType)
+BIC_API sint JP2_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uchar CodecType)
 	{
 	//return JP2_SaveImage (FileName, Width, Height, Buffer, CodecType);
 	
@@ -163,7 +159,7 @@ BIC_API sint BIC_CONV JP2_Save (schar *FileName, uint Width, uint Height, uchar 
 	}
 
 // Интерфейсы для функций JPEG2000 (буфер в формате RGB)
-BIC_API sint BIC_CONV ICO_Load (schar* FileName, uint* Width, uint* Height, uchar** Buffer)
+BIC_API sint ICO_Load (schar* FileName, uint* Width, uint* Height, uchar** Buffer)
 	{
 	return ICO_LoadImage (FileName, Width, Height, Buffer);
 
@@ -171,143 +167,129 @@ BIC_API sint BIC_CONV ICO_Load (schar* FileName, uint* Width, uint* Height, ucha
 	return EXEC_NOT_IMPLEMENTED;
 	}
 
-BIC_API sint BIC_CONV ICO_Save (schar* FileName, uint Width, uint Height, uchar* Buffer, uchar CodecType)
+BIC_API sint ICO_Save (schar* FileName, uint Width, uint Height, uchar* Buffer, uchar CodecType)
 	{
 	// Функция не используется
 	return EXEC_NOT_IMPLEMENTED;
 	}
 
 // Интерфейсы для палитры BMP (буфер в формате RGBA, где A - сепаратор)
-BIC_API sint BIC_CONV BMP_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
+BIC_API sint BMP_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
 	{
 	union RGBA_Color *palette;
 	int res = BMP_PaletteExchange (FileName, &palette, ColorsCount, 0);
 	if (res < 0)
-		{
 		return res;
-		}
 
 	*Palette = palette->Ptr;
 	return res;
 	}
 
-BIC_API sint BIC_CONV BMP_SetPalette (schar *FileName, uchar *Palette, uint ColorsCount)
+BIC_API sint BMP_SetPalette (schar *FileName, uchar *Palette, uint ColorsCount)
 	{
 	return BMP_PaletteExchange (FileName, &((union RGBA_Color *)Palette), &ColorsCount, 1);
 	}
 
 // Интерфейсы для палитры ACT (буфер в формате RGB)
-BIC_API sint BIC_CONV ACT_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
+BIC_API sint ACT_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
 	{
 	union RGBA_Color *palette;
 
 	int res = ACT_LoadPaletteEx (FileName, &palette, ColorsCount);
 	if (res < 0)
-		{
 		return res;
-		}
 
 	*Palette = palette->Ptr;
 	return 0;
 	}
 
-BIC_API sint BIC_CONV ACT_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount)
+BIC_API sint ACT_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount)
 	{
 	// Контроль
 	if (!FileName || !Palette || (ColorsCount < 1) || (ColorsCount > 256))
-		{
 		return EXEC_INVALID_PARAMETERS;
-		}
 
 	// Транзит
 	return ACT_SavePaletteEx (FileName, ((union RGBA_Color *)Palette), ColorsCount);
 	}
 
 // Интерфейсы для палитры Microsoft PAL (буфер в формате RGBA, где A - сепаратор)
-BIC_API sint BIC_CONV PALw_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
+BIC_API sint PALw_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
 	{
 	union RGBA_Color *palette;
 	int res = PALw_LoadPaletteEx (FileName, &palette, ColorsCount);
 	if (res < 0)
-		{
 		return res;
-		}
 
 	*Palette = palette->Ptr;
 	return res;
 	}
 
-BIC_API sint BIC_CONV PALw_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount)
+BIC_API sint PALw_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount)
 	{
 	return PALw_SavePaletteEx (FileName, ((union RGBA_Color *)Palette), ColorsCount);
 	}
 
 // Интерфейсы для палитры JASC PAL (буфер в формате RGB)
-BIC_API sint BIC_CONV PALj_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
+BIC_API sint PALj_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
 	{
 	union RGB_Color *palette;
 	int res = PALj_LoadPaletteEx (FileName, &palette, ColorsCount);
 	if (res < 0)
-		{
 		return res;
-		}
 
 	*Palette = palette->Ptr;
 	return res;
 	}
 
-BIC_API sint BIC_CONV PALj_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount)
+BIC_API sint PALj_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount)
 	{
 	return PALj_SavePaletteEx (FileName, ((union RGB_Color *)Palette), ColorsCount);
 	}
 
 // Интерфейсы для палитры Adobe Color Swatches (буфер в формате RGB)
-BIC_API sint BIC_CONV ACO_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
+BIC_API sint ACO_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
 	{
 	union RGB_Color *palette;
 	int res = ACO_LoadPaletteEx (FileName, &palette, ColorsCount);
 	if ((res < 0) && (res != EXEC_UNSUPPORTED_COLORS))
-		{
 		return res;
-		}
 
 	*Palette = palette->Ptr;
 	return res;
 	}
 
-BIC_API sint BIC_CONV ACO_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount)
+BIC_API sint ACO_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount)
 	{
 	return ACO_SavePaletteEx (FileName, ((union RGB_Color *)Palette), ColorsCount);
 	}
 
 // Интерфейсы для палитры Adobe Swatches Exchange (буфер в формате RGB)
-BIC_API sint BIC_CONV ASE_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
+BIC_API sint ASE_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
 	{
 	union RGB_Color *palette;
 	int res = ASE_LoadPaletteEx (FileName, &palette, ColorsCount);
 	if ((res < 0) && (res != EXEC_UNSUPPORTED_COLORS))
-		{
 		return res;
-		}
 
 	*Palette = palette->Ptr;
 	return res;
 	}
 
-BIC_API sint BIC_CONV ASE_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount)
+BIC_API sint ASE_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount)
 	{
 	return ASE_SavePaletteEx (FileName, ((union RGB_Color *)Palette), ColorsCount);
 	}
 
 // Интерфейс освобождения памяти для создаваемых буферов
-BIC_API void BIC_CONV BIC_ReleaseBuffer (uchar *Buffer)
+BIC_API void BIC_ReleaseBuffer (uchar *Buffer)
 	{
 	if (Buffer)
 		free (Buffer);
 	}
 
 // Метод возвращает версию библиотеки для контроля совместимости
-BIC_API schar* BIC_CONV BIC_GetLibVersion ()
+BIC_API schar* BIC_GetLibVersion ()
 	{
 	return BIC_VERSION_S;
 	}

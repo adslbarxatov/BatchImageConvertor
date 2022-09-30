@@ -25,8 +25,8 @@ namespace RD_AAOW
 		/// <param name="ImageColorFormat">Цветовое представление выходного изображения</param>
 		/// <param name="BitmapEdge">Порог яркости для чёрно-белого преобразования</param>
 		/// <returns>Возвращает true в случае успеха</returns>
-		ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat, byte BitmapEdge,
-			object Parameters);
+		ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat,
+			byte BitmapEdge, object Parameters);
 
 		/// <summary>
 		/// Метод определяет, может ли быть создан указанный файл с заданными параметрами сохранения
@@ -77,7 +77,7 @@ namespace RD_AAOW
 			/*return (byte)Math.Ceiling((double)OldColor.R * 0.299 + (double)OldColor.G * 0.587 + 
 				(double)OldColor.B * 0.114);	// PAL/NTSC*/
 			return (byte)Math.Ceiling ((double)OldColor.R * 0.2126 + (double)OldColor.G * 0.7152 +
-				(double)OldColor.B * 0.0722);	// HDTV
+				(double)OldColor.B * 0.0722);   // HDTV
 			}
 
 		/// <summary>
