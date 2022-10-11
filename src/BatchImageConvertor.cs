@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -18,6 +19,30 @@ namespace RD_AAOW
 			// Инициализация
 			Application.EnableVisualStyles ();
 			Application.SetCompatibleTextRenderingDefault (false);
+
+			// Язык интерфейса и контроль XPR
+			SupportedLanguages al = Localization.CurrentLanguage;
+			if (!Localization.IsXPRClassAcceptable)
+				return;
+
+			// Проверка запуска единственной копии
+			if (!RDGenerics.IsThisInstanceUnique (al == SupportedLanguages.ru_ru))
+				return;
+
+			// Проверка наличия компонентов программы
+			if (!File.Exists (RDGenerics.AppStartupPath + ProgramDescription.AssemblyCodecsLibrary))
+				{
+				if (MessageBox.Show (string.Format (Localization.GetText ("ComponentMissing",
+					Localization.CurrentLanguage), ProgramDescription.AssemblyCodecsLibrary),
+					ProgramDescription.AssemblyTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
+					DialogResult.Yes)
+					{
+					AboutForm af = new AboutForm (null);
+					}
+
+				// Не ограничивать работу, если компонент не нужен
+				//return;
+				}
 
 			// Отображение справки и запроса на принятие Политики
 			if (!ProgramDescription.AcceptEULA ())

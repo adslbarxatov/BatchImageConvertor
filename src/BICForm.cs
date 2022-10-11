@@ -11,7 +11,7 @@ namespace RD_AAOW
 	/// <summary>
 	/// Начальная форма программы
 	/// </summary>
-	public partial class BICForm:Form
+	public partial class BICForm: Form
 		{
 		// Переменные
 		private List<ICodec> codecs = new List<ICodec> ();          // Списки обработчиков изображений
@@ -161,9 +161,7 @@ namespace RD_AAOW
 				FlipCombo.SelectedIndex = int.Parse (RDGenerics.GetAppSettingsValue (FlipCombo.Name));
 				ImageTypeCombo.SelectedIndex = int.Parse (RDGenerics.GetAppSettingsValue (ImageTypeCombo.Name));
 				}
-			catch
-				{
-				}
+			catch { }
 
 			// Назначение заголовка окна
 			this.Text = ProgramDescription.AssemblyTitle;

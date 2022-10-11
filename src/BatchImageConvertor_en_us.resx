@@ -145,13 +145,13 @@
     <value>4. &amp;Begin conversion</value>
   </data>
   <data name="ChangePaletteDialogTitle" xml:space="preserve">
-    <value>Select file for palette's replacement</value>
+    <value>Select file for palette’s replacement</value>
   </data>
   <data name="ColorColumn" xml:space="preserve">
     <value>Color</value>
   </data>
   <data name="ColorsCountExceedsRecommended" xml:space="preserve">
-    <value>Quantity of colors in current palette exceeds recommended value (256). Some applications may not support it. Continue?</value>
+    <value>Quantity of colors in current palette exceeds the recommended value (256). Some applications may not support it. Continue?</value>
   </data>
   <data name="ColorsSectionText" xml:space="preserve">
     <value>Colors</value>
@@ -220,7 +220,7 @@
     <value>Opacity (alpha channel; 0 – 255):</value>
   </data>
   <data name="OpenPaletteDialogTitle" xml:space="preserve">
-    <value>Select file for palette loading/extracting</value>
+    <value>Select file for palette loading or extracting</value>
   </data>
   <data name="OutputFolderDescription" xml:space="preserve">
     <value>Select directory for result images. MATCHING FILES WILL NOT BE OVERWRITTEN!</value>
@@ -238,7 +238,7 @@
     <value>Palettes &amp;manager</value>
   </data>
   <data name="PalettesNotFound" xml:space="preserve">
-    <value>file doesn't contain palettes</value>
+    <value>file doesn’t contain palettes</value>
   </data>
   <data name="ProcessingList" xml:space="preserve">
     <value>Assembling of processing list...</value>
@@ -266,7 +266,7 @@
     <value>Save colors</value>
   </data>
   <data name="SavePaletteDialogTitle" xml:space="preserve">
-    <value>Specify output file's placement</value>
+    <value>Specify output file’s placement</value>
   </data>
   <data name="ShowVideo" xml:space="preserve">
     <value>Do you want to view user videoguide on our YouTube channel?</value>
@@ -278,10 +278,10 @@
     <value>Supported file types</value>
   </data>
   <data name="TooMuchColors" xml:space="preserve">
-    <value>Current format doesn't support this quantity of colors. It must be between 1 and </value>
+    <value>Current format doesn’t support this quantity of colors. It must be between 1 and </value>
   </data>
   <data name="UnsupportedColors" xml:space="preserve">
-    <value>some colors haven't been loaded because of absence of support for their color spaces in the current version of application</value>
+    <value>some colors haven’t been loaded because of absence of support for their color spaces in the current version of application</value>
   </data>
   <data name="IncompatibleLibraryVersion" xml:space="preserve">
     <value>This version of {0:S} is incompatible with current version of application</value>
@@ -297,5 +297,10 @@
   </data>
   <data name="BOK" xml:space="preserve">
     <value>&amp;OK</value>
+  </data>
+  <data name="ComponentMissing" xml:space="preserve">
+    <value>A recommended app component is missing: “{0:S}”.
+
+Do you want to open project’s webpage to download it manually? You can continue using default functions without it</value>
   </data>
 </root>

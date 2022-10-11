@@ -298,4 +298,9 @@
   <data name="BOK" xml:space="preserve">
     <value>&amp;ОК</value>
   </data>
+  <data name="ComponentMissing" xml:space="preserve">
+    <value>Отсутствует необходимый компонент программы: «{0:S}».
+
+Перейти на веб-страницу проекта, чтобы загрузить его вручную? Вы можете продолжить использовать стандартные функции без него</value>
+  </data>
 </root>
