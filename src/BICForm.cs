@@ -17,7 +17,7 @@ namespace RD_AAOW
 		private List<ICodec> codecs = new List<ICodec> ();          // Списки обработчиков изображений
 		private List<int> outputCodecsNumbers = new List<int> ();
 		private List<object> outputFormats = new List<object> ();
-		private uint successes = 0;                                 // Счётчики успешных обработок и общего числа изображений
+		private uint successes = 0;							// Счётчики успешных обработок и общего числа изображений
 		private double totalImages = 0.0;
 
 		private int selectedFlip, selectedRotation, selectedOutputType; // Транзактные переменные
@@ -83,9 +83,11 @@ namespace RD_AAOW
 				// Контроль совместимости
 				if (BatchImageConvertorLibrary.LibraryVersion != ProgramDescription.LibraryVersion)
 					{
-					MessageBox.Show (string.Format (Localization.GetText ("IncompatibleLibraryVersion", al),
+					/*MessageBox.Shw (string.Format (Localization.GetText ("IncompatibleLibraryVersion", al),
 						ProgramDescription.AssemblyCodecsLibrary), ProgramDescription.AssemblyTitle,
-						MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+						MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
+					RDGenerics.MessageBox (RDMessageTypes.Warning,
+						Localization.GetText ("IncompatibleLibraryVersion", al));
 					}
 				else
 					{
@@ -201,23 +203,29 @@ namespace RD_AAOW
 			// Проверка состояния
 			if (InputPath.Text == "")
 				{
-				MessageBox.Show (Localization.GetText ("InputPathNotSpecified", al),
-					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				/*MessageBox.Shw (Localization.GetText ("InputPathNotSpecified", al),
+					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
+				RDGenerics.MessageBox (RDMessageTypes.Warning, 
+					Localization.GetText ("InputPathNotSpecified", al));
 				return;
 				}
 
 			if (OutputPath.Text == "")
 				{
-				MessageBox.Show (Localization.GetText ("OutputPathNotSpecified", al),
-					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				/*MessageBox.Shw (Localization.GetText ("OutputPathNotSpecified", al),
+					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
+				RDGenerics.MessageBox (RDMessageTypes.Warning, 
+					Localization.GetText ("OutputPathNotSpecified", al));
 				return;
 				}
 
 			if (RelativeCrop.Checked && ((RelativeLeft.Value + RelativeWidth.Value > RelativeWidth.Maximum) ||
 				(RelativeTop.Value + RelativeHeight.Value > RelativeHeight.Maximum)))
 				{
-				MessageBox.Show (Localization.GetText ("IncorrectCropValues", al),
-					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				/*MessageBox.Shw (Localization.GetText ("IncorrectCropValues", al),
+					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
+				RDGenerics.MessageBox (RDMessageTypes.Warning,
+					Localization.GetText ("IncorrectCropValues", al));
 				return;
 				}
 
@@ -239,7 +247,8 @@ namespace RD_AAOW
 			// Завершение
 			ResultsList.Items.AddRange (messages.ToArray ());
 			ResultsList.Items.Add ("   ");
-			ResultsList.Items.Add (string.Format (Localization.GetText ("ResultText", al), (uint)totalImages, successes));
+			ResultsList.Items.Add (string.Format (Localization.GetText ("ResultText", al), 
+				(uint)totalImages, successes));
 
 			// Выбор последней строки списка, если возможно
 			if (ResultsList.Items.Count != 0)
@@ -266,8 +275,10 @@ namespace RD_AAOW
 						}
 					catch
 						{
-						MessageBox.Show (Localization.GetText ("InputPathUnavailable", al),
-							ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+						/*MessageBox.Shw (Localization.GetText ("InputPathUnavailable", al),
+							ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
+						RDGenerics.MessageBox (RDMessageTypes.Warning,
+							Localization.GetText ("InputPathUnavailable", al));
 
 						e.Cancel = true;
 						return;
@@ -545,7 +556,7 @@ namespace RD_AAOW
 			e.Cancel = true;
 
 			// Сборка справки
-			string types = "\r\n\r\n" + Localization.GetText ("SupportedFileTypes", al) + ":\r\n\r\n";
+			string types = Localization.GetText ("SupportedFileTypes", al) + ":\r\n\r\n";
 			for (int c = 0; c < codecs.Count; c++)
 				{
 				types += (" • " + codecs[c].ToString () + ": ");
@@ -556,11 +567,12 @@ namespace RD_AAOW
 
 				types += codecs[c].FileExtensions[codecs[c].FileExtensions.Length - 1].Substring (2).ToUpper ();
 				if (c < codecs.Count - 1)
-					types += "\r\n\r\n";
+					types += "\r\n";
 				}
 
 			// Отображение
-			ProgramDescription.ShowAbout (Localization.GetText ("HelpText", al) + types, false);
+			RDGenerics.ShowAbout (false);
+			RDGenerics.MessageBox (RDMessageTypes.Information, types);
 			}
 
 		// Выбор варианта задания размера

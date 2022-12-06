@@ -32,10 +32,17 @@ namespace RD_AAOW
 			// Проверка наличия компонентов программы
 			if (!File.Exists (RDGenerics.AppStartupPath + ProgramDescription.AssemblyCodecsLibrary))
 				{
-				if (MessageBox.Show (string.Format (Localization.GetText ("ComponentMissing",
+				if (/*MessageBox.Shw (string.Format (Localization.GetText ("ComponentMissing",
 					Localization.CurrentLanguage), ProgramDescription.AssemblyCodecsLibrary),
 					ProgramDescription.AssemblyTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
-					DialogResult.Yes)
+					DialogResult.Yes*/
+
+					RDGenerics.MessageBox (RDMessageTypes.Question,
+						string.Format (Localization.GetText ("ComponentMissing",
+						Localization.CurrentLanguage), ProgramDescription.AssemblyCodecsLibrary),
+						Localization.GetDefaultButtonName (Localization.DefaultButtons.Yes),
+						Localization.GetDefaultButtonName (Localization.DefaultButtons.No)) ==
+						RDMessageButtons.ButtonOne)
 					{
 					AboutForm af = new AboutForm (null);
 					}
@@ -45,9 +52,9 @@ namespace RD_AAOW
 				}
 
 			// Отображение справки и запроса на принятие Политики
-			if (!ProgramDescription.AcceptEULA ())
+			if (!RDGenerics.AcceptEULA ())
 				return;
-			ProgramDescription.ShowAbout (Localization.GetText ("HelpText", Localization.CurrentLanguage), true);
+			RDGenerics.ShowAbout (true);
 
 			// Запуск
 			Application.Run (new BICForm ());
