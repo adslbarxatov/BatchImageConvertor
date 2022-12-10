@@ -17,7 +17,7 @@ namespace RD_AAOW
 		private List<ICodec> codecs = new List<ICodec> ();          // Списки обработчиков изображений
 		private List<int> outputCodecsNumbers = new List<int> ();
 		private List<object> outputFormats = new List<object> ();
-		private uint successes = 0;							// Счётчики успешных обработок и общего числа изображений
+		private uint successes = 0;                         // Счётчики успешных обработок и общего числа изображений
 		private double totalImages = 0.0;
 
 		private int selectedFlip, selectedRotation, selectedOutputType; // Транзактные переменные
@@ -83,9 +83,6 @@ namespace RD_AAOW
 				// Контроль совместимости
 				if (BatchImageConvertorLibrary.LibraryVersion != ProgramDescription.LibraryVersion)
 					{
-					/*MessageBox.Shw (string.Format (Localization.GetText ("IncompatibleLibraryVersion", al),
-						ProgramDescription.AssemblyCodecsLibrary), ProgramDescription.AssemblyTitle,
-						MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
 					RDGenerics.MessageBox (RDMessageTypes.Warning,
 						Localization.GetText ("IncompatibleLibraryVersion", al));
 					}
@@ -164,6 +161,7 @@ namespace RD_AAOW
 				ImageTypeCombo.SelectedIndex = int.Parse (RDGenerics.GetAppSettingsValue (ImageTypeCombo.Name));
 				}
 			catch { }
+			RDGenerics.LoadWindowDimensions (this);
 
 			// Назначение заголовка окна
 			this.Text = ProgramDescription.AssemblyTitle;
@@ -203,18 +201,14 @@ namespace RD_AAOW
 			// Проверка состояния
 			if (InputPath.Text == "")
 				{
-				/*MessageBox.Shw (Localization.GetText ("InputPathNotSpecified", al),
-					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
-				RDGenerics.MessageBox (RDMessageTypes.Warning, 
+				RDGenerics.MessageBox (RDMessageTypes.Warning,
 					Localization.GetText ("InputPathNotSpecified", al));
 				return;
 				}
 
 			if (OutputPath.Text == "")
 				{
-				/*MessageBox.Shw (Localization.GetText ("OutputPathNotSpecified", al),
-					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
-				RDGenerics.MessageBox (RDMessageTypes.Warning, 
+				RDGenerics.MessageBox (RDMessageTypes.Warning,
 					Localization.GetText ("OutputPathNotSpecified", al));
 				return;
 				}
@@ -222,8 +216,6 @@ namespace RD_AAOW
 			if (RelativeCrop.Checked && ((RelativeLeft.Value + RelativeWidth.Value > RelativeWidth.Maximum) ||
 				(RelativeTop.Value + RelativeHeight.Value > RelativeHeight.Maximum)))
 				{
-				/*MessageBox.Shw (Localization.GetText ("IncorrectCropValues", al),
-					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
 				RDGenerics.MessageBox (RDMessageTypes.Warning,
 					Localization.GetText ("IncorrectCropValues", al));
 				return;
@@ -247,7 +239,7 @@ namespace RD_AAOW
 			// Завершение
 			ResultsList.Items.AddRange (messages.ToArray ());
 			ResultsList.Items.Add ("   ");
-			ResultsList.Items.Add (string.Format (Localization.GetText ("ResultText", al), 
+			ResultsList.Items.Add (string.Format (Localization.GetText ("ResultText", al),
 				(uint)totalImages, successes));
 
 			// Выбор последней строки списка, если возможно
@@ -270,13 +262,12 @@ namespace RD_AAOW
 					{
 					try
 						{
-						fileNames[fileNames.Count - 1].AddRange (Directory.GetFiles (InputPath.Text, codecs[i].FileExtensions[j],
-							IncludeSubdirs.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly));
+						fileNames[fileNames.Count - 1].AddRange (Directory.GetFiles (InputPath.Text,
+							codecs[i].FileExtensions[j], IncludeSubdirs.Checked ? SearchOption.AllDirectories :
+							SearchOption.TopDirectoryOnly));
 						}
 					catch
 						{
-						/*MessageBox.Shw (Localization.GetText ("InputPathUnavailable", al),
-							ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
 						RDGenerics.MessageBox (RDMessageTypes.Warning,
 							Localization.GetText ("InputPathUnavailable", al));
 
@@ -689,6 +680,7 @@ namespace RD_AAOW
 				RDGenerics.SetAppSettingsValue (ImageTypeCombo.Name, ImageTypeCombo.SelectedIndex.ToString ());
 				}
 			catch { }
+			RDGenerics.SaveWindowDimensions (this);
 			}
 		}
 	}
