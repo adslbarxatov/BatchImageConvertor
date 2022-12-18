@@ -118,16 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AbsoluteSizeText" xml:space="preserve">
-    <value>Set size to</value>
+    <value>Set size to:</value>
   </data>
   <data name="AlphaColumn" xml:space="preserve">
     <value>Alpha channel</value>
-  </data>
-  <data name="BCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
-  </data>
-  <data name="BExit" xml:space="preserve">
-    <value>E&amp;xit</value>
   </data>
   <data name="BitmapRadioText" xml:space="preserve">
     <value>Only black and white</value>
@@ -142,7 +136,7 @@
     <value>&amp;Save...</value>
   </data>
   <data name="BStart" xml:space="preserve">
-    <value>4. &amp;Begin conversion</value>
+    <value>&amp;Begin conversion</value>
   </data>
   <data name="ChangePaletteDialogTitle" xml:space="preserve">
     <value>Select file for palette’s replacement</value>
@@ -151,10 +145,10 @@
     <value>Color</value>
   </data>
   <data name="ColorsCountExceedsRecommended" xml:space="preserve">
-    <value>Quantity of colors in current palette exceeds the recommended value (256). Some applications may not support it. Continue?</value>
+    <value>Quantity of colors in the current palette exceeds the recommended value (256). Some apps may not support it. Continue?</value>
   </data>
-  <data name="ColorsSectionText" xml:space="preserve">
-    <value>Colors</value>
+  <data name="ColorTab" xml:space="preserve">
+    <value>Coloring</value>
   </data>
   <data name="CWLabelText" xml:space="preserve">
     <value>Rotate CW</value>
@@ -202,16 +196,13 @@
     <value>Specified alpha channel value is incorrect. Must be between 0 and 255 (including)</value>
   </data>
   <data name="InputFolderDescription" xml:space="preserve">
-    <value>Select directory with source images</value>
+    <value>Select the directory with source images</value>
   </data>
   <data name="InputPathNotSpecified" xml:space="preserve">
     <value>Directory with source images not specified</value>
   </data>
   <data name="InputPathUnavailable" xml:space="preserve">
     <value>Specified input directory is unavailable</value>
-  </data>
-  <data name="InputSectionText" xml:space="preserve">
-    <value>1. Specify directory with &amp;source images:</value>
   </data>
   <data name="NotEnoughMemory" xml:space="preserve">
     <value>not enough memory for processing</value>
@@ -223,16 +214,13 @@
     <value>Select file for palette loading or extracting</value>
   </data>
   <data name="OutputFolderDescription" xml:space="preserve">
-    <value>Select directory for result images. MATCHING FILES WILL NOT BE OVERWRITTEN!</value>
+    <value>Select the directory for result images. Matching files WILL NOT BE OVERWRITTEN!</value>
   </data>
   <data name="OutputPathNotSpecified" xml:space="preserve">
     <value>Directory for result images not specified</value>
   </data>
   <data name="OutputPathUnavailable" xml:space="preserve">
     <value>cannot save: output file or directory are not writable</value>
-  </data>
-  <data name="OutputSectionText" xml:space="preserve">
-    <value>3. Set &amp;output images directory and type:</value>
   </data>
   <data name="PalettesManager" xml:space="preserve">
     <value>Palettes &amp;manager</value>
@@ -241,25 +229,22 @@
     <value>file doesn’t contain palettes</value>
   </data>
   <data name="ProcessingList" xml:space="preserve">
-    <value>Assembling of processing list...</value>
-  </data>
-  <data name="ProcessingSectionText" xml:space="preserve">
-    <value>2. Specify conversion &amp;parameters:</value>
+    <value>Building of the processing list...</value>
   </data>
   <data name="ProcessingText" xml:space="preserve">
     <value>Processing:
 {0:S}</value>
   </data>
   <data name="RelativeCropText" xml:space="preserve">
-    <value>Crop to (a x b) with offset (c; d)</value>
+    <value>Crop to (a x b) with offset (c; d):</value>
   </data>
   <data name="RelativeSizeText" xml:space="preserve">
-    <value>Resize to</value>
+    <value>Resize to:</value>
   </data>
   <data name="ResultText" xml:space="preserve">
     <value>Processed – {0:D}; successes – {1:D}</value>
   </data>
-  <data name="RotationSectionText" xml:space="preserve">
+  <data name="RotationTab" xml:space="preserve">
     <value>Flip and rotation</value>
   </data>
   <data name="SaveColorsRadioText" xml:space="preserve">
@@ -269,22 +254,22 @@
     <value>Specify output file’s placement</value>
   </data>
   <data name="ShowVideo" xml:space="preserve">
-    <value>Do you want to view user videoguide on our YouTube channel?</value>
+    <value>Do you want to view the user videoguide on our YouTube channel?</value>
   </data>
-  <data name="SizesSectionText" xml:space="preserve">
-    <value>Size</value>
+  <data name="SizeTab" xml:space="preserve">
+    <value>Resizing</value>
   </data>
   <data name="SupportedFileTypes" xml:space="preserve">
     <value>Supported file types</value>
   </data>
   <data name="TooMuchColors" xml:space="preserve">
-    <value>Current format doesn’t support this quantity of colors. It must be between 1 and </value>
+    <value>Current format doesn’t support this quantity of colors. It should be between 1 and </value>
   </data>
   <data name="UnsupportedColors" xml:space="preserve">
     <value>some colors haven’t been loaded because of absence of support for their color spaces in the current version of application</value>
   </data>
   <data name="IncompatibleLibraryVersion" xml:space="preserve">
-    <value>This version of {0:S} is incompatible with current version of application</value>
+    <value>This version of {0:S} is incompatible with current version of the application</value>
   </data>
   <data name="HelpText" xml:space="preserve">
     <value>This tool allows you to convert group of image files (including different formats) into a single format. If it is necessary, you can specify uniform size or cropping method, rotation, flip direction and images mode (color/greyscale/bitmap)</value>
@@ -295,12 +280,33 @@
   <data name="CropCenterText" xml:space="preserve">
     <value>Center</value>
   </data>
-  <data name="BOK" xml:space="preserve">
-    <value>&amp;OK</value>
-  </data>
   <data name="ComponentMissing" xml:space="preserve">
     <value>A recommended app component is missing: “{0:S}”.
 
 Do you want to open project’s webpage to download it manually? You can continue using default functions without it</value>
+  </data>
+  <data name="DoNothing" xml:space="preserve">
+    <value>Do nothing</value>
+  </data>
+  <data name="InputLabel" xml:space="preserve">
+    <value>Input folder:</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Interface language:</value>
+  </data>
+  <data name="LoadingTab" xml:space="preserve">
+    <value>Loading and saving</value>
+  </data>
+  <data name="OthersTab" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="OutputFormatLabel" xml:space="preserve">
+    <value>Output format:</value>
+  </data>
+  <data name="OutputLabel" xml:space="preserve">
+    <value>Output folder:</value>
+  </data>
+  <data name="ThresholdLabel" xml:space="preserve">
+    <value>Conversion threshold:</value>
   </data>
 </root>

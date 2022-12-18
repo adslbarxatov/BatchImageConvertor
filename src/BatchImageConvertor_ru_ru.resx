@@ -118,16 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AbsoluteSizeText" xml:space="preserve">
-    <value>Задать размер</value>
+    <value>Задать размер:</value>
   </data>
   <data name="AlphaColumn" xml:space="preserve">
     <value>Альфа-канал</value>
-  </data>
-  <data name="BCancel" xml:space="preserve">
-    <value>О&amp;тмена</value>
-  </data>
-  <data name="BExit" xml:space="preserve">
-    <value>В&amp;ыход</value>
   </data>
   <data name="BitmapRadioText" xml:space="preserve">
     <value>Только чёрный и белый</value>
@@ -142,7 +136,7 @@
     <value>&amp;Сохранить...</value>
   </data>
   <data name="BStart" xml:space="preserve">
-    <value>4. &amp;Начать преобразование</value>
+    <value>&amp;Начать преобразование</value>
   </data>
   <data name="ChangePaletteDialogTitle" xml:space="preserve">
     <value>Укажите файл для замены палитры</value>
@@ -153,7 +147,7 @@
   <data name="ColorsCountExceedsRecommended" xml:space="preserve">
     <value>Количество цветов в текущей палитре больше рекомендуемого (256). Некоторые приложения могут не поддерживать палитры таких размеров. Продолжить?</value>
   </data>
-  <data name="ColorsSectionText" xml:space="preserve">
+  <data name="ColorTab" xml:space="preserve">
     <value>Цвета</value>
   </data>
   <data name="CWLabelText" xml:space="preserve">
@@ -210,9 +204,6 @@
   <data name="InputPathUnavailable" xml:space="preserve">
     <value>Указанная директория с исходными изображениями недоступна</value>
   </data>
-  <data name="InputSectionText" xml:space="preserve">
-    <value>1. Выберите директорию с &amp;исходными изображениями:</value>
-  </data>
   <data name="NotEnoughMemory" xml:space="preserve">
     <value>недостаточно памяти для обработки</value>
   </data>
@@ -223,16 +214,13 @@
     <value>Выберите файл для загрузки/извлечения палитры</value>
   </data>
   <data name="OutputFolderDescription" xml:space="preserve">
-    <value>Выберите директорию для сохранения преобразованных изображений. ПРИ СОВПАДЕНИИ ИМЁН ФАЙЛОВ ПЕРЕЗАПИСЬ НЕ ВЫПОЛНЯЕТСЯ!</value>
+    <value>Выберите директорию для сохранения преобразованных изображений. При совпадении имён файлов ПЕРЕЗАПИСЬ НЕ ВЫПОЛНЯЕТСЯ!</value>
   </data>
   <data name="OutputPathNotSpecified" xml:space="preserve">
     <value>Директория для преобразованных изображений не задана</value>
   </data>
   <data name="OutputPathUnavailable" xml:space="preserve">
     <value>не удалось сохранить файл, т.к. файл или конечная директория недоступны для записи</value>
-  </data>
-  <data name="OutputSectionText" xml:space="preserve">
-    <value>3. Укажите директорию для &amp;преобразованных изображений и их тип:</value>
   </data>
   <data name="PalettesManager" xml:space="preserve">
     <value>&amp;Менеджер палитр</value>
@@ -243,23 +231,20 @@
   <data name="ProcessingList" xml:space="preserve">
     <value>Формирование списка изображений для обработки...</value>
   </data>
-  <data name="ProcessingSectionText" xml:space="preserve">
-    <value>2. &amp;Задайте параметры преобразования:</value>
-  </data>
   <data name="ProcessingText" xml:space="preserve">
     <value>Обрабатывается:
 {0:S}</value>
   </data>
   <data name="RelativeCropText" xml:space="preserve">
-    <value>Обрезать до (a x b) с отступом (c; d)</value>
+    <value>Обрезать до (a x b) с отступом (c; d):</value>
   </data>
   <data name="RelativeSizeText" xml:space="preserve">
-    <value>Изменить до</value>
+    <value>Изменить до:</value>
   </data>
   <data name="ResultText" xml:space="preserve">
     <value>Обработано – {0:D}; успешно – {1:D}</value>
   </data>
-  <data name="RotationSectionText" xml:space="preserve">
+  <data name="RotationTab" xml:space="preserve">
     <value>Поворот и отражение</value>
   </data>
   <data name="SaveColorsRadioText" xml:space="preserve">
@@ -271,7 +256,7 @@
   <data name="ShowVideo" xml:space="preserve">
     <value>Показать видеоруководство пользователя на нашем YouTube-канале?</value>
   </data>
-  <data name="SizesSectionText" xml:space="preserve">
+  <data name="SizeTab" xml:space="preserve">
     <value>Размеры</value>
   </data>
   <data name="SupportedFileTypes" xml:space="preserve">
@@ -295,12 +280,33 @@
   <data name="CropCenterText" xml:space="preserve">
     <value>Центр</value>
   </data>
-  <data name="BOK" xml:space="preserve">
-    <value>&amp;ОК</value>
-  </data>
   <data name="ComponentMissing" xml:space="preserve">
     <value>Отсутствует необходимый компонент программы: «{0:S}».
 
 Перейти на веб-страницу проекта, чтобы загрузить его вручную? Вы можете продолжить использовать стандартные функции без него</value>
+  </data>
+  <data name="DoNothing" xml:space="preserve">
+    <value>Не менять</value>
+  </data>
+  <data name="InputLabel" xml:space="preserve">
+    <value>Входная папка:</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Язык интерфейса:</value>
+  </data>
+  <data name="LoadingTab" xml:space="preserve">
+    <value>Загрузка и сохранение</value>
+  </data>
+  <data name="OthersTab" xml:space="preserve">
+    <value>Прочее</value>
+  </data>
+  <data name="OutputFormatLabel" xml:space="preserve">
+    <value>Выходной формат:</value>
+  </data>
+  <data name="OutputLabel" xml:space="preserve">
+    <value>Выходная папка:</value>
+  </data>
+  <data name="ThresholdLabel" xml:space="preserve">
+    <value>Порог преобразования:</value>
   </data>
 </root>

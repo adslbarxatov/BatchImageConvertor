@@ -276,4 +276,4 @@ sint JP2_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer, uch
 	// Завершено
 	opj_stream_destroy (stream);
 	JP2_W_EXIT (EXEC_OK)
-	}*/
+	}/**/

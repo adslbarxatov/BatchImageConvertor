@@ -24,11 +24,11 @@ namespace RD_AAOW
 		private byte bitmapEdge;
 		private List<string> messages = new List<string> ();
 
-		private const string PBMcolors = "PBM (RGB)";
-		private const string PBMgreyscale = "PBM (greyscale)";
-		private const string PBMbitmap = "PBM (bitmap)";
+		private const string PBMcolors = "PBM, Portable bitmap format (RGB)";
+		private const string PBMgreyscale = "PBM, Portable bitmap format (greyscale)";
+		private const string PBMbitmap = "PBM, Portable bitmap format (B&W)";
 
-		private SupportedLanguages al = Localization.CurrentLanguage;   // Язык интерфейса
+		/*private SupportedLanguages al = Localization.CurrentLanguage;   // Язык интерфейса*/
 		private bool allowPalettes = false;
 
 		/// <summary>
@@ -44,7 +44,7 @@ namespace RD_AAOW
 			LanguageCombo.Items.AddRange (Localization.LanguagesNames);
 			try
 				{
-				LanguageCombo.SelectedIndex = (int)al;
+				LanguageCombo.SelectedIndex = (int)Localization.CurrentLanguage;
 				}
 			catch
 				{
@@ -71,11 +71,11 @@ namespace RD_AAOW
 			codecs.Add (new GenericCodec ());
 			codecs.Add (new MetafileCodec ());
 
-			AddOutputCodec ("PNG", 0, ImageFormat.Png);
-			AddOutputCodec ("JPEG", 0, ImageFormat.Jpeg);
-			AddOutputCodec ("BMP", 0, ImageFormat.Bmp);
-			AddOutputCodec ("GIF", 0, ImageFormat.Gif);
-			AddOutputCodec ("TIFF", 0, ImageFormat.Tiff);
+			AddOutputCodec ("PNG, Portable network graphics", 0, ImageFormat.Png);
+			AddOutputCodec ("JPEG, Joint photographic experts group", 0, ImageFormat.Jpeg);
+			AddOutputCodec ("BMP, Windows bitmap", 0, ImageFormat.Bmp);
+			AddOutputCodec ("GIF, Graphics interchange format", 0, ImageFormat.Gif);
+			AddOutputCodec ("TIFF, Tagged image file format", 0, ImageFormat.Tiff);
 
 			// Перечисление дополнительных кодеков
 			if (File.Exists (RDGenerics.AppStartupPath + ProgramDescription.AssemblyCodecsLibrary))
@@ -83,8 +83,7 @@ namespace RD_AAOW
 				// Контроль совместимости
 				if (BatchImageConvertorLibrary.LibraryVersion != ProgramDescription.LibraryVersion)
 					{
-					RDGenerics.MessageBox (RDMessageTypes.Warning,
-						Localization.GetText ("IncompatibleLibraryVersion", al));
+					RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning, "IncompatibleLibraryVersion");
 					}
 				else
 					{
@@ -92,12 +91,12 @@ namespace RD_AAOW
 					codecs.Add (new TGACodec ());
 					codecs.Add (new PCXCodec ());
 					codecs.Add (new ICOCodec ());
-					//codecs.Add (new JP2Codec ());		// Декодеры нестабильны
+					/*codecs.Add (new JP2Codec ());
 
-					//AddOutputCodec ("JP2", 5, JP2Codec.ImageTypes.JP2);	// Кодеры неисправны
-					//AddOutputCodec ("J2K", 5, JP2Codec.ImageTypes.J2K);
-					AddOutputCodec ("TGA", 3, null);
-					AddOutputCodec ("PCX", 4, null);
+					AddOutputCodec ("JP2, JPEG 2000 file format", 5, JP2Codec.ImageTypes.JP2);
+					AddOutputCodec ("J2K, JPEG 2000 file format", 5, JP2Codec.ImageTypes.J2K);*/
+					AddOutputCodec ("TGA, Truevision targa image", 3, null);
+					AddOutputCodec ("PCX, PCExchange image format", 4, null);
 					AddOutputCodec (PBMcolors, 2, PBMCodec.ImageTypes.ColorAsBinary);
 					AddOutputCodec (PBMgreyscale, 2, PBMCodec.ImageTypes.GreyscaleAsBinary);
 					AddOutputCodec (PBMbitmap, 2, PBMCodec.ImageTypes.BitmapAsBinary);
@@ -167,6 +166,23 @@ namespace RD_AAOW
 			this.Text = ProgramDescription.AssemblyTitle;
 			}
 
+		// Сбросы настроек преобразования
+		private void DoNothingToSize_Click (object sender, EventArgs e)
+			{
+			RelativeSize.Checked = true;
+			RelativeWidth.Value = RelativeHeight.Value = 100;
+			}
+
+		private void DoNothingToColor_Click (object sender, EventArgs e)
+			{
+			SaveColorsRadio.Checked = true;
+			}
+
+		private void DoNothingToRotation_Click (object sender, EventArgs e)
+			{
+			FlipCombo.SelectedIndex = RotationCombo.SelectedIndex = 0;
+			}
+
 		// Метод добаляет формат вывода
 		private void AddOutputCodec (string OutputFormatName, int OutputCodecNumber, object OutputParameters)
 			{
@@ -201,23 +217,20 @@ namespace RD_AAOW
 			// Проверка состояния
 			if (InputPath.Text == "")
 				{
-				RDGenerics.MessageBox (RDMessageTypes.Warning,
-					Localization.GetText ("InputPathNotSpecified", al));
+				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning, "InputPathNotSpecified");
 				return;
 				}
 
 			if (OutputPath.Text == "")
 				{
-				RDGenerics.MessageBox (RDMessageTypes.Warning,
-					Localization.GetText ("OutputPathNotSpecified", al));
+				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning, "OutputPathNotSpecified");
 				return;
 				}
 
 			if (RelativeCrop.Checked && ((RelativeLeft.Value + RelativeWidth.Value > RelativeWidth.Maximum) ||
 				(RelativeTop.Value + RelativeHeight.Value > RelativeHeight.Maximum)))
 				{
-				RDGenerics.MessageBox (RDMessageTypes.Warning,
-					Localization.GetText ("IncorrectCropValues", al));
+				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning, "IncorrectCropValues");
 				return;
 				}
 
@@ -239,7 +252,7 @@ namespace RD_AAOW
 			// Завершение
 			ResultsList.Items.AddRange (messages.ToArray ());
 			ResultsList.Items.Add ("   ");
-			ResultsList.Items.Add (string.Format (Localization.GetText ("ResultText", al),
+			ResultsList.Items.Add (string.Format (Localization.GetText ("ResultText"),
 				(uint)totalImages, successes));
 
 			// Выбор последней строки списка, если возможно
@@ -253,6 +266,9 @@ namespace RD_AAOW
 		// Основной метод обработки изображений
 		private void MasterImageProcessor (object sender, DoWorkEventArgs e)
 			{
+			// Инициализация
+			BackgroundWorker bw = ((BackgroundWorker)sender);
+
 			// Сбор списка изображений
 			List<List<string>> fileNames = new List<List<string>> ();
 			for (int i = 0; i < codecs.Count; i++)
@@ -268,15 +284,14 @@ namespace RD_AAOW
 						}
 					catch
 						{
-						RDGenerics.MessageBox (RDMessageTypes.Warning,
-							Localization.GetText ("InputPathUnavailable", al));
+						RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning, "InputPathUnavailable");
 
 						e.Cancel = true;
 						return;
 						}
 
-					((BackgroundWorker)sender).ReportProgress ((int)HardWorkExecutor.ProgressBarSize,
-						Localization.GetText ("ProcessingList", al));
+					bw.ReportProgress ((int)HardWorkExecutor.ProgressBarSize,
+						Localization.GetText ("ProcessingList"));
 					}
 				}
 
@@ -346,9 +361,7 @@ namespace RD_AAOW
 			double currentImage = 0.0;
 			totalImages = 0.0;
 			for (int c = 0; c < fileNames.Count; c++)
-				{
 				totalImages += fileNames[c].Count;
-				}
 
 			// Обработка
 			Bitmap img = null;
@@ -360,12 +373,12 @@ namespace RD_AAOW
 					// Счётчик
 					currentImage++;
 
-					((BackgroundWorker)sender).ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
-						totalImages), string.Format (Localization.GetText ("ProcessingText", al),
+					bw.ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
+						totalImages), string.Format (Localization.GetText ("ProcessingText"),
 						Path.GetFileName (fileNames[c][n])));
 
 					// Завершение работы, если получено требование от диалога (в том числе - на этапе сборки списка)
-					if (((BackgroundWorker)sender).CancellationPending || e.Cancel)
+					if (bw.CancellationPending || e.Cancel)
 						{
 						e.Cancel = true;
 						return;
@@ -376,11 +389,11 @@ namespace RD_AAOW
 					if (codecs[outputCodecsNumbers[selectedOutputType]].TestOutputFile (outputPath,
 						outputFormats[selectedOutputType]) == "")
 						{
-						messages.Add (string.Format (Localization.GetText ("FileGeneric", al), Path.GetFileName (fileNames[c][n])) +
-							Localization.GetText ("FileOverwrite", al));
+						messages.Add (string.Format (Localization.GetText ("FileGeneric"),
+							Path.GetFileName (fileNames[c][n])) + Localization.GetText ("FileOverwrite"));
 
-						((BackgroundWorker)sender).ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
-							totalImages), messages[messages.Count - 1]);
+						bw.ReportProgress ((int)(HardWorkExecutor.ProgressBarSize *
+							currentImage / totalImages), messages[messages.Count - 1]);
 						continue;
 						}
 					#endregion
@@ -390,15 +403,15 @@ namespace RD_AAOW
 					switch (codecs[c].LoadImage (fileNames[c][n], out img))
 						{
 						case ProgramErrorCodes.EXEC_FILE_UNAVAILABLE:
-							msg = Localization.GetText ("FileUnavailable", al);
+							msg = Localization.GetText ("FileUnavailable");
 							break;
 
 						case ProgramErrorCodes.EXEC_INVALID_FILE:
-							msg = Localization.GetText ("FileIncorrect", al);
+							msg = Localization.GetText ("FileIncorrect");
 							break;
 
 						case ProgramErrorCodes.EXEC_MEMORY_ALLOC_FAIL:
-							msg = Localization.GetText ("NotEnoughMemory", al);
+							msg = Localization.GetText ("NotEnoughMemory");
 							break;
 
 						case ProgramErrorCodes.EXEC_OK:
@@ -406,14 +419,15 @@ namespace RD_AAOW
 
 						// Других вариантов быть не должно
 						default:
-							throw new Exception (Localization.GetText ("DebugRequired", al) + " (1)");
+							throw new Exception (Localization.GetText ("DebugRequired") + " (1)");
 						}
 					if (msg != "")
 						{
-						msg = string.Format (Localization.GetText ("FileGeneric", al), Path.GetFileName (fileNames[c][n])) + msg;
+						msg = string.Format (Localization.GetText ("FileGeneric"),
+							Path.GetFileName (fileNames[c][n])) + msg;
 						messages.Add (msg);
-						((BackgroundWorker)sender).ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
-							totalImages), msg);
+						bw.ReportProgress ((int)(HardWorkExecutor.ProgressBarSize *
+							currentImage / totalImages), msg);
 						continue;
 						}
 					#endregion
@@ -475,11 +489,11 @@ namespace RD_AAOW
 					if (codecs[outputCodecsNumbers[selectedOutputType]].SaveImage (img, outputPath, imageColorFormat,
 						bitmapEdge, outputFormats[selectedOutputType]) != ProgramErrorCodes.EXEC_OK)
 						{
-						messages.Add (string.Format (Localization.GetText ("FileGeneric", al), Path.GetFileName (fileNames[c][n])) +
-							Localization.GetText ("OutputPathUnavailable", al));
+						messages.Add (string.Format (Localization.GetText ("FileGeneric"),
+							Path.GetFileName (fileNames[c][n])) + Localization.GetText ("OutputPathUnavailable"));
 
 						img.Dispose ();
-						((BackgroundWorker)sender).ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
+						bw.ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
 							totalImages), messages[messages.Count - 1]);
 
 						e.Cancel = true;
@@ -488,8 +502,9 @@ namespace RD_AAOW
 					#endregion
 
 					// Выполнено
-					messages.Add (string.Format (Localization.GetText ("FileProcessed", al), Path.GetFileName (fileNames[c][n])));
-					((BackgroundWorker)sender).ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
+					messages.Add (string.Format (Localization.GetText ("FileProcessed"),
+						Path.GetFileName (fileNames[c][n])));
+					bw.ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
 						totalImages), messages[messages.Count - 1]);
 					successes++;
 					img.Dispose ();
@@ -527,16 +542,19 @@ namespace RD_AAOW
 			if (ImageTypeCombo.Text == PBMgreyscale)
 				{
 				GreyscaleRadio.Checked = true;
-				SaveColorsRadio.Enabled = GreyscaleRadio.Enabled = BitmapRadio.Enabled = false;
+				SaveColorsRadio.Enabled = GreyscaleRadio.Enabled = BitmapRadio.Enabled =
+					DoNothingToColor.Enabled = false;
 				}
 			else if (ImageTypeCombo.Text == PBMbitmap)
 				{
 				BitmapRadio.Checked = true;
-				SaveColorsRadio.Enabled = GreyscaleRadio.Enabled = BitmapRadio.Enabled = false;
+				SaveColorsRadio.Enabled = GreyscaleRadio.Enabled = BitmapRadio.Enabled =
+					DoNothingToColor.Enabled = false;
 				}
 			else
 				{
-				SaveColorsRadio.Enabled = GreyscaleRadio.Enabled = BitmapRadio.Enabled = true;
+				SaveColorsRadio.Enabled = GreyscaleRadio.Enabled = BitmapRadio.Enabled =
+					DoNothingToColor.Enabled = true;
 				}
 			}
 
@@ -547,7 +565,7 @@ namespace RD_AAOW
 			e.Cancel = true;
 
 			// Сборка справки
-			string types = Localization.GetText ("SupportedFileTypes", al) + ":\r\n\r\n";
+			string types = Localization.GetText ("SupportedFileTypes") + ":\r\n\r\n";
 			for (int c = 0; c < codecs.Count; c++)
 				{
 				types += (" • " + codecs[c].ToString () + ": ");
@@ -579,7 +597,7 @@ namespace RD_AAOW
 		// Установка порога яркости для чёрно-белого преобразования
 		private void BitmapRadio_CheckedChanged (object sender, EventArgs e)
 			{
-			BitmapEdgeTrack.Visible = BitmapRadio.Checked;
+			BitmapEdgeTrack.Visible = ThresholdLabel.Visible = BitmapRadio.Checked;
 			}
 
 		// Запуск менеджера палитр
@@ -588,7 +606,7 @@ namespace RD_AAOW
 			if (!allowPalettes)
 				return;
 
-			PalettesManager pm = new PalettesManager (al);
+			PalettesManager pm = new PalettesManager ();
 			}
 
 		// Центрирование области обрезки
@@ -606,39 +624,48 @@ namespace RD_AAOW
 			FlipCombo.Items.Clear ();
 
 			// Сохранение языка
-			Localization.CurrentLanguage = al = (SupportedLanguages)LanguageCombo.SelectedIndex;
+			Localization.CurrentLanguage = (SupportedLanguages)LanguageCombo.SelectedIndex;
 
-			// Замена
-			InputFolder.Description = Localization.GetText ("InputFolderDescription", al);
-			OutputFolder.Description = Localization.GetText ("OutputFolderDescription", al);
-			IncludeSubdirs.Text = Localization.GetText ("IncludeSubdirsText", al);
+			// Загрузка и сохранение
+			LoadingTab.Text = Localization.GetText (LoadingTab.Name);
+			InputFolder.Description = Localization.GetText ("InputFolderDescription");
+			IncludeSubdirs.Text = Localization.GetText ("IncludeSubdirsText");
+			InputLabel.Text = Localization.GetText ("InputLabel");
 
+			OutputFolder.Description = Localization.GetText ("OutputFolderDescription");
+			OutputLabel.Text = Localization.GetText ("OutputLabel");
+			OutputFormatLabel.Text = Localization.GetText ("OutputFormatLabel");
+			StartButton.Text = Localization.GetText ("BStart");
+
+			// Размеры
+			SizeTab.Text = Localization.GetText (SizeTab.Name);
+			AbsoluteSize.Text = Localization.GetText ("AbsoluteSizeText");
+			RelativeSize.Text = Localization.GetText ("RelativeSizeText");
+			RelativeCrop.Text = Localization.GetText ("RelativeCropText");
+			CropCenter.Text = Localization.GetText ("CropCenterText");
+			DoNothingToSize.Text = Localization.GetText ("DoNothing");
+
+			// Цвета
+			ColorTab.Text = Localization.GetText (ColorTab.Name);
+			SaveColorsRadio.Text = Localization.GetText ("SaveColorsRadioText");
+			GreyscaleRadio.Text = Localization.GetText ("GreyscaleRadioText");
+			BitmapRadio.Text = Localization.GetText ("BitmapRadioText");
+			ThresholdLabel.Text = Localization.GetText ("ThresholdLabel");
+			DoNothingToColor.Text = Localization.GetText ("DoNothing");
+
+			// Поворот и отражение
+			RotationTab.Text = Localization.GetText (RotationTab.Name);
 			for (int i = 1; i <= 4; i++)
-				FlipCombo.Items.Add (Localization.GetText ("FlipComboItems" + i.ToString (), al));
+				FlipCombo.Items.Add (Localization.GetText ("FlipComboItems" + i.ToString ()));
+			CWLabel.Text = Localization.GetText ("CWLabelText");
+			FlipLabel.Text = Localization.GetText ("FlipLabelText");
+			DoNothingToRotation.Text = Localization.GetText ("DoNothing");
 
-			InputSection.Text = Localization.GetText ("InputSectionText", al);
-			ProcessingSection.Text = Localization.GetText ("ProcessingSectionText", al);
-
-			SizeTab.Text = Localization.GetText ("SizesSectionText", al);
-			AbsoluteSize.Text = Localization.GetText ("AbsoluteSizeText", al);
-			RelativeSize.Text = Localization.GetText ("RelativeSizeText", al);
-			RelativeCrop.Text = Localization.GetText ("RelativeCropText", al);
-			CropCenter.Text = Localization.GetText ("CropCenterText", al);
-
-			ColorTab.Text = Localization.GetText ("ColorsSectionText", al);
-			SaveColorsRadio.Text = Localization.GetText ("SaveColorsRadioText", al);
-			GreyscaleRadio.Text = Localization.GetText ("GreyscaleRadioText", al);
-			BitmapRadio.Text = Localization.GetText ("BitmapRadioText", al);
-
-			RotationTab.Text = Localization.GetText ("RotationSectionText", al);
-			CWLabel.Text = Localization.GetText ("CWLabelText", al);
-			FlipLabel.Text = Localization.GetText ("FlipLabelText", al);
-
-			OutputSection.Text = Localization.GetText ("OutputSectionText", al);
-
-			StartButton.Text = Localization.GetText ("BStart", al);
-			Palettes.Text = Localization.GetText ("PalettesManager", al);
-			ExitButton.Text = Localization.GetText ("BExit", al);
+			// Прочее
+			OthersTab.Text = Localization.GetText (OthersTab.Name);
+			Palettes.Text = Localization.GetText ("PalettesManager");
+			ExitButton.Text = Localization.GetDefaultButtonName (Localization.DefaultButtons.Exit);
+			LanguageLabel.Text = Localization.GetText ("LanguageLabel");
 
 			// Завершено
 			FlipCombo.SelectedIndex = flipType;

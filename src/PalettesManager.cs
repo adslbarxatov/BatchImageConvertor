@@ -25,23 +25,22 @@ namespace RD_AAOW
 			};
 		private bool allowExit = false;
 		private BMPCodec bmpCodec = new BMPCodec ();
-		private SupportedLanguages al;
+		/*private SupportedLanguages al;*/
 
 		/// <summary>
 		/// Конструктор. Запускает форму
 		/// </summary>
-		/// <param name="InterfaceLanguage">Язык интерфейса</param>
-		public PalettesManager (SupportedLanguages InterfaceLanguage)
+		public PalettesManager ()
 			{
 			InitializeComponent ();
-			al = InterfaceLanguage;
+			/*al = InterfaceLanguage;*/
 
 			// Настройка контролов
-			this.Text = Localization.GetText ("PalettesManager", al).Replace ("&", "");
+			this.Text = Localization.GetText ("PalettesManager").Replace ("&", "");
 
-			OFDialog.Title = Localization.GetText ("OpenPaletteDialogTitle", al);
-			SFDialog.Title = Localization.GetText ("SavePaletteDialogTitle", al);
-			CFDialog.Title = Localization.GetText ("ChangePaletteDialogTitle", al);
+			OFDialog.Title = Localization.GetText ("OpenPaletteDialogTitle");
+			SFDialog.Title = Localization.GetText ("SavePaletteDialogTitle");
+			CFDialog.Title = Localization.GetText ("ChangePaletteDialogTitle");
 
 			OFDialog.Filter = SFDialog.Filter = filters[0];
 			for (int i = 1; i < 7; i++)
@@ -68,18 +67,18 @@ namespace RD_AAOW
 			cell2.ValueType = Type.GetType ("System.Byte");
 
 			ColorGrid.Columns.Add (new DataGridViewColumn (cell1));
-			ColorGrid.Columns[0].Name = Localization.GetText ("ColorColumn", al);
+			ColorGrid.Columns[0].Name = Localization.GetText ("ColorColumn");
 			ColorGrid.Columns.Add (new DataGridViewColumn (cell2));
-			ColorGrid.Columns[1].Name = Localization.GetText ("AlphaColumn", al);
+			ColorGrid.Columns[1].Name = Localization.GetText ("AlphaColumn");
 
-			ExitButton.Text = Localization.GetText ("BExit", al);
-			Label01.Text = Localization.GetText ("OpacityLabel", al);
-			AbortAlpha.Text = Localization.GetText ("BCancel", al);
-			ApplyAlpha.Text = Localization.GetText ("BOK", al);
+			ExitButton.Text = Localization.GetDefaultButtonName (Localization.DefaultButtons.Exit);
+			Label01.Text = Localization.GetText ("OpacityLabel");
+			AbortAlpha.Text = Localization.GetDefaultButtonName (Localization.DefaultButtons.Cancel);
+			ApplyAlpha.Text = Localization.GetDefaultButtonName (Localization.DefaultButtons.OK);
 
-			LoadPalette.Text = Localization.GetText ("BLoad", al);
-			SavePalette.Text = Localization.GetText ("BSave", al);
-			SetPalette.Text = Localization.GetText ("BReplace", al);
+			LoadPalette.Text = Localization.GetText ("BLoad");
+			SavePalette.Text = Localization.GetText ("BSave");
+			SetPalette.Text = Localization.GetText ("BReplace");
 
 			// Запуск
 			this.ShowDialog ();
@@ -139,9 +138,7 @@ namespace RD_AAOW
 		// Обработка ошибок ввода
 		private void ColorGrid_DataError (object sender, DataGridViewDataErrorEventArgs e)
 			{
-			/*MessageBox.Shw (Localization.GetText ("IncorrectAlpha", al),
-				ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
-			RDGenerics.MessageBox (RDMessageTypes.Warning, Localization.GetText ("IncorrectAlpha", al));
+			RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning, "IncorrectAlpha");
 			}
 
 		// Добавление цвета
@@ -258,28 +255,25 @@ namespace RD_AAOW
 			switch (codecs[OFDialog.FilterIndex - 1].LoadPalette (OFDialog.FileName, out palette))
 				{
 				case ProgramErrorCodes.EXEC_FILE_UNAVAILABLE:
-					msg = Localization.GetText ("FileUnavailable", al);
+					msg = Localization.GetText ("FileUnavailable");
 					break;
 
 				case ProgramErrorCodes.EXEC_INVALID_FILE:
-					msg = Localization.GetText ("FileIncorrect", al);
+					msg = Localization.GetText ("FileIncorrect");
 					break;
 
 				case ProgramErrorCodes.EXEC_MEMORY_ALLOC_FAIL:
-					msg = Localization.GetText ("NotEnoughMemory", al);
+					msg = Localization.GetText ("NotEnoughMemory");
 					break;
 
 				case ProgramErrorCodes.EXEC_NO_PALETTE_AVAILABLE:
-					msg = Localization.GetText ("PalettesNotFound", al);
+					msg = Localization.GetText ("PalettesNotFound");
 					break;
 
 				case ProgramErrorCodes.EXEC_UNSUPPORTED_COLORS:
-					/*MessageBox.Shw (string.Format (Localization.GetText ("FileGeneric", al), OFDialog.FileName) +
-						Localization.GetText ("UnsupportedColors", al),
-						ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
 					RDGenerics.MessageBox (RDMessageTypes.Warning,
-						string.Format (Localization.GetText ("FileGeneric", al), OFDialog.FileName) +
-						Localization.GetText ("UnsupportedColors", al));
+						string.Format (Localization.GetText ("FileGeneric"), OFDialog.FileName) +
+						Localization.GetText ("UnsupportedColors"));
 
 					// Без отмены загрузки (msg не заполняется)
 					break;
@@ -289,14 +283,12 @@ namespace RD_AAOW
 
 				// Других вариантов быть не должно
 				default:
-					throw new Exception (Localization.GetText ("DebugRequired", al) + " (2)");
+					throw new Exception (Localization.GetText ("DebugRequired") + " (2)");
 				}
 
 			if (!string.IsNullOrWhiteSpace (msg))
 				{
-				msg = string.Format (Localization.GetText ("FileGeneric", al), OFDialog.FileName) + msg;
-				/*MessageBox.Shw (msg, ProgramDescription.AssemblyTitle, MessageBoxButtons.OK,
-					MessageBoxIcon.Exclamation);*/
+				msg = string.Format (Localization.GetText ("FileGeneric"), OFDialog.FileName) + msg;
 				RDGenerics.MessageBox (RDMessageTypes.Warning, msg);
 				return;
 				}
@@ -305,11 +297,11 @@ namespace RD_AAOW
 			ColorGrid.Rows.Clear ();
 			for (int i = 0; i < palette.Count; i++)
 				{
-				ColorGrid.Rows.Add (new object[] { "(" + 
-					palette[i].R.ToString () + "; " + 
+				ColorGrid.Rows.Add (new object[] { "(" +
+					palette[i].R.ToString () + "; " +
 					palette[i].G.ToString () + "; " +
 					palette[i].B.ToString () + ")",
-					palette[i].A.ToString () 
+					palette[i].A.ToString ()
 					});
 				ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.BackColor =
 					ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.SelectionBackColor =
@@ -342,26 +334,15 @@ namespace RD_AAOW
 			// Контроль
 			if ((ColorGrid.Rows.Count == 0) || (ColorGrid.Rows.Count > codecs[SFDialog.FilterIndex - 1].MaxColors))
 				{
-				/*MessageBox.Shw (Localization.GetText ("TooMuchColors", al) +
-					codecs[SFDialog.FilterIndex - 1].MaxColors.ToString (), ProgramDescription.AssemblyTitle,
-					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
-				RDGenerics.MessageBox (RDMessageTypes.Warning, Localization.GetText ("TooMuchColors", al) +
+				RDGenerics.MessageBox (RDMessageTypes.Warning, Localization.GetText ("TooMuchColors") +
 					codecs[SFDialog.FilterIndex - 1].MaxColors.ToString ());
 				return;
 				}
 
 			if ((ColorGrid.Rows.Count > 256) &&
-				/*(MessageBox.Shw (Localization.GetText ("ColorsCountExceedsRecommended", al),
-					ProgramDescription.AssemblyTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) !=
-					DialogResult.Yes))*/
-				(RDGenerics.MessageBox (RDMessageTypes.Question,
-					Localization.GetText ("ColorsCountExceedsRecommended", al),
-					Localization.GetDefaultButtonName (Localization.DefaultButtons.Yes),
-					Localization.GetDefaultButtonName (Localization.DefaultButtons.No)) !=
-					RDMessageButtons.ButtonOne))
-				{
+				(RDGenerics.LocalizedMessageBox (RDMessageTypes.Question, "ColorsCountExceedsRecommended",
+					Localization.DefaultButtons.Yes, Localization.DefaultButtons.No) != RDMessageButtons.ButtonOne))
 				return;
-				}
 
 			// Перегонка
 			List<Color> palette = new List<Color> ();
@@ -375,11 +356,7 @@ namespace RD_AAOW
 
 			// Сохранение
 			if (codecs[SFDialog.FilterIndex - 1].SavePalette (SFDialog.FileName, palette) != ProgramErrorCodes.EXEC_OK)
-				{
-				/*MessageBox.Shw (Localization.GetText ("OutputPathUnavailable", al),
-					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
-				RDGenerics.MessageBox (RDMessageTypes.Warning, Localization.GetText ("OutputPathUnavailable", al));
-				}
+				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning, "OutputPathUnavailable");
 			}
 
 		// Замена палитры
@@ -394,10 +371,7 @@ namespace RD_AAOW
 			int neededCodec = codecs.IndexOf (bmpCodec);
 			if ((ColorGrid.Rows.Count == 0) || (ColorGrid.Rows.Count > codecs[neededCodec].MaxColors))
 				{
-				/*MessageBox.Shw (Localization.GetText ("TooMuchColors", al) +
-					codecs[neededCodec].MaxColors.ToString (), ProgramDescription.AssemblyTitle,
-					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
-				RDGenerics.MessageBox (RDMessageTypes.Warning, Localization.GetText ("TooMuchColors", al) +
+				RDGenerics.MessageBox (RDMessageTypes.Warning, Localization.GetText ("TooMuchColors") +
 					codecs[neededCodec].MaxColors.ToString ());
 				return;
 				}
@@ -414,11 +388,7 @@ namespace RD_AAOW
 
 			// Сохранение
 			if (codecs[neededCodec].SavePalette (CFDialog.FileName, palette) != ProgramErrorCodes.EXEC_OK)
-				{
-				/*MessageBox.Shw (Localization.GetText ("OutputPathUnavailable", al),
-					ProgramDescription.AssemblyTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
-				RDGenerics.MessageBox (RDMessageTypes.Warning, Localization.GetText ("OutputPathUnavailable", al));
-				}
+				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning, "OutputPathUnavailable");
 			}
 		}
 	}

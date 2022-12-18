@@ -67,8 +67,10 @@ namespace RD_AAOW
 					{
 					for (int w = 0; w < width; w++)
 						{
-						LoadedImage.SetPixel (w, h, Color.FromArgb (a[4 * (h * width + w) + 3], a[4 * (h * width + w) + 0],
-							a[4 * (h * width + w) + 1], a[4 * (h * width + w) + 2]));
+						LoadedImage.SetPixel (w, h, Color.FromArgb (a[4 * (h * width + w) + 3],
+							a[4 * (h * width + w) + 0],
+							a[4 * (h * width + w) + 1],
+							a[4 * (h * width + w) + 2]));
 						}
 					}
 				}
