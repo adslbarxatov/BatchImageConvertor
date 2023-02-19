@@ -1,5 +1,8 @@
 ﻿Batch image convertor: changes log
 
+Version 3.2.7:
+• Updated the HypeHelp mechanics
+
 Version 3.2:
 • The main interface has been completely rebuilt. Now it is more obvious what to do here;
 • Added “Do nothing” buttons that allow you to quickly disable all size / color / rotation adjustments;
