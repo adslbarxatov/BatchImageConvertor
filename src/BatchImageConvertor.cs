@@ -21,23 +21,21 @@ namespace RD_AAOW
 			Application.SetCompatibleTextRenderingDefault (false);
 
 			// Язык интерфейса и контроль XPR
-			/*SupportedLanguages al = Localization.CurrentLanguage;*/
 			if (!Localization.IsXPUNClassAcceptable)
 				return;
 
 			// Проверка запуска единственной копии
-			if (!RDGenerics.IsThisInstanceUnique (Localization.IsCurrentLanguageRuRu
-				/*al == SupportedLanguages.ru_ru*/))
+			if (!RDGenerics.IsAppInstanceUnique (true))
 				return;
 
 			// Проверка наличия компонентов программы
 			if (!File.Exists (RDGenerics.AppStartupPath + ProgramDescription.AssemblyCodecsLibrary))
 				{
 				if (RDGenerics.MessageBox (RDMessageTypes.Question,
-					string.Format (Localization.GetText ("ComponentMissing",
-					Localization.CurrentLanguage), ProgramDescription.AssemblyCodecsLibrary),
-					Localization.GetDefaultButtonName (Localization.DefaultButtons.Yes),
-					Localization.GetDefaultButtonName (Localization.DefaultButtons.No)) ==
+					string.Format (Localization.GetText ("ComponentMissing"),
+					ProgramDescription.AssemblyCodecsLibrary),
+					Localization.GetDefaultText (LzDefaultTextValues.Button_Yes),
+					Localization.GetDefaultText (LzDefaultTextValues.Button_No)) ==
 					RDMessageButtons.ButtonOne)
 					{
 					AboutForm af = new AboutForm (null);

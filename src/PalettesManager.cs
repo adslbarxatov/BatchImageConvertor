@@ -25,7 +25,6 @@ namespace RD_AAOW
 			};
 		private bool allowExit = false;
 		private BMPCodec bmpCodec = new BMPCodec ();
-		/*private SupportedLanguages al;*/
 
 		/// <summary>
 		/// Конструктор. Запускает форму
@@ -33,7 +32,6 @@ namespace RD_AAOW
 		public PalettesManager ()
 			{
 			InitializeComponent ();
-			/*al = InterfaceLanguage;*/
 
 			// Настройка контролов
 			this.Text = Localization.GetText ("PalettesManager").Replace ("&", "");
@@ -71,10 +69,10 @@ namespace RD_AAOW
 			ColorGrid.Columns.Add (new DataGridViewColumn (cell2));
 			ColorGrid.Columns[1].Name = Localization.GetText ("AlphaColumn");
 
-			ExitButton.Text = Localization.GetDefaultButtonName (Localization.DefaultButtons.Exit);
+			ExitButton.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_Exit);
 			Label01.Text = Localization.GetText ("OpacityLabel");
-			AbortAlpha.Text = Localization.GetDefaultButtonName (Localization.DefaultButtons.Cancel);
-			ApplyAlpha.Text = Localization.GetDefaultButtonName (Localization.DefaultButtons.OK);
+			AbortAlpha.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_Cancel);
+			ApplyAlpha.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_OK);
 
 			LoadPalette.Text = Localization.GetText ("BLoad");
 			SavePalette.Text = Localization.GetText ("BSave");
@@ -341,7 +339,7 @@ namespace RD_AAOW
 
 			if ((ColorGrid.Rows.Count > 256) &&
 				(RDGenerics.LocalizedMessageBox (RDMessageTypes.Question, "ColorsCountExceedsRecommended",
-					Localization.DefaultButtons.Yes, Localization.DefaultButtons.No) != RDMessageButtons.ButtonOne))
+					LzDefaultTextValues.Button_Yes, LzDefaultTextValues.Button_No) != RDMessageButtons.ButtonOne))
 				return;
 
 			// Перегонка

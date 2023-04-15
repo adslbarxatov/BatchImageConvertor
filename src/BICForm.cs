@@ -28,7 +28,6 @@ namespace RD_AAOW
 		private const string PBMgreyscale = "PBM, Portable bitmap format (greyscale)";
 		private const string PBMbitmap = "PBM, Portable bitmap format (B&W)";
 
-		/*private SupportedLanguages al = Localization.CurrentLanguage;   // Язык интерфейса*/
 		private bool allowPalettes = false;
 
 		/// <summary>
@@ -91,10 +90,10 @@ namespace RD_AAOW
 					codecs.Add (new TGACodec ());
 					codecs.Add (new PCXCodec ());
 					codecs.Add (new ICOCodec ());
-					/*codecs.Add (new JP2Codec ());
+					//codecs.Add (new JP2Codec ());
 
-					AddOutputCodec ("JP2, JPEG 2000 file format", 5, JP2Codec.ImageTypes.JP2);
-					AddOutputCodec ("J2K, JPEG 2000 file format", 5, JP2Codec.ImageTypes.J2K);*/
+					//AddOutputCodec ("JP2, JPEG 2000 file format", 5, JP2Codec.ImageTypes.JP2);
+					//AddOutputCodec ("J2K, JPEG 2000 file format", 5, JP2Codec.ImageTypes.J2K);
 					AddOutputCodec ("TGA, Truevision targa image", 3, null);
 					AddOutputCodec ("PCX, PCExchange image format", 4, null);
 					AddOutputCodec (PBMcolors, 2, PBMCodec.ImageTypes.ColorAsBinary);
@@ -664,7 +663,7 @@ namespace RD_AAOW
 			// Прочее
 			OthersTab.Text = Localization.GetText (OthersTab.Name);
 			Palettes.Text = Localization.GetText ("PalettesManager");
-			ExitButton.Text = Localization.GetDefaultButtonName (Localization.DefaultButtons.Exit);
+			ExitButton.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_Exit);
 			LanguageLabel.Text = Localization.GetText ("LanguageLabel");
 
 			// Завершено
