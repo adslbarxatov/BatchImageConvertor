@@ -20,7 +20,7 @@ namespace RD_AAOW
 			Application.EnableVisualStyles ();
 			Application.SetCompatibleTextRenderingDefault (false);
 
-			// Язык интерфейса и контроль XPR
+			// Язык интерфейса и контроль XPUN
 			if (!Localization.IsXPUNClassAcceptable)
 				return;
 
