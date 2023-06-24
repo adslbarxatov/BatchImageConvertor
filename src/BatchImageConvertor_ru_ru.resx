@@ -126,15 +126,6 @@
   <data name="BitmapRadioText" xml:space="preserve">
     <value>Только чёрный и белый</value>
   </data>
-  <data name="BLoad" xml:space="preserve">
-    <value>&amp;Загрузить...</value>
-  </data>
-  <data name="BReplace" xml:space="preserve">
-    <value>За&amp;менить...</value>
-  </data>
-  <data name="BSave" xml:space="preserve">
-    <value>&amp;Сохранить...</value>
-  </data>
   <data name="BStart" xml:space="preserve">
     <value>&amp;Начать преобразование</value>
   </data>
@@ -290,9 +281,6 @@
   </data>
   <data name="InputLabel" xml:space="preserve">
     <value>Входная папка:</value>
-  </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Язык интерфейса:</value>
   </data>
   <data name="LoadingTab" xml:space="preserve">
     <value>Загрузка и сохранение</value>

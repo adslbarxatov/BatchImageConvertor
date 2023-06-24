@@ -74,9 +74,9 @@ namespace RD_AAOW
 			AbortAlpha.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_Cancel);
 			ApplyAlpha.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_OK);
 
-			LoadPalette.Text = Localization.GetText ("BLoad");
-			SavePalette.Text = Localization.GetText ("BSave");
-			SetPalette.Text = Localization.GetText ("BReplace");
+			LoadPalette.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_Load);
+			SavePalette.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_Save);
+			SetPalette.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_Replace);
 
 			// Запуск
 			this.ShowDialog ();

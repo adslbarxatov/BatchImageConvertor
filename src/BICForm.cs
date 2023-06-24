@@ -664,7 +664,7 @@ namespace RD_AAOW
 			OthersTab.Text = Localization.GetText (OthersTab.Name);
 			Palettes.Text = Localization.GetText ("PalettesManager");
 			ExitButton.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_Exit);
-			LanguageLabel.Text = Localization.GetText ("LanguageLabel");
+			LanguageLabel.Text = Localization.GetDefaultText (LzDefaultTextValues.Control_InterfaceLanguage);
 
 			// Завершено
 			FlipCombo.SelectedIndex = flipType;

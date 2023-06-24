@@ -126,15 +126,6 @@
   <data name="BitmapRadioText" xml:space="preserve">
     <value>Only black and white</value>
   </data>
-  <data name="BLoad" xml:space="preserve">
-    <value>&amp;Load...</value>
-  </data>
-  <data name="BReplace" xml:space="preserve">
-    <value>&amp;Replace...</value>
-  </data>
-  <data name="BSave" xml:space="preserve">
-    <value>&amp;Save...</value>
-  </data>
   <data name="BStart" xml:space="preserve">
     <value>&amp;Begin conversion</value>
   </data>
@@ -290,9 +281,6 @@ Do you want to open project’s webpage to download it manually? You can continu
   </data>
   <data name="InputLabel" xml:space="preserve">
     <value>Input folder:</value>
-  </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Interface language:</value>
   </data>
   <data name="LoadingTab" xml:space="preserve">
     <value>Loading and saving</value>
