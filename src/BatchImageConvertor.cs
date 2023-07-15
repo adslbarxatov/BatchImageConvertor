@@ -31,7 +31,7 @@ namespace RD_AAOW
 			// Проверка наличия компонентов программы
 			if (!File.Exists (RDGenerics.AppStartupPath + ProgramDescription.AssemblyCodecsLibrary))
 				{
-				if (RDGenerics.MessageBox (RDMessageTypes.Question,
+				if (RDGenerics.MessageBox (RDMessageTypes.Question_Center,
 					string.Format (Localization.GetText ("ComponentMissing"),
 					ProgramDescription.AssemblyCodecsLibrary),
 					Localization.GetDefaultText (LzDefaultTextValues.Button_Yes),

@@ -1,5 +1,4 @@
-_Changes for v 3.3.7_:
-- Added UTF32 encoding;
-- The interface was adapted to Windows 10, incorrect window borders were fixed;
-- Cumulative updates have been applied;
-- App about form has been upgraded
+_Changes for v 3.4_:
+- Rewritten settings operator: it should fix problems with requiring administrator rights;
+- Updated the interface of message boxes;
+- The interface was adapted to Windows 10, incorrect window borders were fixed

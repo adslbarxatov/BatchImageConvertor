@@ -82,7 +82,7 @@ namespace RD_AAOW
 				// Контроль совместимости
 				if (BatchImageConvertorLibrary.LibraryVersion != ProgramDescription.LibraryVersion)
 					{
-					RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning, "IncompatibleLibraryVersion");
+					RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "IncompatibleLibraryVersion");
 					}
 				else
 					{
@@ -216,20 +216,20 @@ namespace RD_AAOW
 			// Проверка состояния
 			if (InputPath.Text == "")
 				{
-				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning, "InputPathNotSpecified");
+				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "InputPathNotSpecified");
 				return;
 				}
 
 			if (OutputPath.Text == "")
 				{
-				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning, "OutputPathNotSpecified");
+				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "OutputPathNotSpecified");
 				return;
 				}
 
 			if (RelativeCrop.Checked && ((RelativeLeft.Value + RelativeWidth.Value > RelativeWidth.Maximum) ||
 				(RelativeTop.Value + RelativeHeight.Value > RelativeHeight.Maximum)))
 				{
-				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning, "IncorrectCropValues");
+				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "IncorrectCropValues");
 				return;
 				}
 
@@ -283,7 +283,7 @@ namespace RD_AAOW
 						}
 					catch
 						{
-						RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning, "InputPathUnavailable");
+						RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "InputPathUnavailable");
 
 						e.Cancel = true;
 						return;
@@ -580,7 +580,7 @@ namespace RD_AAOW
 
 			// Отображение
 			RDGenerics.ShowAbout (false);
-			RDGenerics.MessageBox (RDMessageTypes.Information, types);
+			RDGenerics.MessageBox (RDMessageTypes.Success_Left, types);
 			}
 
 		// Выбор варианта задания размера
