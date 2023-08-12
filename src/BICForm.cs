@@ -295,6 +295,7 @@ namespace RD_AAOW
 				}
 
 			#region Определение типа поворота
+
 			RotateFlipType rfType = (RotateFlipType)0;
 			switch (selectedRotation)
 				{
@@ -347,6 +348,7 @@ namespace RD_AAOW
 						rfType = RotateFlipType.Rotate270FlipNone;
 					break;
 				}
+
 			#endregion
 
 			// Определение типа цветового преобразования
@@ -384,6 +386,7 @@ namespace RD_AAOW
 						}
 
 					#region Тест на возможность записи конечного изображения
+
 					string outputPath = OutputPath.Text + "\\" + Path.GetFileNameWithoutExtension (fileNames[c][n]);
 					if (codecs[outputCodecsNumbers[selectedOutputType]].TestOutputFile (outputPath,
 						outputFormats[selectedOutputType]) == "")
@@ -395,6 +398,7 @@ namespace RD_AAOW
 							currentImage / totalImages), messages[messages.Count - 1]);
 						continue;
 						}
+
 					#endregion
 
 					#region Открытие изображения
@@ -484,7 +488,9 @@ namespace RD_AAOW
 					#endregion
 
 					#region Сохранение
-					// До этого места контроль на совпадение имён уже выполнен. Ошибки записи можно списать на недоступность папки
+
+					// До этого места контроль на совпадение имён уже выполнен.
+					// Ошибки записи можно списать на недоступность папки
 					if (codecs[outputCodecsNumbers[selectedOutputType]].SaveImage (img, outputPath, imageColorFormat,
 						bitmapEdge, outputFormats[selectedOutputType]) != ProgramErrorCodes.EXEC_OK)
 						{
@@ -498,6 +504,7 @@ namespace RD_AAOW
 						e.Cancel = true;
 						return;
 						}
+
 					#endregion
 
 					// Выполнено
@@ -564,18 +571,16 @@ namespace RD_AAOW
 			e.Cancel = true;
 
 			// Сборка справки
-			string types = Localization.GetText ("SupportedFileTypes") + ":\r\n\r\n";
+			string types = Localization.GetText ("SupportedFileTypes") + ":" + Localization.RNRN;
 			for (int c = 0; c < codecs.Count; c++)
 				{
 				types += (" • " + codecs[c].ToString () + ": ");
 				for (int t = 0; t < codecs[c].FileExtensions.Length - 1; t++)
-					{
 					types += (codecs[c].FileExtensions[t].Substring (2).ToUpper () + ", ");
-					}
 
 				types += codecs[c].FileExtensions[codecs[c].FileExtensions.Length - 1].Substring (2).ToUpper ();
 				if (c < codecs.Count - 1)
-					types += "\r\n";
+					types += Localization.RN;
 				}
 
 			// Отображение

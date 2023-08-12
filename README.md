@@ -1,5 +1,5 @@
-# BatchImageConvertor v 3.4
-> PCC: 00058F5EEF08AA42
+# BatchImageConvertor v 3.4.5
+> PCC: 0005A76036A1B8A1
 
 
 

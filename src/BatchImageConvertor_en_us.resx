@@ -190,7 +190,7 @@
     <value>Select the directory with source images</value>
   </data>
   <data name="InputPathNotSpecified" xml:space="preserve">
-    <value>Directory with source images not specified</value>
+    <value>Directory with source images is not specified</value>
   </data>
   <data name="InputPathUnavailable" xml:space="preserve">
     <value>Specified input directory is unavailable</value>

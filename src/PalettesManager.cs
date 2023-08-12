@@ -354,7 +354,9 @@ namespace RD_AAOW
 
 			// Сохранение
 			if (codecs[SFDialog.FilterIndex - 1].SavePalette (SFDialog.FileName, palette) != ProgramErrorCodes.EXEC_OK)
-				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "OutputPathUnavailable");
+				RDGenerics.MessageBox (RDMessageTypes.Warning_Center,
+					Localization.GetFileProcessingMessage (SFDialog.FileName,
+					LzFileProcessingMessageTypes.Save_Failure));
 			}
 
 		// Замена палитры
@@ -386,7 +388,9 @@ namespace RD_AAOW
 
 			// Сохранение
 			if (codecs[neededCodec].SavePalette (CFDialog.FileName, palette) != ProgramErrorCodes.EXEC_OK)
-				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "OutputPathUnavailable");
+				RDGenerics.MessageBox (RDMessageTypes.Warning_Center,
+					Localization.GetFileProcessingMessage (SFDialog.FileName,
+					LzFileProcessingMessageTypes.Save_Failure));
 			}
 		}
 	}

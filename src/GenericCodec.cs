@@ -155,8 +155,8 @@ namespace RD_AAOW
 					"*.bmp", "*.dib", "*.rle",				// Bitmaps
 					"*.gif",
 					"*.png",
-					"*.jpe*", /*"*.jpeg",*/ "*.jpg", "*.jfif",	// JPEGs
-					"*.tif*", /*"*.tiff",*/						// TIFFs
+					"*.jpe*", "*.jpg", "*.jfif",	// JPEGs
+					"*.tif*",						// TIFFs
 					};
 				}
 			}

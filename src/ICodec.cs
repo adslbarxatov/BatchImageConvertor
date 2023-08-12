@@ -74,10 +74,13 @@ namespace RD_AAOW
 		// Метод возвращает оттенок серого для представленного цвета
 		private static byte GetGreyscaleValue (Color OldColor)
 			{
-			/*return (byte)Math.Ceiling((double)OldColor.R * 0.299 + (double)OldColor.G * 0.587 + 
-				(double)OldColor.B * 0.114);	// PAL/NTSC*/
+#if PAL_NTSC
+			return (byte)Math.Ceiling((double)OldColor.R * 0.299 + (double)OldColor.G * 0.587 + 
+				(double)OldColor.B * 0.114);	// PAL/NTSC
+#else
 			return (byte)Math.Ceiling ((double)OldColor.R * 0.2126 + (double)OldColor.G * 0.7152 +
 				(double)OldColor.B * 0.0722);   // HDTV
+#endif
 			}
 
 		/// <summary>
