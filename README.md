@@ -1,5 +1,5 @@
-# BatchImageConvertor v 3.4.5
-> PCC: 0005A76036A1B8A1
+# BatchImageConvertor v 3.4.6
+> PCC: 0005A96004636290
 
 
 
@@ -14,8 +14,8 @@ This tool allows you to convert group of image files (including different format
 a single format. If it is necessary, you can specify uniform size or cropping method,
 rotation, flip direction and images mode (color / greyscale / bitmap).
 
-Also this tool allows you to load or extract the palettes, modify and save them. Or even replace
-the palette inside the indexed bitmap image.
+Also this tool allows you to load or extract palettes, modify and save them. Or even replace
+the palette inside the indexed bitmap image
 
 #
 
@@ -24,7 +24,7 @@ the palette inside the indexed bitmap image.
 цветовой режим (цветное / оттенки серого / чёрно-белое).
 
 Также этот инструмент позволяет загружать или извлекать палитры, изменять и сохранять их.
-Или даже заменить палитру внутри индексированного растрового изображения.
+Или даже заменить палитру внутри индексированного растрового изображения
 
 &nbsp;
 

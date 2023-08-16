@@ -263,7 +263,9 @@
     <value>This version of {0:S} is incompatible with current version of the application</value>
   </data>
   <data name="HelpText" xml:space="preserve">
-    <value>This tool allows you to convert group of image files (including different formats) into a single format. If it is necessary, you can specify uniform size or cropping method, rotation, flip direction and images mode (color/greyscale/bitmap)</value>
+    <value>This tool allows you to convert group of image files (including different formats) into a single format. If it is necessary, you can specify uniform size or cropping method, rotation, flip direction and images mode (color/greyscale/bitmap).
+
+Also this tool allows you to load or extract palettes, modify and save them. Or even replace the palette inside the indexed bitmap image</value>
   </data>
   <data name="IncorrectCropValues" xml:space="preserve">
     <value>Sum of crop offset and crop size exceeds image dimensions (&gt; 100%)</value>

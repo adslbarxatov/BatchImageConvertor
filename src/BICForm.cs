@@ -163,6 +163,8 @@ namespace RD_AAOW
 
 			// Назначение заголовка окна
 			this.Text = ProgramDescription.AssemblyTitle;
+			if (!RDGenerics.IsRegistryAccessible)
+				this.Text += Localization.GetDefaultText (LzDefaultTextValues.Message_LimitedFunctionality);
 			}
 
 		// Сбросы настроек преобразования
