@@ -299,4 +299,7 @@ Do you want to open project’s webpage to download it manually? You can continu
   <data name="ThresholdLabel" xml:space="preserve">
     <value>Conversion threshold:</value>
   </data>
+  <data name="UnsupportedOS" xml:space="preserve">
+    <value>current OS doesn’t support conversion of this image format</value>
+  </data>
 </root>

@@ -299,4 +299,7 @@
   <data name="ThresholdLabel" xml:space="preserve">
     <value>Порог преобразования:</value>
   </data>
+  <data name="UnsupportedOS" xml:space="preserve">
+    <value>текущая ОС не поддерживает преобразование этого типа изображений</value>
+  </data>
 </root>

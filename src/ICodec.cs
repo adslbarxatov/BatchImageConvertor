@@ -4,6 +4,57 @@ using System.Drawing;
 namespace RD_AAOW
 	{
 	/// <summary>
+	/// Список возможных ошибок программы
+	/// </summary>
+	public enum ProgramErrorCodes
+		{
+		/// <summary>
+		/// Ошибок нет
+		/// </summary>
+		EXEC_OK = 0,
+
+		/// <summary>
+		/// Некорректные параметры команды (говорит об ошибке в программе)
+		/// </summary>
+		EXEC_INVALID_PARAMETERS = -1,
+
+		/// <summary>
+		/// Файл не найден или недоступен
+		/// </summary>
+		EXEC_FILE_UNAVAILABLE = -2,
+
+		/// <summary>
+		/// Файл повреждён или не поддерживается
+		/// </summary>
+		EXEC_INVALID_FILE = -3,
+
+		/// <summary>
+		/// Ошибка работы с памятью (возможно, требуется повтор операции)
+		/// </summary>
+		EXEC_MEMORY_ALLOC_FAIL = -4,
+
+		/// <summary>
+		/// Файл не содержит палитры
+		/// </summary>
+		EXEC_NO_PALETTE_AVAILABLE = -11,
+
+		/// <summary>
+		/// Файл не содержит палитры
+		/// </summary>
+		EXEC_UNSUPPORTED_COLORS = -12,
+
+		/// <summary>
+		/// Операционная система не поддерживает данный тип изображений
+		/// </summary>
+		EXEC_UNSUPPORTED_OS = -13,
+
+		/// <summary>
+		/// Метод на стадии разработки
+		/// </summary>
+		EXEC_NOT_IMPLEMENTED = -100
+		}
+
+	/// <summary>
 	/// Интерфейс описывает требования к кодекам, используемым в программе
 	/// </summary>
 	public interface ICodec

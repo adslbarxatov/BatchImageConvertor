@@ -69,6 +69,7 @@ namespace RD_AAOW
 			// Перечисление основных кодеков
 			codecs.Add (new GenericCodec ());
 			codecs.Add (new MetafileCodec ());
+			codecs.Add (new WebpCodec ());
 
 			AddOutputCodec ("PNG, Portable network graphics", 0, ImageFormat.Png);
 			AddOutputCodec ("JPEG, Joint photographic experts group", 0, ImageFormat.Jpeg);
@@ -92,13 +93,13 @@ namespace RD_AAOW
 					codecs.Add (new ICOCodec ());
 					//codecs.Add (new JP2Codec ());
 
-					//AddOutputCodec ("JP2, JPEG 2000 file format", 5, JP2Codec.ImageTypes.JP2);
-					//AddOutputCodec ("J2K, JPEG 2000 file format", 5, JP2Codec.ImageTypes.J2K);
-					AddOutputCodec ("TGA, Truevision targa image", 3, null);
-					AddOutputCodec ("PCX, PCExchange image format", 4, null);
-					AddOutputCodec (PBMcolors, 2, PBMCodec.ImageTypes.ColorAsBinary);
-					AddOutputCodec (PBMgreyscale, 2, PBMCodec.ImageTypes.GreyscaleAsBinary);
-					AddOutputCodec (PBMbitmap, 2, PBMCodec.ImageTypes.BitmapAsBinary);
+					//AddOutputCodec ("JP2, JPEG 2000 file format", 7, JP2Codec.ImageTypes.JP2);
+					//AddOutputCodec ("J2K, JPEG 2000 file format", 7, JP2Codec.ImageTypes.J2K);
+					AddOutputCodec ("TGA, Truevision targa image", 4, null);
+					AddOutputCodec ("PCX, PCExchange image format", 5, null);
+					AddOutputCodec (PBMcolors, 3, PBMCodec.ImageTypes.ColorAsBinary);
+					AddOutputCodec (PBMgreyscale, 3, PBMCodec.ImageTypes.GreyscaleAsBinary);
+					AddOutputCodec (PBMbitmap, 3, PBMCodec.ImageTypes.BitmapAsBinary);
 
 					Palettes.Enabled = allowPalettes = true;
 					}
@@ -417,6 +418,10 @@ namespace RD_AAOW
 
 						case ProgramErrorCodes.EXEC_MEMORY_ALLOC_FAIL:
 							msg = Localization.GetText ("NotEnoughMemory");
+							break;
+
+						case ProgramErrorCodes.EXEC_UNSUPPORTED_OS:
+							msg = Localization.GetText ("UnsupportedOS");
 							break;
 
 						case ProgramErrorCodes.EXEC_OK:
