@@ -572,11 +572,8 @@ namespace RD_AAOW
 			}
 
 		// Информация о поддерживаемых форматах
-		private void BICForm_HelpButtonClicked (object sender, CancelEventArgs e)
+		private void AboutTheApp_Click (object sender, EventArgs e)
 			{
-			// Отмена общей обработки
-			e.Cancel = true;
-
 			// Сборка справки
 			string types = Localization.GetText ("SupportedFileTypes") + ":" + Localization.RNRN;
 			for (int c = 0; c < codecs.Count; c++)
@@ -677,6 +674,7 @@ namespace RD_AAOW
 			Palettes.Text = Localization.GetText ("PalettesManager");
 			ExitButton.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_Exit);
 			LanguageLabel.Text = Localization.GetDefaultText (LzDefaultTextValues.Control_InterfaceLanguage);
+			AboutTheApp.Text = Localization.GetDefaultText (LzDefaultTextValues.Control_AppAbout);
 
 			// Завершено
 			FlipCombo.SelectedIndex = flipType;

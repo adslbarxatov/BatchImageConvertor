@@ -31,6 +31,8 @@ All of these extensions (except palettes) are allowed in the input folder. Other
 
 Some formats support provided by codec library. Utility can work without it, but these formats will not be processed
 
+&nbsp;
+
 
 
 ***Supported by application***
@@ -44,6 +46,10 @@ Some formats support provided by codec library. Utility can work without it, but
 | `.jpe`, `.jpg`, `.jpeg`, `.jfif` | Yes | Yes | .NET |
 | `.wmf`, `.emf` | Yes | No | .NET |
 
+&nbsp;
+
+
+
 ***Supported by codec library***
 
 | Input file extension | Read | Write | Based on |
@@ -53,11 +59,19 @@ Some formats support provided by codec library. Utility can work without it, but
 | `.pnm`, `.pbm`, `.pgm`, `.ppm` | Yes | Yes | Own codec |
 | `.ico` | Yes | No | Own codec |
 
+&nbsp;
+
+
+
 ***Supported by side utilities***
 
 | Input file extension | Read | Write | Based on |
 |-|-|-|-|
 | `.webp` | Yes | No | [dwebp tool](https://developers.google.com/speed/webp/docs/dwebp) |
+
+&nbsp;
+
+
 
 ***Palettes formats***
 
