@@ -36,7 +36,7 @@ Some formats support provided by codec library. Utility can work without it, but
 ***Supported by application***
 
 | Input file extension | Read | Write | Based on |
----
+|-|-|-|-|
 | `.bmp`, `.dib`, `.rle` | Yes | Yes | .NET |
 | `.png` | Yes | Yes | .NET |
 | `.gif` | Yes | Yes | .NET |
@@ -47,8 +47,8 @@ Some formats support provided by codec library. Utility can work without it, but
 ***Supported by codec library***
 
 | Input file extension | Read | Write | Based on |
----
-| `.tga`, `.vda`, `.icb`, `.vst` | Yes | Yes | Xash3D engine |
+|-|-|-|-|
+| `.tga`, `.vda`, `.icb`, `.vst` | Yes | Yes | [Xash FWGS engine](https://github.com/FWGS/xash3d-fwgs) |
 | `.pcx`, `.pcc` | Yes | Yes | Own codec |
 | `.pnm`, `.pbm`, `.pgm`, `.ppm` | Yes | Yes | Own codec |
 | `.ico` | Yes | No | Own codec |
@@ -56,13 +56,13 @@ Some formats support provided by codec library. Utility can work without it, but
 ***Supported by side utilities***
 
 | Input file extension | Read | Write | Based on |
----
-| `.webp` | Yes | No | dwebp tool |
+|-|-|-|-|
+| `.webp` | Yes | No | [dwebp tool](https://developers.google.com/speed/webp/docs/dwebp) |
 
 ***Palettes formats***
 
 | Input file extension | Read | Write | Based on |
----
+|-|-|-|-|
 | `.act` | Yes | Yes | Own codec |
 | `.pal` (Microsoft) | Yes | Yes | Own codec |
 | `.pal` (JASC) | Yes | Yes | Own codec |
