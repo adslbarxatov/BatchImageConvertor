@@ -1,14 +1,17 @@
-# BatchImageConvertor v 3.5.1
-> PCC: 000D44F43A5E6916
+# BatchImageConvertor
 
+## Description
 
-
-A tool for batch images processing.
+A tool for batch processing of image files.
 Detailed description of the app is now available on [its own page](https://adslbarxatov.github.io/BatchImageConvertor)
 
----
+&nbsp;
 
-Инструмент для автоматической обработки групп изображений.
+
+
+## Описание
+
+Инструмент для автоматической обработки файлов изображений.
 Подробное описание приложения теперь доступно на [отдельной странице](https://adslbarxatov.github.io/BatchImageConvertor/ru)
 
 &nbsp;
