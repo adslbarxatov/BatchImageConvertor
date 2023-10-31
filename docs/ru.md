@@ -1,5 +1,5 @@
 # Batch image convertor: руководство пользователя
-> **ƒ** &nbsp;RD AAOW FDL; 1.10.2023; 22:12
+> **ƒ** &nbsp;RD AAOW FDL; 1.11.2023; 2:36
 
 
 
@@ -68,6 +68,7 @@
 | Расширение входного файла | Чтение | Запись | Основана на |
 |-|-|-|-|
 | `.webp` | Да | Нет | [Инструмент dwebp](https://developers.google.com/speed/webp/docs/dwebp) |
+| `.avif` | Да | Нет | [Инструмент davif](https://github.com/link-u/davif) |
 
 &nbsp;
 

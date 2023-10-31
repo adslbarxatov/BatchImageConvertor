@@ -70,6 +70,7 @@ namespace RD_AAOW
 			codecs.Add (new GenericCodec ());
 			codecs.Add (new MetafileCodec ());
 			codecs.Add (new WebpCodec ());
+			codecs.Add (new AvifCodec ());
 
 			AddOutputCodec ("PNG, Portable network graphics", 0, ImageFormat.Png);
 			AddOutputCodec ("JPEG, Joint photographic experts group", 0, ImageFormat.Jpeg);
@@ -571,8 +572,14 @@ namespace RD_AAOW
 				}
 			}
 
-		// Информация о поддерживаемых форматах
+		// Информация о программе
 		private void AboutTheApp_Click (object sender, EventArgs e)
+			{
+			RDGenerics.ShowAbout (false);
+			}
+
+		// Информация о поддерживаемых форматах
+		private void SupportedExt_Click (object sender, EventArgs e)
 			{
 			// Сборка справки
 			string types = Localization.GetText ("SupportedFileTypes") + ":" + Localization.RNRN;
@@ -588,7 +595,6 @@ namespace RD_AAOW
 				}
 
 			// Отображение
-			RDGenerics.ShowAbout (false);
 			RDGenerics.MessageBox (RDMessageTypes.Success_Left, types);
 			}
 
@@ -675,6 +681,7 @@ namespace RD_AAOW
 			ExitButton.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_Exit);
 			LanguageLabel.Text = Localization.GetDefaultText (LzDefaultTextValues.Control_InterfaceLanguage);
 			AboutTheApp.Text = Localization.GetDefaultText (LzDefaultTextValues.Control_AppAbout);
+			SupportedExtButton.Text = Localization.GetText ("SupportedExtButton");
 
 			// Завершено
 			FlipCombo.SelectedIndex = flipType;

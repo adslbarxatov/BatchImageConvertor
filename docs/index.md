@@ -1,5 +1,5 @@
 # Batch image convertor: user guide
-> **ƒ** &nbsp;RD AAOW FDL; 1.10.2023; 22:02
+> **ƒ** &nbsp;RD AAOW FDL; 1.11.2023; 2:36
 
 
 
@@ -68,6 +68,7 @@ Some formats support provided by codec library. Utility can work without it, but
 | Input file extension | Read | Write | Based on |
 |-|-|-|-|
 | `.webp` | Yes | No | [dwebp tool](https://developers.google.com/speed/webp/docs/dwebp) |
+| `.avif` | Yes | No | [davif tool](https://github.com/link-u/davif) |
 
 &nbsp;
 

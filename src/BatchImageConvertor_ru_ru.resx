@@ -251,7 +251,7 @@
     <value>Размеры</value>
   </data>
   <data name="SupportedFileTypes" xml:space="preserve">
-    <value>Поддерживаемые типы файлов</value>
+    <value>Поддерживаемые типы входных файлов</value>
   </data>
   <data name="TooMuchColors" xml:space="preserve">
     <value>Количество цветов в текущей палитре недопустимо для выбранного формата. Допустимый диапазон: 1 – </value>
@@ -261,11 +261,6 @@
   </data>
   <data name="IncompatibleLibraryVersion" xml:space="preserve">
     <value>Данная версия {0:S} несовместима с текущей версией приложения</value>
-  </data>
-  <data name="HelpText" xml:space="preserve">
-    <value>Инструмент позволяет преобразовывать группы изображений разных форматов в единый формат и применять к каждому из них нужные настройки: размер или обрезку, поворот/отражение, цветовой режим (цветное/оттенки серого/чёрно-белое).
-
-Также этот инструмент позволяет загружать или извлекать палитры, изменять и сохранять их. Или даже заменить палитру внутри индексированного растрового изображения</value>
   </data>
   <data name="IncorrectCropValues" xml:space="preserve">
     <value>Сумма смещения и размера обрезки превышает размеры изображения (&gt; 100%)</value>
@@ -301,5 +296,8 @@
   </data>
   <data name="UnsupportedOS" xml:space="preserve">
     <value>текущая ОС не поддерживает преобразование этого типа изображений</value>
+  </data>
+  <data name="SupportedExtButton" xml:space="preserve">
+    <value>Поддерживаемые форматы</value>
   </data>
 </root>
