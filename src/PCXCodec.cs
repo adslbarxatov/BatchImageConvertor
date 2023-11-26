@@ -12,21 +12,21 @@ namespace RD_AAOW
 	/// </summary>
 	public class PCXCodec: ICodec, IPaletteCodec
 		{
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern Int16 PCX_Load (string FileName, out UInt16 Width, out UInt16 Height, out IntPtr Buffer);
 
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern Int16 PCX_Save (string FileName, UInt16 Width, UInt16 Height, byte[] Buffer);
 
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern Int16 PCX_LoadPalette (string FileName, out IntPtr Buffer, out UInt16 ColorsCount);
 		// RGB
 
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern Int16 PCX_SavePalette (string FileName, byte[] Buffer, UInt16 ColorsCount);
 		// RGB
 
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern void BIC_ReleaseBuffer (IntPtr Buffer);
 
 		/// <summary>
@@ -222,6 +222,32 @@ namespace RD_AAOW
 			get
 				{
 				return 256;
+				}
+			}
+
+		/// <summary>
+		/// Возвращает true, если кодек может функционировать в текущей конфигруации приложения
+		/// </summary>
+		public bool IsCodecAvailable
+			{
+			get
+				{
+				return File.Exists (RDGenerics.AppStartupPath + BatchImageConvertorLibrary.CodecsLibraryFile);
+				}
+			}
+
+		/// <summary>
+		/// Возвращает параметры работы кодека в режиме сохранения:
+		/// - элемент [n][0] = название создаваемого формата
+		/// - элемент [n][1] = внутренний параметр кодека, соответствующий формату
+		/// </summary>
+		public object[][] OutputModeSettings
+			{
+			get
+				{
+				return new object[][] {
+					new object[] { "PCX, PCExchange image format", null },
+				};
 				}
 			}
 		}

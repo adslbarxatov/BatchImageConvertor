@@ -4,7 +4,7 @@
 #include "TGA.h"
 #include "PCX.h"
 #include "PBM.h"
-#include "JP2.h"
+/*#include "JP2.h"*/
 #include "ICO.h"
 
 #include "ACT.h"
@@ -141,10 +141,10 @@ BIC_API sint PBM_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, 
 	return PBM_SaveImage (FileName, Width, Height, Buffer, ImageType);
 	}
 
-// Интерфейсы для функций JPEG2000 (буфер в формате RGB)
+/* Интерфейсы для функций JPEG2000 (буфер в формате RGB)
 BIC_API sint JP2_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
 	{
-	//return JP2_LoadImage (FileName, Width, Height, Buffer);
+	return JP2_LoadImage (FileName, Width, Height, Buffer);
 
 	// Функция неисправна
 	return EXEC_NOT_IMPLEMENTED;
@@ -152,11 +152,11 @@ BIC_API sint JP2_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffe
 
 BIC_API sint JP2_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uchar CodecType)
 	{
-	//return JP2_SaveImage (FileName, Width, Height, Buffer, CodecType);
+	return JP2_SaveImage (FileName, Width, Height, Buffer, CodecType);
 	
 	// Функция неисправна
 	return EXEC_NOT_IMPLEMENTED;
-	}
+	}*/
 
 // Интерфейсы для функций JPEG2000 (буфер в формате RGB)
 BIC_API sint ICO_Load (schar* FileName, uint* Width, uint* Height, uchar** Buffer)

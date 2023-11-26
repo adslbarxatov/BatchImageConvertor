@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Runtime.InteropServices;
 
 namespace RD_AAOW
@@ -11,11 +10,11 @@ namespace RD_AAOW
 	/// </summary>
 	public class BMPCodec: IPaletteCodec
 		{
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern Int16 BMP_LoadPalette (string FileName, out IntPtr Buffer, out UInt16 ColorsCount);
 		// RGBA
 
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern Int16 BMP_SetPalette (string FileName, byte[] Buffer, UInt16 ColorsCount);
 		// RGBA
 

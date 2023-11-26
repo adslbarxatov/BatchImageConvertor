@@ -1,5 +1,5 @@
 # Batch image convertor: user guide
-> **ƒ** &nbsp;RD AAOW FDL; 1.11.2023; 2:36
+> **ƒ** &nbsp;RD AAOW FDL; 26.11.2023; 22:17
 
 
 
@@ -40,10 +40,10 @@ Some formats support provided by codec library. Utility can work without it, but
 | Input file extension | Read | Write | Based on |
 |-|-|-|-|
 | `.bmp`, `.dib`, `.rle` | Yes | Yes | .NET |
-| `.png` | Yes | Yes | .NET |
 | `.gif` | Yes | Yes | .NET |
-| `.tif`, `.tiff` | Yes | Yes | .NET |
 | `.jpe`, `.jpg`, `.jpeg`, `.jfif` | Yes | Yes | .NET |
+| `.png` | Yes | Yes | .NET |
+| `.tif`, `.tiff` | Yes | Yes | .NET |
 | `.wmf`, `.emf` | Yes | No | .NET |
 
 &nbsp;
@@ -54,10 +54,10 @@ Some formats support provided by codec library. Utility can work without it, but
 
 | Input file extension | Read | Write | Based on |
 |-|-|-|-|
-| `.tga`, `.vda`, `.icb`, `.vst` | Yes | Yes | [Xash FWGS engine](https://github.com/FWGS/xash3d-fwgs) |
+| `.ico` | Yes | No | Own codec |
 | `.pcx`, `.pcc` | Yes | Yes | Own codec |
 | `.pnm`, `.pbm`, `.pgm`, `.ppm` | Yes | Yes | Own codec |
-| `.ico` | Yes | No | Own codec |
+| `.tga`, `.vda`, `.icb`, `.vst` | Yes | Yes | [Xash FWGS engine](https://github.com/FWGS/xash3d-fwgs) |
 
 &nbsp;
 
@@ -67,8 +67,9 @@ Some formats support provided by codec library. Utility can work without it, but
 
 | Input file extension | Read | Write | Based on |
 |-|-|-|-|
-| `.webp` | Yes | No | [dwebp tool](https://developers.google.com/speed/webp/docs/dwebp) |
 | `.avif` | Yes | No | [davif tool](https://github.com/link-u/davif) |
+| `.jp2`, `.j2c`, `.j2k`, `.jpc`, `.j2c`, `.jpf`, `.jpx` | Yes | No | [openjp2 tool](https://github.com/uclouvain/openjpeg) |
+| `.webp` | Yes | No | [dwebp tool](https://developers.google.com/speed/webp/docs/dwebp) |
 
 &nbsp;
 
@@ -78,10 +79,10 @@ Some formats support provided by codec library. Utility can work without it, but
 
 | Input file extension | Read | Write | Based on |
 |-|-|-|-|
+| `.aco` | Yes | No | Own codec |
 | `.act` | Yes | Yes | Own codec |
+| `.ase` | Yes | No | Own codec |
 | `.pal` (Microsoft) | Yes | Yes | Own codec |
 | `.pal` (JASC) | Yes | Yes | Own codec |
-| `.aco` | Yes | No | Own codec |
-| `.ase` | Yes | No | Own codec |
 | `.bmp`, `.dib`, `.rle` | Extracting | Replacing | Own codec |
 | `.pcx`, `.pcc` | Extracting | No | Own codec |

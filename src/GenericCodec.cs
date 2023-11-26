@@ -160,5 +160,35 @@ namespace RD_AAOW
 					};
 				}
 			}
+
+		/// <summary>
+		/// Всегда возвращает true (доступен постоянно)
+		/// </summary>
+		public bool IsCodecAvailable
+			{
+			get
+				{
+				return true;
+				}
+			}
+
+		/// <summary>
+		/// Возвращает параметры работы кодека в режиме сохранения:
+		/// - элемент [n][0] = название создаваемого формата
+		/// - элемент [n][1] = внутренний параметр кодека, соответствующий формату
+		/// </summary>
+		public object[][] OutputModeSettings
+			{
+			get
+				{
+				return new object[][] {
+					new object[] { "PNG, Portable network graphics", ImageFormat.Png },
+					new object[] { "JPEG, Joint photographic experts group", ImageFormat.Jpeg },
+					new object[] { "BMP, Windows bitmap", ImageFormat.Bmp },
+					new object[] { "GIF, Graphics interchange format", ImageFormat.Gif },
+					new object[] { "TIFF, Tagged image file format", ImageFormat.Tiff },
+				};
+				}
+			}
 		}
 	}

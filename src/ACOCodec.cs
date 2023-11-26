@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace RD_AAOW
@@ -10,11 +11,11 @@ namespace RD_AAOW
 	/// </summary>
 	public class ACOCodec: IPaletteCodec
 		{
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern Int16 ACO_LoadPalette (string FileName, out IntPtr Buffer, out UInt16 ColorsCount);
 		// RGB
 
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern Int16 ACO_SavePalette (string FileName, byte[] Buffer, UInt16 ColorsCount);
 		// RGB
 

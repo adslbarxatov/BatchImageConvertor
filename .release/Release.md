@@ -1,8 +1,8 @@
-_Changes for v 3.6_:
+_Changes for v 3.7_:
+- Re-implemented the support for `JPEG2000` file format (reading);
+- Codecs management subsystem has been rewritten;
+- Added a new version of offline help;
 - Completed the process of version control unification;
 - Added support for `.avif` image format (reading);
-- Updated the help calling method;
-- The offline quick help has been discontinued;
 - Completed the process of version control unification;
-- Added a stand-alone user guide;
 - Added support for `.webp` image format (reading)

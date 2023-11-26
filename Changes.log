@@ -1,5 +1,10 @@
 Batch image convertor: changes log
 
+Version 3.7:
+• Re-implemented the support for JPEG2000 file format (reading);
+• Codecs management subsystem has been rewritten;
+• Added a new version of offline help
+
 Version 3.6:
 • Completed the process of version control unification;
 • Added support for .avif image format (reading);

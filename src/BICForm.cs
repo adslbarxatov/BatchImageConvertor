@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 
@@ -13,20 +12,34 @@ namespace RD_AAOW
 	/// </summary>
 	public partial class BICForm: Form
 		{
-		// Переменные
-		private List<ICodec> codecs = new List<ICodec> ();          // Списки обработчиков изображений
+		// Списки обработчиков изображений
+		private List<ICodec> codecs = new List<ICodec> ();
 		private List<int> outputCodecsNumbers = new List<int> ();
 		private List<object> outputFormats = new List<object> ();
-		private uint successes = 0;                         // Счётчики успешных обработок и общего числа изображений
+		private ICodec[] availableCodecs = new ICodec[] {
+			new GenericCodec (),
+			new MetafileCodec (),
+			new JP2Codec (),
+			new AvifCodec (),
+			new WebpCodec (),
+			new TGACodec (),
+			new PBMCodec (),
+			new PCXCodec (),
+			new ICOCodec (),
+			};
+
+		// Счётчики успешных обработок и общего числа изображений
+		private uint successes = 0;
 		private double totalImages = 0.0;
 
-		private int selectedFlip, selectedRotation, selectedOutputType; // Транзактные переменные
+		// Транзактные переменные
+		private int selectedFlip, selectedRotation, selectedOutputType;
 		private byte bitmapEdge;
 		private List<string> messages = new List<string> ();
 
-		private const string PBMcolors = "PBM, Portable bitmap format (RGB)";
+		/*private const string PBMcolors = "PBM, Portable bitmap format (RGB)";
 		private const string PBMgreyscale = "PBM, Portable bitmap format (greyscale)";
-		private const string PBMbitmap = "PBM, Portable bitmap format (B&W)";
+		private const string PBMbitmap = "PBM, Portable bitmap format (B&W)";*/
 
 		private bool allowPalettes = false;
 
@@ -66,8 +79,19 @@ namespace RD_AAOW
 			RelativeLeft.Maximum = RelativeTop.Maximum = 99;
 			AbsoluteSize_CheckedChanged (null, null);
 
-			// Перечисление основных кодеков
-			codecs.Add (new GenericCodec ());
+			// Перечисление кодеков
+			for (int i = 0; i < availableCodecs.Length; i++)
+				{
+				if (!availableCodecs[i].IsCodecAvailable)
+					continue;
+
+				codecs.Add (availableCodecs[i]);
+				for (int j = 0; j < availableCodecs[i].OutputModeSettings.Length; j++)
+					AddOutputCodec (availableCodecs[i].OutputModeSettings[j][0].ToString (),
+						codecs.Count - 1, availableCodecs[i].OutputModeSettings[j][1]);
+				}
+
+			/*codecs.Add (new GenericCodec ());
 			codecs.Add (new MetafileCodec ());
 			codecs.Add (new WebpCodec ());
 			codecs.Add (new AvifCodec ());
@@ -76,9 +100,9 @@ namespace RD_AAOW
 			AddOutputCodec ("JPEG, Joint photographic experts group", 0, ImageFormat.Jpeg);
 			AddOutputCodec ("BMP, Windows bitmap", 0, ImageFormat.Bmp);
 			AddOutputCodec ("GIF, Graphics interchange format", 0, ImageFormat.Gif);
-			AddOutputCodec ("TIFF, Tagged image file format", 0, ImageFormat.Tiff);
+			AddOutputCodec ("TIFF, Tagged image file format", 0, ImageFormat.Tiff);*/
 
-			// Перечисление дополнительных кодеков
+			/* Перечисление дополнительных кодеков
 			if (File.Exists (RDGenerics.AppStartupPath + ProgramDescription.AssemblyCodecsLibrary))
 				{
 				// Контроль совместимости
@@ -104,7 +128,11 @@ namespace RD_AAOW
 
 					Palettes.Enabled = allowPalettes = true;
 					}
-				}
+				}*/
+
+			// Защита от входа без библиотеки
+			Palettes.Enabled = allowPalettes = File.Exists (RDGenerics.AppStartupPath +
+				BatchImageConvertorLibrary.CodecsLibraryFile);
 
 			// Запрос сохранённых настроек
 			ImageTypeCombo.SelectedIndex = 0;
@@ -553,13 +581,13 @@ namespace RD_AAOW
 		// Подгонка настроек под тип изображения
 		private void ImageTypeCombo_SelectedIndexChanged (object sender, EventArgs e)
 			{
-			if (ImageTypeCombo.Text == PBMgreyscale)
+			if (ImageTypeCombo.Text.Contains (ColorTransition.OnlyGreyscaleMarker))
 				{
 				GreyscaleRadio.Checked = true;
 				SaveColorsRadio.Enabled = GreyscaleRadio.Enabled = BitmapRadio.Enabled =
 					DoNothingToColor.Enabled = false;
 				}
-			else if (ImageTypeCombo.Text == PBMbitmap)
+			else if (ImageTypeCombo.Text.Contains (ColorTransition.OnlyBnWMarker))
 				{
 				BitmapRadio.Checked = true;
 				SaveColorsRadio.Enabled = GreyscaleRadio.Enabled = BitmapRadio.Enabled =
@@ -585,7 +613,10 @@ namespace RD_AAOW
 			string types = Localization.GetText ("SupportedFileTypes") + ":" + Localization.RNRN;
 			for (int c = 0; c < codecs.Count; c++)
 				{
-				types += (" • " + codecs[c].ToString () + ": ");
+				string s = codecs[c].ToString ();
+				s = s.Substring (s.IndexOf ('.') + 1);
+				types += (" • " + s + ": ");
+
 				for (int t = 0; t < codecs[c].FileExtensions.Length - 1; t++)
 					types += (codecs[c].FileExtensions[t].Substring (2).ToUpper () + ", ");
 

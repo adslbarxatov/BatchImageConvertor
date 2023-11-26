@@ -5,12 +5,12 @@ using System.IO;
 namespace RD_AAOW
 	{
 	/// <summary>
-	/// Класс описывает кодек для изображений формата WebP
+	/// Класс описывает кодек для изображений формата Avif
 	/// </summary>
-	public class WebpCodec: ICodec
+	public class AvifCodec: ICodec
 		{
 		// Константы
-		private const string codecApp = "dwebp.exe";
+		private const string codecApp = "davif.exe";
 
 		/// <summary>
 		/// Метод загружает указанное изображение и возвращает его в виде объекта Bitmap
@@ -25,7 +25,7 @@ namespace RD_AAOW
 				{
 				Process p = new Process ();
 				p.StartInfo = new ProcessStartInfo (RDGenerics.AppStartupPath + codecApp,
-					"\"" + FilePath + "\" -o \"" + FilePath + ".png\"");
+					"-i \"" + FilePath + "\" -o \"" + FilePath + ".png\"");
 				p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
 
 				p.Start ();
@@ -96,7 +96,7 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new string[] { "*.webp" };
+				return new string[] { "*.avif" };
 				}
 			}
 

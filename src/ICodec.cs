@@ -94,6 +94,24 @@ namespace RD_AAOW
 			{
 			get;
 			}
+
+		/// <summary>
+		/// Возвращает true, если кодек может функционировать в текущей конфигруации приложения
+		/// </summary>
+		bool IsCodecAvailable
+			{
+			get;
+			}
+
+		/// <summary>
+		/// Возвращает параметры работы кодека в режиме сохранения:
+		/// - элемент [n][0] = название создаваемого формата
+		/// - элемент [n][1] = внутренний параметр кодека, соответствующий формату
+		/// </summary>
+		object[][] OutputModeSettings
+			{
+			get;
+			}
 		}
 
 	/// <summary>
@@ -159,5 +177,20 @@ namespace RD_AAOW
 
 			return Color.FromArgb (OldColor.A, 255, 255, 255);
 			}
+
+		/// <summary>
+		/// Маркер режима «только чёрный и белый»
+		/// </summary>
+		public const string OnlyBnWMarker = "[black & white]";
+
+		/// <summary>
+		/// Маркер режима «градации серого»
+		/// </summary>
+		public const string OnlyGreyscaleMarker = "[greyscale]";
+
+		/// <summary>
+		/// Маркер режима «все цвета»
+		/// </summary>
+		public const string RGBMarker = "[rgb]";
 		}
 	}

@@ -10,11 +10,11 @@ namespace RD_AAOW
 	/// </summary>
 	public class ASECodec: IPaletteCodec
 		{
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern Int16 ASE_LoadPalette (string FileName, out IntPtr Buffer, out UInt16 ColorsCount);
 		// RGB
 
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern Int16 ASE_SavePalette (string FileName, byte[] Buffer, UInt16 ColorsCount);
 		// RGB
 

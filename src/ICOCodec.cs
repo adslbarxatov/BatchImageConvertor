@@ -11,10 +11,10 @@ namespace RD_AAOW
 	/// </summary>
 	public class ICOCodec: ICodec
 		{
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern Int16 ICO_Load (string FileName, out UInt16 Width, out UInt16 Height, out IntPtr Buffer);
 
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern void BIC_ReleaseBuffer (IntPtr Buffer);
 
 		/// <summary>
@@ -97,6 +97,30 @@ namespace RD_AAOW
 			get
 				{
 				return new string[] { "*.ico" };
+				}
+			}
+
+		/// <summary>
+		/// Возвращает true, если кодек может функционировать в текущей конфигруации приложения
+		/// </summary>
+		public bool IsCodecAvailable
+			{
+			get
+				{
+				return File.Exists (RDGenerics.AppStartupPath + BatchImageConvertorLibrary.CodecsLibraryFile);
+				}
+			}
+
+		/// <summary>
+		/// Возвращает параметры работы кодека в режиме сохранения:
+		/// - элемент [n][0] = название создаваемого формата
+		/// - элемент [n][1] = внутренний параметр кодека, соответствующий формату
+		/// </summary>
+		public object[][] OutputModeSettings
+			{
+			get
+				{
+				return new object[][] { };
 				}
 			}
 		}

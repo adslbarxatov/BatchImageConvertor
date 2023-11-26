@@ -9,8 +9,8 @@
 // Стандартное переопределение типов
 #include "..\\Generics\\CSTypes.h"
 
-#define BIC_VERSION					3,4,0,0
-#define BIC_VERSION_S				"3.4.0.0"
+#define BIC_VERSION					3,7,0,0
+#define BIC_VERSION_S				"3.7.0.0"
 #define BIC_PRODUCT					"Codecs library for Batch image convertor"
 #define BIC_COMPANY					FDL_COMPANY
 
@@ -117,11 +117,11 @@ BIC_API sint PCX_Save (schar *FileName, uint Width, uint Height, uchar *Buffer);
 BIC_API sint PBM_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
 BIC_API sint PBM_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uchar ImageType);
 
-BIC_API sint JP2_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
-BIC_API sint JP2_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uchar CodecType);
+/*BIC_API sint JP2_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
+BIC_API sint JP2_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uchar CodecType);*/
 
 BIC_API sint ICO_Load (schar* FileName, uint* Width, uint* Height, uchar** Buffer);
-/*BIC_API sint BIC_CONV ICO_Save (schar* FileName, uint Width, uint Height, uchar* Buffer);*/
+//BIC_API sint BIC_CONV ICO_Save (schar* FileName, uint Width, uint Height, uchar* Buffer);
 
 // Декларации для палитр (битность цветов может различаться)
 BIC_API sint PCX_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);		// RGB

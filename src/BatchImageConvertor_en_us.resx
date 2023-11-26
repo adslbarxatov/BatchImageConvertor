@@ -260,7 +260,7 @@
     <value>some colors haven’t been loaded because of absence of support for their color spaces in the current version of application</value>
   </data>
   <data name="IncompatibleLibraryVersion" xml:space="preserve">
-    <value>This version of {0:S} is incompatible with current version of the application</value>
+    <value>This version of {0:S} is incompatible with current version of application</value>
   </data>
   <data name="IncorrectCropValues" xml:space="preserve">
     <value>Sum of crop offset and crop size exceeds image dimensions (&gt; 100%)</value>

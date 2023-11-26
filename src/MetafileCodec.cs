@@ -6,7 +6,7 @@ namespace RD_AAOW
 	/// <summary>
 	/// Класс описывает кодек для метафайлов Windows
 	/// </summary>
-	public class MetafileCodec:ICodec
+	public class MetafileCodec: ICodec
 		{
 		/// <summary>
 		/// Метод загружает указанное изображение и возвращает его в виде объекта Bitmap
@@ -47,8 +47,8 @@ namespace RD_AAOW
 		/// <param name="ImageColorFormat">Цветовое представление выходного изображения</param>
 		/// <param name="BitmapEdge">Порог яркости для чёрно-белого преобразования</param>
 		/// <returns>Возвращает true в случае успеха</returns>
-		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat, byte BitmapEdge,
-			object Parameters)
+		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat,
+			byte BitmapEdge, object Parameters)
 			{
 			// Не поддерживается в данной реализации
 			return ProgramErrorCodes.EXEC_NOT_IMPLEMENTED;
@@ -74,6 +74,30 @@ namespace RD_AAOW
 			get
 				{
 				return new string[] { "*.wmf", "*.emf" };
+				}
+			}
+
+		/// <summary>
+		/// Всегда возвращает true (доступен постоянно)
+		/// </summary>
+		public bool IsCodecAvailable
+			{
+			get
+				{
+				return true;
+				}
+			}
+
+		/// <summary>
+		/// Возвращает параметры работы кодека в режиме сохранения:
+		/// - элемент [n][0] = название создаваемого формата
+		/// - элемент [n][1] = внутренний параметр кодека, соответствующий формату
+		/// </summary>
+		public object[][] OutputModeSettings
+			{
+			get
+				{
+				return new object[][] { };
 				}
 			}
 		}

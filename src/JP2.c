@@ -1,6 +1,6 @@
 // Интерфейс подключения к библиотеке OpenJPEG2000
 
-/*#include "BatchImageConvertor.h"
+#include "BatchImageConvertor.h"
 #include "JP2.h"
 
 #define JP2_EXIT(c)				opj_destroy_codec (codec1); opj_destroy_codec (codec2); opj_stream_destroy (stream);\
@@ -30,10 +30,10 @@ sint JP2_LoadImage (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
 	// Контроль
 	BIC_CHECK_INPUT_PARAMETERS
 
-	// Настройка декодера
-	opj_set_default_decoder_parameters (&parameters1);
+		// Настройка декодера
+		opj_set_default_decoder_parameters (&parameters1);
 	opj_set_default_decoder_parameters (&parameters2);
-	
+
 	if (!opj_setup_decoder (codec1, &parameters1) || !opj_setup_decoder (codec2, &parameters2))
 		{
 		opj_destroy_codec (codec1);
@@ -101,29 +101,29 @@ sint JP2_LoadImage (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
 	if ((image->color_space != OPJ_CLRSPC_SYCC) &&
 		(image->numcomps == 3) &&
 		(image->comps[0].dx == image->comps[0].dy) &&
-		(image->comps[1].dx != 1)) 
+		(image->comps[1].dx != 1))
 		{
 		image->color_space = OPJ_CLRSPC_SYCC;
-		} 
-	else if (image->numcomps <= 2) 
+		}
+	else if (image->numcomps <= 2)
 		{
 		image->color_space = OPJ_CLRSPC_GRAY;
 		}
 
-	if (image->color_space == OPJ_CLRSPC_SYCC) 
+	if (image->color_space == OPJ_CLRSPC_SYCC)
 		{
 		color_sycc_to_rgb (image);
-		} 
-	else if (image->color_space == OPJ_CLRSPC_CMYK) 
+		}
+	else if (image->color_space == OPJ_CLRSPC_CMYK)
 		{
 		color_cmyk_to_rgb (image);
-		} 
-	else if (image->color_space == OPJ_CLRSPC_EYCC) 
+		}
+	else if (image->color_space == OPJ_CLRSPC_EYCC)
 		{
 		color_esycc_to_rgb (image);
 		}
 
-	switch (image->color_space) 
+	switch (image->color_space)
 		{
 		case OPJ_CLRSPC_UNSPECIFIED:
 		case OPJ_CLRSPC_SRGB:
@@ -146,7 +146,7 @@ sint JP2_LoadImage (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
 		}
 
 	// Выгрузка данных
-	if ((buf = (uchar*)malloc (*Width * *Height * 4)) == NULL)
+	if ((buf = (uchar *)malloc (*Width * *Height * 4)) == NULL)
 		{
 		opj_image_destroy (image);
 		return EXEC_MEMORY_ALLOC_FAIL;
@@ -185,7 +185,7 @@ sint JP2_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer, uch
 	ulong w, h, k;
 
 	// Контроль
-	BIC_CHECK_OUTPUT_PARAMETERS
+	BIC_CHECK_OUTPUT_PARAMETERS;
 	if ((CodecType < 1) || (CodecType > 2))
 		{
 		return EXEC_INVALID_PARAMETERS;
@@ -195,13 +195,9 @@ sint JP2_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer, uch
 	opj_set_default_encoder_parameters (&parameters);
 
 	if (CodecType == 1)
-		{	
 		codec = opj_create_compress (OPJ_CODEC_JP2);
-		}
 	else
-		{
 		codec = opj_create_compress (OPJ_CODEC_J2K);
-		}
 
 	// Аллокация структуры изображения
 	if ((image = (opj_image_t *)malloc (sizeof (opj_image_t))) == NULL)
@@ -214,7 +210,7 @@ sint JP2_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer, uch
 	image->icc_profile_buf = NULL;
 	image->icc_profile_len = 0;
 	image->numcomps = 3;		// Процедура записи альфа-канала в библиотеке OpenJPEG неисправна
-								// Перенос выполняется полностью, но альфа-канал будет игнорироваться
+	// Перенос выполняется полностью, но альфа-канал будет игнорироваться
 	image->x0 = image->y0 = 0;
 	image->x1 = Width;
 	image->y1 = Height;
@@ -231,7 +227,7 @@ sint JP2_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer, uch
 		image->comps[k].x0 = image->comps[k].y0 = 0;
 		image->comps[k].w = Width;
 		image->comps[k].h = Height;
-		image->comps[k].alpha = image->comps[k].bpp = image->comps[k].factor = 
+		image->comps[k].alpha = image->comps[k].bpp = image->comps[k].factor =
 			image->comps[k].resno_decoded = image->comps[k].sgnd = 0;
 		image->comps[k].prec = 8;
 
@@ -259,18 +255,18 @@ sint JP2_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer, uch
 	// Запись
 	if (!opj_setup_encoder (codec, &parameters, image))
 		{
-		JP2_W_EXIT (EXEC_INVALID_PARAMETERS)
+		JP2_W_EXIT (EXEC_INVALID_PARAMETERS);
 		}
 
 	if ((stream = opj_stream_create_default_file_stream (FileName, 0)) == NULL)
 		{
-		JP2_W_EXIT (EXEC_FILE_UNAVAILABLE)
+		JP2_W_EXIT (EXEC_FILE_UNAVAILABLE);
 		}
 
 	if (!opj_start_compress (codec, image, stream) || !opj_encode (codec, stream) || !opj_end_compress (codec, stream))
 		{
 		opj_stream_destroy (stream);
-		JP2_W_EXIT (EXEC_INVALID_PARAMETERS)
+		JP2_W_EXIT (EXEC_INVALID_PARAMETERS);
 		}
 
 	// Завершено

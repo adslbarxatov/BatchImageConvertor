@@ -11,13 +11,13 @@ namespace RD_AAOW
 	/// </summary>
 	public class TGACodec: ICodec
 		{
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern Int16 TGA_Load (string FileName, out UInt16 Width, out UInt16 Height, out IntPtr Buffer);
 
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern Int16 TGA_Save (string FileName, UInt16 Width, UInt16 Height, byte[] Buffer);
 
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern void BIC_ReleaseBuffer (IntPtr Buffer);
 
 		/// <summary>
@@ -50,9 +50,9 @@ namespace RD_AAOW
 					{
 					for (int w = 0; w < width; w++)
 						{
-						LoadedImage.SetPixel (w, h, Color.FromArgb (a[4 * (h * width + w) + 3], 
+						LoadedImage.SetPixel (w, h, Color.FromArgb (a[4 * (h * width + w) + 3],
 							a[4 * (h * width + w) + 0],
-							a[4 * (h * width + w) + 1], 
+							a[4 * (h * width + w) + 1],
 							a[4 * (h * width + w) + 2]));
 						}
 					}
@@ -148,6 +148,32 @@ namespace RD_AAOW
 			get
 				{
 				return new string[] { "*.tga", "*.vda", "*.icb", "*.vst" };
+				}
+			}
+
+		/// <summary>
+		/// Возвращает true, если кодек может функционировать в текущей конфигруации приложения
+		/// </summary>
+		public bool IsCodecAvailable
+			{
+			get
+				{
+				return File.Exists (RDGenerics.AppStartupPath + BatchImageConvertorLibrary.CodecsLibraryFile);
+				}
+			}
+
+		/// <summary>
+		/// Возвращает параметры работы кодека в режиме сохранения:
+		/// - элемент [n][0] = название создаваемого формата
+		/// - элемент [n][1] = внутренний параметр кодека, соответствующий формату
+		/// </summary>
+		public object[][] OutputModeSettings
+			{
+			get
+				{
+				return new object[][] {
+					new object[] { "TGA, Truevision targa image", null },
+				};
 				}
 			}
 		}

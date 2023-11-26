@@ -29,11 +29,11 @@ namespace RD_AAOW
 				return;
 
 			// Проверка наличия компонентов программы
-			if (!File.Exists (RDGenerics.AppStartupPath + ProgramDescription.AssemblyCodecsLibrary))
+			if (!File.Exists (RDGenerics.AppStartupPath + BatchImageConvertorLibrary.CodecsLibraryFile))
 				{
 				if (RDGenerics.MessageBox (RDMessageTypes.Question_Center,
 					string.Format (Localization.GetText ("ComponentMissing"),
-					ProgramDescription.AssemblyCodecsLibrary),
+					BatchImageConvertorLibrary.CodecsLibraryFile),
 					Localization.GetDefaultText (LzDefaultTextValues.Button_Yes),
 					Localization.GetDefaultText (LzDefaultTextValues.Button_No)) ==
 					RDMessageButtons.ButtonOne)
@@ -43,6 +43,12 @@ namespace RD_AAOW
 
 				// Не ограничивать работу, если компонент не нужен
 				//return;
+				}
+			else if (BatchImageConvertorLibrary.LibraryVersion != ProgramDescription.LibraryVersion)
+				{
+				RDGenerics.MessageBox (RDMessageTypes.Warning_Center,
+					string.Format (Localization.GetText ("IncompatibleLibraryVersion"),
+					BatchImageConvertorLibrary.CodecsLibraryFile));
 				}
 
 			// Отображение справки и запроса на принятие Политики
@@ -61,7 +67,7 @@ namespace RD_AAOW
 	public static class BatchImageConvertorLibrary
 		{
 		// Внешние функции
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (CodecsLibraryFile)]
 		private static extern IntPtr BIC_GetLibVersion ();
 
 		/// <summary>
@@ -74,5 +80,10 @@ namespace RD_AAOW
 				return Marshal.PtrToStringAnsi (BIC_GetLibVersion ());
 				}
 			}
+
+		/// <summary>
+		/// Имя библиотеки дополнительных кодеков программы
+		/// </summary>
+		public const string CodecsLibraryFile = "BatchImageConvertorCodecs.dll";
 		}
 	}

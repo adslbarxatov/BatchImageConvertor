@@ -11,13 +11,15 @@ namespace RD_AAOW
 	/// </summary>
 	public class PBMCodec: ICodec
 		{
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
-		private static extern Int16 PBM_Load (string FileName, out UInt16 Width, out UInt16 Height, out IntPtr Buffer);
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
+		private static extern Int16 PBM_Load (string FileName, out UInt16 Width, out UInt16 Height,
+			out IntPtr Buffer);
 
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
-		private static extern Int16 PBM_Save (string FileName, UInt16 Width, UInt16 Height, byte[] Buffer, byte ImageType);
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
+		private static extern Int16 PBM_Save (string FileName, UInt16 Width, UInt16 Height, byte[] Buffer,
+			byte ImageType);
 
-		[DllImport (ProgramDescription.AssemblyCodecsLibrary)]
+		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
 		private static extern void BIC_ReleaseBuffer (IntPtr Buffer);
 
 		/// <summary>
@@ -194,6 +196,37 @@ namespace RD_AAOW
 				{
 				return new string[] { "*.pnm", "*.pbm", "*.pgm", "*.ppm" };
 				// Насчёт .pfm и .pam информация есть. Они будут описаны позднее... наверное...
+				}
+			}
+
+		/// <summary>
+		/// Возвращает true, если кодек может функционировать в текущей конфигруации приложения
+		/// </summary>
+		public bool IsCodecAvailable
+			{
+			get
+				{
+				return File.Exists (RDGenerics.AppStartupPath + BatchImageConvertorLibrary.CodecsLibraryFile);
+				}
+			}
+
+		/// <summary>
+		/// Возвращает параметры работы кодека в режиме сохранения:
+		/// - элемент [n][0] = название создаваемого формата
+		/// - элемент [n][1] = внутренний параметр кодека, соответствующий формату
+		/// </summary>
+		public object[][] OutputModeSettings
+			{
+			get
+				{
+				return new object[][] {
+					new object[] { "PBM, Portable bitmap format " + ColorTransition.RGBMarker,
+						ImageTypes.ColorAsBinary },
+					new object[] { "PBM, Portable bitmap format " + ColorTransition.OnlyGreyscaleMarker,
+						ImageTypes.GreyscaleAsBinary },
+					new object[] { "PBM, Portable bitmap format " + ColorTransition.OnlyBnWMarker,
+						ImageTypes.BitmapAsBinary },
+				};
 				}
 			}
 		}
