@@ -34,11 +34,11 @@ namespace RD_AAOW
 			InitializeComponent ();
 
 			// Настройка контролов
-			this.Text = Localization.GetText ("PalettesManager").Replace ("&", "");
+			this.Text = RDLocale.GetText ("PalettesManager").Replace ("&", "");
 
-			OFDialog.Title = Localization.GetText ("OpenPaletteDialogTitle");
-			SFDialog.Title = Localization.GetText ("SavePaletteDialogTitle");
-			CFDialog.Title = Localization.GetText ("ChangePaletteDialogTitle");
+			OFDialog.Title = RDLocale.GetText ("OpenPaletteDialogTitle");
+			SFDialog.Title = RDLocale.GetText ("SavePaletteDialogTitle");
+			CFDialog.Title = RDLocale.GetText ("ChangePaletteDialogTitle");
 
 			OFDialog.Filter = SFDialog.Filter = filters[0];
 			for (int i = 1; i < 7; i++)
@@ -65,18 +65,18 @@ namespace RD_AAOW
 			cell2.ValueType = Type.GetType ("System.Byte");
 
 			ColorGrid.Columns.Add (new DataGridViewColumn (cell1));
-			ColorGrid.Columns[0].Name = Localization.GetText ("ColorColumn");
+			ColorGrid.Columns[0].Name = RDLocale.GetText ("ColorColumn");
 			ColorGrid.Columns.Add (new DataGridViewColumn (cell2));
-			ColorGrid.Columns[1].Name = Localization.GetText ("AlphaColumn");
+			ColorGrid.Columns[1].Name = RDLocale.GetText ("AlphaColumn");
 
-			ExitButton.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_Exit);
-			Label01.Text = Localization.GetText ("OpacityLabel");
-			AbortAlpha.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_Cancel);
-			ApplyAlpha.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_OK);
+			ExitButton.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Exit);
+			Label01.Text = RDLocale.GetText ("OpacityLabel");
+			AbortAlpha.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Cancel);
+			ApplyAlpha.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_OK);
 
-			LoadPalette.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_Load);
-			SavePalette.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_Save);
-			SetPalette.Text = Localization.GetDefaultText (LzDefaultTextValues.Button_Replace);
+			LoadPalette.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Load);
+			SavePalette.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Save);
+			SetPalette.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Replace);
 
 			// Запуск
 			this.ShowDialog ();
@@ -253,25 +253,25 @@ namespace RD_AAOW
 			switch (codecs[OFDialog.FilterIndex - 1].LoadPalette (OFDialog.FileName, out palette))
 				{
 				case ProgramErrorCodes.EXEC_FILE_UNAVAILABLE:
-					msg = Localization.GetText ("FileUnavailable");
+					msg = RDLocale.GetText ("FileUnavailable");
 					break;
 
 				case ProgramErrorCodes.EXEC_INVALID_FILE:
-					msg = Localization.GetText ("FileIncorrect");
+					msg = RDLocale.GetText ("FileIncorrect");
 					break;
 
 				case ProgramErrorCodes.EXEC_MEMORY_ALLOC_FAIL:
-					msg = Localization.GetText ("NotEnoughMemory");
+					msg = RDLocale.GetText ("NotEnoughMemory");
 					break;
 
 				case ProgramErrorCodes.EXEC_NO_PALETTE_AVAILABLE:
-					msg = Localization.GetText ("PalettesNotFound");
+					msg = RDLocale.GetText ("PalettesNotFound");
 					break;
 
 				case ProgramErrorCodes.EXEC_UNSUPPORTED_COLORS:
 					RDGenerics.MessageBox (RDMessageTypes.Warning_Left,
-						string.Format (Localization.GetText ("FileGeneric"), OFDialog.FileName) +
-						Localization.GetText ("UnsupportedColors"));
+						string.Format (RDLocale.GetText ("FileGeneric"), OFDialog.FileName) +
+						RDLocale.GetText ("UnsupportedColors"));
 
 					// Без отмены загрузки (msg не заполняется)
 					break;
@@ -281,12 +281,12 @@ namespace RD_AAOW
 
 				// Других вариантов быть не должно
 				default:
-					throw new Exception (Localization.GetText ("DebugRequired") + " (2)");
+					throw new Exception (RDLocale.GetText ("DebugRequired") + " (2)");
 				}
 
 			if (!string.IsNullOrWhiteSpace (msg))
 				{
-				msg = string.Format (Localization.GetText ("FileGeneric"), OFDialog.FileName) + msg;
+				msg = string.Format (RDLocale.GetText ("FileGeneric"), OFDialog.FileName) + msg;
 				RDGenerics.MessageBox (RDMessageTypes.Warning_Left, msg);
 				return;
 				}
@@ -332,14 +332,14 @@ namespace RD_AAOW
 			// Контроль
 			if ((ColorGrid.Rows.Count == 0) || (ColorGrid.Rows.Count > codecs[SFDialog.FilterIndex - 1].MaxColors))
 				{
-				RDGenerics.MessageBox (RDMessageTypes.Warning_Center, Localization.GetText ("TooMuchColors") +
+				RDGenerics.MessageBox (RDMessageTypes.Warning_Center, RDLocale.GetText ("TooMuchColors") +
 					codecs[SFDialog.FilterIndex - 1].MaxColors.ToString ());
 				return;
 				}
 
 			if ((ColorGrid.Rows.Count > 256) &&
 				(RDGenerics.LocalizedMessageBox (RDMessageTypes.Question_Center, "ColorsCountExceedsRecommended",
-					LzDefaultTextValues.Button_Yes, LzDefaultTextValues.Button_No) != RDMessageButtons.ButtonOne))
+					RDLDefaultTexts.Button_Yes, RDLDefaultTexts.Button_No) != RDMessageButtons.ButtonOne))
 				return;
 
 			// Перегонка
@@ -355,8 +355,10 @@ namespace RD_AAOW
 			// Сохранение
 			if (codecs[SFDialog.FilterIndex - 1].SavePalette (SFDialog.FileName, palette) != ProgramErrorCodes.EXEC_OK)
 				RDGenerics.MessageBox (RDMessageTypes.Warning_Center,
-					Localization.GetFileProcessingMessage (SFDialog.FileName,
-					LzFileProcessingMessageTypes.Save_Failure));
+					/*RDLocale.GetFileProcessingMessage (SFDialog.FileName, RDL_FP_Messages.Save_Failure)
+					*/
+					string.Format (RDLocale.GetDefaultText (RDLDefaultTexts.Message_SaveFailure_Fmt),
+					SFDialog.FileName));
 			}
 
 		// Замена палитры
@@ -371,7 +373,7 @@ namespace RD_AAOW
 			int neededCodec = codecs.IndexOf (bmpCodec);
 			if ((ColorGrid.Rows.Count == 0) || (ColorGrid.Rows.Count > codecs[neededCodec].MaxColors))
 				{
-				RDGenerics.MessageBox (RDMessageTypes.Warning_Center, Localization.GetText ("TooMuchColors") +
+				RDGenerics.MessageBox (RDMessageTypes.Warning_Center, RDLocale.GetText ("TooMuchColors") +
 					codecs[neededCodec].MaxColors.ToString ());
 				return;
 				}
@@ -389,8 +391,10 @@ namespace RD_AAOW
 			// Сохранение
 			if (codecs[neededCodec].SavePalette (CFDialog.FileName, palette) != ProgramErrorCodes.EXEC_OK)
 				RDGenerics.MessageBox (RDMessageTypes.Warning_Center,
-					Localization.GetFileProcessingMessage (SFDialog.FileName,
-					LzFileProcessingMessageTypes.Save_Failure));
+					/*RDLocale.GetFileProcessingMessage (SFDialog.FileName, RDL_FP_Messages.Save_Failure)
+					*/
+					string.Format (RDLocale.GetDefaultText (RDLDefaultTexts.Message_SaveFailure_Fmt),
+					SFDialog.FileName));
 			}
 		}
 	}

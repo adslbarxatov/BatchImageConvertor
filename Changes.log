@@ -1,5 +1,9 @@
 Batch image convertor: changes log
 
+Version 3.7.3:
+• Core updates have been applied;
+• Adjusted the library version control
+
 Version 3.7:
 • Re-implemented the support for JPEG2000 file format (reading);
 • Codecs management subsystem has been rewritten;

@@ -98,10 +98,7 @@ namespace RD_AAOW
 		/// <summary>
 		/// Возвращает true, если кодек может функционировать в текущей конфигруации приложения
 		/// </summary>
-		bool IsCodecAvailable
-			{
-			get;
-			}
+		bool IsCodecAvailable (bool InternalLibraryUnavailable);
 
 		/// <summary>
 		/// Возвращает параметры работы кодека в режиме сохранения:

@@ -202,12 +202,10 @@ namespace RD_AAOW
 		/// <summary>
 		/// Возвращает true, если кодек может функционировать в текущей конфигруации приложения
 		/// </summary>
-		public bool IsCodecAvailable
+		public bool IsCodecAvailable (bool InternalLibraryUnavailable)
 			{
-			get
-				{
-				return File.Exists (RDGenerics.AppStartupPath + BatchImageConvertorLibrary.CodecsLibraryFile);
-				}
+			return !InternalLibraryUnavailable &&
+				File.Exists (RDGenerics.AppStartupPath + BatchImageConvertorLibrary.CodecsLibraryFile);
 			}
 
 		/// <summary>

@@ -80,12 +80,9 @@ namespace RD_AAOW
 		/// <summary>
 		/// Всегда возвращает true (доступен постоянно)
 		/// </summary>
-		public bool IsCodecAvailable
+		public bool IsCodecAvailable (bool InternalLibraryUnavailable)
 			{
-			get
-				{
-				return true;
-				}
+			return true;
 			}
 
 		/// <summary>

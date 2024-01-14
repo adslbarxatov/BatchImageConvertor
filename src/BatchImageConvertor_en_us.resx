@@ -259,9 +259,6 @@
   <data name="UnsupportedColors" xml:space="preserve">
     <value>some colors haven’t been loaded because of absence of support for their color spaces in the current version of application</value>
   </data>
-  <data name="IncompatibleLibraryVersion" xml:space="preserve">
-    <value>This version of {0:S} is incompatible with current version of application</value>
-  </data>
   <data name="IncorrectCropValues" xml:space="preserve">
     <value>Sum of crop offset and crop size exceeds image dimensions (&gt; 100%)</value>
   </data>
@@ -269,9 +266,7 @@
     <value>Center</value>
   </data>
   <data name="ComponentMissing" xml:space="preserve">
-    <value>A recommended app component is missing: “{0:S}”.
-
-Do you want to open project’s webpage to download it manually? You can continue using default functions without it</value>
+    <value>A recommended app component is missing: “{0:S}”. You can continue using default functions without it</value>
   </data>
   <data name="DoNothing" xml:space="preserve">
     <value>Do nothing</value>
