@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace RD_AAOW
 	{
@@ -11,6 +13,22 @@ namespace RD_AAOW
 		{
 		// Константы
 		private const string codecApp = "davif.exe";
+
+		// Метод получает путь к файлу в формате 8.3
+		private static string GetShortName (string LongFileName)
+			{
+			StringBuilder buffer = new StringBuilder (259);
+			int len = GetShortPathName (LongFileName, buffer, buffer.Capacity);
+
+			if (len == 0)
+				return LongFileName;
+			//throw new System.ComponentModel.Win32Exception ();
+
+			return buffer.ToString ();
+			}
+
+		[DllImport ("kernel32")]
+		private static extern int GetShortPathName (string longPath, StringBuilder shortPath, int bufSize);
 
 		/// <summary>
 		/// Метод загружает указанное изображение и возвращает его в виде объекта Bitmap
@@ -25,7 +43,8 @@ namespace RD_AAOW
 				{
 				Process p = new Process ();
 				p.StartInfo = new ProcessStartInfo (RDGenerics.AppStartupPath + codecApp,
-					"-i \"" + FilePath + "\" -o \"" + FilePath + ".png\"");
+					"-i " + GetShortName (FilePath) +
+					" -o \"" + FilePath + ".png\"");
 				p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
 
 				p.Start ();

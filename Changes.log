@@ -1,5 +1,8 @@
 Batch image convertor: changes log
 
+Version 3.7.4:
+• Added a path substitution for the avif codec
+
 Version 3.7.3:
 • Core updates have been applied;
 • Adjusted the library version control

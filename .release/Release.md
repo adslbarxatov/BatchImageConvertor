@@ -1,4 +1,5 @@
-_Changes for v 3.7.3_:
+_Changes for v 3.7.4_:
+- Added a path substitution for the avif codec;
 - Core updates have been applied;
 - Adjusted the library version control;
 - Re-implemented the support for `JPEG2000` file format (reading);
