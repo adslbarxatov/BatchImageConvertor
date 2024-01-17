@@ -355,8 +355,6 @@ namespace RD_AAOW
 			// Сохранение
 			if (codecs[SFDialog.FilterIndex - 1].SavePalette (SFDialog.FileName, palette) != ProgramErrorCodes.EXEC_OK)
 				RDGenerics.MessageBox (RDMessageTypes.Warning_Center,
-					/*RDLocale.GetFileProcessingMessage (SFDialog.FileName, RDL_FP_Messages.Save_Failure)
-					*/
 					string.Format (RDLocale.GetDefaultText (RDLDefaultTexts.Message_SaveFailure_Fmt),
 					SFDialog.FileName));
 			}
@@ -391,8 +389,6 @@ namespace RD_AAOW
 			// Сохранение
 			if (codecs[neededCodec].SavePalette (CFDialog.FileName, palette) != ProgramErrorCodes.EXEC_OK)
 				RDGenerics.MessageBox (RDMessageTypes.Warning_Center,
-					/*RDLocale.GetFileProcessingMessage (SFDialog.FileName, RDL_FP_Messages.Save_Failure)
-					*/
 					string.Format (RDLocale.GetDefaultText (RDLDefaultTexts.Message_SaveFailure_Fmt),
 					SFDialog.FileName));
 			}

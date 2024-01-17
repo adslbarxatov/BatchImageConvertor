@@ -20,7 +20,9 @@ namespace RD_AAOW
 			// Открытие изображения
 			try
 				{
-				LoadedImage = (Bitmap)Image.FromFile (FilePath);
+				Bitmap image = (Bitmap)Image.FromFile (FilePath);
+				LoadedImage = (Bitmap)image.Clone ();
+				image.Dispose ();
 				}
 			catch
 				{

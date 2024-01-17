@@ -295,4 +295,25 @@
   <data name="SupportedExtButton" xml:space="preserve">
     <value>Поддерживаемые форматы</value>
   </data>
+  <data name="WatermarkLabelText" xml:space="preserve">
+    <value>Водяной знак:</value>
+  </data>
+  <data name="WatermarkPathNotSpecified" xml:space="preserve">
+    <value>Файл водяного знака не задан. Укажите его или отключите эту функцию для продолжения</value>
+  </data>
+  <data name="WatermarkPathUnavailable" xml:space="preserve">
+    <value>Файл водяного знака недоступен</value>
+  </data>
+  <data name="WaterOpacityLabelText" xml:space="preserve">
+    <value>Непрозрачность:</value>
+  </data>
+  <data name="WaterPlaceLabelText" xml:space="preserve">
+    <value>Расположение:</value>
+  </data>
+  <data name="FileProcessedNoWatermark" xml:space="preserve">
+    <value>. Водяной знак не применён: полученное изображение слишком маленькое для него</value>
+  </data>
+  <data name="WaterTab" xml:space="preserve">
+    <value>Водяной знак</value>
+  </data>
 </root>

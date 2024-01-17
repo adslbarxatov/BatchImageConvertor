@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 
@@ -37,6 +38,11 @@ namespace RD_AAOW
 		private byte bitmapEdge;
 		private List<string> messages = new List<string> ();
 		private bool allowPalettes = false;
+		private RadioButton[] placements;
+
+		private string watermarkPath;
+		private uint watermarkOpacity;
+		private uint watermarkPlacement;
 
 		/// <summary>
 		/// Главная форма программы
@@ -73,6 +79,19 @@ namespace RD_AAOW
 			RelativeLeft.Minimum = RelativeTop.Minimum = 0;
 			//RelativeWidth.Maximum = RelativeHeight.Maximum = 100;	// Определяется далее
 			RelativeLeft.Maximum = RelativeTop.Maximum = 99;
+
+			placements = new RadioButton[] {
+				WatermarkLT,
+				WatermarkCT,
+				WatermarkRT,
+				WatermarkLM,
+				WatermarkCM,
+				WatermarkRM,
+				WatermarkLB,
+				WatermarkCB,
+				WatermarkRB,
+				};
+
 			AbsoluteSize_CheckedChanged (null, null);
 
 			// Перечисление кодеков
@@ -89,8 +108,6 @@ namespace RD_AAOW
 
 			// Защита от входа без библиотеки
 			Palettes.Enabled = allowPalettes = !LibraryUnavailable;
-			/*File.Exists (RDGenerics.AppStartupPath +
-				BatchImageConvertorLibrary.CodecsLibraryFile);*/
 
 			// Запрос сохранённых настроек
 			ImageTypeCombo.SelectedIndex = 0;
@@ -145,6 +162,14 @@ namespace RD_AAOW
 				RotationCombo.SelectedIndex = int.Parse (RDGenerics.GetAppSettingsValue (RotationCombo.Name));
 				FlipCombo.SelectedIndex = int.Parse (RDGenerics.GetAppSettingsValue (FlipCombo.Name));
 				ImageTypeCombo.SelectedIndex = int.Parse (RDGenerics.GetAppSettingsValue (ImageTypeCombo.Name));
+
+				// Новые
+				uint b = uint.Parse (RDGenerics.GetAppSettingsValue (WatermarkCM.Name));
+				if (b < placements.Length)
+					placements[b].Checked = true;
+
+				WatermarkPath.Text = RDGenerics.GetAppSettingsValue (WatermarkPath.Name);
+				WaterOpacityField.Value = decimal.Parse (RDGenerics.GetAppSettingsValue (WaterOpacityField.Name));
 				}
 			catch { }
 			RDGenerics.LoadWindowDimensions (this);
@@ -170,6 +195,11 @@ namespace RD_AAOW
 		private void DoNothingToRotation_Click (object sender, EventArgs e)
 			{
 			FlipCombo.SelectedIndex = RotationCombo.SelectedIndex = 0;
+			}
+
+		private void DoNothingToWatermark_Click (object sender, EventArgs e)
+			{
+			WaterOpacityField.Value = WaterOpacityField.Minimum;
 			}
 
 		// Метод добаляет формат вывода
@@ -204,15 +234,21 @@ namespace RD_AAOW
 		private void BStart_Click (object sender, EventArgs e)
 			{
 			// Проверка состояния
-			if (InputPath.Text == "")
+			if (string.IsNullOrWhiteSpace (InputPath.Text))
 				{
 				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "InputPathNotSpecified");
 				return;
 				}
 
-			if (OutputPath.Text == "")
+			if (string.IsNullOrWhiteSpace (OutputPath.Text))
 				{
 				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "OutputPathNotSpecified");
+				return;
+				}
+
+			if ((WaterOpacityField.Value > WaterOpacityField.Minimum) && string.IsNullOrWhiteSpace (WatermarkPath.Text))
+				{
+				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "WatermarkPathNotSpecified");
 				return;
 				}
 
@@ -229,15 +265,27 @@ namespace RD_AAOW
 			selectedRotation = RotationCombo.SelectedIndex;
 			selectedOutputType = ImageTypeCombo.SelectedIndex;
 			bitmapEdge = (byte)BitmapEdgeTrack.Value;
-			ResultsList.Items.Clear ();
 			successes = 0;
 
+			watermarkPath = "";
+			if (WaterOpacityField.Value > WaterOpacityField.Minimum)
+				{
+				watermarkPath = WatermarkPath.Text;
+				watermarkOpacity = (uint)WaterOpacityField.Value;
+
+				for (int i = 0; i < placements.Length; i++)
+					if (placements[i].Checked)
+						{
+						watermarkPlacement = (uint)i;
+						break;
+						}
+				}
+
 			// Блокировка контролов
+			ResultsList.Items.Clear ();
 			SetInterfaceState (false);
 
 			// Запуск
-			/*HardWorkExecutor hwe = new HardWorkExecutor (MasterImageProcessor, null, " ", true, true);
-			*/
 			RDGenerics.RunWork (MasterImageProcessor, null, null,
 				RDRunWorkFlags.CaptionInTheMiddle | RDRunWorkFlags.AllowOperationAbort);
 
@@ -260,6 +308,25 @@ namespace RD_AAOW
 			{
 			// Инициализация
 			BackgroundWorker bw = ((BackgroundWorker)sender);
+
+			// Контроль водяного знака
+			ColorMatrix colorMatrix = new ColorMatrix ();
+			colorMatrix.Matrix33 = watermarkOpacity / 100.0f;
+
+			ImageAttributes sgAttributes = new ImageAttributes ();
+			sgAttributes.SetColorMatrix (colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+			Bitmap watermark = null;
+			if (!string.IsNullOrWhiteSpace (watermarkPath))
+				{
+				if (codecs[0].LoadImage (watermarkPath, out watermark) != ProgramErrorCodes.EXEC_OK)
+					{
+					RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "WatermarkPathUnavailable");
+
+					e.Cancel = true;
+					return;
+					}
+				}
 
 			// Сбор списка изображений
 			List<List<string>> fileNames = new List<List<string>> ();
@@ -286,6 +353,10 @@ namespace RD_AAOW
 						RDLocale.GetText ("ProcessingList"));
 					}
 				}
+
+			// Удаление файла водяного знака из списка (касается только общего кодека)
+			if (watermark != null)
+				fileNames[0].Remove (watermarkPath);
 
 			#region Определение типа поворота
 
@@ -395,6 +466,7 @@ namespace RD_AAOW
 					#endregion
 
 					#region Открытие изображения
+
 					string msg = "";
 					switch (codecs[c].LoadImage (fileNames[c][n], out img))
 						{
@@ -421,18 +493,22 @@ namespace RD_AAOW
 						default:
 							throw new Exception (RDLocale.GetText ("DebugRequired") + " (1)");
 						}
-					if (msg != "")
+
+					if (!string.IsNullOrWhiteSpace (msg))
 						{
 						msg = string.Format (RDLocale.GetText ("FileGeneric"),
 							Path.GetFileName (fileNames[c][n])) + msg;
 						messages.Add (msg);
+
 						bw.ReportProgress ((int)(HardWorkExecutor.ProgressBarSize *
 							currentImage / totalImages), msg);
 						continue;
 						}
+
 					#endregion
 
-					#region Размеры
+					#region Обработка размеров
+
 					if (AbsoluteSize.Checked || (RelativeSize.Checked || RelativeCrop.Checked) &&
 						((RelativeWidth.Value != 100) || (RelativeHeight.Value != 100)))
 						{
@@ -471,16 +547,72 @@ namespace RD_AAOW
 								g.Dispose ();
 								}
 							}
+
 						img.Dispose ();
 						img = (Bitmap)img2.Clone ();
 						img2.Dispose ();
 						}
+
 					#endregion
 
-					#region Поворот/отражение (только если преобразование действительно есть)
+					#region Поворот / отражение (только если преобразование действительно есть)
 
 					if (rfType != 0)
 						img.RotateFlip (rfType);
+
+					#endregion
+
+					#region Водяной знак
+
+					// Контроль применимости
+					bool watermarkIsTooBig = false;
+					if (watermark == null)
+						goto save;
+
+					if ((watermark.Width > img.Width) || (watermark.Height > img.Height))
+						{
+						watermarkIsTooBig = true;
+						goto save;
+						}
+
+					// Формирование параметров
+					Graphics gi = Graphics.FromImage (img);
+					int left;
+					switch (watermarkPlacement % 3)
+						{
+						case 1:
+							left = (img.Width - watermark.Width) / 2;
+							break;
+
+						case 2:
+							left = img.Width - watermark.Width;
+							break;
+
+						default:
+							left = 0;
+							break;
+						}
+
+					int top;
+					switch (watermarkPlacement / 3)
+						{
+						case 1:
+							top = (img.Height - watermark.Height) / 2;
+							break;
+
+						case 2:
+							top = img.Height - watermark.Height;
+							break;
+
+						default:
+							top = 0;
+							break;
+						}
+
+					// Отрисовка
+					gi.DrawImage (watermark, new Rectangle (left, top, watermark.Width, watermark.Height),
+						0, 0, watermark.Width, watermark.Height, GraphicsUnit.Pixel, sgAttributes);
+					gi.Dispose ();
 
 					#endregion
 
@@ -488,16 +620,16 @@ namespace RD_AAOW
 
 					// До этого места контроль на совпадение имён уже выполнен.
 					// Ошибки записи можно списать на недоступность папки
+save:
 					if (codecs[outputCodecsNumbers[selectedOutputType]].SaveImage (img, outputPath, imageColorFormat,
 						bitmapEdge, outputFormats[selectedOutputType]) != ProgramErrorCodes.EXEC_OK)
 						{
 						messages.Add (string.Format (RDLocale.GetText ("FileGeneric"),
 							Path.GetFileName (fileNames[c][n])) + RDLocale.GetText ("OutputPathUnavailable"));
-
 						img.Dispose ();
+
 						bw.ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
 							totalImages), messages[messages.Count - 1]);
-
 						e.Cancel = true;
 						return;
 						}
@@ -506,13 +638,19 @@ namespace RD_AAOW
 
 					// Выполнено
 					messages.Add (string.Format (RDLocale.GetText ("FileProcessed"),
-						Path.GetFileName (fileNames[c][n])));
+						Path.GetFileName (fileNames[c][n])) +
+						(watermarkIsTooBig ? RDLocale.GetText ("FileProcessedNoWatermark") : ""));
+
 					bw.ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
 						totalImages), messages[messages.Count - 1]);
 					successes++;
 					img.Dispose ();
 					}
 				}
+
+			// Сброс ресурсов
+			sgAttributes.Dispose ();
+			watermark.Dispose ();
 			}
 
 		// Установка блокировки/разблокировки интерфейса
@@ -622,6 +760,18 @@ namespace RD_AAOW
 			RelativeTop.Value = (RelativeHeight.Maximum - RelativeHeight.Value) / 2;
 			}
 
+		// Выбор файла водяного знака
+		private void WatermarkButton_Click (object sender, EventArgs e)
+			{
+			OFDialog.FileName = WatermarkPath.Text;
+			OFDialog.ShowDialog ();
+			}
+
+		private void OFDialog_FileOk (object sender, CancelEventArgs e)
+			{
+			WatermarkPath.Text = OFDialog.FileName;
+			}
+
 		// Выбор языка интерфейса
 		private void LanguageCombo_SelectedIndexChanged (object sender, EventArgs e)
 			{
@@ -676,6 +826,14 @@ namespace RD_AAOW
 			AboutTheApp.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Control_AppAbout);
 			SupportedExtButton.Text = RDLocale.GetText ("SupportedExtButton");
 
+			// Водяной знак
+			WaterTab.Text = RDLocale.GetText (WaterTab.Text);
+			WatermarkLabel.Text = RDLocale.GetText ("WatermarkLabelText");
+			WaterPlaceLabel.Text = RDLocale.GetText ("WaterPlaceLabelText");
+			WaterOpacityLabel.Text = RDLocale.GetText ("WaterOpacityLabelText");
+			DoNothingToWatermark.Text = RDLocale.GetText ("DoNothing");
+			OFDialog.Filter = "Portable network graphics (PNG)|*.png";
+
 			// Завершено
 			FlipCombo.SelectedIndex = flipType;
 			}
@@ -714,6 +872,17 @@ namespace RD_AAOW
 				RDGenerics.SetAppSettingsValue (RotationCombo.Name, RotationCombo.SelectedIndex.ToString ());
 				RDGenerics.SetAppSettingsValue (FlipCombo.Name, FlipCombo.SelectedIndex.ToString ());
 				RDGenerics.SetAppSettingsValue (ImageTypeCombo.Name, ImageTypeCombo.SelectedIndex.ToString ());
+
+				// Новые
+				for (int i = 0; i < placements.Length; i++)
+					if (placements[i].Checked)
+						{
+						RDGenerics.SetAppSettingsValue (WatermarkCM.Name, i.ToString ());
+						break;
+						}
+
+				RDGenerics.SetAppSettingsValue (WatermarkPath.Name, WatermarkPath.Text);
+				RDGenerics.SetAppSettingsValue (WaterOpacityField.Name, WaterOpacityField.Value.ToString ());
 				}
 			catch { }
 			RDGenerics.SaveWindowDimensions (this);

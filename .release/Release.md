@@ -1,4 +1,5 @@
-_Changes for v 3.7.4_:
+_Changes for v 3.8_:
+- Implemented the watermark option. Now you can add a PNG file (transparency supported) to all files you want to convert;
 - Added a path substitution for the avif codec;
 - Core updates have been applied;
 - Adjusted the library version control;

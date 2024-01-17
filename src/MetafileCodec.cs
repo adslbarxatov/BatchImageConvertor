@@ -21,6 +21,7 @@ namespace RD_AAOW
 				{
 				Image m = Metafile.FromFile (FilePath);
 				LoadedImage = new Bitmap (m);
+				m.Dispose ();
 				}
 			catch
 				{

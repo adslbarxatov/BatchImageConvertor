@@ -28,22 +28,6 @@ namespace RD_AAOW
 				return;
 
 			// Проверка наличия компонентов программы
-			/*
-			if (!File.Exists (RDGenerics.AppStartupPath + BatchImageConvertorLibrary.CodecsLibraryFile))
-				{
-				if (RDGenerics.MessageBox (RDMessageTypes.Question_Center,
-					string.Format (RDLocale.GetText ("ComponentMissing"),
-					BatchImageConvertorLibrary.CodecsLibraryFile),
-					RDLocale.GetDefaultText (LzDefaultTextValues.Button_Yes),
-					RDLocale.GetDefaultText (LzDefaultTextValues.Button_No)) ==
-					RDMessageButtons.ButtonOne)
-					{
-					AboutForm af = new AboutForm (null);
-					}
-
-				// Не ограничивать работу, если компонент не нужен
-				//return;
-				}*/
 			bool libUnavailable = false;
 			if (!RDGenerics.CheckLibraries (BatchImageConvertorLibrary.CodecsLibraryFile, false))
 				{
@@ -55,9 +39,6 @@ namespace RD_AAOW
 
 			else if (BatchImageConvertorLibrary.LibraryVersion != ProgramDescription.LibraryVersion)
 				{
-				/*RDGenerics.MessageBox (RDMessageTypes.Warning_Center,
-					string.Format (RDLocale.GetText ("IncompatibleLibraryVersion"),
-					BatchImageConvertorLibrary.CodecsLibraryFile));*/
 				RDGenerics.MessageBox (RDMessageTypes.Warning_Center,
 					string.Format (RDLocale.GetDefaultText (RDLDefaultTexts.MessageFormat_IncompatibleLibrary_Fmt),
 					BatchImageConvertorLibrary.CodecsLibraryFile, ProgramDescription.AssemblyVersion));

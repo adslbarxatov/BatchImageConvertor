@@ -190,10 +190,10 @@
     <value>Select the directory with source images</value>
   </data>
   <data name="InputPathNotSpecified" xml:space="preserve">
-    <value>Directory with source images is not specified</value>
+    <value>The directory with source images is not specified</value>
   </data>
   <data name="InputPathUnavailable" xml:space="preserve">
-    <value>Specified input directory is unavailable</value>
+    <value>The specified input directory is unavailable</value>
   </data>
   <data name="NotEnoughMemory" xml:space="preserve">
     <value>not enough memory for processing</value>
@@ -208,7 +208,7 @@
     <value>Select the directory for result images. Matching files WILL NOT BE OVERWRITTEN!</value>
   </data>
   <data name="OutputPathNotSpecified" xml:space="preserve">
-    <value>Directory for result images not specified</value>
+    <value>The directory for result images is not specified</value>
   </data>
   <data name="OutputPathUnavailable" xml:space="preserve">
     <value>cannot save: output file or directory are not writable</value>
@@ -294,5 +294,26 @@
   </data>
   <data name="SupportedExtButton" xml:space="preserve">
     <value>Supported formats</value>
+  </data>
+  <data name="WatermarkLabelText" xml:space="preserve">
+    <value>Watermark:</value>
+  </data>
+  <data name="WatermarkPathNotSpecified" xml:space="preserve">
+    <value>The watermark file is not specified. Specify it or disable this feature to continue</value>
+  </data>
+  <data name="WatermarkPathUnavailable" xml:space="preserve">
+    <value>The watermark file is unavailable</value>
+  </data>
+  <data name="WaterOpacityLabelText" xml:space="preserve">
+    <value>Opacity:</value>
+  </data>
+  <data name="WaterPlaceLabelText" xml:space="preserve">
+    <value>Placement:</value>
+  </data>
+  <data name="FileProcessedNoWatermark" xml:space="preserve">
+    <value>. Watermark hasn’t been applied: the result image is too small for it</value>
+  </data>
+  <data name="WaterTab" xml:space="preserve">
+    <value>Watermark</value>
   </data>
 </root>
