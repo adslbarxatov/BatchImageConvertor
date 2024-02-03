@@ -40,8 +40,8 @@ namespace RD_AAOW
 			else if (BatchImageConvertorLibrary.LibraryVersion != ProgramDescription.LibraryVersion)
 				{
 				RDGenerics.MessageBox (RDMessageTypes.Warning_Center,
-					string.Format (RDLocale.GetDefaultText (RDLDefaultTexts.MessageFormat_IncompatibleLibrary_Fmt),
-					BatchImageConvertorLibrary.CodecsLibraryFile, ProgramDescription.AssemblyVersion));
+					string.Format (RDLocale.GetDefaultText (RDLDefaultTexts.MessageFormat_WrongVersion_Fmt),
+					BatchImageConvertorLibrary.CodecsLibraryFile));
 				libUnavailable = true;
 				}
 

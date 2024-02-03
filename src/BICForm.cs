@@ -504,6 +504,7 @@ namespace RD_AAOW
 							currentImage / totalImages), msg);
 						continue;
 						}
+					float resolution = img.HorizontalResolution;
 
 					#endregion
 
@@ -516,6 +517,7 @@ namespace RD_AAOW
 						if (AbsoluteSize.Checked)
 							{
 							img2 = new Bitmap (img, new Size ((int)AbsoluteWidth.Value, (int)AbsoluteHeight.Value));
+							img2.SetResolution (resolution, resolution);
 							}
 						else
 							{
@@ -534,12 +536,14 @@ namespace RD_AAOW
 							if (RelativeSize.Checked)
 								{
 								img2 = new Bitmap (img, new Size (w, h));
+								img2.SetResolution (resolution, resolution);
 								}
 							else
 								{
 								img2 = new Bitmap (w, h);
-								Graphics g = Graphics.FromImage (img2);
+								img2.SetResolution (resolution, resolution);
 
+								Graphics g = Graphics.FromImage (img2);
 								int l = (int)((double)RelativeLeft.Value / 100.0 * img.Width);
 								int t = (int)((double)RelativeTop.Value / 100.0 * img.Height);
 
@@ -620,7 +624,9 @@ namespace RD_AAOW
 
 					// До этого места контроль на совпадение имён уже выполнен.
 					// Ошибки записи можно списать на недоступность папки
-save:
+					save:
+
+					img.SetResolution (resolution, resolution);
 					if (codecs[outputCodecsNumbers[selectedOutputType]].SaveImage (img, outputPath, imageColorFormat,
 						bitmapEdge, outputFormats[selectedOutputType]) != ProgramErrorCodes.EXEC_OK)
 						{
@@ -650,7 +656,8 @@ save:
 
 			// Сброс ресурсов
 			sgAttributes.Dispose ();
-			watermark.Dispose ();
+			if (watermark != null)
+				watermark.Dispose ();
 			}
 
 		// Установка блокировки/разблокировки интерфейса
