@@ -1,6 +1,6 @@
 Batch image convertor: changes log
 
-Version 3.8.5:
+Version 3.8.6:
 • Fixed the critical error in image processing when no watermark is presented;
 • Fixed the bug with the incorrect resolution conversion
 
