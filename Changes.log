@@ -1,5 +1,8 @@
 Batch image convertor: changes log
 
+Version 3.8.7:
+• Update for XPUN has been applied
+
 Version 3.8.6:
 • Fixed the critical error in image processing when no watermark is presented;
 • Fixed the bug with the incorrect resolution conversion
