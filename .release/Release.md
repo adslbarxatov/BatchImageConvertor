@@ -1,5 +1,4 @@
-_Changes for v 3.8.7_:
-- Update for XPUN has been applied;
-- Fixed the critical error in image processing when no watermark is presented;
-- Fixed the bug with the incorrect resolution conversion;
-- Implemented the ***watermark*** option. Now you can add a `PNG` file (transparency supported) to all files you want to convert
+_Changes for v 3.9_:
+- Updated HypeHelp and Updates checker mechanics: this should fix apps freezing immediately after launch (on some PCs);
+- Updated the HypeHelp links list;
+- Update for XPUN has been applied

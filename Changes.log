@@ -1,5 +1,10 @@
 Batch image convertor: changes log
 
+Version 3.9:
+• Updated HypeHelp and Updates checker mechanics: this should fix apps freezing immediately
+  after launch (on some PCs);
+• Updated the HypeHelp links list
+
 Version 3.8.7:
 • Update for XPUN has been applied
 
