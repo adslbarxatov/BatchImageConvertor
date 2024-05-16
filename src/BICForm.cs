@@ -176,7 +176,7 @@ namespace RD_AAOW
 
 			// Назначение заголовка окна
 			this.Text = ProgramDescription.AssemblyTitle;
-			if (!RDGenerics.IsRegistryAccessible)
+			if (!RDGenerics.AppHasAccessRights (false, true))
 				this.Text += RDLocale.GetDefaultText (RDLDefaultTexts.Message_LimitedFunctionality);
 			}
 

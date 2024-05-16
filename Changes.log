@@ -1,5 +1,8 @@
 Batch image convertor: changes log
 
+Version 3.9.1:
+• The application has been retargeted to .NET Framework 4.8.1
+
 Version 3.9:
 • Updated HypeHelp and Updates checker mechanics: this should fix apps freezing immediately
   after launch (on some PCs);
