@@ -108,7 +108,7 @@ namespace RD_AAOW
 		/// <param name="ImageColorFormat">Цветовое представление выходного изображения</param>
 		/// <param name="BitmapEdge">Порог яркости для чёрно-белого преобразования</param>
 		/// <returns>Возвращает true в случае успеха</returns>
-		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat,
+		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, ASColorMode ImageColorFormat,
 			byte BitmapEdge, object Parameters)
 			{
 			// Контроль
@@ -131,15 +131,15 @@ namespace RD_AAOW
 					Color c;
 					switch (ImageColorFormat)
 						{
-						case OutputImageColorFormat.Bitmap:
+						case ASColorMode.Bitmap:
 							c = ColorTransition.ToBitmap (Image.GetPixel (w, h), BitmapEdge);
 							break;
 
-						case OutputImageColorFormat.Greyscale:
+						case ASColorMode.Greyscale:
 							c = ColorTransition.ToGreyscale (Image.GetPixel (w, h));
 							break;
 
-						case OutputImageColorFormat.Color:
+						case ASColorMode.AllColors:
 						default:
 							c = Image.GetPixel (w, h);
 							break;

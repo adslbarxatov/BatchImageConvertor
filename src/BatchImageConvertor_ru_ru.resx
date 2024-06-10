@@ -142,7 +142,7 @@
     <value>Цвета</value>
   </data>
   <data name="CWLabelText" xml:space="preserve">
-    <value>Повернуть по ч. с. на</value>
+    <value>1. Повернуть по ч. с. на</value>
   </data>
   <data name="DebugRequired" xml:space="preserve">
     <value>Ошибка порядка вызова функций. Требуется отладка приложения</value>
@@ -165,17 +165,17 @@
   <data name="FlipComboItems1" xml:space="preserve">
     <value>(не отражать)</value>
   </data>
-  <data name="FlipComboItems2" xml:space="preserve">
+  <data name="FlipComboItems3" xml:space="preserve">
     <value>по горизонтали</value>
   </data>
-  <data name="FlipComboItems3" xml:space="preserve">
+  <data name="FlipComboItems4" xml:space="preserve">
     <value>по вертикали</value>
   </data>
-  <data name="FlipComboItems4" xml:space="preserve">
+  <data name="FlipComboItems2" xml:space="preserve">
     <value>по обеим осям</value>
   </data>
   <data name="FlipLabelText" xml:space="preserve">
-    <value>Отразить по</value>
+    <value>2. Отразить по</value>
   </data>
   <data name="GreyscaleRadioText" xml:space="preserve">
     <value>Оттенки серого</value>

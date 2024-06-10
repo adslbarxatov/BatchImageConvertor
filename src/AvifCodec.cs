@@ -86,7 +86,7 @@ namespace RD_AAOW
 		/// <param name="ImageColorFormat">Цветовое представление выходного изображения</param>
 		/// <param name="BitmapEdge">Порог яркости для чёрно-белого преобразования</param>
 		/// <returns>Возвращает true в случае успеха</returns>
-		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat,
+		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, ASColorMode ImageColorFormat,
 			byte BitmapEdge, object Parameters)
 			{
 			return ProgramErrorCodes.EXEC_NOT_IMPLEMENTED;

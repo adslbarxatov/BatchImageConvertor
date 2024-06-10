@@ -1,5 +1,9 @@
 Batch image convertor: changes log
 
+Version 3.9.3:
+• Implemented the new App about interface;
+• Implemented the new settings storage (requires some adjustments after update)
+
 Version 3.9.1:
 • The application has been retargeted to .NET Framework 4.8.1
 

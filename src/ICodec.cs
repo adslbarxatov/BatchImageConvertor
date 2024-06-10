@@ -76,7 +76,7 @@ namespace RD_AAOW
 		/// <param name="ImageColorFormat">Цветовое представление выходного изображения</param>
 		/// <param name="BitmapEdge">Порог яркости для чёрно-белого преобразования</param>
 		/// <returns>Возвращает true в случае успеха</returns>
-		ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat,
+		ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, ASColorMode ImageColorFormat,
 			byte BitmapEdge, object Parameters);
 
 		/// <summary>
@@ -111,7 +111,7 @@ namespace RD_AAOW
 			}
 		}
 
-	/// <summary>
+	/*/// <summary>
 	/// Возможные варианты цветового представления выходных изображений
 	/// </summary>
 	public enum OutputImageColorFormat
@@ -130,7 +130,7 @@ namespace RD_AAOW
 		/// Чёрно-белое (бихром)
 		/// </summary>
 		Bitmap
-		}
+		}*/
 
 	/// <summary>
 	/// Класс описывает методы преобразования цветовых представлений

@@ -142,7 +142,7 @@
     <value>Coloring</value>
   </data>
   <data name="CWLabelText" xml:space="preserve">
-    <value>Rotate CW</value>
+    <value>1. Rotate CW</value>
   </data>
   <data name="DebugRequired" xml:space="preserve">
     <value>Functions call sequence is incorrect. Debug is required</value>
@@ -165,17 +165,17 @@
   <data name="FlipComboItems1" xml:space="preserve">
     <value>(no flip)</value>
   </data>
-  <data name="FlipComboItems2" xml:space="preserve">
+  <data name="FlipComboItems3" xml:space="preserve">
     <value>horizontally</value>
   </data>
-  <data name="FlipComboItems3" xml:space="preserve">
+  <data name="FlipComboItems4" xml:space="preserve">
     <value>vertically</value>
   </data>
-  <data name="FlipComboItems4" xml:space="preserve">
+  <data name="FlipComboItems2" xml:space="preserve">
     <value>both</value>
   </data>
   <data name="FlipLabelText" xml:space="preserve">
-    <value>Flip</value>
+    <value>2. Flip</value>
   </data>
   <data name="GreyscaleRadioText" xml:space="preserve">
     <value>Greyscale</value>

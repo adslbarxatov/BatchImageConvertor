@@ -49,7 +49,7 @@ namespace RD_AAOW
 		/// <param name="ImageColorFormat">Цветовое представление выходного изображения</param>
 		/// <param name="BitmapEdge">Порог яркости для чёрно-белого преобразования</param>
 		/// <returns>Возвращает true в случае успеха</returns>
-		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, OutputImageColorFormat ImageColorFormat,
+		public ProgramErrorCodes SaveImage (Bitmap Image, string FilePath, ASColorMode ImageColorFormat,
 			byte BitmapEdge, object Parameters)
 			{
 			// Контроль
@@ -66,17 +66,17 @@ namespace RD_AAOW
 			Bitmap img = new Bitmap (Image);
 
 			// Перегонка цветов
-			if (ImageColorFormat != OutputImageColorFormat.Color)
+			if (ImageColorFormat != ASColorMode.AllColors)
 				{
 				for (int h = 0; h < Image.Height; h++)
 					{
 					for (int w = 0; w < Image.Width; w++)
 						{
-						if (ImageColorFormat == OutputImageColorFormat.Greyscale)
+						if (ImageColorFormat == ASColorMode.Greyscale)
 							{
 							img.SetPixel (w, h, ColorTransition.ToGreyscale (Image.GetPixel (w, h)));
 							}
-						if (ImageColorFormat == OutputImageColorFormat.Bitmap)
+						if (ImageColorFormat == ASColorMode.Bitmap)
 							{
 							Color cc = Image.GetPixel (w, h);
 							if ((imageType == ImageFormat.Png) || (cc.A == 255))
@@ -93,7 +93,7 @@ namespace RD_AAOW
 				}
 
 			// Преобразование битности
-			if (ImageColorFormat == OutputImageColorFormat.Bitmap)
+			if (ImageColorFormat == ASColorMode.Bitmap)
 				{
 				Bitmap img2 = img.Clone (new Rectangle (0, 0, img.Width, img.Height), PixelFormat.Format1bppIndexed);
 				img.Dispose ();
