@@ -1,5 +1,8 @@
 Batch image convertor: changes log
 
+Version 3.9.4:
+• The palettes manager now can save the position of its window
+
 Version 3.9.3:
 • Implemented the new App about interface;
 • Implemented the new settings storage (requires some adjustments after update)

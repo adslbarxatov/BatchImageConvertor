@@ -32,6 +32,7 @@ namespace RD_AAOW
 		public PalettesManager ()
 			{
 			InitializeComponent ();
+			RDGenerics.LoadWindowDimensions (this);
 
 			// Настройка контролов
 			this.Text = RDLocale.GetText ("PalettesManager").Replace ("&", "");
@@ -91,6 +92,7 @@ namespace RD_AAOW
 
 		private void PalettesManager_FormClosing (object sender, FormClosingEventArgs e)
 			{
+			RDGenerics.SaveWindowDimensions (this);
 			e.Cancel = !allowExit;
 			}
 
