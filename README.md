@@ -4,7 +4,7 @@
 
 A tool for batch processing of image files.
 
-Detailed description of the app is available on [its own page](https://adslbarxatov.github.io/BatchImageConvertor)
+Detailed description of the app is available on [its own page](https://adslbarxatov.github.io/BatchImageConvertor).
 
 ---
 
@@ -19,7 +19,7 @@ By starting to work with this product, you fully agree with this Policy and acce
 
 Инструмент для автоматической обработки файлов изображений.
 
-Подробное описание приложения доступно на [отдельной странице](https://adslbarxatov.github.io/BatchImageConvertor/ru)
+Подробное описание приложения доступно на [отдельной странице](https://adslbarxatov.github.io/BatchImageConvertor/ru).
 
 ---
 
