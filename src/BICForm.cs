@@ -34,17 +34,9 @@ namespace RD_AAOW
 		private double totalImages = 0.0;
 
 		// Транзактные переменные
-		/*private int selectedFlip;
-		private int selectedRotation;
-		private int selectedOutputType;
-		private byte bitmapEdge;*/
 		private List<string> messages = new List<string> ();
 		private bool allowPalettes = false;
 		private RadioButton[] placements;
-
-		/*private string watermarkPath;
-		private uint watermarkOpacity;
-		private uint watermarkPlacement;*/
 
 		/// <summary>
 		/// Главная форма программы
@@ -116,15 +108,10 @@ namespace RD_AAOW
 			try
 				{
 				// Безопасные настройки
-				/*InputPath.Text = RDGenerics.GetAppSettingsValue (InputPath.Name);
-				OutputPath.Text = RDGenerics.GetAppSettingsValue (OutputPath.Name);
-				IncludeSubdirs.Checked = RDGenerics.GetAppSettingsValue (IncludeSubdirs.Name) != "0";*/
 				InputPath.Text = AppSettings.InputPath;
 				OutputPath.Text = AppSettings.OutputPath;
 				IncludeSubdirs.Checked = AppSettings.IncludeSubdirs;
 
-				/*switch (RDGenerics.GetAppSettingsValue (AbsoluteSize.Name))
-				*/
 				switch (AppSettings.ResizingMode)
 					{
 					default:
@@ -141,8 +128,6 @@ namespace RD_AAOW
 						break;
 					}
 
-				/*switch (RDGenerics.GetAppSettingsValue (GreyscaleRadio.Name))
-				*/
 				switch (AppSettings.ColorMode)
 					{
 					default:
@@ -159,36 +144,17 @@ namespace RD_AAOW
 						break;
 					}
 
-				/*BitmapEdgeTrack.Value = int.Parse (RDGenerics.GetAppSettingsValue (BitmapEdgeTrack.Name));
-				*/
 				BitmapEdgeTrack.Value = AppSettings.BitmapEdge;
-
-				/*RotationCombo.SelectedIndex = int.Parse (RDGenerics.GetAppSettingsValue (RotationCombo.Name));
-				*/
 				RotationCombo.SelectedIndex = (int)AppSettings.RotationType;
-
-				/*FlipCombo.SelectedIndex = int.Parse (RDGenerics.GetAppSettingsValue (FlipCombo.Name));
-				*/
 				FlipCombo.SelectedIndex = ((int)AppSettings.FlipType) / 2;
 
 				// Новые
-				/*uint b = uint.Parse (RDGenerics.GetAppSettingsValue (WatermarkCM.Name));
-				if (b < placements.Length)
-					placements[b].Checked = true;*/
 				placements[(int)AppSettings.WatermarkPlacement].Checked = true;
 
-				/*WatermarkPath.Text = RDGenerics.GetAppSettingsValue (WatermarkPath.Name);
-				WaterOpacityField.Value = decimal.Parse (RDGenerics.GetAppSettingsValue (WaterOpacityField.Name));*/
 				WatermarkPath.Text = AppSettings.WatermarkPath;
 				WaterOpacityField.Value = AppSettings.WatermarkOpacity;
 
 				// Настройки, требующие приведения к нижней границе
-				/*AbsoluteWidth.Value = decimal.Parse (RDGenerics.GetAppSettingsValue (AbsoluteWidth.Name));
-				AbsoluteHeight.Value = decimal.Parse (RDGenerics.GetAppSettingsValue (AbsoluteHeight.Name));
-				RelativeWidth.Value = decimal.Parse (RDGenerics.GetAppSettingsValue (RelativeWidth.Name));
-				RelativeHeight.Value = decimal.Parse (RDGenerics.GetAppSettingsValue (RelativeHeight.Name));
-				RelativeTop.Value = decimal.Parse (RDGenerics.GetAppSettingsValue (RelativeTop.Name));
-				RelativeLeft.Value = decimal.Parse (RDGenerics.GetAppSettingsValue (RelativeLeft.Name));*/
 				AbsoluteWidth.Value = AppSettings.AbsoluteWidth;
 				AbsoluteHeight.Value = AppSettings.AbsoluteHeight;
 				RelativeWidth.Value = AppSettings.RelativeWidth;
@@ -197,8 +163,6 @@ namespace RD_AAOW
 				RelativeTop.Value = AppSettings.RelativeTop;
 
 				// Настройки, которые могут зависеть от режима запуска и приводить к исключениям
-				/*ImageTypeCombo.SelectedIndex = int.Parse (RDGenerics.GetAppSettingsValue (ImageTypeCombo.Name));
-				*/
 				ImageTypeCombo.SelectedIndex = (int)AppSettings.OutputImageType;
 				}
 			catch { }
@@ -215,8 +179,7 @@ namespace RD_AAOW
 			{
 			// Подготовка
 			int flipType = (FlipCombo.SelectedIndex < 0) ? 0 : FlipCombo.SelectedIndex;
-			/*int flipType = (FlipCombo.SelectedIndex < 0) ? 0 : FlipCombo.SelectedIndex;
-			*/
+
 			FlipCombo.Items.Clear ();
 
 			// Сохранение языка
@@ -362,19 +325,6 @@ namespace RD_AAOW
 			successes = 0;
 			SaveSettings ();
 
-			/*selectedFlip = FlipCombo.SelectedIndex;
-			*/
-			/*selectedRotation = RotationCombo.SelectedIndex;
-			*/
-			/*selectedOutputType = ImageTypeCombo.SelectedIndex;
-			bitmapEdge = (byte)BitmapEdgeTrack.Value;*/
-			/*watermarkPath = "";
-			*/
-			/*watermarkPath = WatermarkPath.Text;
-				watermarkOpacity = (uint)WaterOpacityField.Value;*/
-			/*watermarkPlacement = (uint)i;
-						*/
-
 			// Блокировка контролов
 			ResultsList.Items.Clear ();
 			SetInterfaceState (false);
@@ -405,20 +355,14 @@ namespace RD_AAOW
 
 			// Контроль водяного знака
 			ColorMatrix colorMatrix = new ColorMatrix ();
-			/*colorMatrix.Matrix33 = watermarkOpacity / 100.0f;
-			*/
 			colorMatrix.Matrix33 = AppSettings.WatermarkOpacity / 100.0f;
 
 			ImageAttributes sgAttributes = new ImageAttributes ();
 			sgAttributes.SetColorMatrix (colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
 
 			Bitmap watermark = null;
-			/*if (!string.IsNullOrWhiteSpace (watermarkPath))
-			*/
 			if ((AppSettings.WatermarkOpacity > 0) && !string.IsNullOrWhiteSpace (AppSettings.WatermarkPath))
 				{
-				/*if (codecs[0].LoadImage (watermarkPath, out watermark) != ProgramErrorCodes.EXEC_OK)
-				*/
 				if (codecs[0].LoadImage (AppSettings.WatermarkPath, out watermark) != ProgramErrorCodes.EXEC_OK)
 					{
 					RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "WatermarkPathUnavailable");
@@ -457,8 +401,6 @@ namespace RD_AAOW
 			// Удаление файла водяного знака из списка (касается только общего кодека)
 			if (watermark != null)
 				fileNames[0].Remove (AppSettings.WatermarkPath);
-			/*fileNames[0].Remove (watermarkPath);
-			*/
 
 			// Обпределение режима поворота
 			RotateFlipType rfType = (RotateFlipType)AppSettings.FlipType;
@@ -481,65 +423,6 @@ namespace RD_AAOW
 						rfType &= (RotateFlipType)0x1;
 					break;
 				}
-
-			/*switch (selectedRotation)
-				{
-				// 0°
-				default:
-				case 0:
-					if (selectedFlip == 1)
-						rfType = RotateFlipType.RotateNoneFlipX;
-					else if (selectedFlip == 2)
-						rfType = RotateFlipType.RotateNoneFlipY;
-					else if (selectedFlip == 3)
-						rfType = RotateFlipType.RotateNoneFlipXY;
-					else    // Default
-						rfType = RotateFlipType.RotateNoneFlipNone;
-					break;
-
-				// 90°
-				case 1:
-					if (selectedFlip == 1)
-						rfType = RotateFlipType.Rotate90FlipX;
-					else if (selectedFlip == 2)
-						rfType = RotateFlipType.Rotate90FlipY;
-					else if (selectedFlip == 3)
-						rfType = RotateFlipType.Rotate90FlipXY;
-					else
-						rfType = RotateFlipType.Rotate90FlipNone;
-					break;
-
-				// 180°
-				case 2:
-					if (selectedFlip == 1)
-						rfType = RotateFlipType.Rotate180FlipX;
-					else if (selectedFlip == 2)
-						rfType = RotateFlipType.Rotate180FlipY;
-					else if (selectedFlip == 3)
-						rfType = RotateFlipType.Rotate180FlipXY;
-					else
-						rfType = RotateFlipType.Rotate180FlipNone;
-					break;
-
-				// 270°
-				case 3:
-					if (selectedFlip == 1)
-						rfType = RotateFlipType.Rotate270FlipX;
-					else if (selectedFlip == 2)
-						rfType = RotateFlipType.Rotate270FlipY;
-					else if (selectedFlip == 3)
-						rfType = RotateFlipType.Rotate270FlipXY;
-					else
-						rfType = RotateFlipType.Rotate270FlipNone;
-					break;
-				}*/
-
-			/* Определение типа цветового преобразования
-			ASColorMode imageColorFormat = ASColorMode.AllColors;
-			if (GreyscaleRadio.Checked)
-				imageColorFormat = ASColorMode.Greyscale;
-			if (BitmapRadio.Checked)
-				imageColorFormat = ASColorMode.Bitmap;*/
 
 			// Определение общего числа обрабатываемых изображений
 			double currentImage = 0.0;
@@ -571,8 +454,6 @@ namespace RD_AAOW
 					#region Тест на возможность записи конечного изображения
 
 					string outputPath = OutputPath.Text + "\\" + Path.GetFileNameWithoutExtension (fileNames[c][n]);
-					/*if (codecs[outputCodecsNumbers[selectedOutputType]].TestOutputFile (outputPath,
-						outputFormats[selectedOutputType]) == "")*/
 					if (codecs[outputCodecsNumbers[(int)AppSettings.OutputImageType]].TestOutputFile (outputPath,
 						outputFormats[(int)AppSettings.OutputImageType]) == "")
 						{
@@ -703,8 +584,6 @@ namespace RD_AAOW
 					// Формирование параметров
 					Graphics gi = Graphics.FromImage (img);
 					int left;
-					/*switch (watermarkPlacement % 3)
-					*/
 					switch (AppSettings.WatermarkPlacement % 3)
 						{
 						case 1:
@@ -721,8 +600,6 @@ namespace RD_AAOW
 						}
 
 					int top;
-					/*switch (watermarkPlacement / 3)
-					*/
 					switch (AppSettings.WatermarkPlacement / 3)
 						{
 						case 1:
@@ -752,8 +629,6 @@ namespace RD_AAOW
 					save:
 
 					img.SetResolution (resolution, resolution);
-					/*if (codecs[outputCodecsNumbers[selectedOutputType]].SaveImage (img, outputPath, imageColorFormat,
-						bitmapEdge, outputFormats[selectedOutputType]) != ProgramErrorCodes.EXEC_OK)*/
 					if (codecs[outputCodecsNumbers[(int)AppSettings.OutputImageType]].SaveImage (img,
 						outputPath, AppSettings.ColorMode, AppSettings.BitmapEdge,
 						outputFormats[(int)AppSettings.OutputImageType]) != ProgramErrorCodes.EXEC_OK)
@@ -916,83 +791,45 @@ namespace RD_AAOW
 
 		private void SaveSettings ()
 			{
-			/*RDGenerics.SetAppSettingsValue (InputPath.Name, InputPath.Text);
-				RDGenerics.SetAppSettingsValue (OutputPath.Name, OutputPath.Text);*/
 			AppSettings.InputPath = InputPath.Text;
 			AppSettings.OutputPath = OutputPath.Text;
 
-			/*RDGenerics.SetAppSettingsValue (IncludeSubdirs.Name, IncludeSubdirs.Checked ? "ISD" : "0");
-			*/
 			AppSettings.IncludeSubdirs = IncludeSubdirs.Checked;
 
 			if (RelativeCrop.Checked)
-				/*RDGenerics.SetAppSettingsValue (AbsoluteSize.Name, "1");
-				*/
 				AppSettings.ResizingMode = ASResizingMode.RelativeCrop;
 			else if (AbsoluteSize.Checked)
-				/*RDGenerics.SetAppSettingsValue (AbsoluteSize.Name, "2");
-				*/
 				AppSettings.ResizingMode = ASResizingMode.AbsoluteSize;
 			else
-				/*RDGenerics.SetAppSettingsValue (AbsoluteSize.Name, "0")
-				*/
 				AppSettings.ResizingMode = ASResizingMode.RelativeSize;
 
 			if (GreyscaleRadio.Checked)
-				/*RDGenerics.SetAppSettingsValue (GreyscaleRadio.Name, "2");
-				*/
 				AppSettings.ColorMode = ASColorMode.Greyscale;
 			else if (BitmapRadio.Checked)
-				/*RDGenerics.SetAppSettingsValue (GreyscaleRadio.Name, "1");
-				*/
 				AppSettings.ColorMode = ASColorMode.Bitmap;
 			else
-				/*RDGenerics.SetAppSettingsValue (GreyscaleRadio.Name, "0");
-				*/
 				AppSettings.ColorMode = ASColorMode.AllColors;
 
-			/*RDGenerics.SetAppSettingsValue (AbsoluteWidth.Name, ((int)AbsoluteWidth.Value).ToString ());
-			RDGenerics.SetAppSettingsValue (AbsoluteHeight.Name, ((int)AbsoluteHeight.Value).ToString ());
-			RDGenerics.SetAppSettingsValue (RelativeWidth.Name, ((int)RelativeWidth.Value).ToString ());
-			RDGenerics.SetAppSettingsValue (RelativeHeight.Name, ((int)RelativeHeight.Value).ToString ());
-			RDGenerics.SetAppSettingsValue (RelativeLeft.Name, ((int)RelativeLeft.Value).ToString ());
-			RDGenerics.SetAppSettingsValue (RelativeTop.Name, ((int)RelativeTop.Value).ToString ());*/
 			AppSettings.AbsoluteWidth = (uint)AbsoluteWidth.Value;
 			AppSettings.AbsoluteHeight = (uint)AbsoluteHeight.Value;
 			AppSettings.RelativeWidth = (uint)RelativeWidth.Value;
 			AppSettings.RelativeHeight = (uint)RelativeHeight.Value;
 			AppSettings.RelativeLeft = (uint)RelativeLeft.Value;
 			AppSettings.RelativeTop = (uint)RelativeTop.Value;
-
-			/*RDGenerics.SetAppSettingsValue (BitmapEdgeTrack.Name, BitmapEdgeTrack.Value.ToString ());
-			*/
 			AppSettings.BitmapEdge = (byte)BitmapEdgeTrack.Value;
-
-			/*RDGenerics.SetAppSettingsValue (RotationCombo.Name, RotationCombo.SelectedIndex.ToString ());
-			*/
 			AppSettings.RotationType = (ASRotationType)((RotationCombo.SelectedIndex < 0) ? 0 :
 				RotationCombo.SelectedIndex);
-
-			/*RDGenerics.SetAppSettingsValue (FlipCombo.Name, FlipCombo.SelectedIndex.ToString ());
-			*/
 			AppSettings.FlipType = (ASFlipType)((FlipCombo.SelectedIndex < 0) ? 0 : FlipCombo.SelectedIndex * 2);
-
-			/*RDGenerics.SetAppSettingsValue (ImageTypeCombo.Name, ImageTypeCombo.SelectedIndex.ToString ());
-			*/
 			AppSettings.OutputImageType = (uint)((ImageTypeCombo.SelectedIndex < 0) ? 0 : ImageTypeCombo.SelectedIndex);
 
 			// Новые
 			for (int i = 0; i < placements.Length; i++)
 				if (placements[i].Checked)
 					{
-					/*RDGenerics.SetAppSettingsValue (WatermarkCM.Name, i.ToString ());
-					*/
 					AppSettings.WatermarkPlacement = (uint)i;
 					break;
 					}
 
-			/*RDGenerics.SetAppSettingsValue (WatermarkPath.Name, WatermarkPath.Text);
-			RDGenerics.SetAppSettingsValue (WaterOpacityField.Name, WaterOpacityField.Value.ToString ());*/
 			AppSettings.WatermarkPath = WatermarkPath.Text;
 			AppSettings.WatermarkOpacity = (uint)WaterOpacityField.Value;
 			}

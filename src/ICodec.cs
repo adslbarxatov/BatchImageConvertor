@@ -111,27 +111,6 @@ namespace RD_AAOW
 			}
 		}
 
-	/*/// <summary>
-	/// Возможные варианты цветового представления выходных изображений
-	/// </summary>
-	public enum OutputImageColorFormat
-		{
-		/// <summary>
-		/// Цветное (без изменений)
-		/// </summary>
-		Color,
-
-		/// <summary>
-		/// Градации серого
-		/// </summary>
-		Greyscale,
-
-		/// <summary>
-		/// Чёрно-белое (бихром)
-		/// </summary>
-		Bitmap
-		}*/
-
 	/// <summary>
 	/// Класс описывает методы преобразования цветовых представлений
 	/// </summary>
