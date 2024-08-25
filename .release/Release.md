@@ -1,4 +1,3 @@
-_Changes for v 3.9.6_:
-- The “App about” interface has been updated;
-- `XPUN` update has been applied;
-- The palettes manager now can save the position of its window
+_Changes for v 3.9.7_:
+- The new identity has been applied;
+- The “App about” interface has been updated

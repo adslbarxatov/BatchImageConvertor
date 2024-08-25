@@ -1,0 +1,205 @@
+<html charset='utf-8'>
+
+<head>
+<title>Batch image convertor: руководство пользователя | BatchImageConvertor</title>
+</head>
+
+<body>
+
+<h1 id="batch-image-convertor--">Batch image convertor: руководство пользователя</h1>
+<p><strong>ƒ</strong>  RD AAOW FDL; 26.11.2023; 22:21</p>
+
+<h3 id="section-1">Общие сведения</h3>
+<p>Инструмент позволяет преобразовывать группы изображений разных форматов в единый формат
+и применять к каждому из них нужные настройки: размер или обрезку, поворот/отражение,
+цветовой режим (цветное / оттенки серого / чёрно-белое).</p>
+<p>Также этот инструмент позволяет загружать или извлекать палитры, изменять и сохранять их.
+Или даже заменить палитру внутри индексированного растрового изображения</p>
+<p> </p>
+
+<h3 id="section-2">Поддерживаемые форматы</h3>
+<p>Все перечисленные форматы (кроме форматов палитр) могут находиться в исходной папке. Остальные будут проигнорированы.</p>
+<p>Поддержка части форматов обеспечивается только при наличии библиотеки кодеков. Утилита может работать без неё, но соответствующие форматы поддерживаться не будут</p>
+<p> </p>
+
+<p><em><strong>Поддерживаемые приложением</strong></em></p>
+<table>
+<thead>
+<tr>
+<th>Расширение входного файла</th>
+<th>Чтение</th>
+<th>Запись</th>
+<th>Основана на</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.bmp</code>, <code>.dib</code>, <code>.rle</code></td>
+<td>Да</td>
+<td>Да</td>
+<td>.NET</td>
+</tr>
+<tr>
+<td><code>.jpe</code>, <code>.jpg</code>, <code>.jpeg</code>, <code>.jfif</code></td>
+<td>Да</td>
+<td>Да</td>
+<td>.NET</td>
+</tr>
+<tr>
+<td><code>.gif</code></td>
+<td>Да</td>
+<td>Да</td>
+<td>.NET</td>
+</tr>
+<tr>
+<td><code>.png</code></td>
+<td>Да</td>
+<td>Да</td>
+<td>.NET</td>
+</tr>
+<tr>
+<td><code>.tif</code>, <code>.tiff</code></td>
+<td>Да</td>
+<td>Да</td>
+<td>.NET</td>
+</tr>
+<tr>
+<td><code>.wmf</code>, <code>.emf</code></td>
+<td>Да</td>
+<td>Нет</td>
+<td>.NET</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+
+<p><em><strong>Поддерживаемые библиотекой кодеков</strong></em></p>
+<table>
+<thead>
+<tr>
+<th>Расширение входного файла</th>
+<th>Чтение</th>
+<th>Запись</th>
+<th>Основана на</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.ico</code></td>
+<td>Да</td>
+<td>Нет</td>
+<td>Собственный кодек</td>
+</tr>
+<tr>
+<td><code>.pcx</code>, <code>.pcc</code></td>
+<td>Да</td>
+<td>Да</td>
+<td>Собственный кодек</td>
+</tr>
+<tr>
+<td><code>.pnm</code>, <code>.pbm</code>, <code>.pgm</code>, <code>.ppm</code></td>
+<td>Да</td>
+<td>Да</td>
+<td>Собственный кодек</td>
+</tr>
+<tr>
+<td><code>.tga</code>, <code>.vda</code>, <code>.icb</code>, <code>.vst</code></td>
+<td>Да</td>
+<td>Да</td>
+<td><a href="https://github.com/FWGS/xash3d-fwgs">Xash FWGS engine</a></td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+
+<p><em><strong>Поддерживаемые сторонними утилитами</strong></em></p>
+<table>
+<thead>
+<tr>
+<th>Расширение входного файла</th>
+<th>Чтение</th>
+<th>Запись</th>
+<th>Основана на</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.avif</code></td>
+<td>Да</td>
+<td>Нет</td>
+<td><a href="https://github.com/link-u/davif">Инструмент davif</a></td>
+</tr>
+<tr>
+<td><code>.jp2</code>, <code>.j2c</code>, <code>.j2k</code>, <code>.jpc</code>, <code>.j2c</code>, <code>.jpf</code>, <code>.jpx</code></td>
+<td>Да</td>
+<td>Нет</td>
+<td><a href="https://github.com/uclouvain/openjpeg">Инструмент openjp2</a></td>
+</tr>
+<tr>
+<td><code>.webp</code></td>
+<td>Да</td>
+<td>Нет</td>
+<td><a href="https://developers.google.com/speed/webp/docs/dwebp">Инструмент dwebp</a></td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+
+<p><em><strong>Форматы палитр</strong></em></p>
+<table>
+<thead>
+<tr>
+<th>Расширение входного файла</th>
+<th>Чтение</th>
+<th>Запись</th>
+<th>Основана на</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.aco</code></td>
+<td>Да</td>
+<td>Нет</td>
+<td>Собственный кодек</td>
+</tr>
+<tr>
+<td><code>.act</code></td>
+<td>Да</td>
+<td>Да</td>
+<td>Собственный кодек</td>
+</tr>
+<tr>
+<td><code>.ase</code></td>
+<td>Да</td>
+<td>Нет</td>
+<td>Собственный кодек</td>
+</tr>
+<tr>
+<td><code>.pal</code> (Microsoft)</td>
+<td>Да</td>
+<td>Да</td>
+<td>Собственный кодек</td>
+</tr>
+<tr>
+<td><code>.pal</code> (JASC)</td>
+<td>Да</td>
+<td>Да</td>
+<td>Собственный кодек</td>
+</tr>
+<tr>
+<td><code>.bmp</code>, <code>.dib</code>, <code>.rle</code></td>
+<td>Извлечение</td>
+<td>Замена</td>
+<td>Собственный кодек</td>
+</tr>
+<tr>
+<td><code>.pcx</code>, <code>.pcc</code></td>
+<td>Извлечение</td>
+<td>Нет</td>
+<td>Собственный кодек</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>
