@@ -8,7 +8,7 @@
 - [General information](#general-information)
 - [Supported formats](#supported-formats)
 - [Download links](https://adslbarxatov.github.io/DPArray#batch-image-convertor)
-- [Русская версия](https://adslbarxatov.github.io/BatchImageConvertor/ru)
+- [Версия на русском языке](https://adslbarxatov.github.io/BatchImageConvertor/ru)
 
 ---
 
