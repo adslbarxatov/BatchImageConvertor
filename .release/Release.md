@@ -1,2 +1,3 @@
-_Changes for v 3.9.9_:
-- The “App about” interface has been updated
+_Changes for v 4.0_:
+- Access and appearance of the Lab Policy have been updated;
+- Cumulative updates have been applied
