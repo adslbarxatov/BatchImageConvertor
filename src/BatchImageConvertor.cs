@@ -31,7 +31,7 @@ namespace RD_AAOW
 			bool libUnavailable = false;
 			if (!RDGenerics.CheckLibraries (BatchImageConvertorLibrary.CodecsLibraryFile, false))
 				{
-				RDGenerics.MessageBox (RDMessageTypes.Question_Center,
+				RDInterface.MessageBox (RDMessageTypes.Question_Center,
 					string.Format (RDLocale.GetText ("ComponentMissing"),
 					BatchImageConvertorLibrary.CodecsLibraryFile));
 				libUnavailable = true;
@@ -39,16 +39,16 @@ namespace RD_AAOW
 
 			else if (BatchImageConvertorLibrary.LibraryVersion != ProgramDescription.LibraryVersion)
 				{
-				RDGenerics.MessageBox (RDMessageTypes.Warning_Center,
+				RDInterface.MessageBox (RDMessageTypes.Warning_Center,
 					string.Format (RDLocale.GetDefaultText (RDLDefaultTexts.MessageFormat_WrongVersion_Fmt),
 					BatchImageConvertorLibrary.CodecsLibraryFile));
 				libUnavailable = true;
 				}
 
 			// Отображение справки и запроса на принятие Политики
-			if (!RDGenerics.AcceptEULA ())
+			if (!RDInterface.AcceptEULA ())
 				return;
-			RDGenerics.ShowAbout (true);
+			RDInterface.ShowAbout (true);
 
 			// Запуск
 			Application.Run (new BICForm (libUnavailable));

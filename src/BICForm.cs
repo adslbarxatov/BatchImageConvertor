@@ -297,26 +297,26 @@ namespace RD_AAOW
 			// Проверка состояния
 			if (string.IsNullOrWhiteSpace (InputPath.Text))
 				{
-				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "InputPathNotSpecified");
+				RDInterface.LocalizedMessageBox (RDMessageTypes.Warning_Center, "InputPathNotSpecified");
 				return;
 				}
 
 			if (string.IsNullOrWhiteSpace (OutputPath.Text))
 				{
-				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "OutputPathNotSpecified");
+				RDInterface.LocalizedMessageBox (RDMessageTypes.Warning_Center, "OutputPathNotSpecified");
 				return;
 				}
 
 			if ((WaterOpacityField.Value > WaterOpacityField.Minimum) && string.IsNullOrWhiteSpace (WatermarkPath.Text))
 				{
-				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "WatermarkPathNotSpecified");
+				RDInterface.LocalizedMessageBox (RDMessageTypes.Warning_Center, "WatermarkPathNotSpecified");
 				return;
 				}
 
 			if (RelativeCrop.Checked && ((RelativeLeft.Value + RelativeWidth.Value > RelativeWidth.Maximum) ||
 				(RelativeTop.Value + RelativeHeight.Value > RelativeHeight.Maximum)))
 				{
-				RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "IncorrectCropValues");
+				RDInterface.LocalizedMessageBox (RDMessageTypes.Warning_Center, "IncorrectCropValues");
 				return;
 				}
 
@@ -330,7 +330,7 @@ namespace RD_AAOW
 			SetInterfaceState (false);
 
 			// Запуск
-			RDGenerics.RunWork (MasterImageProcessor, null, null,
+			RDInterface.RunWork (MasterImageProcessor, null, null,
 				RDRunWorkFlags.CaptionInTheMiddle | RDRunWorkFlags.AllowOperationAbort);
 
 			// Завершение
@@ -365,7 +365,7 @@ namespace RD_AAOW
 				{
 				if (codecs[0].LoadImage (AppSettings.WatermarkPath, out watermark) != ProgramErrorCodes.EXEC_OK)
 					{
-					RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "WatermarkPathUnavailable");
+					RDInterface.LocalizedMessageBox (RDMessageTypes.Warning_Center, "WatermarkPathUnavailable");
 
 					e.Cancel = true;
 					return;
@@ -387,7 +387,7 @@ namespace RD_AAOW
 						}
 					catch
 						{
-						RDGenerics.LocalizedMessageBox (RDMessageTypes.Warning_Center, "InputPathUnavailable");
+						RDInterface.LocalizedMessageBox (RDMessageTypes.Warning_Center, "InputPathUnavailable");
 
 						e.Cancel = true;
 						return;
@@ -712,7 +712,7 @@ namespace RD_AAOW
 		// Информация о программе
 		private void AboutTheApp_Click (object sender, EventArgs e)
 			{
-			RDGenerics.ShowAbout (false);
+			RDInterface.ShowAbout (false);
 			}
 
 		// Информация о поддерживаемых форматах
@@ -735,7 +735,7 @@ namespace RD_AAOW
 				}
 
 			// Отображение
-			RDGenerics.MessageBox (RDMessageTypes.Success_Left, types);
+			RDInterface.MessageBox (RDMessageTypes.Success_Left, types);
 			}
 
 		// Выбор варианта задания размера
