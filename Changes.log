@@ -1,5 +1,8 @@
 Batch image convertor: changes log
 
+Version 4.0.2:
+• Core assemblies have been updated
+
 Version 4.0.1:
 • Fixed the broken self-update algorithm
 
