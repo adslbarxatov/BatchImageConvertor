@@ -38,6 +38,9 @@ namespace RD_AAOW
 		private bool allowPalettes = false;
 		private RadioButton[] placements;
 
+		// Запрет на перезагрузку настроек
+		private bool allowSettingsReload = true;
+
 		/// <summary>
 		/// Главная форма программы
 		/// </summary>
@@ -104,6 +107,42 @@ namespace RD_AAOW
 			Palettes.Enabled = allowPalettes = !LibraryUnavailable;
 
 			// Запрос сохранённых настроек
+			RDGenerics.LoadWindowDimensions (this);
+			string[] profiles = AppSettings.EnumerateProfiles ();
+			if (profiles.Length < 1)
+				{
+				ProfileCombo.Enabled = ProfileRemoveButton.Enabled = false;
+				}
+			else
+				{
+				allowSettingsReload = false;
+
+				ProfileCombo.Items.AddRange (profiles);
+				try
+					{
+					ProfileCombo.SelectedIndex = (int)AppSettings.LastSelectedProfile;
+					}
+				catch
+					{
+					ProfileCombo.SelectedIndex = 0;
+					}
+
+				allowSettingsReload = true;
+				}
+			LoadSavedSettings ();
+
+			// Назначение заголовка окна
+			this.Text = ProgramDescription.AssemblyTitle;
+			if (!RDGenerics.AppHasAccessRights (false, true))
+				this.Text += RDLocale.GetDefaultText (RDLDefaultTexts.Message_LimitedFunctionality);
+			}
+
+		// Метод загружает хранимые настройки
+		private void LoadSavedSettings ()
+			{
+			if (!allowSettingsReload)
+				return;
+
 			ImageTypeCombo.SelectedIndex = 0;
 			try
 				{
@@ -166,12 +205,6 @@ namespace RD_AAOW
 				ImageTypeCombo.SelectedIndex = (int)AppSettings.OutputImageType;
 				}
 			catch { }
-			RDGenerics.LoadWindowDimensions (this);
-
-			// Назначение заголовка окна
-			this.Text = ProgramDescription.AssemblyTitle;
-			if (!RDGenerics.AppHasAccessRights (false, true))
-				this.Text += RDLocale.GetDefaultText (RDLDefaultTexts.Message_LimitedFunctionality);
 			}
 
 		// Выбор языка интерфейса
@@ -228,6 +261,8 @@ namespace RD_AAOW
 			LanguageLabel.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Control_InterfaceLanguage);
 			AboutTheApp.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Control_AppAbout);
 			SupportedExtButton.Text = RDLocale.GetText ("SupportedExtButton");
+
+			ProfileLabel.Text = RDLocale.GetText ("ProfileLabel");
 
 			// Водяной знак
 			WaterTab.Text = RDLocale.GetText (WaterTab.Text);
@@ -789,6 +824,7 @@ namespace RD_AAOW
 			RDGenerics.SaveWindowDimensions (this);
 			}
 
+		// Метод сохраняет текущие настройки в реестр
 		private void SaveSettings ()
 			{
 			AppSettings.InputPath = InputPath.Text;
@@ -832,6 +868,81 @@ namespace RD_AAOW
 
 			AppSettings.WatermarkPath = WatermarkPath.Text;
 			AppSettings.WatermarkOpacity = (uint)WaterOpacityField.Value;
+			}
+
+		// Выбор профиля конверсии
+		private void ProfileCombo_SelectedIndexChanged (object sender, EventArgs e)
+			{
+			// Контроль
+			if (ProfileCombo.SelectedIndex < 0)
+				return;
+			AppSettings.LastSelectedProfile = (uint)ProfileCombo.SelectedIndex;
+
+			// Попытка загрузки указанного профиля
+			if (!AppSettings.LoadProfile (ProfileCombo.Text))
+				RDInterface.LocalizedMessageBox (RDMessageTypes.Error_Center, "BadProfileMessage", 2000);
+
+			// Независимо от результата
+			LoadSavedSettings ();
+			}
+
+		// Сохранение профиля конверсии
+		private void ProfileAddButton_Click (object sender, EventArgs e)
+			{
+			// Сохранение текущих параметров
+			SaveSettings ();
+
+			// Запрос имени
+			string name = RDInterface.LocalizedMessageBox ("ProfileNameMessage", true, 30);
+
+			// Попытка сохранения
+			if (!AppSettings.SaveProfile (name))
+				{
+				RDInterface.LocalizedMessageBox (RDMessageTypes.Error_Center, "BadProfileNameMessage");
+				return;
+				}
+
+			// Добавление
+			allowSettingsReload = false;
+
+			ProfileCombo.Items.Add (name);
+			ProfileCombo.SelectedIndex = ProfileCombo.Items.Count - 1;
+			ProfileCombo.Enabled = ProfileRemoveButton.Enabled = true;
+
+			allowSettingsReload = true;
+			}
+
+		// Удаление профиля конверсии
+		private void ProfileRemoveButton_Click (object sender, EventArgs e)
+			{
+			// Защита
+			if (RDInterface.MessageBox (RDMessageTypes.Warning_Center,
+				RDLocale.GetText ("RemoveProfileMessage"),
+				RDLocale.GetDefaultText (RDLDefaultTexts.Button_YesNoFocus),
+				RDLocale.GetDefaultText (RDLDefaultTexts.Button_No)) ==
+				RDMessageButtons.ButtonTwo)
+				return;
+
+			// Удаление
+			AppSettings.RemoveProfile (ProfileCombo.Text);
+			ProfileCombo.Items.RemoveAt (ProfileCombo.SelectedIndex);
+
+			// Сброс
+			if (ProfileCombo.Items.Count < 1)
+				{
+				ProfileCombo.Enabled = ProfileRemoveButton.Enabled = false;
+				/*LoadSavedSettings ();*/
+				}
+			else
+				{
+				allowSettingsReload = false;
+
+				ProfileCombo.SelectedIndex = 0;
+
+				allowSettingsReload = true;
+
+				LoadSavedSettings ();
+				}
 			}
 		}
 	}

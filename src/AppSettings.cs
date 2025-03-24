@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace RD_AAOW
 	{
@@ -305,6 +307,182 @@ namespace RD_AAOW
 			}
 		private const string watermarkOpacityPar = "WatermarkOpacity";
 		private const uint maxWO = 100;
+
+		// Профилирование
+
+		/// <summary>
+		/// Метод запрашивает существующие профили конверсии
+		/// </summary>
+		/// <returns>Возвращает список имён профилей</returns>
+		public static string[] EnumerateProfiles ()
+			{
+			// Запрос
+			string[] files;
+			try
+				{
+				files = Directory.GetFiles (RDGenerics.AppStartupPath + profilesSubDir, "*" + ProfileExt);
+				}
+			catch
+				{
+				return new string[] { };
+				}
+
+			// Сборка
+			List<string> names = new List<string> ();
+			for (int i = 0; i < files.Length; i++)
+				names.Add (Path.GetFileNameWithoutExtension (files[i]));
+
+			return names.ToArray ();
+			}
+
+		/// <summary>
+		/// Возвращает расширение файла профиля
+		/// </summary>
+		public const string ProfileExt = ".bip";
+
+		private const string profilesSubDir = "Profiles";
+
+		/// <summary>
+		/// Метод загружает указанный профиль в настройки, заменяя их при успешной загрузке
+		/// </summary>
+		/// <param name="ProfileName">Название профиля, полученное от метода EnumerateProfiles</param>
+		/// <returns>Возвращает true, если профиль был загружен корректно</returns>
+		public static bool LoadProfile (string ProfileName)
+			{
+			// Получение содержимого файла
+			string settings = "";
+			try
+				{
+				settings = File.ReadAllText (RDGenerics.AppStartupPath + profilesSubDir + "\\" + ProfileName + ProfileExt,
+					RDGenerics.GetEncoding (RDEncodings.UTF8));
+				}
+			catch
+				{
+				return false;
+				}
+
+			// Извлечение настроек (включая пустые поля)
+			string[] values = settings.Split (profSplitter, StringSplitOptions.None);
+			if (values.Length != 18)
+				return false;
+
+			// Защита от дефектов
+			uint[] numbers = new uint[values.Length];
+			try
+				{
+				for (int i = 3; i < 16; i++)
+					numbers[i] = uint.Parse (values[i]);
+				numbers[17] = uint.Parse (values[17]);
+				}
+			catch
+				{
+				return false;
+				}
+
+			// Загрузка
+			InputPath = values[0];
+			OutputPath = values[1];
+			IncludeSubdirs = (values[2] == "1");
+			ResizingMode = (ASResizingMode)numbers[3];
+			ColorMode = (ASColorMode)numbers[4];
+			AbsoluteWidth = numbers[5];
+			AbsoluteHeight = numbers[6];
+			RelativeWidth = numbers[7];
+			RelativeHeight = numbers[8];
+			RelativeLeft = numbers[9];
+			RelativeTop = numbers[10];
+			BitmapEdge = (byte)(numbers[11] & 0xFF);
+			FlipType = (ASFlipType)numbers[12];
+			RotationType = (ASRotationType)numbers[13];
+			OutputImageType = numbers[14];
+			WatermarkPlacement = numbers[15];
+			WatermarkPath = values[16];
+			WatermarkOpacity = numbers[17];
+
+			// Успешно
+			return true;
+			}
+		private static char[] profSplitter = new char[] { '\x1', '\r', '\n' };
+
+		/// <summary>
+		/// Метод сохраняет текущие настройки в указанный профиль
+		/// </summary>
+		/// <param name="ProfileName">Название нового профиля</param>
+		/// <returns>Возвращает false, если не удаётся создать файл с указанным именем профиля</returns>
+		public static bool SaveProfile (string ProfileName)
+			{
+			// Создание файла
+			FileStream FS = null;
+			try
+				{
+				if (!Directory.Exists (RDGenerics.AppStartupPath + profilesSubDir))
+					Directory.CreateDirectory (RDGenerics.AppStartupPath + profilesSubDir);
+
+				FS = new FileStream (RDGenerics.AppStartupPath + profilesSubDir + "\\" + ProfileName + ProfileExt,
+					FileMode.Create);
+				}
+			catch
+				{
+				return false;
+				}
+			StreamWriter SW = new StreamWriter (FS, RDGenerics.GetEncoding (RDEncodings.UTF8));
+
+			string sp = profSplitter[0].ToString ();
+
+			SW.Write (InputPath + sp);
+			SW.Write (OutputPath + sp);
+			SW.Write ((IncludeSubdirs ? "1" : "0") + sp);
+			SW.Write (((uint)ResizingMode).ToString () + sp);
+			SW.Write (((uint)ColorMode).ToString () + sp);
+			SW.Write (AbsoluteWidth.ToString () + sp);
+			SW.Write (AbsoluteHeight.ToString () + sp);
+			SW.Write (RelativeWidth.ToString () + sp);
+			SW.Write (RelativeHeight.ToString () + sp);
+			SW.Write (RelativeLeft.ToString () + sp);
+			SW.Write (RelativeTop.ToString () + sp);
+			SW.Write (BitmapEdge.ToString () + sp);
+			SW.Write (((uint)FlipType).ToString () + sp);
+			SW.Write (((uint)RotationType).ToString () + sp);
+			SW.Write (OutputImageType.ToString () + sp);
+			SW.Write (WatermarkPlacement.ToString () + sp);
+			SW.Write (WatermarkPath + sp);
+			SW.Write (WatermarkOpacity.ToString ());
+
+			// Успешно
+			SW.Close ();
+			FS.Close ();
+			return true;
+			}
+
+		/// <summary>
+		/// Метод удаляет указанный профиль
+		/// </summary>
+		/// <param name="ProfileName">Название удаляемого профиля</param>
+		public static void RemoveProfile (string ProfileName)
+			{
+			// Создание файла
+			try
+				{
+				File.Delete (RDGenerics.AppStartupPath + profilesSubDir + "\\" + ProfileName + ProfileExt);
+				}
+			catch { }
+			}
+
+		/// <summary>
+		/// Возвращает или задаёт последний выбранный профиль конверсии
+		/// </summary>
+		public static uint LastSelectedProfile
+			{
+			get
+				{
+				return RDGenerics.GetSettings (lastSelectedProfilePar, 0);
+				}
+			set
+				{
+				RDGenerics.SetSettings (lastSelectedProfilePar, value);
+				}
+			}
+		private const string lastSelectedProfilePar = "LastSelectedProfile";
 		}
 
 	/// <summary>
@@ -398,6 +576,6 @@ namespace RD_AAOW
 		/// <summary>
 		/// 270°
 		/// </summary>
-		HalfAndQuarter = 2,
+		HalfAndQuarter = 3,
 		}
 	}

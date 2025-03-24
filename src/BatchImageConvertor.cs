@@ -48,7 +48,8 @@ namespace RD_AAOW
 			// Отображение справки и запроса на принятие Политики
 			if (!RDInterface.AcceptEULA ())
 				return;
-			RDInterface.ShowAbout (true);
+			if (!RDInterface.ShowAbout (true))
+				RDGenerics.RegisterFileAssociations (true);
 
 			// Запуск
 			Application.Run (new BICForm (libUnavailable));

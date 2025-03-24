@@ -316,4 +316,23 @@
   <data name="WaterTab" xml:space="preserve">
     <value>Watermark</value>
   </data>
+  <data name="ProfileLabel" xml:space="preserve">
+    <value>Conversion profile:</value>
+  </data>
+  <data name="bipfile" xml:space="preserve">
+    <value>BatchImageConvertor profile</value>
+  </data>
+  <data name="BadProfileMessage" xml:space="preserve">
+    <value>The selected profile is unavailable or is not supported</value>
+  </data>
+  <data name="ProfileNameMessage" xml:space="preserve">
+    <value>Specify the profile name:</value>
+  </data>
+  <data name="BadProfileNameMessage" xml:space="preserve">
+    <value>Cannot create profile with this name.
+Try to specify another one</value>
+  </data>
+  <data name="RemoveProfileMessage" xml:space="preserve">
+    <value>Do you want to remove the specified profile?</value>
+  </data>
 </root>

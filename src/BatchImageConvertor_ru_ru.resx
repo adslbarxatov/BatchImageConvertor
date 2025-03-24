@@ -316,4 +316,23 @@
   <data name="WaterTab" xml:space="preserve">
     <value>Водяной знак</value>
   </data>
+  <data name="ProfileLabel" xml:space="preserve">
+    <value>Профиль преобразования:</value>
+  </data>
+  <data name="bipfile" xml:space="preserve">
+    <value>Профиль BatchImageConvertor</value>
+  </data>
+  <data name="BadProfileMessage" xml:space="preserve">
+    <value>Выбранный профиль недоступен или не поддерживается</value>
+  </data>
+  <data name="ProfileNameMessage" xml:space="preserve">
+    <value>Укажите название профиля:</value>
+  </data>
+  <data name="BadProfileNameMessage" xml:space="preserve">
+    <value>Не удаётся сохранить профиль под этим названием.
+Попробуйте указать другое</value>
+  </data>
+  <data name="RemoveProfileMessage" xml:space="preserve">
+    <value>Вы действительно хотите удалить выбранный профиль?</value>
+  </data>
 </root>
