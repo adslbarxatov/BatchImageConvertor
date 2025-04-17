@@ -1,5 +1,8 @@
 Batch image convertor: changes log
 
+ToDo:
+- Remove paths from profiles
+
 Version 4.1:
 • Implemented the profiles manager. Now you can name and save the needed sets
   of settings and switch between them;
