@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Runtime.InteropServices;
 
 namespace RD_AAOW
@@ -30,7 +29,7 @@ namespace RD_AAOW
 			// Загрузка изображения
 			IntPtr buffer;
 			UInt16 colorsCount;
-			Palette = new List<Color> ();
+			Palette = [];
 			ProgramErrorCodes error = (ProgramErrorCodes)ACO_LoadPalette (FilePath, out buffer, out colorsCount);
 
 			if ((error != ProgramErrorCodes.EXEC_OK) && (error != ProgramErrorCodes.EXEC_UNSUPPORTED_COLORS))
@@ -42,9 +41,7 @@ namespace RD_AAOW
 				byte* a = (byte*)buffer.ToPointer ();
 
 				for (int c = 0; c < colorsCount; c++)
-					{
 					Palette.Add (Color.FromArgb (a[3 * c + 0], a[3 * c + 1], a[3 * c + 2]));
-					}
 				}
 
 			// Завершено
@@ -84,9 +81,10 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new string[] { "*.aco" };
+				return fe;
 				}
 			}
+		private string[] fe = ["*.aco"];
 
 		/// <summary>
 		/// Возвращает максимально допустимое количество цветов в палитре

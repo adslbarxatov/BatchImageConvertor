@@ -74,9 +74,10 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new string[] { "*.wmf", "*.emf" };
+				return fe;
 				}
 			}
+		private string[] fe = ["*.wmf", "*.emf"];
 
 		/// <summary>
 		/// Всегда возвращает true (доступен постоянно)
@@ -95,8 +96,9 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new object[][] { };
+				return oms;
 				}
 			}
+		private object[][] oms = [];
 		}
 	}

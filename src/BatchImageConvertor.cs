@@ -1,84 +1,93 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
+﻿using RD_AAOW;
+using System.Reflection;
+using System.Resources;
+
+// Управление общими сведениями о сборке
+// ВИДИМЫЕ СТРОКИ
+[assembly: AssemblyTitle (ProgramDescription.AssemblyDescription)]
+[assembly: AssemblyCompany (RDGenerics.AssemblyCompany)]
+// НЕВИДИМЫЕ СТРОКИ
+[assembly: AssemblyDescription (ProgramDescription.AssemblyDescription)]
+[assembly: AssemblyProduct (ProgramDescription.AssemblyTitle)]
+[assembly: AssemblyCopyright (RDGenerics.AssemblyCopyright)]
+[assembly: AssemblyVersion (ProgramDescription.AssemblyVersion)]
 
 namespace RD_AAOW
 	{
 	/// <summary>
-	/// Класс описывает основную программу
+	/// Класс, содержащий сведения о программе
 	/// </summary>
-	public static class BatchImageConvertorProgram
+	public class ProgramDescription
 		{
 		/// <summary>
-		/// Конструктор. Описывает точку входа приложения
+		/// Основное название сборки
 		/// </summary>
-		[STAThread]
-		public static void Main ()
-			{
-			// Инициализация
-			Application.EnableVisualStyles ();
-			Application.SetCompatibleTextRenderingDefault (false);
-
-			// Язык интерфейса и контроль XPUN
-			if (!RDLocale.IsXPUNClassAcceptable)
-				return;
-
-			// Проверка запуска единственной копии
-			if (!RDGenerics.IsAppInstanceUnique (true))
-				return;
-
-			// Проверка наличия компонентов программы
-			bool libUnavailable = false;
-			if (!RDGenerics.CheckLibraries (BatchImageConvertorLibrary.CodecsLibraryFile, false))
-				{
-				RDInterface.MessageBox (RDMessageTypes.Question_Center,
-					string.Format (RDLocale.GetText ("ComponentMissing"),
-					BatchImageConvertorLibrary.CodecsLibraryFile));
-				libUnavailable = true;
-				}
-
-			else if (BatchImageConvertorLibrary.LibraryVersion != ProgramDescription.LibraryVersion)
-				{
-				RDInterface.MessageBox (RDMessageTypes.Warning_Center,
-					string.Format (RDLocale.GetDefaultText (RDLDefaultTexts.MessageFormat_WrongVersion_Fmt),
-					BatchImageConvertorLibrary.CodecsLibraryFile));
-				libUnavailable = true;
-				}
-
-			// Отображение справки и запроса на принятие Политики
-			if (!RDInterface.AcceptEULA ())
-				return;
-			if (!RDInterface.ShowAbout (true))
-				RDGenerics.RegisterFileAssociations (true);
-
-			// Запуск
-			Application.Run (new BICForm (libUnavailable));
-			}
-		}
-
-	/// <summary>
-	/// Класс описывает общие методы доступа к библиотеке кодеков
-	/// </summary>
-	public static class BatchImageConvertorLibrary
-		{
-		// Внешние функции
-		[DllImport (CodecsLibraryFile)]
-		private static extern IntPtr BIC_GetLibVersion ();
+		public const string AssemblyMainName = "BatchImageConvertor";
 
 		/// <summary>
-		/// Возвращает версию библиотеки кодеков
+		/// Название программы
 		/// </summary>
-		public static string LibraryVersion
-			{
-			get
-				{
-				return Marshal.PtrToStringAnsi (BIC_GetLibVersion ());
-				}
-			}
+		public const string AssemblyTitle = AssemblyMainName + " v 4.2";
 
 		/// <summary>
-		/// Имя библиотеки дополнительных кодеков программы
+		/// Версия программы
 		/// </summary>
-		public const string CodecsLibraryFile = "BatchImageConvertorCodecs.dll";
+		public const string AssemblyVersion = "4.2.0.0";
+
+		/// <summary>
+		/// Версия библиотеки
+		/// </summary>
+		public const string LibraryVersion = "4.2.0.0";
+
+		/// <summary>
+		/// Последнее обновление
+		/// </summary>
+		public const string AssemblyLastUpdate = "19.04.2025; 4:06";
+		// Активен с 17.02.2018; 1:51
+
+		/// <summary>
+		/// Пояснение к программе
+		/// </summary>
+		public const string AssemblyDescription = "Batch image conversion utility";
+
+		/// <summary>
+		/// Минимальный линейный размер изображения в программе
+		/// </summary>
+		public const uint MinLinearSize = (1 << 4);
+
+		/// <summary>
+		/// Максимальный линейный размер изображения в программе
+		/// </summary>
+		public const uint MaxLinearSize = (1 << 14);
+
+		/// <summary>
+		/// Возвращает список менеджеров ресурсов для локализации приложения
+		/// </summary>
+		public readonly static ResourceManager[] AssemblyResources = [
+			BatchImageConvertorResources.ResourceManager,
+
+			BatchImageConvertor_ru_ru.ResourceManager,
+			BatchImageConvertor_en_us.ResourceManager,
+			];
+
+		/// <summary>
+		/// Возвращает набор ссылок на видеоматериалы по языкам
+		/// </summary>
+		public readonly static string[] AssemblyVideoLinks = [];
+
+		/// <summary>
+		/// Возвращает набор поддерживаемых языков
+		/// </summary>
+		public readonly static RDLanguages[] AssemblyLanguages = [
+			RDLanguages.ru_ru,
+			RDLanguages.en_us,
+			];
+
+		/// <summary>
+		/// Возвращает описание сопоставлений файлов для приложения
+		/// </summary>
+		public readonly static string[][] AssemblyAssociations = [
+			[ AppSettings.ProfileExt, RDLocale.GetText ("bipfile"), "BIPFileIcon", "-" ],
+			];
 		}
 	}

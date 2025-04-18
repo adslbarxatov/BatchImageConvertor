@@ -126,7 +126,7 @@ namespace RD_AAOW
 				(UInt16)Image.Height, array);
 
 			// Инициирование очистки памяти
-			array = null;
+			/*array = null;*/
 			return res;
 			}
 
@@ -152,9 +152,10 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new string[] { "*.pcx", "*.pcc" };
+				return fe;
 				}
 			}
+		private string[] fe = ["*.pcx", "*.pcc"];
 
 		/// <summary>
 		/// Метод загружает указанную палитру и возвращает его в виде объекта List of Color
@@ -167,7 +168,7 @@ namespace RD_AAOW
 			// Загрузка изображения
 			IntPtr buffer;
 			UInt16 colorsCount;
-			Palette = new List<Color> ();
+			Palette = [];
 			ProgramErrorCodes error = (ProgramErrorCodes)PCX_LoadPalette (FilePath, out buffer, out colorsCount);
 
 			if (error != ProgramErrorCodes.EXEC_OK)
@@ -179,9 +180,7 @@ namespace RD_AAOW
 				byte* a = (byte*)buffer.ToPointer ();
 
 				for (int c = 0; c < colorsCount; c++)
-					{
 					Palette.Add (Color.FromArgb (a[3 * c + 0], a[3 * c + 1], a[3 * c + 2]));
-					}
 				}
 
 			// Завершено
@@ -243,10 +242,11 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new object[][] {
-					new object[] { "PCX, PCExchange image format", null },
-				};
+				return oms;
 				}
 			}
+		private object[][] oms = [
+			["PCX, PCExchange image format", null ],
+			];
 		}
 	}

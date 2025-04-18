@@ -1,7 +1,8 @@
 Batch image convertor: changes log
 
-ToDo:
-- Remove paths from profiles
+Version 4.2:
+• The application has been migrated to NET 9 from .NET Framework 4.8.1;
+• Input and output directories will not be affected by the specified profile
 
 Version 4.1:
 • Implemented the profiles manager. Now you can name and save the needed sets

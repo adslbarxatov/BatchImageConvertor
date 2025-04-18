@@ -120,7 +120,7 @@ namespace RD_AAOW
 				(UInt16)Image.Height, array);
 
 			// Инициирование очистки памяти
-			array = null;
+			/*array = null;*/
 			return res;
 			}
 
@@ -147,9 +147,10 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new string[] { "*.tga", "*.vda", "*.icb", "*.vst" };
+				return fe;
 				}
 			}
+		private string[] fe = ["*.tga", "*.vda", "*.icb", "*.vst"];
 
 		/// <summary>
 		/// Возвращает true, если кодек может функционировать в текущей конфигруации приложения
@@ -169,10 +170,11 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new object[][] {
-					new object[] { "TGA, Truevision targa image", null },
-				};
+				return oms;
 				}
 			}
+		private object[][] oms = [
+			["TGA, Truevision targa image", null],
+			];
 		}
 	}

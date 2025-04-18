@@ -14,10 +14,10 @@ namespace RD_AAOW
 	public partial class BICForm: Form
 		{
 		// Списки обработчиков изображений
-		private List<ICodec> codecs = new List<ICodec> ();
-		private List<int> outputCodecsNumbers = new List<int> ();
-		private List<object> outputFormats = new List<object> ();
-		private ICodec[] availableCodecs = new ICodec[] {
+		private List<ICodec> codecs = [];
+		private List<int> outputCodecsNumbers = [];
+		private List<object> outputFormats = [];
+		private ICodec[] availableCodecs = [
 			new GenericCodec (),
 			new MetafileCodec (),
 			new JP2Codec (),
@@ -27,14 +27,14 @@ namespace RD_AAOW
 			new PBMCodec (),
 			new PCXCodec (),
 			new ICOCodec (),
-			};
+			];
 
 		// Счётчики успешных обработок и общего числа изображений
 		private uint successes = 0;
 		private double totalImages = 0.0;
 
 		// Транзактные переменные
-		private List<string> messages = new List<string> ();
+		private List<string> messages = [];
 		private bool allowPalettes = false;
 		private RadioButton[] placements;
 
@@ -77,7 +77,7 @@ namespace RD_AAOW
 			//RelativeWidth.Maximum = RelativeHeight.Maximum = 100;	// Определяется далее
 			RelativeLeft.Maximum = RelativeTop.Maximum = 99;
 
-			placements = new RadioButton[] {
+			placements = [
 				WatermarkLT,
 				WatermarkCT,
 				WatermarkRT,
@@ -87,7 +87,7 @@ namespace RD_AAOW
 				WatermarkLB,
 				WatermarkCB,
 				WatermarkRB,
-				};
+				];
 
 			AbsoluteSize_CheckedChanged (null, null);
 
@@ -408,10 +408,10 @@ namespace RD_AAOW
 				}
 
 			// Сбор списка изображений
-			List<List<string>> fileNames = new List<List<string>> ();
+			List<List<string>> fileNames = [];
 			for (int i = 0; i < codecs.Count; i++)
 				{
-				fileNames.Add (new List<string> ());
+				fileNames.Add ([]);
 				for (int j = 0; j < codecs[i].FileExtensions.Length; j++)
 					{
 					try
@@ -466,7 +466,7 @@ namespace RD_AAOW
 				totalImages += fileNames[c].Count;
 
 			// Обработка
-			Bitmap img = null;
+			/*Bitmap img = null;*/
 
 			for (int c = 0; c < fileNames.Count; c++)
 				{
@@ -505,6 +505,7 @@ namespace RD_AAOW
 					#region Открытие изображения
 
 					string msg = "";
+					Bitmap img;
 					switch (codecs[c].LoadImage (fileNames[c][n], out img))
 						{
 						case ProgramErrorCodes.EXEC_FILE_UNAVAILABLE:
@@ -795,7 +796,7 @@ namespace RD_AAOW
 			if (!allowPalettes)
 				return;
 
-			PalettesManager pm = new PalettesManager ();
+			_ = new PalettesManager ();
 			}
 
 		// Центрирование области обрезки

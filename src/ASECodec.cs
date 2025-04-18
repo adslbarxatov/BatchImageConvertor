@@ -29,7 +29,7 @@ namespace RD_AAOW
 			// Загрузка изображения
 			IntPtr buffer;
 			UInt16 colorsCount;
-			Palette = new List<Color> ();
+			Palette = [];
 			ProgramErrorCodes error = (ProgramErrorCodes)ASE_LoadPalette (FilePath, out buffer, out colorsCount);
 
 			if ((error != ProgramErrorCodes.EXEC_OK) && (error != ProgramErrorCodes.EXEC_UNSUPPORTED_COLORS))
@@ -41,9 +41,7 @@ namespace RD_AAOW
 				byte* a = (byte*)buffer.ToPointer ();
 
 				for (int c = 0; c < colorsCount; c++)
-					{
 					Palette.Add (Color.FromArgb (a[3 * c + 0], a[3 * c + 1], a[3 * c + 2]));
-					}
 				}
 
 			// Завершено
@@ -83,9 +81,10 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new string[] { "*.ase" };
+				return fe;
 				}
 			}
+		private string[] fe = ["*.ase"];
 
 		/// <summary>
 		/// Возвращает максимально допустимое количество цветов в палитре

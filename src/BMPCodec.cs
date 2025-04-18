@@ -29,7 +29,7 @@ namespace RD_AAOW
 			// Загрузка изображения
 			IntPtr buffer;
 			UInt16 colorsCount;
-			Palette = new List<Color> ();
+			Palette = [];
 			ProgramErrorCodes error = (ProgramErrorCodes)BMP_LoadPalette (FilePath, out buffer, out colorsCount);
 
 			if (error != ProgramErrorCodes.EXEC_OK)
@@ -41,9 +41,7 @@ namespace RD_AAOW
 				byte* a = (byte*)buffer.ToPointer ();
 
 				for (int c = 0; c < colorsCount; c++)
-					{
 					Palette.Add (Color.FromArgb (a[4 * c + 3], a[4 * c + 0], a[4 * c + 1], a[4 * c + 2]));
-					}
 				}
 
 			// Завершено
@@ -84,9 +82,10 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new string[] { "*.bmp" };
+				return fe;
 				}
 			}
+		private string[] fe = ["*.bmp"];
 
 		/// <summary>
 		/// Возвращает максимально допустимое количество цветов в палитре

@@ -97,12 +97,13 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new string[] {
-					"*.jp2",											// JP2 subformat
-					"*.j2c", "*.j2k", "*.jpc", "*.jpf", "*.jpx"			// J2K subformat
-					};
+				return fe;
 				}
 			}
+		private string[] fe = [
+			"*.jp2",										// JP2 subformat
+			"*.j2c", "*.j2k", "*.jpc", "*.jpf", "*.jpx",	// J2K subformat
+			];
 
 		/// <summary>
 		/// Возвращает true, если кодек может функционировать в текущей конфигруации приложения
@@ -122,8 +123,9 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new object[][] { };
+				return oms;
 				}
 			}
+		private object[][] oms = [];
 		}
 	}

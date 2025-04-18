@@ -156,7 +156,7 @@ namespace RD_AAOW
 				(UInt16)Image.Height, array, (byte)imageType);
 
 			// Инициирование очистки памяти
-			array = null;
+			/*array = null;*/
 			return res;
 			}
 
@@ -194,10 +194,11 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new string[] { "*.pnm", "*.pbm", "*.pgm", "*.ppm" };
-				// Насчёт .pfm и .pam информация есть. Они будут описаны позднее... наверное...
+				return fe;
 				}
 			}
+		private string[] fe = ["*.pnm", "*.pbm", "*.pgm", "*.ppm"];
+		// Насчёт .pfm и .pam информация есть. Они будут описаны позднее... наверное...
 
 		/// <summary>
 		/// Возвращает true, если кодек может функционировать в текущей конфигруации приложения
@@ -217,15 +218,13 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new object[][] {
-					new object[] { "PBM, Portable bitmap format " + ColorTransition.RGBMarker,
-						ImageTypes.ColorAsBinary },
-					new object[] { "PBM, Portable bitmap format " + ColorTransition.OnlyGreyscaleMarker,
-						ImageTypes.GreyscaleAsBinary },
-					new object[] { "PBM, Portable bitmap format " + ColorTransition.OnlyBnWMarker,
-						ImageTypes.BitmapAsBinary },
-				};
+				return oms;
 				}
 			}
+		private object[][] oms = [
+			[ "PBM, Portable bitmap format " + ColorTransition.RGBMarker, ImageTypes.ColorAsBinary ],
+			[ "PBM, Portable bitmap format " + ColorTransition.OnlyGreyscaleMarker, ImageTypes.GreyscaleAsBinary ],
+			[ "PBM, Portable bitmap format " + ColorTransition.OnlyBnWMarker, ImageTypes.BitmapAsBinary ],
+			];
 		}
 	}

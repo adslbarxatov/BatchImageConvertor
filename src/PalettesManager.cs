@@ -12,8 +12,8 @@ namespace RD_AAOW
 	public partial class PalettesManager: Form
 		{
 		// Переменные
-		private List<IPaletteCodec> codecs = new List<IPaletteCodec> ();
-		private string[] filters = new string[] {
+		private List<IPaletteCodec> codecs = [];
+		private string[] filters = [
 			"Adobe Color Table (*.act)|*.act",
 			"Microsoft palette (*.pal)|*.pal",
 			"JASC palette (*.pal)|*.pal",
@@ -22,7 +22,7 @@ namespace RD_AAOW
 			"Adobe Swatches Exchange (*.ase)|*.ase",
 			"Windows bitmap (*.bmp, *.dib, *.rle)|*.bmp;*.dib;*.rle",
 			"ZSoft Paintbrush (*.pcx, *.pcc)|*.pcx;*.pcc"
-			};
+			];
 		private bool allowExit = false;
 		private BMPCodec bmpCodec = new BMPCodec ();
 
@@ -152,8 +152,8 @@ namespace RD_AAOW
 				}
 
 			// Добавление цвета
-			ColorGrid.Rows.Add (new object[] { "(" + CDialog.Color.R.ToString () + "; " +
-				CDialog.Color.G.ToString () + "; " + CDialog.Color.B.ToString () + ")", "255" });
+			ColorGrid.Rows.Add ([ "(" + CDialog.Color.R.ToString () + "; " +
+				CDialog.Color.G.ToString () + "; " + CDialog.Color.B.ToString () + ")", "255" ]);
 			ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.BackColor =
 				ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.SelectionBackColor = CDialog.Color;
 			if ((CDialog.Color.R + CDialog.Color.G + CDialog.Color.B) > 128 * 3)
@@ -297,12 +297,12 @@ namespace RD_AAOW
 			ColorGrid.Rows.Clear ();
 			for (int i = 0; i < palette.Count; i++)
 				{
-				ColorGrid.Rows.Add (new object[] { "(" +
+				ColorGrid.Rows.Add ([ "(" +
 					palette[i].R.ToString () + "; " +
 					palette[i].G.ToString () + "; " +
 					palette[i].B.ToString () + ")",
 					palette[i].A.ToString ()
-					});
+					]);
 				ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.BackColor =
 					ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.SelectionBackColor =
 					Color.FromArgb (palette[i].R, palette[i].G, palette[i].B);
@@ -345,7 +345,7 @@ namespace RD_AAOW
 				return;
 
 			// Перегонка
-			List<Color> palette = new List<Color> ();
+			List<Color> palette = [];
 			for (int i = 0; i < ColorGrid.Rows.Count; i++)
 				{
 				palette.Add (Color.FromArgb (int.Parse (ColorGrid.Rows[i].Cells[1].Value.ToString ()),
@@ -379,7 +379,7 @@ namespace RD_AAOW
 				}
 
 			// Перегонка
-			List<Color> palette = new List<Color> ();
+			List<Color> palette = [];
 			for (int i = 0; i < ColorGrid.Rows.Count; i++)
 				{
 				palette.Add (Color.FromArgb (int.Parse (ColorGrid.Rows[i].Cells[1].Value.ToString ()),

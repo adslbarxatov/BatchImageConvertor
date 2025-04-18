@@ -22,7 +22,6 @@ namespace RD_AAOW
 
 			if (len == 0)
 				return LongFileName;
-			//throw new System.ComponentModel.Win32Exception ();
 
 			return buffer.ToString ();
 			}
@@ -115,9 +114,10 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new string[] { "*.avif" };
+				return fe;
 				}
 			}
+		private string[] fe = ["*.avif"];
 
 		/// <summary>
 		/// Возвращает true, если кодек может функционировать в текущей конфигруации приложения
@@ -136,8 +136,9 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new object[][] { };
+				return oms;
 				}
 			}
+		private object[][] oms = [];
 		}
 	}

@@ -153,15 +153,16 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new string[] {
-					"*.bmp", "*.dib", "*.rle",				// Bitmaps
-					"*.gif",
-					"*.png",
-					"*.jpe*", "*.jpg", "*.jfif",	// JPEGs
-					"*.tif*",						// TIFFs
-					};
+				return fe;
 				}
 			}
+		private string[] fe = [
+			"*.bmp", "*.dib", "*.rle",		// Bitmaps
+			"*.gif",
+			"*.png",
+			"*.jpe*", "*.jpg", "*.jfif",	// JPEGs
+			"*.tif*",						// TIFFs
+			];
 
 		/// <summary>
 		/// Всегда возвращает true (доступен постоянно)
@@ -180,14 +181,15 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new object[][] {
-					new object[] { "PNG, Portable network graphics", ImageFormat.Png },
-					new object[] { "JPEG, Joint photographic experts group", ImageFormat.Jpeg },
-					new object[] { "BMP, Windows bitmap", ImageFormat.Bmp },
-					new object[] { "GIF, Graphics interchange format", ImageFormat.Gif },
-					new object[] { "TIFF, Tagged image file format", ImageFormat.Tiff },
-				};
+				return oms;
 				}
 			}
+		private object[][] oms = [
+			[ "PNG, Portable network graphics", ImageFormat.Png],
+			[ "JPEG, Joint photographic experts group", ImageFormat.Jpeg],
+			[ "BMP, Windows bitmap", ImageFormat.Bmp ],
+			[ "GIF, Graphics interchange format", ImageFormat.Gif ],
+			[ "TIFF, Tagged image file format", ImageFormat.Tiff ],
+			];
 		}
 	}

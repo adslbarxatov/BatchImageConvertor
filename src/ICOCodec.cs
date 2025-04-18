@@ -96,9 +96,10 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new string[] { "*.ico" };
+				return fe;
 				}
 			}
+		private string[] fe = ["*.ico"];
 
 		/// <summary>
 		/// Возвращает true, если кодек может функционировать в текущей конфигруации приложения
@@ -118,8 +119,9 @@ namespace RD_AAOW
 			{
 			get
 				{
-				return new object[][] { };
+				return oms;
 				}
 			}
+		private object[][] oms = [];
 		}
 	}
