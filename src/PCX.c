@@ -132,7 +132,9 @@ sint PCX_LoadImage (schar *FileName, uint *Width, uint *Height, uchar **Buffer,
 		free (buf1);
 		return EXEC_MEMORY_ALLOC_FAIL;
 		}
-	memset (buf2, 0xFF, LineLength * *Height);	// Как оказалось, у некоторых программ есть привычка не дописывать последние строки изображения
+
+	// Как оказалось, у некоторых программ есть привычка не дописывать последние строки изображения
+	memset (buf2, 0xFF, LineLength * *Height);
 
 	while (PCX_GetBlock (buf1, dataLength, &readPos1, &c, &count))
 		for (i = 0; i < count; i++, *(buf2 + readPos2++) = c);
@@ -140,27 +142,14 @@ sint PCX_LoadImage (schar *FileName, uint *Width, uint *Height, uchar **Buffer,
 	free (buf1);
 
 	// Сборка изображения
-	if ((buf1 = (uchar *)malloc (*Width * *Height * 3)) == NULL)
+	if ((buf1 = (uchar *)malloc (*Width * *Height * 4)) == NULL)
 		{
 		free (buf2);
 		return EXEC_MEMORY_ALLOC_FAIL;
 		}
 
-	if (pcxh.PCXHeaderS.LayersCount == 3)		// 24 bits
-		{
-		for (i = 0; i < *Height; i++)
-			{
-			for (j = 0; j < *Width; j++)
-				{
-				for (k = 0; k < pcxh.PCXHeaderS.LayersCount; k++)
-					{
-					buf1[(i * *Width + j) * pcxh.PCXHeaderS.LayersCount + k] = 
-						buf2[(i * pcxh.PCXHeaderS.LayersCount + k) * pcxh.PCXHeaderS.BytesPerLine + j];
-					}
-				}
-			}
-		}
-	else if ((pcxh.PCXHeaderS.LayersCount == 1) && (pcxh.PCXHeaderS.BitsPerPixel == 8) && hasExtendedPalette)	// Indexed color/greyscale
+	// 24 bits
+	if (pcxh.PCXHeaderS.LayersCount == 3)
 		{
 		for (i = 0; i < *Height; i++)
 			{
@@ -168,12 +157,33 @@ sint PCX_LoadImage (schar *FileName, uint *Width, uint *Height, uchar **Buffer,
 				{
 				for (k = 0; k < 3; k++)
 					{
-					buf1[(i * *Width + j) * 3 + k] = *((*ExtendedPalette)->Colors[buf2[pcxh.PCXHeaderS.BytesPerLine * i + j]].Ptr + k);
+					buf1[(i * *Width + j) * 4 + RGBOrder (k)] =
+						buf2[(i * 3 + k) * pcxh.PCXHeaderS.BytesPerLine + j];
 					}
+				buf1[(i * *Width + j) * 4 + 3] = 255;
 				}
 			}
 		}
-	else if ((pcxh.PCXHeaderS.LayersCount == 1) && (pcxh.PCXHeaderS.BitsPerPixel == 1))		// Monochrome
+
+	// Indexed color/greyscale
+	else if ((pcxh.PCXHeaderS.LayersCount == 1) && (pcxh.PCXHeaderS.BitsPerPixel == 8) && hasExtendedPalette)
+		{
+		for (i = 0; i < *Height; i++)
+			{
+			for (j = 0; j < *Width; j++)
+				{
+				for (k = 0; k < 3; k++)
+					{
+					buf1[(i * *Width + j) * 4 + RGBOrder (k)] =
+						*((*ExtendedPalette)->Colors[buf2[pcxh.PCXHeaderS.BytesPerLine * i + j]].Ptr + k);
+					}
+				buf1[(i * *Width + j) * 4 + 3] = 255;
+				}
+			}
+		}
+
+	// Monochrome
+	else if ((pcxh.PCXHeaderS.LayersCount == 1) && (pcxh.PCXHeaderS.BitsPerPixel == 1))
 		{
 		count = 0;
 		for (i = 0; i < *Height; i++)
@@ -182,18 +192,19 @@ sint PCX_LoadImage (schar *FileName, uint *Width, uint *Height, uchar **Buffer,
 				{
 				for (k = 0; k < 3; k++)
 					{
-					buf1[(i * *Width + j) * 3 + k] = ((buf2[count >> 3] & (1 << (7 - count % 8))) != 0) ? 255 : 0;
+					buf1[(i * *Width + j) * 4 + k] = ((buf2[count >> 3] & (1 << (7 - count % 8))) != 0) ? 255 : 0;
 					}
+				buf1[(i * *Width + j) * 4 + 3] = 255;
 				}
 
 			// Выравнивание
 			while (count % 16 != 0)
-				{
 				count++;
-				}
 			}
 		}
-	else		// Unknown
+
+	// Unknown
+	else
 		{
 		free (buf1);
 		free (buf2);
@@ -313,7 +324,7 @@ sint PCX_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer)
 			{
 			for (k = 0; k < pcxh.PCXHeaderS.LayersCount; k++)
 				{
-				buf1[(i * pcxh.PCXHeaderS.LayersCount + k) * pcxh.PCXHeaderS.BytesPerLine + j] =
+				buf1[(i * pcxh.PCXHeaderS.LayersCount + RGBOrder (k)) * pcxh.PCXHeaderS.BytesPerLine + j] =
 					Buffer[(i * Width + j) * pcxh.PCXHeaderS.LayersCount + k];
 				}
 			}
@@ -326,5 +337,6 @@ sint PCX_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer)
 		}
 
 	// Завершено
+	free (buf1);
 	IPCX_EXIT (EXEC_OK)
 	}

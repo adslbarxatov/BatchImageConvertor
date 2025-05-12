@@ -10,11 +10,11 @@ namespace RD_AAOW
 	/// </summary>
 	public class ASECodec: IPaletteCodec
 		{
-		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
+		[DllImport (ProgramDescription.CodecsLibrary)]
 		private static extern Int16 ASE_LoadPalette (string FileName, out IntPtr Buffer, out UInt16 ColorsCount);
 		// RGB
 
-		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
+		[DllImport (ProgramDescription.CodecsLibrary)]
 		private static extern Int16 ASE_SavePalette (string FileName, byte[] Buffer, UInt16 ColorsCount);
 		// RGB
 
@@ -35,14 +35,19 @@ namespace RD_AAOW
 			if ((error != ProgramErrorCodes.EXEC_OK) && (error != ProgramErrorCodes.EXEC_UNSUPPORTED_COLORS))
 				return error;
 
-			// Извлечение массива данных и сборка изображения
-			unsafe
+			// Извлечение массива данных и сборка палитры
+			/*unsafe
 				{
 				byte* a = (byte*)buffer.ToPointer ();
 
 				for (int c = 0; c < colorsCount; c++)
 					Palette.Add (Color.FromArgb (a[3 * c + 0], a[3 * c + 1], a[3 * c + 2]));
-				}
+				}*/
+			byte[] array = new byte[colorsCount * 3];
+			Marshal.Copy (buffer, array, 0, array.Length);
+
+			for (int c = 0; c < colorsCount; c++)
+				Palette.Add (Color.FromArgb (array[3 * c + 0], array[3 * c + 1], array[3 * c + 2]));
 
 			// Завершено
 			return error;

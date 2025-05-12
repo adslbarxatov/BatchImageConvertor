@@ -1,5 +1,12 @@
 Batch image convertor: changes log
 
+Version 5.0:
+• Added support for new offline help provider;
+• Removed some obsolete code fragments;
+• Removed some memory leaks;
+• Added the correct memory marshalling that should increase the speed of processing;
+• Added support for 32bpp BMP and PNG images inside ICO files;
+
 Version 4.2:
 • The application has been migrated to .NET 9.0 from .NET Framework 4.8.1;
 • Input and output directories will not be affected by the specified profile

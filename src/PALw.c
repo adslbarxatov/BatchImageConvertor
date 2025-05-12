@@ -20,7 +20,7 @@ sint PALw_LoadPaletteEx (schar *FileName, union RGBA_Color **Palette, uint *Colo
 		}
 	
 	// Открытие файла и получение размера
-	BIC_INIT_FILE_READING
+	BIC_INIT_FILE_READING;
 	fseek (FS, 0, SEEK_END);
 	fileSize = ftell (FS);
 	fseek (FS, 0, SEEK_SET);
@@ -95,14 +95,12 @@ sint PALw_SavePaletteEx (schar *FileName, union RGBA_Color *Palette, uint Colors
 	palh.WinPALHeaderS.RIFFSignature = RIFF_SIGNATURE;
 
 	// Открытие файла
-	BIC_INIT_FILE_WRITING
+	BIC_INIT_FILE_WRITING;
 
 	// Запись
 	fwrite (palh.Ptr, 1, sizeof (union WinPALHeader), FS);
 	for (i = 0; i < ColorsCount; i++)
-		{
 		Palette[i].RGBA.A = 0;	// Это поле на самом деле является полем параметров, а не альфа-канала
-		}
 	fwrite (Palette->Ptr, 1, ColorsCount * sizeof (union RGBA_Color), FS);
 
 	// Завершено

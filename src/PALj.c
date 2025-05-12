@@ -11,6 +11,8 @@ sint PALj_LoadPaletteEx (schar *FileName, union RGB_Color **Palette, uint *Color
 	schar buf[256];
 	union RGB_Color *palette = NULL;
 	slong i;
+	uint colorsCount;
+	uint r, g, b;
 
 	// Контроль
 	if (!FileName || !ColorsCount)
@@ -44,25 +46,30 @@ sint PALj_LoadPaletteEx (schar *FileName, union RGB_Color **Palette, uint *Color
 		return EXEC_INVALID_FILE;
 		}
 
-	fscanf (FS, "%u", ColorsCount);
-	if ((*ColorsCount == 0) || (*ColorsCount > PALj_MAX_COLORS))
+	fscanf (FS, "%u", &colorsCount);
+	if ((colorsCount == 0) || (colorsCount > PALj_MAX_COLORS))
 		{
-		*ColorsCount = PALj_MAX_COLORS;
+		colorsCount = PALj_MAX_COLORS;
 		}
+	*ColorsCount = colorsCount;
 
 	// Чтение палитры
-	if ((palette = (union RGB_Color *)malloc (*ColorsCount * sizeof (union RGB_Color))) == NULL)
+	if ((palette = (union RGB_Color *)malloc (colorsCount * sizeof (union RGB_Color))) == NULL)
 		{
 		fclose (FS);
 		return EXEC_MEMORY_ALLOC_FAIL;
 		}
-	for (i = 0; i < *ColorsCount; i++)
+	for (i = 0; i < colorsCount; i++)
 		{
-		if (fscanf (FS, "%u %u %u", &(palette[i].RGB.R), &(palette[i].RGB.G), &(palette[i].RGB.B)) != sizeof (union RGB_Color))
+		if (fscanf (FS, "%u %u %u", &r, &g, &b) != sizeof (union RGB_Color))
 			{
 			fclose (FS);
 			return EXEC_INVALID_FILE;
 			}
+
+		palette[i].RGB.R = r;
+		palette[i].RGB.G = g;
+		palette[i].RGB.B = b;
 		}
 
 	// Завершено
@@ -91,9 +98,7 @@ sint PALj_SavePaletteEx (schar *FileName, union RGB_Color *Palette, uint ColorsC
 	fprintf (FS, "%s\n%s\n%u\n", JASC_SIGNATURE, JASC_VERSION, ColorsCount);
 
 	for (i = 0; i < ColorsCount; i++)
-		{
 		fprintf (FS, "%u %u %u\n", Palette[i].RGB.R, Palette[i].RGB.G, Palette[i].RGB.B);
-		}
 
 	// Завершено
 	fclose (FS);

@@ -4,7 +4,6 @@
 #include "TGA.h"
 #include "PCX.h"
 #include "PBM.h"
-/*#include "JP2.h"*/
 #include "ICO.h"
 
 #include "ACT.h"
@@ -88,7 +87,7 @@ BIC_API sint TGA_Save (schar *FileName, uint Width, uint Height, uchar *Buffer)
 	return Image_SaveTGA (FileName, &buf);
 	}
 
-// Интерфейсы для функций PCX (буфер в формате RGB)
+// Интерфейсы для функций PCX (выходной буфер в формате RGBA, где A = 255; входной буфер в формате RGB)
 BIC_API sint PCX_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
 	{
 	union RGB_Palette_16 *dp = NULL;
@@ -101,6 +100,7 @@ BIC_API sint PCX_Save (schar *FileName, uint Width, uint Height, uchar *Buffer)
 	return PCX_SaveImage (FileName, Width, Height, Buffer);
 	}
 
+// Интерфейсы для функций PCX palette (буфер в формате RGB)
 BIC_API sint PCX_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
 	{
 	uint Width = 0;
@@ -114,14 +114,18 @@ BIC_API sint PCX_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCoun
 		return res;
 
 	// Возврат
-	*ColorsCount = 16;
-	*Palette = dp->Ptr;
 	if (ep)
 		{
 		*ColorsCount = 256;
 		*Palette = ep->Ptr;
 		}
+	else
+		{
+		*ColorsCount = 16;
+		*Palette = dp->Ptr;
+		}
 
+	BIC_ReleaseBuffer (Buffer);	// Не нужен
 	return res;
 	}
 
@@ -130,7 +134,7 @@ BIC_API sint PCX_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount)
 	return EXEC_NOT_IMPLEMENTED;
 	}
 
-// Интерфейсы для функций PBM (буфер в формате RGB)
+// Интерфейсы для функций PBM (буфер в формате RGBA, где A = 255; входной буфер в формате RGB)
 BIC_API sint PBM_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
 	{
 	return PBM_LoadImage (FileName, Width, Height, Buffer);
@@ -141,27 +145,10 @@ BIC_API sint PBM_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, 
 	return PBM_SaveImage (FileName, Width, Height, Buffer, ImageType);
 	}
 
-/* Интерфейсы для функций JPEG2000 (буфер в формате RGB)
-BIC_API sint JP2_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
+// Интерфейсы для функций ICO (буфер в формате RGBA)
+BIC_API sint ICO_Load (schar* FileName, uint* WidthHeight, uchar** Buffer, ulong *Length)
 	{
-	return JP2_LoadImage (FileName, Width, Height, Buffer);
-
-	// Функция неисправна
-	return EXEC_NOT_IMPLEMENTED;
-	}
-
-BIC_API sint JP2_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uchar CodecType)
-	{
-	return JP2_SaveImage (FileName, Width, Height, Buffer, CodecType);
-	
-	// Функция неисправна
-	return EXEC_NOT_IMPLEMENTED;
-	}*/
-
-// Интерфейсы для функций JPEG2000 (буфер в формате RGB)
-BIC_API sint ICO_Load (schar* FileName, uint* Width, uint* Height, uchar** Buffer)
-	{
-	return ICO_LoadImage (FileName, Width, Height, Buffer);
+	return ICO_LoadImage (FileName, WidthHeight, Buffer, Length);
 
 	// Функция неисправна
 	return EXEC_NOT_IMPLEMENTED;
@@ -173,7 +160,7 @@ BIC_API sint ICO_Save (schar* FileName, uint Width, uint Height, uchar* Buffer, 
 	return EXEC_NOT_IMPLEMENTED;
 	}
 
-// Интерфейсы для палитры BMP (буфер в формате RGBA, где A - сепаратор)
+// Интерфейсы для палитры BMP (буфер в формате RGBA, где A – сепаратор)
 BIC_API sint BMP_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
 	{
 	union RGBA_Color *palette;
@@ -213,7 +200,7 @@ BIC_API sint ACT_SavePalette (schar *FileName, uchar *Palette, uint ColorsCount)
 	return ACT_SavePaletteEx (FileName, ((union RGBA_Color *)Palette), ColorsCount);
 	}
 
-// Интерфейсы для палитры Microsoft PAL (буфер в формате RGBA, где A - сепаратор)
+// Интерфейсы для палитры Microsoft PAL (буфер в формате RGBA, где A – сепаратор)
 BIC_API sint PALw_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount)
 	{
 	union RGBA_Color *palette;
@@ -288,8 +275,8 @@ BIC_API void BIC_ReleaseBuffer (uchar *Buffer)
 		free (Buffer);
 	}
 
-// Метод возвращает версию библиотеки для контроля совместимости
+/*// Метод возвращает версию библиотеки для контроля совместимости
 BIC_API schar* BIC_GetLibVersion ()
 	{
 	return BIC_VERSION_S;
-	}
+	}*/

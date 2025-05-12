@@ -11,11 +11,11 @@ namespace RD_AAOW
 	/// </summary>
 	public class ACTCodec: IPaletteCodec
 		{
-		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
+		[DllImport (ProgramDescription.CodecsLibrary)]
 		private static extern Int16 ACT_LoadPalette (string FileName, out IntPtr Buffer, out UInt16 ColorsCount);
 		// RGBA
 
-		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
+		[DllImport (ProgramDescription.CodecsLibrary)]
 		private static extern Int16 ACT_SavePalette (string FileName, byte[] Buffer, UInt16 ColorsCount);
 		// RGBA
 
@@ -36,14 +36,19 @@ namespace RD_AAOW
 			if (error != ProgramErrorCodes.EXEC_OK)
 				return error;
 
-			// Извлечение массива данных и сборка изображения
-			unsafe
+			// Извлечение массива данных и сборка палитры
+			/*unsafe
 				{
 				byte* a = (byte*)buffer.ToPointer ();
 
 				for (int c = 0; c < colorsCount; c++)
 					Palette.Add (Color.FromArgb (a[4 * c + 3], a[4 * c + 0], a[4 * c + 1], a[4 * c + 2]));
-				}
+				}*/
+			byte[] array = new byte[colorsCount * 4];
+			Marshal.Copy (buffer, array, 0, array.Length);
+
+			for (int c = 0; c < colorsCount; c++)
+				Palette.Add (Color.FromArgb (array[4 * c + 3], array[4 * c + 0], array[4 * c + 1], array[4 * c + 2]));
 
 			// Завершено
 			return ProgramErrorCodes.EXEC_OK;

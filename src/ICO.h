@@ -1,5 +1,5 @@
 // Декларации
-sint ICO_LoadImage (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
+sint ICO_LoadImage (schar *FileName, uint *WidthHeight, uchar **Buffer, ulong *Length);
 
 #define ICO_TYPE					1
 #define ICO_IMAGE_SUBHEADER_SIZE	40

@@ -9,8 +9,8 @@
 // Стандартное переопределение типов
 #include "..\\Generics\\CSTypes.h"
 
-#define BIC_VERSION					4,2,0,0
-#define BIC_VERSION_S				"4.2.0.0"
+#define BIC_VERSION					5,0,0,0
+#define BIC_VERSION_S				"5.0.0.0"
 #define BIC_PRODUCT					"Codecs library for Batch image convertor"
 #define BIC_COMPANY					FDL_COMPANY
 
@@ -88,6 +88,9 @@ union RGB_Palette_16
 	uchar Ptr[16 * sizeof (union RGB_Color)];
 	};
 
+#define RGBOrder(k)		(2 - k)
+#define RGBOrderStream(r,g,b)		b;g;r;
+
 // Функции перегонки цветов
 #define BIC_INPUT_COLOR_LIMIT		0xFFFF
 #define BIC_ICL		BIC_INPUT_COLOR_LIMIT
@@ -105,7 +108,7 @@ ulong LEBE_l (ulong Value);
 
 // Общие декларации
 BIC_API void BIC_ReleaseBuffer (uchar *Buffer);
-BIC_API schar* BIC_GetLibVersion ();
+/*BIC_API schar* BIC_GetLibVersion ();*/
 
 // Декларации (все функции работают с изображениями в формате RGBA32)
 BIC_API sint TGA_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
@@ -117,11 +120,7 @@ BIC_API sint PCX_Save (schar *FileName, uint Width, uint Height, uchar *Buffer);
 BIC_API sint PBM_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
 BIC_API sint PBM_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uchar ImageType);
 
-/*BIC_API sint JP2_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);
-BIC_API sint JP2_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uchar CodecType);*/
-
-BIC_API sint ICO_Load (schar* FileName, uint* Width, uint* Height, uchar** Buffer);
-//BIC_API sint BIC_CONV ICO_Save (schar* FileName, uint Width, uint Height, uchar* Buffer);
+BIC_API sint ICO_Load (schar* FileName, uint* WidthHeight, uchar** Buffer, ulong *Length);
 
 // Декларации для палитр (битность цветов может различаться)
 BIC_API sint PCX_LoadPalette (schar *FileName, uchar **Palette, uint *ColorsCount);		// RGB

@@ -3,11 +3,13 @@
 #include "PBM.h"
 
 #define IPBM_EXIT(c)	fclose (FS); return c;
-#define PBM_SetPixel(_W,_H,_R,_G,_B) buf[(_H * *Width + _W) * 3 + 0] = (uchar)_R; buf[(_H * *Width + _W) * 3 + 1] = (uchar)_G;\
-								buf[(_H * *Width + _W) * 3 + 2] = (uchar)_B;
-#define PBM_GetPixelR(_W,_H) Buffer[(_H * Width + _W) * 3 + 0]
-#define PBM_GetPixelG(_W,_H) Buffer[(_H * Width + _W) * 3 + 1]
-#define PBM_GetPixelB(_W,_H) Buffer[(_H * Width + _W) * 3 + 2]
+#define PBM_SetPixel(_W,_H,_R,_G,_B)	buf[(_H * width + _W) * 4 + RGBOrder (0)] = (uchar)_R;\
+										buf[(_H * width + _W) * 4 + RGBOrder (1)] = (uchar)_G;\
+										buf[(_H * width + _W) * 4 + RGBOrder (2)] = (uchar)_B;\
+										buf[(_H * width + _W) * 4 + 3] = 255;
+#define PBM_GetPixelR(_W,_H) Buffer[(_H * Width + _W) * 4 + RGBOrder (0)]
+#define PBM_GetPixelG(_W,_H) Buffer[(_H * Width + _W) * 4 + RGBOrder (1)]
+#define PBM_GetPixelB(_W,_H) Buffer[(_H * Width + _W) * 4 + RGBOrder (2)]
 
 // Функция загружает указанное изображение и возвращает его в виде массива пикселей
 sint PBM_LoadImage (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
@@ -17,30 +19,34 @@ sint PBM_LoadImage (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
 	sint r, g, b, w, h, i;
 	uchar type;
 	uchar *buf;
+	uint width, height;
 
 	// Контроль
-	BIC_CHECK_INPUT_PARAMETERS
+	BIC_CHECK_INPUT_PARAMETERS;
 	
 	// Открытие файла
-	BIC_INIT_FILE_READING
+	BIC_INIT_FILE_READING;
 
 	// Чтение версии
 	r = fgetc (FS);
 	g = fgetc (FS);
 	if ((r != 'P') || (g < '1') || (g > '6'))
 		{
-		IPBM_EXIT (EXEC_INVALID_FILE)
+		IPBM_EXIT (EXEC_INVALID_FILE);
 		}
 	type = g - '0';
 
 	// Чтение размеров изображения
-	if ((fscanf (FS, "%u %u", Width, Height) != 2) || BIC_IMAGE_IS_INVALID)
+	if (fscanf (FS, "%u %u", &width, &height) != 2)
 		{
-		IPBM_EXIT (EXEC_INVALID_FILE)
+		IPBM_EXIT (EXEC_INVALID_FILE);
 		}
+	*Width = width;
+	*Height = height;
+
 	if (BIC_IMAGE_IS_INVALID)
 		{
-		IPBM_EXIT (EXEC_INVALID_FILE)
+		IPBM_EXIT (EXEC_INVALID_FILE);
 		}
 
 	// Дочитывание длины цветовой шкалы, если не было, но требуется
@@ -51,19 +57,19 @@ sint PBM_LoadImage (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
 	fgetc (FS);		// Дочитывание абзаца
 
 	// Чтение изображения
-	if ((buf = (uchar *)malloc (*Width * *Height * 3)) == NULL)
+	if ((buf = (uchar *)malloc (width * height * 4)) == NULL)
 		{
-		IPBM_EXIT (EXEC_MEMORY_ALLOC_FAIL)
+		IPBM_EXIT (EXEC_MEMORY_ALLOC_FAIL);
 		}
 
-	for (h = 0; h < *Height; h++)
+	for (h = 0; h < height; h++)
 		{
-		for (w = 0; w < *Width; w++)
+		for (w = 0; w < width; w++)
 			{
 			// Чтение и контроль
 			if ((r = fgetc (FS)) < 0)
 				{
-				IPBM_EXIT (EXEC_INVALID_FILE)
+				IPBM_EXIT (EXEC_INVALID_FILE);
 				}
 
 			// Разбор
@@ -71,11 +77,11 @@ sint PBM_LoadImage (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
 				{
 				// Тип P4
 				case PBMBitmapAsBinary:
-					for (i = 7; (w < *Width) && (i >= 0); i--)
+					for (i = 7; (w < width) && (i >= 0); i--)
 						{
 						if ((r & (1 << i)) == 0)
 							{
-							PBM_SetPixel (w, h, 255, 255, 255)
+							PBM_SetPixel (w, h, 255, 255, 255);
 							}
 						else
 							{
@@ -128,7 +134,7 @@ sint PBM_LoadImage (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
 					b = fgetc (FS);
 					if ((g < 0) || (b < 0))
 						{
-						IPBM_EXIT (EXEC_INVALID_FILE)
+						IPBM_EXIT (EXEC_INVALID_FILE);
 						}
 
 					PBM_SetPixel (w, h, r, g, b);
@@ -152,7 +158,7 @@ sint PBM_LoadImage (schar *FileName, uint *Width, uint *Height, uchar **Buffer)
 
 	// Чтение завершено. Возврат
 	*Buffer = buf;
-	IPBM_EXIT (EXEC_OK)
+	IPBM_EXIT (EXEC_OK);
 	}
 
 // Функция сохраняет указанное изображение в требуемом формате
@@ -163,14 +169,14 @@ sint PBM_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer, uch
 	sint w, h, b, i;
 
 	// Контроль
-	BIC_CHECK_OUTPUT_PARAMETERS
+	BIC_CHECK_OUTPUT_PARAMETERS;
 	if ((ImageType < 1) || (ImageType > 6))
 		{
 		return EXEC_INVALID_PARAMETERS;
 		}
 
 	// Открытие файла
-	BIC_INIT_FILE_WRITING
+	BIC_INIT_FILE_WRITING;
 
 	// Запись заголовка
 	fprintf (FS, "P%u\n%u\n%u\n", ImageType, Width, Height);
@@ -197,6 +203,7 @@ sint PBM_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer, uch
 							}
 						w++;
 						}
+
 					fprintf (FS, "%c", b);
 					w--;
 					break;
@@ -204,13 +211,9 @@ sint PBM_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer, uch
 				// Тип P1
 				case PBMBitmapAsText:
 					if (PBM_GetPixelR (w, h) < 128)
-						{
 						fprintf (FS, "1 ");
-						}
 					else
-						{
 						fprintf (FS, "0 ");
-						}
 					break;
 
 				// Тип P6
@@ -237,5 +240,5 @@ sint PBM_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer, uch
 		}
 
 	// Завершено
-	IPBM_EXIT (EXEC_OK)
+	IPBM_EXIT (EXEC_OK);
 	}

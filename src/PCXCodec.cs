@@ -12,21 +12,21 @@ namespace RD_AAOW
 	/// </summary>
 	public class PCXCodec: ICodec, IPaletteCodec
 		{
-		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
+		[DllImport (ProgramDescription.CodecsLibrary)]
 		private static extern Int16 PCX_Load (string FileName, out UInt16 Width, out UInt16 Height, out IntPtr Buffer);
 
-		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
+		[DllImport (ProgramDescription.CodecsLibrary)]
 		private static extern Int16 PCX_Save (string FileName, UInt16 Width, UInt16 Height, byte[] Buffer);
 
-		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
+		[DllImport (ProgramDescription.CodecsLibrary)]
 		private static extern Int16 PCX_LoadPalette (string FileName, out IntPtr Buffer, out UInt16 ColorsCount);
 		// RGB
 
-		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
+		[DllImport (ProgramDescription.CodecsLibrary)]
 		private static extern Int16 PCX_SavePalette (string FileName, byte[] Buffer, UInt16 ColorsCount);
 		// RGB
 
-		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
+		[DllImport (ProgramDescription.CodecsLibrary)]
 		private static extern void BIC_ReleaseBuffer (IntPtr Buffer);
 
 		/// <summary>
@@ -39,7 +39,7 @@ namespace RD_AAOW
 			{
 			// Загрузка изображения
 			UInt16 width, height;
-			IntPtr buffer = IntPtr.Zero;
+			IntPtr buffer;
 			ProgramErrorCodes error = (ProgramErrorCodes)PCX_Load (FilePath, out width, out height, out buffer);
 
 			if (error != ProgramErrorCodes.EXEC_OK)
@@ -48,8 +48,19 @@ namespace RD_AAOW
 				return error;
 				}
 
+			/*byte[] data = new byte[width * height * 3];
+			for (int i = 0; i < width * height * 3; i++)
+				data[i] = Marshal.ReadByte (buffer, i);*/
+
+			Bitmap tmp = new Bitmap (width, height, 4 * width, PixelFormat.Format32bppArgb, buffer);
+			Bitmap tmp2 = tmp.Clone (new Rectangle (Point.Empty, tmp.Size), PixelFormat.Format64bppArgb);   // Протяжка
+			LoadedImage = tmp2.Clone (new Rectangle (Point.Empty, tmp.Size), PixelFormat.Format32bppArgb);
+			tmp.Dispose ();
+			tmp2.Dispose ();
+			BIC_ReleaseBuffer (buffer);
+
 			// Извлечение массива данных и сборка изображения
-			LoadedImage = new Bitmap (width, height, PixelFormat.Format32bppArgb);
+			/*LoadedImage = new Bitmap (width, height, PixelFormat.Format32bppArgb);
 
 			unsafe
 				{
@@ -63,10 +74,9 @@ namespace RD_AAOW
 							a[3 * (h * width + w) + 1], a[3 * (h * width + w) + 2]));
 						}
 					}
-				}
+				}*/
 
 			// Завершено
-			BIC_ReleaseBuffer (buffer);         // Давно пора!
 			return ProgramErrorCodes.EXEC_OK;
 			}
 
@@ -92,9 +102,41 @@ namespace RD_AAOW
 				return ProgramErrorCodes.EXEC_FILE_UNAVAILABLE;
 
 			// Подготовка параметров
+			BitmapData bmpData = Image.LockBits (new Rectangle (Point.Empty, Image.Size),
+				ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+			IntPtr ptr = bmpData.Scan0;
+
+			// Копирование данных в массив
 			byte[] array = new byte[Image.Width * Image.Height * 3];
+			Marshal.Copy (ptr, array, 0, array.Length);
 
 			for (int h = 0; h < Image.Height; h++)
+				{
+				for (int w = 0; w < Image.Width; w++)
+					{
+					int idx = 3 * (h * Image.Width + w);
+					Color c = Color.FromArgb (array[idx + 0], array[idx + 1], array[idx + 2]);
+					switch (ImageColorFormat)
+						{
+						case ASColorMode.Bitmap:
+							c = ColorTransition.ToBitmap (c, BitmapEdge);
+							break;
+
+						case ASColorMode.Greyscale:
+							c = ColorTransition.ToGreyscale (c);
+							break;
+
+						case ASColorMode.AllColors:
+						default:
+							break;
+						}
+
+					array[idx + 0] = c.R;
+					array[idx + 1] = c.G;
+					array[idx + 2] = c.B;
+					}
+				}
+			/*for (int h = 0; h < Image.Height; h++)
 				{
 				for (int w = 0; w < Image.Width; w++)
 					{
@@ -119,14 +161,14 @@ namespace RD_AAOW
 					array[(h * Image.Width + w) * 3 + 1] = c.G;
 					array[(h * Image.Width + w) * 3 + 2] = c.B;
 					}
-				}
+				}*/
 
 			// Обращение
 			ProgramErrorCodes res = (ProgramErrorCodes)PCX_Save (fullPath, (UInt16)Image.Width,
 				(UInt16)Image.Height, array);
 
-			// Инициирование очистки памяти
-			/*array = null;*/
+			// Очистка памяти и возврат
+			Image.UnlockBits (bmpData);
 			return res;
 			}
 
@@ -174,14 +216,20 @@ namespace RD_AAOW
 			if (error != ProgramErrorCodes.EXEC_OK)
 				return error;
 
-			// Извлечение массива данных и сборка изображения
-			unsafe
+			// Извлечение массива данных и сборка палитры
+			byte[] array = new byte[colorsCount * 3];
+			Marshal.Copy (buffer, array, 0, array.Length);
+
+			for (int c = 0; c < colorsCount; c++)
+				Palette.Add (Color.FromArgb (array[3 * c + 0], array[3 * c + 1], array[3 * c + 2]));
+
+			/*unsafe
 				{
 				byte* a = (byte*)buffer.ToPointer ();
 
 				for (int c = 0; c < colorsCount; c++)
 					Palette.Add (Color.FromArgb (a[3 * c + 0], a[3 * c + 1], a[3 * c + 2]));
-				}
+				}*/
 
 			// Завершено
 			return ProgramErrorCodes.EXEC_OK;
@@ -230,7 +278,7 @@ namespace RD_AAOW
 		public bool IsCodecAvailable (bool InternalLibraryUnavailable)
 			{
 			return !InternalLibraryUnavailable &&
-				File.Exists (RDGenerics.AppStartupPath + BatchImageConvertorLibrary.CodecsLibraryFile);
+				File.Exists (RDGenerics.AppStartupPath + ProgramDescription.CodecsLibrary);
 			}
 
 		/// <summary>
@@ -246,7 +294,7 @@ namespace RD_AAOW
 				}
 			}
 		private object[][] oms = [
-			["PCX, PCExchange image format", null ],
+			["PCX, PCExchange image format", null],
 			];
 		}
 	}

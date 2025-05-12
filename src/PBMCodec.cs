@@ -11,15 +11,15 @@ namespace RD_AAOW
 	/// </summary>
 	public class PBMCodec: ICodec
 		{
-		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
+		[DllImport (ProgramDescription.CodecsLibrary)]
 		private static extern Int16 PBM_Load (string FileName, out UInt16 Width, out UInt16 Height,
 			out IntPtr Buffer);
 
-		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
+		[DllImport (ProgramDescription.CodecsLibrary)]
 		private static extern Int16 PBM_Save (string FileName, UInt16 Width, UInt16 Height, byte[] Buffer,
 			byte ImageType);
 
-		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
+		[DllImport (ProgramDescription.CodecsLibrary)]
 		private static extern void BIC_ReleaseBuffer (IntPtr Buffer);
 
 		/// <summary>
@@ -78,7 +78,7 @@ namespace RD_AAOW
 				}
 
 			// Извлечение массива данных и сборка изображения
-			LoadedImage = new Bitmap (width, height, PixelFormat.Format32bppArgb);
+			/*LoadedImage = new Bitmap (width, height, PixelFormat.Format32bppArgb);
 
 			unsafe
 				{
@@ -92,10 +92,15 @@ namespace RD_AAOW
 							a[3 * (h * width + w) + 1], a[3 * (h * width + w) + 2]));
 						}
 					}
-				}
+				}*/
+			Bitmap tmp = new Bitmap (width, height, 4 * width, PixelFormat.Format32bppArgb, buffer);
+			Bitmap tmp2 = tmp.Clone (new Rectangle (Point.Empty, tmp.Size), PixelFormat.Format64bppArgb);   // Протяжка
+			LoadedImage = tmp2.Clone (new Rectangle (Point.Empty, tmp.Size), PixelFormat.Format32bppArgb);
+			tmp.Dispose ();
+			tmp2.Dispose ();
+			BIC_ReleaseBuffer (buffer);
 
 			// Завершено
-			BIC_ReleaseBuffer (buffer);
 			return ProgramErrorCodes.EXEC_OK;
 			}
 
@@ -122,6 +127,42 @@ namespace RD_AAOW
 				return ProgramErrorCodes.EXEC_FILE_UNAVAILABLE;
 
 			// Подготовка параметров
+			BitmapData bmpData = Image.LockBits (new Rectangle (Point.Empty, Image.Size),
+				ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+			IntPtr ptr = bmpData.Scan0;
+
+			// Копирование данных в массив
+			byte[] array = new byte[Image.Width * Image.Height * 3];
+			Marshal.Copy (ptr, array, 0, array.Length);
+
+			for (int h = 0; h < Image.Height; h++)
+				{
+				for (int w = 0; w < Image.Width; w++)
+					{
+					int idx = 3 * (h * Image.Width + w);
+					Color c = Color.FromArgb (array[idx + 0], array[idx + 1], array[idx + 2]);
+					switch (ImageColorFormat)
+						{
+						case ASColorMode.Bitmap:
+							c = ColorTransition.ToBitmap (c, BitmapEdge);
+							break;
+
+						case ASColorMode.Greyscale:
+							c = ColorTransition.ToGreyscale (c);
+							break;
+
+						case ASColorMode.AllColors:
+						default:
+							break;
+						}
+
+					array[idx + 0] = c.R;
+					array[idx + 1] = c.G;
+					array[idx + 2] = c.B;
+					}
+				}
+
+			/*// Подготовка параметров
 			byte[] array = new byte[Image.Width * Image.Height * 3];
 
 			for (int h = 0; h < Image.Height; h++)
@@ -149,14 +190,13 @@ namespace RD_AAOW
 					array[(h * Image.Width + w) * 3 + 1] = c.G;
 					array[(h * Image.Width + w) * 3 + 2] = c.B;
 					}
-				}
+				}*/
 
 			// Обращение
 			ProgramErrorCodes res = (ProgramErrorCodes)PBM_Save (fullPath, (UInt16)Image.Width,
 				(UInt16)Image.Height, array, (byte)imageType);
 
 			// Инициирование очистки памяти
-			/*array = null;*/
 			return res;
 			}
 
@@ -206,7 +246,7 @@ namespace RD_AAOW
 		public bool IsCodecAvailable (bool InternalLibraryUnavailable)
 			{
 			return !InternalLibraryUnavailable &&
-				File.Exists (RDGenerics.AppStartupPath + BatchImageConvertorLibrary.CodecsLibraryFile);
+				File.Exists (RDGenerics.AppStartupPath + ProgramDescription.CodecsLibrary);
 			}
 
 		/// <summary>

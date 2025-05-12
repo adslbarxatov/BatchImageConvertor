@@ -11,10 +11,11 @@ namespace RD_AAOW
 	/// </summary>
 	public class ICOCodec: ICodec
 		{
-		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
-		private static extern Int16 ICO_Load (string FileName, out UInt16 Width, out UInt16 Height, out IntPtr Buffer);
+		[DllImport (ProgramDescription.CodecsLibrary)]
+		private static extern Int16 ICO_Load (string FileName, out UInt16 WidthHeight,
+			out IntPtr Buffer, out UInt32 Length);
 
-		[DllImport (BatchImageConvertorLibrary.CodecsLibraryFile)]
+		[DllImport (ProgramDescription.CodecsLibrary)]
 		private static extern void BIC_ReleaseBuffer (IntPtr Buffer);
 
 		/// <summary>
@@ -26,9 +27,10 @@ namespace RD_AAOW
 		public ProgramErrorCodes LoadImage (string FilePath, out Bitmap LoadedImage)
 			{
 			// Загрузка изображения
-			UInt16 width, height;
+			UInt16 size;
 			IntPtr buffer;
-			ProgramErrorCodes error = (ProgramErrorCodes)ICO_Load (FilePath, out width, out height, out buffer);
+			UInt32 length;
+			ProgramErrorCodes error = (ProgramErrorCodes)ICO_Load (FilePath, out size, out buffer, out length);
 
 			if (error != ProgramErrorCodes.EXEC_OK)
 				{
@@ -36,25 +38,38 @@ namespace RD_AAOW
 				return error;
 				}
 
-			// Извлечение массива данных и сборка изображения
-			LoadedImage = new Bitmap (width, height, PixelFormat.Format32bppArgb);
-
-			unsafe
+			// PNG
+			if (length != 0)
 				{
-				byte* a = (byte*)buffer.ToPointer ();
+				byte[] array = new byte[length];
+				Marshal.Copy (buffer, array, 0, (int)length);
 
-				for (int h = 0; h < height; h++)
+				try
 					{
-					for (int w = 0; w < width; w++)
-						{
-						LoadedImage.SetPixel (w, h, Color.FromArgb (a[4 * (h * width + w) + 3], a[4 * (h * width + w) + 0],
-							a[4 * (h * width + w) + 1], a[4 * (h * width + w) + 2]));
-						}
+					MemoryStream ms = new MemoryStream (array);
+					LoadedImage = new Bitmap (ms);
+					ms.Close ();
+					}
+				catch
+					{
+					LoadedImage = null;
+					return ProgramErrorCodes.EXEC_INVALID_FILE;
 					}
 				}
 
-			// Завершено
+			// ICO
+			else
+				{
+				Bitmap tmp = new Bitmap (size, size, 4 * size, PixelFormat.Format32bppArgb, buffer);
+				Bitmap tmp2 = tmp.Clone (new Rectangle (Point.Empty, tmp.Size), PixelFormat.Format64bppArgb);   // Протяжка
+				LoadedImage = tmp2.Clone (new Rectangle (Point.Empty, tmp.Size), PixelFormat.Format32bppArgb);
+				tmp.Dispose ();
+				tmp2.Dispose ();
+				}
+
 			BIC_ReleaseBuffer (buffer);
+
+			// Завершено
 			return ProgramErrorCodes.EXEC_OK;
 			}
 
@@ -107,7 +122,7 @@ namespace RD_AAOW
 		public bool IsCodecAvailable (bool InternalLibraryUnavailable)
 			{
 			return !InternalLibraryUnavailable &&
-				File.Exists (RDGenerics.AppStartupPath + BatchImageConvertorLibrary.CodecsLibraryFile);
+				File.Exists (RDGenerics.AppStartupPath + ProgramDescription.CodecsLibrary);
 			}
 
 		/// <summary>
