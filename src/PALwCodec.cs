@@ -36,13 +36,6 @@ namespace RD_AAOW
 				return error;
 
 			// Извлечение массива данных и сборка палитры
-			/*unsafe
-				{
-				byte* a = (byte*)buffer.ToPointer ();
-
-				for (int c = 0; c < colorsCount; c++)
-					Palette.Add (Color.FromArgb (a[4 * c + 0], a[4 * c + 1], a[4 * c + 2]));
-				}*/
 			byte[] array = new byte[colorsCount * 4];
 			Marshal.Copy (buffer, array, 0, array.Length);
 

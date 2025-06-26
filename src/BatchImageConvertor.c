@@ -274,9 +274,3 @@ BIC_API void BIC_ReleaseBuffer (uchar *Buffer)
 	if (Buffer)
 		free (Buffer);
 	}
-
-/*// Метод возвращает версию библиотеки для контроля совместимости
-BIC_API schar* BIC_GetLibVersion ()
-	{
-	return BIC_VERSION_S;
-	}*/

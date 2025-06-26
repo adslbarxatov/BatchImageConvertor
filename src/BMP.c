@@ -155,12 +155,6 @@ sint BMP_PaletteExchange (schar *FileName, union RGBA_Color **Palette, uint *Col
 			IBMP_EXIT (EXEC_INVALID_FILE)
 		}
 
-	// Это может создать определённые проблемы
-	/*if ((colorsCount == 0) || (colorsCount > BMP_MAX_COLORS))
-		{
-		colorsCount = BMP_MAX_COLORS;
-		}*/
-
 	// Чтение палитры
 	if ((resPalette = (union RGBA_Color *)malloc (colorsCount * sizeof (union RGBA_Color))) == NULL)
 		{

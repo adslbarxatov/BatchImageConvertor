@@ -78,21 +78,6 @@ namespace RD_AAOW
 				}
 
 			// Извлечение массива данных и сборка изображения
-			/*LoadedImage = new Bitmap (width, height, PixelFormat.Format32bppArgb);
-
-			unsafe
-				{
-				byte* a = (byte*)buffer.ToPointer ();
-
-				for (int h = 0; h < height; h++)
-					{
-					for (int w = 0; w < width; w++)
-						{
-						LoadedImage.SetPixel (w, h, Color.FromArgb (a[3 * (h * width + w) + 0],
-							a[3 * (h * width + w) + 1], a[3 * (h * width + w) + 2]));
-						}
-					}
-				}*/
 			Bitmap tmp = new Bitmap (width, height, 4 * width, PixelFormat.Format32bppArgb, buffer);
 			Bitmap tmp2 = tmp.Clone (new Rectangle (Point.Empty, tmp.Size), PixelFormat.Format64bppArgb);   // Протяжка
 			LoadedImage = tmp2.Clone (new Rectangle (Point.Empty, tmp.Size), PixelFormat.Format32bppArgb);
@@ -161,36 +146,6 @@ namespace RD_AAOW
 					array[idx + 2] = c.B;
 					}
 				}
-
-			/*// Подготовка параметров
-			byte[] array = new byte[Image.Width * Image.Height * 3];
-
-			for (int h = 0; h < Image.Height; h++)
-				{
-				for (int w = 0; w < Image.Width; w++)
-					{
-					Color c;
-					switch (ImageColorFormat)
-						{
-						case ASColorMode.Bitmap:
-							c = ColorTransition.ToBitmap (Image.GetPixel (w, h), BitmapEdge);
-							break;
-
-						case ASColorMode.Greyscale:
-							c = ColorTransition.ToGreyscale (Image.GetPixel (w, h));
-							break;
-
-						case ASColorMode.AllColors:
-						default:
-							c = Image.GetPixel (w, h);
-							break;
-						}
-
-					array[(h * Image.Width + w) * 3 + 0] = c.R;
-					array[(h * Image.Width + w) * 3 + 1] = c.G;
-					array[(h * Image.Width + w) * 3 + 2] = c.B;
-					}
-				}*/
 
 			// Обращение
 			ProgramErrorCodes res = (ProgramErrorCodes)PBM_Save (fullPath, (UInt16)Image.Width,

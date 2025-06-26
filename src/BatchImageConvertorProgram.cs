@@ -38,13 +38,7 @@ namespace RD_AAOW
 				libUnavailable = true;
 				}
 
-			/*else if (BatchImageConvertorLibrary.LibraryVersion != ProgramDescription.LibraryVersion)
-				{
-				RDInterface.MessageBox (RDMessageTypes.Warning_Center,
-					string.Format (RDLocale.GetDefaultText (RDLDefaultTexts.MessageFormat_WrongVersion_Fmt),
-					BatchImageConvertorLibrary.CodecsLibraryFile));*/
-			else if (!RDGenerics.CheckLibraryVersion (ProgramDescription.AssemblyLibraries[0][0],
-				ProgramDescription.AssemblyLibraries[0][1]))
+			else if (!RDGenerics.CheckLibrariesVersions (ProgramDescription.AssemblyLibraries, true))
 				{
 				libUnavailable = true;
 				}
@@ -59,30 +53,4 @@ namespace RD_AAOW
 			Application.Run (new BICForm (libUnavailable));
 			}
 		}
-
-	/*/// <summary>
-	/// Класс описывает общие методы доступа к библиотеке кодеков
-	/// </summary>
-	public static class BatchImageConvertorLibrary
-		{
-		// Внешние функции
-		[DllImport (ProgramDescription.CodecsLibrary)]
-		private static extern IntPtr BIC_GetLibVersion ();
-
-		/// <summary>
-		/// Возвращает версию библиотеки кодеков
-		/// </summary>
-		public static string LibraryVersion
-			{
-			get
-				{
-				return Marshal.PtrToStringAnsi (BIC_GetLibVersion ());
-				}
-			}
-
-		/// <summary>
-		/// Имя библиотеки дополнительных кодеков программы
-		/// </summary>
-		public const string CodecsLibraryFile = "BatchImageConvertorCodecs.dll";
-		}*/
 	}

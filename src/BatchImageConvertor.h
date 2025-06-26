@@ -9,8 +9,8 @@
 // Стандартное переопределение типов
 #include "..\\Generics\\CSTypes.h"
 
-#define BIC_VERSION					5,0,0,0
-#define BIC_VERSION_S				"5.0.0.0"
+#define BIC_VERSION					5,0,2,0
+#define BIC_VERSION_S				"5.0.2.0"
 #define BIC_PRODUCT					"Codecs library for Batch image convertor"
 #define BIC_COMPANY					FDL_COMPANY
 
@@ -108,7 +108,6 @@ ulong LEBE_l (ulong Value);
 
 // Общие декларации
 BIC_API void BIC_ReleaseBuffer (uchar *Buffer);
-/*BIC_API schar* BIC_GetLibVersion ();*/
 
 // Декларации (все функции работают с изображениями в формате RGBA32)
 BIC_API sint TGA_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffer);

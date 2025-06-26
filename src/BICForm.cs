@@ -129,7 +129,7 @@ namespace RD_AAOW
 
 				allowSettingsReload = true;
 				}
-			LoadSavedSettings ();
+			LoadSavedSettings (true);
 
 			// Назначение заголовка окна
 			this.Text = ProgramDescription.AssemblyTitle;
@@ -138,7 +138,7 @@ namespace RD_AAOW
 			}
 
 		// Метод загружает хранимые настройки
-		private void LoadSavedSettings ()
+		private void LoadSavedSettings (bool Initial)
 			{
 			if (!allowSettingsReload)
 				return;
@@ -147,9 +147,12 @@ namespace RD_AAOW
 			try
 				{
 				// Безопасные настройки
-				InputPath.Text = AppSettings.InputPath;
-				OutputPath.Text = AppSettings.OutputPath;
-				IncludeSubdirs.Checked = AppSettings.IncludeSubdirs;
+				if (Initial)
+					{
+					InputPath.Text = AppSettings.InputPath;
+					OutputPath.Text = AppSettings.OutputPath;
+					IncludeSubdirs.Checked = AppSettings.IncludeSubdirs;
+					}
 
 				switch (AppSettings.ResizingMode)
 					{
@@ -466,8 +469,6 @@ namespace RD_AAOW
 				totalImages += fileNames[c].Count;
 
 			// Обработка
-			/*Bitmap img = null;*/
-
 			for (int c = 0; c < fileNames.Count; c++)
 				{
 				for (int n = 0; n < fileNames[c].Count; n++)
@@ -884,7 +885,7 @@ namespace RD_AAOW
 				RDInterface.LocalizedMessageBox (RDMessageTypes.Error_Center, "BadProfileMessage", 2000);
 
 			// Независимо от результата
-			LoadSavedSettings ();
+			LoadSavedSettings (false);
 			}
 
 		// Сохранение профиля конверсии
@@ -932,7 +933,6 @@ namespace RD_AAOW
 			if (ProfileCombo.Items.Count < 1)
 				{
 				ProfileCombo.Enabled = ProfileRemoveButton.Enabled = false;
-				/*LoadSavedSettings ();*/
 				}
 			else
 				{
@@ -942,7 +942,7 @@ namespace RD_AAOW
 
 				allowSettingsReload = true;
 
-				LoadSavedSettings ();
+				LoadSavedSettings (false);
 				}
 			}
 		}

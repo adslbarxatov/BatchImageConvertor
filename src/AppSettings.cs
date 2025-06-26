@@ -350,7 +350,6 @@ namespace RD_AAOW
 		public static bool LoadProfile (string ProfileName)
 			{
 			// Получение содержимого файла
-			/*string settings = "";*/
 			string settings;
 			try
 				{
@@ -381,9 +380,6 @@ namespace RD_AAOW
 				}
 
 			// Загрузка (без путей)
-			/*InputPath = values[0];
-			OutputPath = values[1];
-			IncludeSubdirs = (values[2] == "1");*/
 			ResizingMode = (ASResizingMode)numbers[3];
 			ColorMode = (ASColorMode)numbers[4];
 			AbsoluteWidth = numbers[5];
@@ -403,7 +399,7 @@ namespace RD_AAOW
 			// Успешно
 			return true;
 			}
-		private static char[] profSplitter = [ '\x1', '\r', '\n' ];
+		private static char[] profSplitter = ['\x1', '\r', '\n'];
 
 		/// <summary>
 		/// Метод сохраняет текущие настройки в указанный профиль
@@ -413,7 +409,6 @@ namespace RD_AAOW
 		public static bool SaveProfile (string ProfileName)
 			{
 			// Создание файла
-			/*FileStream FS = null;*/
 			FileStream FS;
 			try
 				{
@@ -431,9 +426,6 @@ namespace RD_AAOW
 
 			string sp = profSplitter[0].ToString ();
 
-			/*SW.Write (InputPath + sp);
-			SW.Write (OutputPath + sp);
-			SW.Write ((IncludeSubdirs ? "1" : "0") + sp);*/
 			SW.Write ("" + sp + "" + sp + "" + sp);
 			SW.Write (((uint)ResizingMode).ToString () + sp);
 			SW.Write (((uint)ColorMode).ToString () + sp);

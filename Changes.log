@@ -1,5 +1,9 @@
 Batch image convertor: changes log
 
+Version 5.0.2:
+• Internal assemblies have been updated;
+• Fixed the input/output directories reset on profile selection
+
 Version 5.0:
 • Added support for new offline help provider;
 • Removed some obsolete code fragments;
