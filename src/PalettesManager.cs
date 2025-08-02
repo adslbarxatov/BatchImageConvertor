@@ -138,7 +138,8 @@ namespace RD_AAOW
 		// Обработка ошибок ввода
 		private void ColorGrid_DataError (object sender, DataGridViewDataErrorEventArgs e)
 			{
-			RDInterface.LocalizedMessageBox (RDMessageTypes.Warning_Center, "IncorrectAlpha");
+			RDInterface.LocalizedMessageBox (RDMessageFlags.Warning | RDMessageFlags.CenterText,
+				"IncorrectAlpha");
 			}
 
 		// Добавление цвета
@@ -271,7 +272,7 @@ namespace RD_AAOW
 					break;
 
 				case ProgramErrorCodes.EXEC_UNSUPPORTED_COLORS:
-					RDInterface.MessageBox (RDMessageTypes.Warning_Left,
+					RDInterface.MessageBox (RDMessageFlags.Warning,
 						string.Format (RDLocale.GetText ("FileGeneric"), OFDialog.FileName) +
 						RDLocale.GetText ("UnsupportedColors"));
 
@@ -289,7 +290,7 @@ namespace RD_AAOW
 			if (!string.IsNullOrWhiteSpace (msg))
 				{
 				msg = string.Format (RDLocale.GetText ("FileGeneric"), OFDialog.FileName) + msg;
-				RDInterface.MessageBox (RDMessageTypes.Warning_Left, msg);
+				RDInterface.MessageBox (RDMessageFlags.Warning, msg);
 				return;
 				}
 
@@ -334,14 +335,15 @@ namespace RD_AAOW
 			// Контроль
 			if ((ColorGrid.Rows.Count == 0) || (ColorGrid.Rows.Count > codecs[SFDialog.FilterIndex - 1].MaxColors))
 				{
-				RDInterface.MessageBox (RDMessageTypes.Warning_Center, RDLocale.GetText ("TooMuchColors") +
-					codecs[SFDialog.FilterIndex - 1].MaxColors.ToString ());
+				RDInterface.MessageBox (RDMessageFlags.Warning | RDMessageFlags.CenterText,
+					RDLocale.GetText ("TooMuchColors") + codecs[SFDialog.FilterIndex - 1].MaxColors.ToString ());
 				return;
 				}
 
 			if ((ColorGrid.Rows.Count > 256) &&
-				(RDInterface.LocalizedMessageBox (RDMessageTypes.Question_Center, "ColorsCountExceedsRecommended",
-					RDLDefaultTexts.Button_Yes, RDLDefaultTexts.Button_No) != RDMessageButtons.ButtonOne))
+				(RDInterface.LocalizedMessageBox (RDMessageFlags.Question | RDMessageFlags.CenterText,
+				"ColorsCountExceedsRecommended",
+				RDLDefaultTexts.Button_Yes, RDLDefaultTexts.Button_No) != RDMessageButtons.ButtonOne))
 				return;
 
 			// Перегонка
@@ -356,7 +358,7 @@ namespace RD_AAOW
 
 			// Сохранение
 			if (codecs[SFDialog.FilterIndex - 1].SavePalette (SFDialog.FileName, palette) != ProgramErrorCodes.EXEC_OK)
-				RDInterface.MessageBox (RDMessageTypes.Warning_Center,
+				RDInterface.MessageBox (RDMessageFlags.Warning | RDMessageFlags.CenterText,
 					string.Format (RDLocale.GetDefaultText (RDLDefaultTexts.Message_SaveFailure_Fmt),
 					SFDialog.FileName));
 			}
@@ -373,8 +375,8 @@ namespace RD_AAOW
 			int neededCodec = codecs.IndexOf (bmpCodec);
 			if ((ColorGrid.Rows.Count == 0) || (ColorGrid.Rows.Count > codecs[neededCodec].MaxColors))
 				{
-				RDInterface.MessageBox (RDMessageTypes.Warning_Center, RDLocale.GetText ("TooMuchColors") +
-					codecs[neededCodec].MaxColors.ToString ());
+				RDInterface.MessageBox (RDMessageFlags.Warning | RDMessageFlags.CenterText,
+					RDLocale.GetText ("TooMuchColors") + codecs[neededCodec].MaxColors.ToString ());
 				return;
 				}
 
@@ -390,7 +392,7 @@ namespace RD_AAOW
 
 			// Сохранение
 			if (codecs[neededCodec].SavePalette (CFDialog.FileName, palette) != ProgramErrorCodes.EXEC_OK)
-				RDInterface.MessageBox (RDMessageTypes.Warning_Center,
+				RDInterface.MessageBox (RDMessageFlags.Warning | RDMessageFlags.CenterText,
 					string.Format (RDLocale.GetDefaultText (RDLDefaultTexts.Message_SaveFailure_Fmt),
 					SFDialog.FileName));
 			}

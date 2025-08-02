@@ -32,7 +32,7 @@ namespace RD_AAOW
 			bool libUnavailable = false;
 			if (!RDGenerics.CheckLibrariesExistence (ProgramDescription.AssemblyLibraries, false))
 				{
-				RDInterface.MessageBox (RDMessageTypes.Question_Center,
+				RDInterface.MessageBox (RDMessageFlags.Question | RDMessageFlags.CenterText,
 					string.Format (RDLocale.GetText ("ComponentMissing"),
 					ProgramDescription.CodecsLibrary));
 				libUnavailable = true;

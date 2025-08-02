@@ -335,26 +335,30 @@ namespace RD_AAOW
 			// Проверка состояния
 			if (string.IsNullOrWhiteSpace (InputPath.Text))
 				{
-				RDInterface.LocalizedMessageBox (RDMessageTypes.Warning_Center, "InputPathNotSpecified");
+				RDInterface.LocalizedMessageBox (RDMessageFlags.Warning | RDMessageFlags.CenterText,
+					"InputPathNotSpecified");
 				return;
 				}
 
 			if (string.IsNullOrWhiteSpace (OutputPath.Text))
 				{
-				RDInterface.LocalizedMessageBox (RDMessageTypes.Warning_Center, "OutputPathNotSpecified");
+				RDInterface.LocalizedMessageBox (RDMessageFlags.Warning | RDMessageFlags.CenterText,
+					"OutputPathNotSpecified");
 				return;
 				}
 
 			if ((WaterOpacityField.Value > WaterOpacityField.Minimum) && string.IsNullOrWhiteSpace (WatermarkPath.Text))
 				{
-				RDInterface.LocalizedMessageBox (RDMessageTypes.Warning_Center, "WatermarkPathNotSpecified");
+				RDInterface.LocalizedMessageBox (RDMessageFlags.Warning | RDMessageFlags.CenterText,
+					"WatermarkPathNotSpecified");
 				return;
 				}
 
 			if (RelativeCrop.Checked && ((RelativeLeft.Value + RelativeWidth.Value > RelativeWidth.Maximum) ||
 				(RelativeTop.Value + RelativeHeight.Value > RelativeHeight.Maximum)))
 				{
-				RDInterface.LocalizedMessageBox (RDMessageTypes.Warning_Center, "IncorrectCropValues");
+				RDInterface.LocalizedMessageBox (RDMessageFlags.Warning | RDMessageFlags.CenterText,
+					"IncorrectCropValues");
 				return;
 				}
 
@@ -403,7 +407,8 @@ namespace RD_AAOW
 				{
 				if (codecs[0].LoadImage (AppSettings.WatermarkPath, out watermark) != ProgramErrorCodes.EXEC_OK)
 					{
-					RDInterface.LocalizedMessageBox (RDMessageTypes.Warning_Center, "WatermarkPathUnavailable");
+					RDInterface.LocalizedMessageBox (RDMessageFlags.Warning | RDMessageFlags.CenterText,
+						"WatermarkPathUnavailable");
 
 					e.Cancel = true;
 					return;
@@ -425,13 +430,14 @@ namespace RD_AAOW
 						}
 					catch
 						{
-						RDInterface.LocalizedMessageBox (RDMessageTypes.Warning_Center, "InputPathUnavailable");
+						RDInterface.LocalizedMessageBox (RDMessageFlags.Warning | RDMessageFlags.CenterText,
+							"InputPathUnavailable");
 
 						e.Cancel = true;
 						return;
 						}
 
-					bw.ReportProgress ((int)HardWorkExecutor.ProgressBarSize,
+					bw.ReportProgress ((int)RDWorkerForm.ProgressBarSize,
 						RDLocale.GetText ("ProcessingList"));
 					}
 				}
@@ -476,7 +482,7 @@ namespace RD_AAOW
 					// Счётчик
 					currentImage++;
 
-					bw.ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
+					bw.ReportProgress ((int)(RDWorkerForm.ProgressBarSize * currentImage /
 						totalImages), string.Format (RDLocale.GetText ("ProcessingText"),
 						Path.GetFileName (fileNames[c][n])));
 
@@ -496,7 +502,7 @@ namespace RD_AAOW
 						messages.Add (string.Format (RDLocale.GetText ("FileGeneric"),
 							Path.GetFileName (fileNames[c][n])) + RDLocale.GetText ("FileOverwrite"));
 
-						bw.ReportProgress ((int)(HardWorkExecutor.ProgressBarSize *
+						bw.ReportProgress ((int)(RDWorkerForm.ProgressBarSize *
 							currentImage / totalImages), messages[messages.Count - 1]);
 						continue;
 						}
@@ -539,7 +545,7 @@ namespace RD_AAOW
 							Path.GetFileName (fileNames[c][n])) + msg;
 						messages.Add (msg);
 
-						bw.ReportProgress ((int)(HardWorkExecutor.ProgressBarSize *
+						bw.ReportProgress ((int)(RDWorkerForm.ProgressBarSize *
 							currentImage / totalImages), msg);
 						continue;
 						}
@@ -674,7 +680,7 @@ namespace RD_AAOW
 							Path.GetFileName (fileNames[c][n])) + RDLocale.GetText ("OutputPathUnavailable"));
 						img.Dispose ();
 
-						bw.ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
+						bw.ReportProgress ((int)(RDWorkerForm.ProgressBarSize * currentImage /
 							totalImages), messages[messages.Count - 1]);
 						e.Cancel = true;
 						return;
@@ -687,7 +693,7 @@ namespace RD_AAOW
 						Path.GetFileName (fileNames[c][n])) +
 						(watermarkIsTooBig ? RDLocale.GetText ("FileProcessedNoWatermark") : ""));
 
-					bw.ReportProgress ((int)(HardWorkExecutor.ProgressBarSize * currentImage /
+					bw.ReportProgress ((int)(RDWorkerForm.ProgressBarSize * currentImage /
 						totalImages), messages[messages.Count - 1]);
 					successes++;
 					img.Dispose ();
@@ -772,7 +778,7 @@ namespace RD_AAOW
 				}
 
 			// Отображение
-			RDInterface.MessageBox (RDMessageTypes.Success_Left, types);
+			RDInterface.MessageBox (RDMessageFlags.Success | RDMessageFlags.NoSound, types);
 			}
 
 		// Выбор варианта задания размера
@@ -882,7 +888,8 @@ namespace RD_AAOW
 
 			// Попытка загрузки указанного профиля
 			if (!AppSettings.LoadProfile (ProfileCombo.Text))
-				RDInterface.LocalizedMessageBox (RDMessageTypes.Error_Center, "BadProfileMessage", 2000);
+				RDInterface.LocalizedMessageBox (RDMessageFlags.Error | RDMessageFlags.CenterText,
+					"BadProfileMessage", 2000);
 
 			// Независимо от результата
 			LoadSavedSettings (false);
@@ -900,7 +907,8 @@ namespace RD_AAOW
 			// Попытка сохранения
 			if (!AppSettings.SaveProfile (name))
 				{
-				RDInterface.LocalizedMessageBox (RDMessageTypes.Error_Center, "BadProfileNameMessage");
+				RDInterface.LocalizedMessageBox (RDMessageFlags.Error | RDMessageFlags.CenterText,
+					"BadProfileNameMessage");
 				return;
 				}
 
@@ -918,7 +926,7 @@ namespace RD_AAOW
 		private void ProfileRemoveButton_Click (object sender, EventArgs e)
 			{
 			// Защита
-			if (RDInterface.MessageBox (RDMessageTypes.Warning_Center,
+			if (RDInterface.MessageBox (RDMessageFlags.Warning | RDMessageFlags.CenterText,
 				RDLocale.GetText ("RemoveProfileMessage"),
 				RDLocale.GetDefaultText (RDLDefaultTexts.Button_YesNoFocus),
 				RDLocale.GetDefaultText (RDLDefaultTexts.Button_No)) ==
