@@ -16,7 +16,7 @@ namespace RD_AAOW
 		private static extern Int16 PCX_Load (string FileName, out UInt16 Width, out UInt16 Height, out IntPtr Buffer);
 
 		[DllImport (ProgramDescription.CodecsLibrary)]
-		private static extern Int16 PCX_Save (string FileName, UInt16 Width, UInt16 Height, byte[] Buffer);
+		private static extern Int16 PCX_Save (string FileName, UInt16 Width, UInt16 Height, byte[] Buffer, UInt16 Resolution);
 
 		[DllImport (ProgramDescription.CodecsLibrary)]
 		private static extern Int16 PCX_LoadPalette (string FileName, out IntPtr Buffer, out UInt16 ColorsCount);
@@ -119,7 +119,7 @@ namespace RD_AAOW
 
 			// Обращение
 			ProgramErrorCodes res = (ProgramErrorCodes)PCX_Save (fullPath, (UInt16)Image.Width,
-				(UInt16)Image.Height, array);
+				(UInt16)Image.Height, array, (UInt16)AppSettings.Resolution);
 
 			// Очистка памяти и возврат
 			Image.UnlockBits (bmpData);

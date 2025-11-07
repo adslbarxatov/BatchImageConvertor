@@ -281,7 +281,7 @@ void PCX_WriteLine (uchar *Buf, ulong BufLength, FILE *F)
 	}
 
 // Сохранение файла
-sint PCX_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer)
+sint PCX_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer, uint Resolution)
 	{
 	// Переменные
 	union PCXHeader pcxh;			// Заголовок и палитры файла
@@ -304,7 +304,7 @@ sint PCX_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer)
 	pcxh.PCXHeaderS.XMin = pcxh.PCXHeaderS.YMin = 0;
 	pcxh.PCXHeaderS.XMax = Width - 1;
 	pcxh.PCXHeaderS.YMax = Height - 1;
-	pcxh.PCXHeaderS.HRes = pcxh.PCXHeaderS.VRes = 72;
+	pcxh.PCXHeaderS.HRes = pcxh.PCXHeaderS.VRes = Resolution;
 	pcxh.PCXHeaderS.LayersCount = 3;
 	pcxh.PCXHeaderS.BytesPerLine = (Width + Width % 2);
 	pcxh.PCXHeaderS.PaletteType = PCX_COLOR;

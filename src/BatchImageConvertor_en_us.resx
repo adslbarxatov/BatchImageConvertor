@@ -335,4 +335,7 @@ Try to specify another one</value>
   <data name="RemoveProfileMessage" xml:space="preserve">
     <value>Do you want to remove the specified profile?</value>
   </data>
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>Images resolution:</value>
+  </data>
 </root>

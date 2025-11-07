@@ -48,4 +48,4 @@ union PCXHeader
 // Декларации
 sint PCX_LoadImage (schar *FileName, uint *Width, uint *Height, uchar **Buffer, 
 	union RGB_Palette_16 **DefaultPalette, union RGB_Palette_256 **ExtendedPalette);
-sint PCX_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer);
+sint PCX_SaveImage (schar *FileName, uint Width, uint Height, uchar *Buffer, uint Resolution);

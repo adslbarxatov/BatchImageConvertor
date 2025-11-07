@@ -1,7 +1,10 @@
 Batch image convertor: changes log
 
-Version 5.0.5:
-• Internal assemblies have been updated
+Version 5.1:
+• Implemented the ability to set the resolution of result images (supported by
+  BMP, PNG, JPG, PCX and TIF);
+• Internal assemblies have been updated;
+• Fixed some interface bugs
 
 Version 5.0.4:
 • Internal assemblies have been updated;

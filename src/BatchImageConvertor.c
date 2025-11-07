@@ -95,9 +95,9 @@ BIC_API sint PCX_Load (schar *FileName, uint *Width, uint *Height, uchar **Buffe
 	return PCX_LoadImage (FileName, Width, Height, Buffer, &dp, &ep);
 	}
 
-BIC_API sint PCX_Save (schar *FileName, uint Width, uint Height, uchar *Buffer)
+BIC_API sint PCX_Save (schar *FileName, uint Width, uint Height, uchar *Buffer, uint Resolution)
 	{
-	return PCX_SaveImage (FileName, Width, Height, Buffer);
+	return PCX_SaveImage (FileName, Width, Height, Buffer, Resolution);
 	}
 
 // Интерфейсы для функций PCX palette (буфер в формате RGB)

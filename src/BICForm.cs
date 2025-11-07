@@ -77,6 +77,9 @@ namespace RD_AAOW
 			//RelativeWidth.Maximum = RelativeHeight.Maximum = 100;	// Определяется далее
 			RelativeLeft.Maximum = RelativeTop.Maximum = 99;
 
+			ResolutionField.Minimum = 72;
+			ResolutionField.Maximum = 1000;
+
 			placements = [
 				WatermarkLT,
 				WatermarkCT,
@@ -190,11 +193,13 @@ namespace RD_AAOW
 				RotationCombo.SelectedIndex = (int)AppSettings.RotationType;
 				FlipCombo.SelectedIndex = ((int)AppSettings.FlipType) / 2;
 
-				// Новые
 				placements[(int)AppSettings.WatermarkPlacement].Checked = true;
 
 				WatermarkPath.Text = AppSettings.WatermarkPath;
 				WaterOpacityField.Value = AppSettings.WatermarkOpacity;
+
+				// Новые
+				ResolutionField.Value = AppSettings.Resolution;
 
 				// Настройки, требующие приведения к нижней границе
 				AbsoluteWidth.Value = AppSettings.AbsoluteWidth;
@@ -239,6 +244,7 @@ namespace RD_AAOW
 			RelativeCrop.Text = RDLocale.GetText ("RelativeCropText");
 			CropCenter.Text = RDLocale.GetText ("CropCenterText");
 			DoNothingToSize.Text = RDLocale.GetText ("DoNothing");
+			ResolutionLabel.Text = RDLocale.GetText ("ResolutionLabel");
 
 			// Цвета
 			ColorTab.Text = RDLocale.GetText (ColorTab.Name);
@@ -549,7 +555,7 @@ namespace RD_AAOW
 							currentImage / totalImages), msg);
 						continue;
 						}
-					float resolution = img.HorizontalResolution;
+					/*float resolution = img.HorizontalResolution;*/
 
 					#endregion
 
@@ -562,7 +568,7 @@ namespace RD_AAOW
 						if (AbsoluteSize.Checked)
 							{
 							img2 = new Bitmap (img, new Size ((int)AbsoluteWidth.Value, (int)AbsoluteHeight.Value));
-							img2.SetResolution (resolution, resolution);
+							/*img2.SetResolution (resolution, resolution);*/
 							}
 						else
 							{
@@ -581,12 +587,12 @@ namespace RD_AAOW
 							if (RelativeSize.Checked)
 								{
 								img2 = new Bitmap (img, new Size (w, h));
-								img2.SetResolution (resolution, resolution);
+								/*img2.SetResolution (resolution, resolution);*/
 								}
 							else
 								{
 								img2 = new Bitmap (w, h);
-								img2.SetResolution (resolution, resolution);
+								/*img2.SetResolution (resolution, resolution);*/
 
 								Graphics g = Graphics.FromImage (img2);
 								int l = (int)((double)RelativeLeft.Value / 100.0 * img.Width);
@@ -671,7 +677,7 @@ namespace RD_AAOW
 					// Ошибки записи можно списать на недоступность папки
 					save:
 
-					img.SetResolution (resolution, resolution);
+					/*img.SetResolution (resolution, resolution);*/
 					if (codecs[outputCodecsNumbers[(int)AppSettings.OutputImageType]].SaveImage (img,
 						outputPath, AppSettings.ColorMode, AppSettings.BitmapEdge,
 						outputFormats[(int)AppSettings.OutputImageType]) != ProgramErrorCodes.EXEC_OK)
@@ -778,7 +784,8 @@ namespace RD_AAOW
 				}
 
 			// Отображение
-			RDInterface.MessageBox (RDMessageFlags.Success | RDMessageFlags.NoSound, types);
+			RDInterface.MessageBox (RDMessageFlags.Success | RDMessageFlags.NoSound |
+				RDMessageFlags.LockSmallSize, types);
 			}
 
 		// Выбор варианта задания размера
@@ -866,7 +873,6 @@ namespace RD_AAOW
 			AppSettings.FlipType = (ASFlipType)((FlipCombo.SelectedIndex < 0) ? 0 : FlipCombo.SelectedIndex * 2);
 			AppSettings.OutputImageType = (uint)((ImageTypeCombo.SelectedIndex < 0) ? 0 : ImageTypeCombo.SelectedIndex);
 
-			// Новые
 			for (int i = 0; i < placements.Length; i++)
 				if (placements[i].Checked)
 					{
@@ -876,6 +882,9 @@ namespace RD_AAOW
 
 			AppSettings.WatermarkPath = WatermarkPath.Text;
 			AppSettings.WatermarkOpacity = (uint)WaterOpacityField.Value;
+
+			// Новые
+			AppSettings.Resolution = (uint)ResolutionField.Value;
 			}
 
 		// Выбор профиля конверсии
@@ -952,6 +961,13 @@ namespace RD_AAOW
 
 				LoadSavedSettings (false);
 				}
+			}
+
+		// Установка стандартного разрешения
+		private void DPI0072_Click (object sender, EventArgs e)
+			{
+			Button b = (Button)sender;
+			ResolutionField.Value = uint.Parse (b.Text);
 			}
 		}
 	}

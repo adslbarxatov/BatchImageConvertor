@@ -101,31 +101,30 @@ namespace RD_AAOW
 			{
 			// Контроль
 			if (e.RowIndex < 0)
-				{
 				return;
-				}
 
 			// Цвет
 			if (e.ColumnIndex == 0)
 				{
 				CDialog.Color = ColorGrid.Rows[e.RowIndex].Cells[0].Style.BackColor;
 				if (CDialog.ShowDialog () != DialogResult.OK)
-					{
 					return;
-					}
 
-				ColorGrid.Rows[e.RowIndex].Cells[0].Style.BackColor = CDialog.Color;
+				ColorGrid.Rows[e.RowIndex].Cells[0].Style.BackColor = ColorGrid.Rows[e.RowIndex].Cells[0].Style.SelectionBackColor =
+					CDialog.Color;
 				ColorGrid.Rows[e.RowIndex].Cells[0].Value = "(" + CDialog.Color.R.ToString () + "; " +
 					CDialog.Color.G.ToString () + "; " + CDialog.Color.B.ToString () + ")";
+
 				if ((CDialog.Color.R + CDialog.Color.G + CDialog.Color.B) > 128 * 3)
-					{
-					ColorGrid.Rows[e.RowIndex].Cells[0].Style.ForeColor = Color.FromArgb (0, 0, 0);
-					}
+					ColorGrid.Rows[e.RowIndex].Cells[0].Style.ForeColor =
+						ColorGrid.Rows[e.RowIndex].Cells[0].Style.SelectionForeColor = Color.FromArgb (0, 0, 0);
 				else
-					{
-					ColorGrid.Rows[e.RowIndex].Cells[0].Style.ForeColor = Color.FromArgb (255, 255, 255);
-					}
+					ColorGrid.Rows[e.RowIndex].Cells[0].Style.ForeColor =
+						ColorGrid.Rows[e.RowIndex].Cells[0].Style.SelectionForeColor = Color.FromArgb (255, 255, 255);
+
+				ColorGrid.Rows[e.RowIndex].Cells[0].Style.ApplyStyle (ColorGrid.Rows[e.RowIndex].Cells[0].Style);
 				}
+
 			// Альфа
 			else
 				{
@@ -148,23 +147,20 @@ namespace RD_AAOW
 			// Выбор цвета
 			CDialog.Color = Color.FromArgb (255, 255, 255);
 			if (CDialog.ShowDialog () != DialogResult.OK)
-				{
 				return;
-				}
 
 			// Добавление цвета
 			ColorGrid.Rows.Add ([ "(" + CDialog.Color.R.ToString () + "; " +
 				CDialog.Color.G.ToString () + "; " + CDialog.Color.B.ToString () + ")", "255" ]);
 			ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.BackColor =
 				ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.SelectionBackColor = CDialog.Color;
+
 			if ((CDialog.Color.R + CDialog.Color.G + CDialog.Color.B) > 128 * 3)
-				{
-				ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.ForeColor = Color.FromArgb (0, 0, 0);
-				}
+				ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.ForeColor =
+					ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.SelectionForeColor = Color.FromArgb (0, 0, 0);
 			else
-				{
-				ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.ForeColor = Color.FromArgb (255, 255, 255);
-				}
+				ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.ForeColor =
+					ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.SelectionForeColor = Color.FromArgb (255, 255, 255);
 
 			// Включение кнопки удаления и отображение количества
 			if (!DeleteColor.Enabled)
@@ -304,23 +300,22 @@ namespace RD_AAOW
 					palette[i].B.ToString () + ")",
 					palette[i].A.ToString ()
 					]);
+
 				ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.BackColor =
 					ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.SelectionBackColor =
 					Color.FromArgb (palette[i].R, palette[i].G, palette[i].B);
 
 				if ((palette[i].R + palette[i].G + palette[i].B) > 128 * 3)
-					{
-					ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.ForeColor = Color.FromArgb (0, 0, 0);
-					}
+					ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.ForeColor =
+						ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.SelectionForeColor = Color.FromArgb (0, 0, 0);
 				else
-					{
-					ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.ForeColor = Color.FromArgb (255, 255, 255);
-					}
+					ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.ForeColor =
+						ColorGrid.Rows[ColorGrid.Rows.Count - 1].Cells[0].Style.SelectionForeColor = Color.FromArgb (255, 255, 255);
+
 				if (!DeleteColor.Enabled)
-					{
 					DeleteColor.Enabled = true;
-					}
 				}
+
 			ColorsCountLabel.Text = palette.Count.ToString ();
 			}
 

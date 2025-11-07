@@ -308,6 +308,39 @@ namespace RD_AAOW
 		private const string watermarkOpacityPar = "WatermarkOpacity";
 		private const uint maxWO = 100;
 
+		/// <summary>
+		/// Возвращает или задаёт разрешение итоговых изображений
+		/// </summary>
+		public static uint Resolution
+			{
+			get
+				{
+				uint v = RDGenerics.GetSettings (resolutionPar, minRS);
+
+				if (v > maxRS)
+					return maxRS;
+				if (v < minRS)
+					return minRS;
+
+				return v;
+				}
+			set
+				{
+				uint v;
+				if (value > maxRS)
+					v = maxRS;
+				else if (value < minRS)
+					v = minRS;
+				else
+					v = value;
+
+				RDGenerics.SetSettings (resolutionPar, v);
+				}
+			}
+		private const string resolutionPar = "Resolution";
+		private const uint maxRS = 1000;
+		private const uint minRS = 72;
+
 		// Профилирование
 
 		/// <summary>
@@ -363,7 +396,7 @@ namespace RD_AAOW
 
 			// Извлечение настроек (включая пустые поля)
 			string[] values = settings.Split (profSplitter, StringSplitOptions.None);
-			if (values.Length != 18)
+			if (values.Length < 18)
 				return false;
 
 			// Защита от дефектов
@@ -373,6 +406,10 @@ namespace RD_AAOW
 				for (int i = 3; i < 16; i++)
 					numbers[i] = uint.Parse (values[i]);
 				numbers[17] = uint.Parse (values[17]);
+
+				// Новые поля
+				if (values.Length > 18)
+					numbers[18] = uint.Parse (values[18]);
 				}
 			catch
 				{
@@ -395,6 +432,10 @@ namespace RD_AAOW
 			WatermarkPlacement = numbers[15];
 			WatermarkPath = values[16];
 			WatermarkOpacity = numbers[17];
+
+			// Новые поля
+			if (values.Length > 18)
+				Resolution = numbers[18];
 
 			// Успешно
 			return true;
@@ -441,7 +482,8 @@ namespace RD_AAOW
 			SW.Write (OutputImageType.ToString () + sp);
 			SW.Write (WatermarkPlacement.ToString () + sp);
 			SW.Write (WatermarkPath + sp);
-			SW.Write (WatermarkOpacity.ToString ());
+			SW.Write (WatermarkOpacity.ToString () + sp);
+			SW.Write (Resolution.ToString ());
 
 			// Успешно
 			SW.Close ();

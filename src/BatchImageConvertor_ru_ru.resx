@@ -335,4 +335,7 @@
   <data name="RemoveProfileMessage" xml:space="preserve">
     <value>Вы действительно хотите удалить выбранный профиль?</value>
   </data>
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>Разрешение изображений:</value>
+  </data>
 </root>

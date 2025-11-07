@@ -104,6 +104,7 @@ namespace RD_AAOW
 			// Сохранение
 			try
 				{
+				img.SetResolution (AppSettings.Resolution, AppSettings.Resolution);
 				img.Save (fullPath, imageType);
 				img.Dispose ();
 				}
