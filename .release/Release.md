@@ -1,4 +1,4 @@
-_Changes for v 5.1_:
-- Implemented the ability to ***set the resolution of result images*** (supported by `BMP`, `PNG`, `JPG`, `PCX` and `TIF`);
+_Changes for v 5.2_:
+- App has been migrated to `.NET 10`;
 - Internal assemblies have been updated;
-- Fixed some interface bugs
+- Implemented the ability to ***set the resolution of result images*** (supported by `BMP`, `PNG`, `JPG`, `PCX` and `TIF`)

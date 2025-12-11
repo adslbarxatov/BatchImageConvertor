@@ -555,7 +555,6 @@ namespace RD_AAOW
 							currentImage / totalImages), msg);
 						continue;
 						}
-					/*float resolution = img.HorizontalResolution;*/
 
 					#endregion
 
@@ -568,7 +567,6 @@ namespace RD_AAOW
 						if (AbsoluteSize.Checked)
 							{
 							img2 = new Bitmap (img, new Size ((int)AbsoluteWidth.Value, (int)AbsoluteHeight.Value));
-							/*img2.SetResolution (resolution, resolution);*/
 							}
 						else
 							{
@@ -587,12 +585,10 @@ namespace RD_AAOW
 							if (RelativeSize.Checked)
 								{
 								img2 = new Bitmap (img, new Size (w, h));
-								/*img2.SetResolution (resolution, resolution);*/
 								}
 							else
 								{
 								img2 = new Bitmap (w, h);
-								/*img2.SetResolution (resolution, resolution);*/
 
 								Graphics g = Graphics.FromImage (img2);
 								int l = (int)((double)RelativeLeft.Value / 100.0 * img.Width);
@@ -677,7 +673,6 @@ namespace RD_AAOW
 					// Ошибки записи можно списать на недоступность папки
 					save:
 
-					/*img.SetResolution (resolution, resolution);*/
 					if (codecs[outputCodecsNumbers[(int)AppSettings.OutputImageType]].SaveImage (img,
 						outputPath, AppSettings.ColorMode, AppSettings.BitmapEdge,
 						outputFormats[(int)AppSettings.OutputImageType]) != ProgramErrorCodes.EXEC_OK)
