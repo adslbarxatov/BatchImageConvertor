@@ -135,7 +135,7 @@ namespace RD_AAOW
 			LoadSavedSettings (true);
 
 			// Назначение заголовка окна
-			this.Text = ProgramDescription.AssemblyTitle;
+			this.Text = RDGenerics.DefaultAssemblyVisibleName;
 			if (!RDGenerics.AppHasAccessRights (false, true))
 				this.Text += RDLocale.GetDefaultText (RDLDefaultTexts.Message_LimitedFunctionality);
 			}

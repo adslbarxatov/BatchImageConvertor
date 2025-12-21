@@ -1,5 +1,8 @@
 Batch image convertor: changes log
 
+Version 5.2.1:
+• Internal assemblies have been updated
+
 Version 5.2:
 • App has been migrated to .NET 10;
 • Internal assemblies have been updated
