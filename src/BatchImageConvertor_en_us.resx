@@ -181,7 +181,7 @@
     <value>Greyscale</value>
   </data>
   <data name="IncludeSubdirsText" xml:space="preserve">
-    <value>Include s&amp;ubdirectories</value>
+    <value>Include subdirectories of the input folder</value>
   </data>
   <data name="IncorrectAlpha" xml:space="preserve">
     <value>Specified alpha channel value is incorrect. Must be between 0 and 255 (including)</value>
@@ -337,5 +337,8 @@ Try to specify another one</value>
   </data>
   <data name="ResolutionLabel" xml:space="preserve">
     <value>Images resolution:</value>
+  </data>
+  <data name="CreateOutdirText" xml:space="preserve">
+    <value>Create output folder</value>
   </data>
 </root>

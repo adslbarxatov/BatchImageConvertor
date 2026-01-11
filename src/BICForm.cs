@@ -155,6 +155,7 @@ namespace RD_AAOW
 					InputPath.Text = AppSettings.InputPath;
 					OutputPath.Text = AppSettings.OutputPath;
 					IncludeSubdirs.Checked = AppSettings.IncludeSubdirs;
+					CreateOutdir.Checked = AppSettings.CreateOutdir;
 					}
 
 				switch (AppSettings.ResizingMode)
@@ -231,6 +232,7 @@ namespace RD_AAOW
 			InputFolder.Description = RDLocale.GetText ("InputFolderDescription");
 			IncludeSubdirs.Text = RDLocale.GetText ("IncludeSubdirsText");
 			InputLabel.Text = RDLocale.GetText ("InputLabel");
+			CreateOutdir.Text = RDLocale.GetText ("CreateOutdirText");
 
 			OutputFolder.Description = RDLocale.GetText ("OutputFolderDescription");
 			OutputLabel.Text = RDLocale.GetText ("OutputLabel");
@@ -274,7 +276,7 @@ namespace RD_AAOW
 			ProfileLabel.Text = RDLocale.GetText ("ProfileLabel");
 
 			// Водяной знак
-			WaterTab.Text = RDLocale.GetText (WaterTab.Text);
+			WaterTab.Text = RDLocale.GetText (WaterTab.Name);
 			WatermarkLabel.Text = RDLocale.GetText ("WatermarkLabelText");
 			WaterPlaceLabel.Text = RDLocale.GetText ("WaterPlaceLabelText");
 			WaterOpacityLabel.Text = RDLocale.GetText ("WaterOpacityLabelText");
@@ -419,6 +421,16 @@ namespace RD_AAOW
 					e.Cancel = true;
 					return;
 					}
+				}
+
+			// Контроль наличия выходной папки
+			if (CreateOutdir.Checked)
+				{
+				try
+					{
+					Directory.CreateDirectory (AppSettings.OutputPath);
+					}
+				catch { }
 				}
 
 			// Сбор списка изображений
@@ -714,7 +726,7 @@ namespace RD_AAOW
 				ImageTypeCombo.Enabled = StartButton.Enabled = ExitButton.Enabled =
 				RotationCombo.Enabled = FlipCombo.Enabled = CWLabel.Enabled = FlipLabel.Enabled =
 				AbsoluteSize.Enabled = RelativeSize.Enabled = RelativeCrop.Enabled =
-				LanguageCombo.Enabled = IncludeSubdirs.Enabled = State;
+				LanguageCombo.Enabled = IncludeSubdirs.Enabled = CreateOutdir.Enabled = State;
 
 			if (State)
 				{
@@ -841,6 +853,7 @@ namespace RD_AAOW
 			AppSettings.OutputPath = OutputPath.Text;
 
 			AppSettings.IncludeSubdirs = IncludeSubdirs.Checked;
+			AppSettings.CreateOutdir = CreateOutdir.Checked;
 
 			if (RelativeCrop.Checked)
 				AppSettings.ResizingMode = ASResizingMode.RelativeCrop;

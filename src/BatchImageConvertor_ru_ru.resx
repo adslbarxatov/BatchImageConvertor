@@ -181,7 +181,7 @@
     <value>Оттенки серого</value>
   </data>
   <data name="IncludeSubdirsText" xml:space="preserve">
-    <value>Включая по&amp;дпапки</value>
+    <value>Включать подпапки входной папки</value>
   </data>
   <data name="IncorrectAlpha" xml:space="preserve">
     <value>Введённое значение альфа-канала некорректно. Допустимые значения – между 0 и 255 (включительно)</value>
@@ -337,5 +337,8 @@
   </data>
   <data name="ResolutionLabel" xml:space="preserve">
     <value>Разрешение изображений:</value>
+  </data>
+  <data name="CreateOutdirText" xml:space="preserve">
+    <value>Создавать выходную папку</value>
   </data>
 </root>

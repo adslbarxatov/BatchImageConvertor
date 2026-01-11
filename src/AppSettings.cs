@@ -60,6 +60,22 @@ namespace RD_AAOW
 		private const string includeSubdirsPar = "IncludeSubdirs";
 
 		/// <summary>
+		/// Возвращает или задаёт флаг создания выходной папки
+		/// </summary>
+		public static bool CreateOutdir
+			{
+			get
+				{
+				return RDGenerics.GetSettings (createOutdirPar, false);
+				}
+			set
+				{
+				RDGenerics.SetSettings (createOutdirPar, value);
+				}
+			}
+		private const string createOutdirPar = "CreateOutdir";
+
+		/// <summary>
 		/// Возвращает или задаёт режим изменения размеров изображения
 		/// </summary>
 		public static ASResizingMode ResizingMode
