@@ -269,7 +269,7 @@ namespace RD_AAOW
 			OthersTab.Text = RDLocale.GetText (OthersTab.Name);
 			Palettes.Text = RDLocale.GetText ("PalettesManager");
 			ExitButton.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Exit);
-			LanguageLabel.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Control_InterfaceLanguage);
+			LanguageLabel.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Control_InterfaceLanguageNC) + ":";
 			AboutTheApp.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Control_AppAbout);
 			SupportedExtButton.Text = RDLocale.GetText ("SupportedExtButton");
 
