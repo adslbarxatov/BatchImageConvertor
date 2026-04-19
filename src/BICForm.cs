@@ -52,7 +52,8 @@ namespace RD_AAOW
 			AcceptButton = StartButton;
 			CancelButton = ExitButton;
 
-			LanguageCombo.Items.AddRange (RDLocale.LanguagesNames);
+			// Язык интерфейса
+			/*LanguageCombo.Items.AddRange (RDLocale.LanguagesNames);
 			try
 				{
 				LanguageCombo.SelectedIndex = (int)RDLocale.CurrentLanguage;
@@ -60,7 +61,8 @@ namespace RD_AAOW
 			catch
 				{
 				LanguageCombo.SelectedIndex = 0;
-				}
+				}*/
+			LocalizeForm_Click (null, null);
 
 			// Настройка контролов
 			RotationCombo.Items.Add ("0°");
@@ -217,15 +219,17 @@ namespace RD_AAOW
 			}
 
 		// Выбор языка интерфейса
-		private void LanguageCombo_SelectedIndexChanged (object sender, EventArgs e)
+		private void LocalizeForm_Click (object sender, EventArgs e)
 			{
 			// Подготовка
 			int flipType = (FlipCombo.SelectedIndex < 0) ? 0 : FlipCombo.SelectedIndex;
 
 			FlipCombo.Items.Clear ();
 
-			// Сохранение языка
-			RDLocale.CurrentLanguage = (RDLanguages)LanguageCombo.SelectedIndex;
+			/*// Сохранение языка
+			RDLocale.CurrentLanguage = (RDLanguages)LanguageCombo.SelectedIndex;*/
+			if ((sender != null) && !RDInterface.MessageBox ())
+				return;
 
 			// Загрузка и сохранение
 			LoadingTab.Text = RDLocale.GetText (LoadingTab.Name);
@@ -269,7 +273,8 @@ namespace RD_AAOW
 			OthersTab.Text = RDLocale.GetText (OthersTab.Name);
 			Palettes.Text = RDLocale.GetText ("PalettesManager");
 			ExitButton.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Exit);
-			LanguageLabel.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Control_InterfaceLanguageNC) + ":";
+			/*LanguageLabel.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Control_InterfaceLanguage) + ":";*/
+			BLanguage.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Control_InterfaceLanguage);
 			AboutTheApp.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Control_AppAbout);
 			SupportedExtButton.Text = RDLocale.GetText ("SupportedExtButton");
 
@@ -726,7 +731,7 @@ namespace RD_AAOW
 				ImageTypeCombo.Enabled = StartButton.Enabled = ExitButton.Enabled =
 				RotationCombo.Enabled = FlipCombo.Enabled = CWLabel.Enabled = FlipLabel.Enabled =
 				AbsoluteSize.Enabled = RelativeSize.Enabled = RelativeCrop.Enabled =
-				LanguageCombo.Enabled = IncludeSubdirs.Enabled = CreateOutdir.Enabled = State;
+				BLanguage.Enabled = IncludeSubdirs.Enabled = CreateOutdir.Enabled = State;
 
 			if (State)
 				{
