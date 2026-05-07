@@ -53,15 +53,6 @@ namespace RD_AAOW
 			CancelButton = ExitButton;
 
 			// Язык интерфейса
-			/*LanguageCombo.Items.AddRange (RDLocale.LanguagesNames);
-			try
-				{
-				LanguageCombo.SelectedIndex = (int)RDLocale.CurrentLanguage;
-				}
-			catch
-				{
-				LanguageCombo.SelectedIndex = 0;
-				}*/
 			LocalizeForm_Click (null, null);
 
 			// Настройка контролов
@@ -226,8 +217,6 @@ namespace RD_AAOW
 
 			FlipCombo.Items.Clear ();
 
-			/*// Сохранение языка
-			RDLocale.CurrentLanguage = (RDLanguages)LanguageCombo.SelectedIndex;*/
 			if ((sender != null) && !RDInterface.MessageBox ())
 				return;
 
@@ -273,7 +262,6 @@ namespace RD_AAOW
 			OthersTab.Text = RDLocale.GetText (OthersTab.Name);
 			Palettes.Text = RDLocale.GetText ("PalettesManager");
 			ExitButton.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Exit);
-			/*LanguageLabel.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Control_InterfaceLanguage) + ":";*/
 			BLanguage.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Control_InterfaceLanguage);
 			AboutTheApp.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Control_AppAbout);
 			SupportedExtButton.Text = RDLocale.GetText ("SupportedExtButton");
