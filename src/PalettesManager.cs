@@ -57,7 +57,7 @@ namespace RD_AAOW
 
 			codecs.Add (new ACOCodec ());
 			codecs.Add (new ASECodec ());
-			codecs.Add (bmpCodec);  // Для автоопределения
+			codecs.Add (bmpCodec);	// Для автоопределения
 			codecs.Add (new PCXCodec ());
 
 			// Настройка поля таблицы цветов
@@ -70,14 +70,22 @@ namespace RD_AAOW
 			ColorGrid.Columns.Add (new DataGridViewColumn (cell2));
 			ColorGrid.Columns[1].Name = RDLocale.GetText ("AlphaColumn");
 
-			ExitButton.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Exit);
+			/*ExitButton.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Exit);
 			Label01.Text = RDLocale.GetText ("OpacityLabel");
 			AbortAlpha.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Cancel);
 			ApplyAlpha.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_OK);
 
 			LoadPalette.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Load);
 			SavePalette.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Save);
-			SetPalette.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Replace);
+			SetPalette.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Replace);*/
+			RDLocale.SetDefaultControlText (ExitButton, RDLDefaultTexts.Button_Exit);
+			RDLocale.SetControlText (Label01, "OpacityLabel");
+			RDLocale.SetDefaultControlText (AbortAlpha, RDLDefaultTexts.Button_Cancel);
+			RDLocale.SetDefaultControlText (ApplyAlpha, RDLDefaultTexts.Button_OK);
+
+			RDLocale.SetDefaultControlText (LoadPalette, RDLDefaultTexts.Button_Load);
+			RDLocale.SetDefaultControlText (SavePalette, RDLDefaultTexts.Button_Save);
+			RDLocale.SetDefaultControlText (SetPalette, RDLDefaultTexts.Button_Replace);
 
 			// Запуск
 			this.ShowDialog ();

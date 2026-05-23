@@ -117,16 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AbsoluteSizeText" xml:space="preserve">
+  <data name="AbsoluteSize" xml:space="preserve">
     <value>Задать размер:</value>
   </data>
   <data name="AlphaColumn" xml:space="preserve">
     <value>Альфа-канал</value>
   </data>
-  <data name="BitmapRadioText" xml:space="preserve">
+  <data name="BitmapRadio" xml:space="preserve">
     <value>Только чёрный и белый</value>
   </data>
-  <data name="BStart" xml:space="preserve">
+  <data name="StartButton" xml:space="preserve">
     <value>&amp;Начать преобразование</value>
   </data>
   <data name="ChangePaletteDialogTitle" xml:space="preserve">
@@ -141,7 +141,7 @@
   <data name="ColorTab" xml:space="preserve">
     <value>Цвета</value>
   </data>
-  <data name="CWLabelText" xml:space="preserve">
+  <data name="CWLabel" xml:space="preserve">
     <value>1. Повернуть по ч. с. на</value>
   </data>
   <data name="DebugRequired" xml:space="preserve">
@@ -174,13 +174,13 @@
   <data name="FlipComboItems2" xml:space="preserve">
     <value>по обеим осям</value>
   </data>
-  <data name="FlipLabelText" xml:space="preserve">
+  <data name="FlipLabel" xml:space="preserve">
     <value>2. Отразить по</value>
   </data>
-  <data name="GreyscaleRadioText" xml:space="preserve">
+  <data name="GreyscaleRadio" xml:space="preserve">
     <value>Оттенки серого</value>
   </data>
-  <data name="IncludeSubdirsText" xml:space="preserve">
+  <data name="IncludeSubdirs" xml:space="preserve">
     <value>Включать подпапки входной папки</value>
   </data>
   <data name="IncorrectAlpha" xml:space="preserve">
@@ -226,10 +226,10 @@
     <value>Обрабатывается:
 {0:S}</value>
   </data>
-  <data name="RelativeCropText" xml:space="preserve">
+  <data name="RelativeCrop" xml:space="preserve">
     <value>Обрезать до (a x b) с отступом (c; d):</value>
   </data>
-  <data name="RelativeSizeText" xml:space="preserve">
+  <data name="RelativeSize" xml:space="preserve">
     <value>Изменить до:</value>
   </data>
   <data name="ResultText" xml:space="preserve">
@@ -238,7 +238,7 @@
   <data name="RotationTab" xml:space="preserve">
     <value>Поворот и отражение</value>
   </data>
-  <data name="SaveColorsRadioText" xml:space="preserve">
+  <data name="SaveColorsRadio" xml:space="preserve">
     <value>Сохранить цвета</value>
   </data>
   <data name="SavePaletteDialogTitle" xml:space="preserve">
@@ -262,7 +262,7 @@
   <data name="IncorrectCropValues" xml:space="preserve">
     <value>Сумма смещения и размера обрезки превышает размеры изображения (&gt; 100%)</value>
   </data>
-  <data name="CropCenterText" xml:space="preserve">
+  <data name="CropCenter" xml:space="preserve">
     <value>Центр</value>
   </data>
   <data name="ComponentMissing" xml:space="preserve">
@@ -295,7 +295,7 @@
   <data name="SupportedExtButton" xml:space="preserve">
     <value>Поддерживаемые форматы</value>
   </data>
-  <data name="WatermarkLabelText" xml:space="preserve">
+  <data name="WatermarkLabel" xml:space="preserve">
     <value>Водяной знак:</value>
   </data>
   <data name="WatermarkPathNotSpecified" xml:space="preserve">
@@ -304,10 +304,10 @@
   <data name="WatermarkPathUnavailable" xml:space="preserve">
     <value>Файл водяного знака недоступен</value>
   </data>
-  <data name="WaterOpacityLabelText" xml:space="preserve">
+  <data name="WaterOpacityLabel" xml:space="preserve">
     <value>Непрозрачность:</value>
   </data>
-  <data name="WaterPlaceLabelText" xml:space="preserve">
+  <data name="WaterPlaceLabel" xml:space="preserve">
     <value>Расположение:</value>
   </data>
   <data name="FileProcessedNoWatermark" xml:space="preserve">
@@ -338,7 +338,7 @@
   <data name="ResolutionLabel" xml:space="preserve">
     <value>Разрешение изображений:</value>
   </data>
-  <data name="CreateOutdirText" xml:space="preserve">
+  <data name="CreateOutdir" xml:space="preserve">
     <value>Создавать выходную папку</value>
   </data>
 </root>

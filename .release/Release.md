@@ -1,13 +1,11 @@
 _en_us_
 
-- Internal assemblies have been updated;
-- Fixed the incorrect placement of some buttons
+- Internal assemblies have been updated
 
 ⁂
 
 _ru_ru_
 
-- Обновлены внутренние сборки приложения;
-- Исправлено некорректное расположение некоторых кнопок
+- Обновлены внутренние сборки приложения
 
 ⁂
