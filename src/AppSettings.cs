@@ -273,21 +273,21 @@ namespace RD_AAOW
 		/// <summary>
 		/// Возвращает или задаёт размещение водяного знака
 		/// </summary>
-		public static uint WatermarkPlacement
+		public static byte WatermarkPlacement
 			{
 			get
 				{
-				uint v = RDGenerics.GetSettings (watermarkPlacementPar, 8); // Нижний правый угол
+				byte v = (byte)RDGenerics.GetSettings (watermarkPlacementPar, 8);	// Нижний правый угол
 				return (v > maxWP) ? maxWP : v;
 				}
 			set
 				{
-				uint v = (value > maxWP) ? maxWP : value;
+				byte v = (value > maxWP) ? maxWP : value;
 				RDGenerics.SetSettings (watermarkPlacementPar, v);
 				}
 			}
 		private const string watermarkPlacementPar = "WatermarkPlacement";
-		private const uint maxWP = 8;
+		private const byte maxWP = 8;
 
 		/// <summary>
 		/// Возвращает или задаёт путь к файлу водяного знака
@@ -308,21 +308,21 @@ namespace RD_AAOW
 		/// <summary>
 		/// Возвращает или задаёт уровень непрозрачности водяного знака
 		/// </summary>
-		public static uint WatermarkOpacity
+		public static byte WatermarkOpacity
 			{
 			get
 				{
-				uint v = RDGenerics.GetSettings (watermarkOpacityPar, 0);
+				byte v = (byte)RDGenerics.GetSettings (watermarkOpacityPar, 0);
 				return (v > maxWO) ? maxWO : v;
 				}
 			set
 				{
-				uint v = (value > maxWO) ? maxWO : value;
+				byte v = (value > maxWO) ? maxWO : value;
 				RDGenerics.SetSettings (watermarkOpacityPar, v);
 				}
 			}
 		private const string watermarkOpacityPar = "WatermarkOpacity";
-		private const uint maxWO = 100;
+		private const byte maxWO = 100;
 
 		/// <summary>
 		/// Возвращает или задаёт разрешение итоговых изображений
@@ -391,12 +391,89 @@ namespace RD_AAOW
 
 		private const string profilesSubDir = "Profiles";
 
+		// Доступные версии профилей конверсии
+		private enum ProfileVersions
+			{
+			V1 = 0x0901,	// Тектовая версия
+			V2 = 0x0902,	// Бинарная версия
+			Actual = V2
+			}
+
 		/// <summary>
 		/// Метод загружает указанный профиль в настройки, заменяя их при успешной загрузке
 		/// </summary>
 		/// <param name="ProfileName">Название профиля, полученное от метода EnumerateProfiles</param>
 		/// <returns>Возвращает true, если профиль был загружен корректно</returns>
 		public static bool LoadProfile (string ProfileName)
+			{
+			// Попытка разбора бинарного формата
+			FileStream FS;
+			try
+				{
+				FS = new FileStream (RDGenerics.AppStartupPath + profilesSubDir + "\\" + ProfileName + ProfileExt, FileMode.Open);
+				}
+			catch
+				{
+				return false;
+				}
+			BinaryReader BR = new BinaryReader (FS, RDGenerics.GetEncoding (RDEncodings.UTF8));
+
+			ProfileVersions version;
+			try
+				{
+				version = (ProfileVersions)BR.ReadUInt16 ();
+				}
+			catch
+				{
+				version = ProfileVersions.V1;
+				}
+
+			switch (version)
+				{
+				case ProfileVersions.V2:
+					break;
+
+				// Разбор текстового формата
+				case ProfileVersions.V1:
+				default:
+					BR.Close ();
+					FS.Close ();
+					return LoadOldFormat (ProfileName);
+				}
+
+			// Загрузка
+			try
+				{
+				ResizingMode = (ASResizingMode)BR.ReadByte ();
+				ColorMode = (ASColorMode)BR.ReadByte ();
+				AbsoluteWidth = BR.ReadUInt32 ();
+				AbsoluteHeight = BR.ReadUInt32 ();
+				RelativeWidth = BR.ReadUInt32 ();
+				RelativeHeight = BR.ReadUInt32 ();
+				RelativeLeft = BR.ReadUInt32 ();
+				RelativeTop = BR.ReadUInt32 ();
+				BitmapEdge = BR.ReadByte ();
+				FlipType = (ASFlipType)BR.ReadByte ();
+				RotationType = (ASRotationType)BR.ReadByte ();
+				OutputImageType = BR.ReadUInt16 ();
+				WatermarkPlacement = BR.ReadByte ();
+				WatermarkPath = BR.ReadString ();
+				WatermarkOpacity = BR.ReadByte ();
+				Resolution = BR.ReadUInt16 ();
+				}
+			catch { }
+
+			BR.Close ();
+			FS.Close ();
+
+			// Автоконверсия
+			if (version < ProfileVersions.V2)
+				SaveProfile (ProfileName);
+
+			return true;
+			}
+
+		private static bool LoadOldFormat (string ProfileName)
 			{
 			// Получение содержимого файла
 			string settings;
@@ -445,9 +522,9 @@ namespace RD_AAOW
 			FlipType = (ASFlipType)numbers[12];
 			RotationType = (ASRotationType)numbers[13];
 			OutputImageType = numbers[14];
-			WatermarkPlacement = numbers[15];
+			WatermarkPlacement = (byte)numbers[15];
 			WatermarkPath = values[16];
-			WatermarkOpacity = numbers[17];
+			WatermarkOpacity = (byte)numbers[17];
 
 			// Новые поля
 			if (values.Length > 18)
@@ -479,9 +556,10 @@ namespace RD_AAOW
 				{
 				return false;
 				}
-			StreamWriter SW = new StreamWriter (FS, RDGenerics.GetEncoding (RDEncodings.UTF8));
+			/*StreamWriter SW = new StreamWriter (FS, RDGenerics.GetEncoding (RDEncodings.UTF8));*/
+			BinaryWriter BW = new BinaryWriter (FS, RDGenerics.GetEncoding (RDEncodings.UTF8));
 
-			string sp = profSplitter[0].ToString ();
+			/*string sp = profSplitter[0].ToString ();
 
 			SW.Write ("" + sp + "" + sp + "" + sp);
 			SW.Write (((uint)ResizingMode).ToString () + sp);
@@ -499,10 +577,28 @@ namespace RD_AAOW
 			SW.Write (WatermarkPlacement.ToString () + sp);
 			SW.Write (WatermarkPath + sp);
 			SW.Write (WatermarkOpacity.ToString () + sp);
-			SW.Write (Resolution.ToString ());
+			SW.Write (Resolution.ToString ());*/
+
+			BW.Write ((UInt16)ProfileVersions.Actual);
+			BW.Write ((byte)ResizingMode);
+			BW.Write ((byte)ColorMode);
+			BW.Write ((UInt32)AbsoluteWidth);
+			BW.Write ((UInt32)AbsoluteHeight);
+			BW.Write ((UInt32)RelativeWidth);
+			BW.Write ((UInt32)RelativeHeight);
+			BW.Write ((UInt32)RelativeLeft);
+			BW.Write ((UInt32)RelativeTop);
+			BW.Write (BitmapEdge);
+			BW.Write ((byte)FlipType);
+			BW.Write ((byte)RotationType);
+			BW.Write ((UInt16)OutputImageType);
+			BW.Write (WatermarkPlacement);
+			BW.Write (WatermarkPath);
+			BW.Write (WatermarkOpacity);
+			BW.Write ((UInt16)Resolution);
 
 			// Успешно
-			SW.Close ();
+			BW.Close ();
 			FS.Close ();
 			return true;
 			}
@@ -546,17 +642,17 @@ namespace RD_AAOW
 		/// <summary>
 		/// Размер в пикселях
 		/// </summary>
-		AbsoluteSize,
+		AbsoluteSize = 0,
 
 		/// <summary>
 		/// Размер в процентах
 		/// </summary>
-		RelativeSize,
+		RelativeSize = 1,
 
 		/// <summary>
 		/// Размер в процентах с обрезкой
 		/// </summary>
-		RelativeCrop,
+		RelativeCrop = 2
 		}
 
 	/// <summary>
@@ -567,17 +663,17 @@ namespace RD_AAOW
 		/// <summary>
 		/// Сохранение цветов
 		/// </summary>
-		AllColors,
+		AllColors = 0,
 
 		/// <summary>
 		/// Оттенки серого
 		/// </summary>
-		Greyscale,
+		Greyscale = 1,
 
 		/// <summary>
 		/// Только чёрный и белый
 		/// </summary>
-		Bitmap,
+		Bitmap = 2
 		}
 
 	/// <summary>
@@ -603,7 +699,7 @@ namespace RD_AAOW
 		/// <summary>
 		/// Оба
 		/// </summary>
-		Both = 2,
+		Both = 2
 		}
 
 	/// <summary>
@@ -629,6 +725,6 @@ namespace RD_AAOW
 		/// <summary>
 		/// 270°
 		/// </summary>
-		HalfAndQuarter = 3,
+		HalfAndQuarter = 3
 		}
 	}

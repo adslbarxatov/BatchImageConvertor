@@ -1,5 +1,9 @@
 Batch image convertor: changes log
 
+Version 5.3:
+• Updated the profile file format;
+• Applied the updated GitHub markup for version numbers
+
 Version 5.2.8:
 • Internal assemblies have been updated;
 

@@ -70,14 +70,6 @@ namespace RD_AAOW
 			ColorGrid.Columns.Add (new DataGridViewColumn (cell2));
 			ColorGrid.Columns[1].Name = RDLocale.GetText ("AlphaColumn");
 
-			/*ExitButton.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Exit);
-			Label01.Text = RDLocale.GetText ("OpacityLabel");
-			AbortAlpha.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Cancel);
-			ApplyAlpha.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_OK);
-
-			LoadPalette.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Load);
-			SavePalette.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Save);
-			SetPalette.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Replace);*/
 			RDLocale.SetDefaultControlText (ExitButton, RDLDefaultTexts.Button_Exit);
 			RDLocale.SetControlText (Label01, "OpacityLabel");
 			RDLocale.SetDefaultControlText (AbortAlpha, RDLDefaultTexts.Button_Cancel);

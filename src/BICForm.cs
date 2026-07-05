@@ -223,95 +223,57 @@ namespace RD_AAOW
 				return;
 
 			// Загрузка и сохранение
-			/*LoadingTab.Text = RDLocale.GetText (LoadingTab.Name);*/
 			RDLocale.SetControlText (LoadingTab);
 			InputFolder.Description = RDLocale.GetText ("InputFolderDescription");
-			/*IncludeSubdirs.Text = RDLocale.GetText ("IncludeSubdirsText");
-			InputLabel.Text = RDLocale.GetText ("InputLabel");
-			CreateOutdir.Text = RDLocale.GetText ("CreateOutdirText");*/
 			RDLocale.SetControlText (IncludeSubdirs);
 			RDLocale.SetControlText (InputLabel);
 			RDLocale.SetControlText (CreateOutdir);
 
 			OutputFolder.Description = RDLocale.GetText ("OutputFolderDescription");
-			/*OutputLabel.Text = RDLocale.GetText ("OutputLabel");
-			OutputFormatLabel.Text = RDLocale.GetText ("OutputFormatLabel");
-			StartButton.Text = RDLocale.GetText ("BStart");*/
 			RDLocale.SetControlText (OutputLabel);
 			RDLocale.SetControlText (OutputFormatLabel);
 			RDLocale.SetControlText (StartButton);
 
 			// Размеры
-			/*SizeTab.Text = RDLocale.GetText (SizeTab.Name);
-			AbsoluteSize.Text = RDLocale.GetText ("AbsoluteSizeText");
-			RelativeSize.Text = RDLocale.GetText ("RelativeSizeText");
-			RelativeCrop.Text = RDLocale.GetText ("RelativeCropText");
-			CropCenter.Text = RDLocale.GetText ("CropCenterText");*/
 			RDLocale.SetControlText (SizeTab);
 			RDLocale.SetControlText (AbsoluteSize);
 			RDLocale.SetControlText (RelativeSize);
 			RDLocale.SetControlText (RelativeCrop);
 			RDLocale.SetControlText (CropCenter);
-			/*DoNothingToSize.Text = RDLocale.GetText ("DoNothing");*/
 			RDLocale.SetControlText (DoNothingToSize, doNothingAlias);
-			/*ResolutionLabel.Text = RDLocale.GetText ("ResolutionLabel");*/
 			RDLocale.SetControlText (ResolutionLabel);
 
 			// Цвета
-			/*ColorTab.Text = RDLocale.GetText (ColorTab.Name);
-			SaveColorsRadio.Text = RDLocale.GetText ("SaveColorsRadioText");
-			GreyscaleRadio.Text = RDLocale.GetText ("GreyscaleRadioText");
-			BitmapRadio.Text = RDLocale.GetText ("BitmapRadioText");
-			ThresholdLabel.Text = RDLocale.GetText ("ThresholdLabel");*/
 			RDLocale.SetControlText (ColorTab);
 			RDLocale.SetControlText (SaveColorsRadio);
 			RDLocale.SetControlText (GreyscaleRadio);
 			RDLocale.SetControlText (BitmapRadio);
 			RDLocale.SetControlText (ThresholdLabel);
-			/*DoNothingToColor.Text = RDLocale.GetText ("DoNothing");*/
 			RDLocale.SetControlText (DoNothingToColor, doNothingAlias);
 
 			// Поворот и отражение
-			/*RotationTab.Text = RDLocale.GetText (RotationTab.Name);*/
 			RDLocale.SetControlText (RotationTab);
 			for (int i = 1; i <= 4; i++)
 				FlipCombo.Items.Add (RDLocale.GetText ("FlipComboItems" + i.ToString ()));
 
-			/*CWLabel.Text = RDLocale.GetText ("CWLabelText");
-			FlipLabel.Text = RDLocale.GetText ("FlipLabelText");*/
 			RDLocale.SetControlText (CWLabel);
 			RDLocale.SetControlText (FlipLabel);
-			/*DoNothingToRotation.Text = RDLocale.GetText ("DoNothing");*/
 			RDLocale.SetControlText (DoNothingToRotation, doNothingAlias);
 
 			// Прочее
-			/*OthersTab.Text = RDLocale.GetText (OthersTab.Name);
-			Palettes.Text = RDLocale.GetText ("PalettesManager");*/
 			RDLocale.SetControlText (OthersTab);
 			RDLocale.SetControlText (PalettesManager);
-			/*ExitButton.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Button_Exit);
-			BLanguage.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Control_InterfaceLanguage);
-			AboutTheApp.Text = RDLocale.GetDefaultText (RDLDefaultTexts.Control_AppAbout);*/
 			RDLocale.SetDefaultControlText (ExitButton, RDLDefaultTexts.Button_Exit);
 			RDLocale.SetDefaultControlText (BLanguage, RDLDefaultTexts.Control_InterfaceLanguage);
 			RDLocale.SetDefaultControlText (AboutTheApp, RDLDefaultTexts.Control_AppAbout);
-			/*SupportedExtButton.Text = RDLocale.GetText ("SupportedExtButton");
-
-			ProfileLabel.Text = RDLocale.GetText ("ProfileLabel");*/
 			RDLocale.SetControlText (SupportedExtButton);
-
 			RDLocale.SetControlText (ProfileLabel);
 
 			// Водяной знак
-			/*WaterTab.Text = RDLocale.GetText (WaterTab.Name);
-			WatermarkLabel.Text = RDLocale.GetText ("WatermarkLabelText");
-			WaterPlaceLabel.Text = RDLocale.GetText ("WaterPlaceLabelText");
-			WaterOpacityLabel.Text = RDLocale.GetText ("WaterOpacityLabelText");*/
 			RDLocale.SetControlText (WaterTab);
 			RDLocale.SetControlText (WatermarkLabel);
 			RDLocale.SetControlText (WaterPlaceLabel);
 			RDLocale.SetControlText (WaterOpacityLabel);
-			/*DoNothingToWatermark.Text = RDLocale.GetText ("DoNothing");*/
 			RDLocale.SetControlText (DoNothingToWatermark, doNothingAlias);
 			OFDialog.Filter = "Portable network graphics (PNG)|*.png";
 
@@ -916,12 +878,12 @@ namespace RD_AAOW
 			for (int i = 0; i < placements.Length; i++)
 				if (placements[i].Checked)
 					{
-					AppSettings.WatermarkPlacement = (uint)i;
+					AppSettings.WatermarkPlacement = (byte)i;
 					break;
 					}
 
 			AppSettings.WatermarkPath = WatermarkPath.Text;
-			AppSettings.WatermarkOpacity = (uint)WaterOpacityField.Value;
+			AppSettings.WatermarkOpacity = (byte)WaterOpacityField.Value;
 
 			// Новые
 			AppSettings.Resolution = (uint)ResolutionField.Value;
@@ -964,8 +926,14 @@ namespace RD_AAOW
 			// Добавление
 			allowSettingsReload = false;
 
-			ProfileCombo.Items.Add (name);
-			ProfileCombo.SelectedIndex = ProfileCombo.Items.Count - 1;
+			int idx = ProfileCombo.Items.IndexOf (name);
+			if (idx < 0)
+				{
+				ProfileCombo.Items.Add (name);
+				idx = ProfileCombo.Items.Count - 1;
+				}
+			/*ProfileCombo.SelectedIndex = ProfileCombo.Items.Count - 1;*/
+			ProfileCombo.SelectedIndex = idx;
 			ProfileCombo.Enabled = ProfileRemoveButton.Enabled = true;
 
 			allowSettingsReload = true;
