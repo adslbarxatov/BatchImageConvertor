@@ -1,6 +1,6 @@
 _en_us_
 
-- Updated the profile file format; 
+- Updated the profile file format;
 - Applied the updated GitHub markup for version numbers
 
 ⁂

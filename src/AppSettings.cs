@@ -530,7 +530,9 @@ namespace RD_AAOW
 			if (values.Length > 18)
 				Resolution = numbers[18];
 
-			// Успешно
+			// Успешно. Автоконверсия
+			SaveProfile (ProfileName);
+
 			return true;
 			}
 		private static char[] profSplitter = ['\x1', '\r', '\n'];
