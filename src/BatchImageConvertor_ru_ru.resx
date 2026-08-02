@@ -320,7 +320,7 @@
     <value>Профиль преобразования:</value>
   </data>
   <data name="bipfile" xml:space="preserve">
-    <value>Профиль BatchImageConvertor</value>
+    <value>Профиль настроек BatchImageConvertor</value>
   </data>
   <data name="BadProfileMessage" xml:space="preserve">
     <value>Выбранный профиль недоступен или не поддерживается</value>

@@ -152,7 +152,7 @@ namespace RD_AAOW
 		public bool IsCodecAvailable (bool InternalLibraryUnavailable)
 			{
 			return !InternalLibraryUnavailable &&
-				File.Exists (RDGenerics.AppStartupPath + ProgramDescription.CodecsLibrary);
+				File.Exists (RDGenerics.StartupPath + ProgramDescription.CodecsLibrary);
 			}
 
 		/// <summary>

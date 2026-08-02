@@ -1,5 +1,8 @@
 Batch image convertor: changes log
 
+Version 5.3.2:
+• Updated the storage method for profile files
+
 Version 5.3:
 • Updated the profile file format;
 • Applied the updated GitHub markup for version numbers

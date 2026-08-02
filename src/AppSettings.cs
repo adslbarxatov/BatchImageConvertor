@@ -367,9 +367,15 @@ namespace RD_AAOW
 			{
 			// Запрос
 			string[] files;
+			string recommendedPath = RDGenerics.GetStoragePath (false);
 			try
 				{
-				files = Directory.GetFiles (RDGenerics.AppStartupPath + profilesSubDir, "*" + ProfileExt);
+				// Новая схема хранения
+				files = Directory.GetFiles (recommendedPath + profilesSubDir, "*" + ProfileExt);
+
+				// Старая схема хранения
+				if (files.Length < 1)
+					files = Directory.GetFiles (RDGenerics.StartupPath + profilesSubDir, "*" + ProfileExt);
 				}
 			catch
 				{
@@ -377,12 +383,19 @@ namespace RD_AAOW
 				}
 
 			// Сборка
-			List<string> names = [];
+			/*List<string> names = [];*/
+			profileNames.Clear ();
+			profilePaths.Clear ();
 			for (int i = 0; i < files.Length; i++)
-				names.Add (Path.GetFileNameWithoutExtension (files[i]));
+				{
+				profileNames.Add (Path.GetFileNameWithoutExtension (files[i]));
+				profilePaths.Add (files[i]);
+				}
 
-			return names.ToArray ();
+			return profileNames.ToArray ();
 			}
+		private static List<string> profileNames = [];
+		private static List<string> profilePaths = [];
 
 		/// <summary>
 		/// Возвращает расширение файла профиля
@@ -390,14 +403,6 @@ namespace RD_AAOW
 		public const string ProfileExt = ".bip";
 
 		private const string profilesSubDir = "Profiles";
-
-		// Доступные версии профилей конверсии
-		private enum ProfileVersions
-			{
-			V1 = 0x0901,	// Тектовая версия
-			V2 = 0x0902,	// Бинарная версия
-			Actual = V2
-			}
 
 		/// <summary>
 		/// Метод загружает указанный профиль в настройки, заменяя их при успешной загрузке
@@ -407,10 +412,15 @@ namespace RD_AAOW
 		public static bool LoadProfile (string ProfileName)
 			{
 			// Попытка разбора бинарного формата
+			int idx = profileNames.IndexOf (ProfileName);
+			if (idx < 0)
+				return false;
+
 			FileStream FS;
 			try
 				{
-				FS = new FileStream (RDGenerics.AppStartupPath + profilesSubDir + "\\" + ProfileName + ProfileExt, FileMode.Open);
+				/*FS = new FileStream (RDGenerics.AppStartupPath + profilesSubDir + "\\" + ProfileName + ProfileExt, FileMode.Open);*/
+				FS = new FileStream (profilePaths[idx], FileMode.Open);
 				}
 			catch
 				{
@@ -418,23 +428,23 @@ namespace RD_AAOW
 				}
 			BinaryReader BR = new BinaryReader (FS, RDGenerics.GetEncoding (RDEncodings.UTF8));
 
-			ProfileVersions version;
+			RDFormatSignatures version;
 			try
 				{
-				version = (ProfileVersions)BR.ReadUInt16 ();
+				version = (RDFormatSignatures)BR.ReadUInt16 ();
 				}
 			catch
 				{
-				version = ProfileVersions.V1;
+				version = RDFormatSignatures.BIPv1;
 				}
 
 			switch (version)
 				{
-				case ProfileVersions.V2:
+				case RDFormatSignatures.BIPv2:
 					break;
 
 				// Разбор текстового формата
-				case ProfileVersions.V1:
+				case RDFormatSignatures.BIPv1:
 				default:
 					BR.Close ();
 					FS.Close ();
@@ -467,7 +477,7 @@ namespace RD_AAOW
 			FS.Close ();
 
 			// Автоконверсия
-			if (version < ProfileVersions.V2)
+			if (version < RDFormatSignatures.BIPv2)
 				SaveProfile (ProfileName);
 
 			return true;
@@ -479,7 +489,7 @@ namespace RD_AAOW
 			string settings;
 			try
 				{
-				settings = File.ReadAllText (RDGenerics.AppStartupPath + profilesSubDir + "\\" + ProfileName + ProfileExt,
+				settings = File.ReadAllText (RDGenerics.StartupPath + profilesSubDir + "\\" + ProfileName + ProfileExt,
 					RDGenerics.GetEncoding (RDEncodings.UTF8));
 				}
 			catch
@@ -546,42 +556,21 @@ namespace RD_AAOW
 			{
 			// Создание файла
 			FileStream FS;
+			string profileFile = RDGenerics.GetStoragePath (true, profilesSubDir) + "\\" + ProfileName + ProfileExt;
 			try
 				{
-				if (!Directory.Exists (RDGenerics.AppStartupPath + profilesSubDir))
-					Directory.CreateDirectory (RDGenerics.AppStartupPath + profilesSubDir);
+				/*if (!Directory.Exists (RDGenerics.AppStartupPath + profilesSubDir))
+					Directory.CreateDirectory (RDGenerics.AppStartupPath + profilesSubDir);*/
 
-				FS = new FileStream (RDGenerics.AppStartupPath + profilesSubDir + "\\" + ProfileName + ProfileExt,
-					FileMode.Create);
+				FS = new FileStream (profileFile, FileMode.Create);
 				}
 			catch
 				{
 				return false;
 				}
-			/*StreamWriter SW = new StreamWriter (FS, RDGenerics.GetEncoding (RDEncodings.UTF8));*/
 			BinaryWriter BW = new BinaryWriter (FS, RDGenerics.GetEncoding (RDEncodings.UTF8));
 
-			/*string sp = profSplitter[0].ToString ();
-
-			SW.Write ("" + sp + "" + sp + "" + sp);
-			SW.Write (((uint)ResizingMode).ToString () + sp);
-			SW.Write (((uint)ColorMode).ToString () + sp);
-			SW.Write (AbsoluteWidth.ToString () + sp);
-			SW.Write (AbsoluteHeight.ToString () + sp);
-			SW.Write (RelativeWidth.ToString () + sp);
-			SW.Write (RelativeHeight.ToString () + sp);
-			SW.Write (RelativeLeft.ToString () + sp);
-			SW.Write (RelativeTop.ToString () + sp);
-			SW.Write (BitmapEdge.ToString () + sp);
-			SW.Write (((uint)FlipType).ToString () + sp);
-			SW.Write (((uint)RotationType).ToString () + sp);
-			SW.Write (OutputImageType.ToString () + sp);
-			SW.Write (WatermarkPlacement.ToString () + sp);
-			SW.Write (WatermarkPath + sp);
-			SW.Write (WatermarkOpacity.ToString () + sp);
-			SW.Write (Resolution.ToString ());*/
-
-			BW.Write ((UInt16)ProfileVersions.Actual);
+			BW.Write ((UInt16)RDFormatSignatures.BIPActual);
 			BW.Write ((byte)ResizingMode);
 			BW.Write ((byte)ColorMode);
 			BW.Write ((UInt32)AbsoluteWidth);
@@ -602,6 +591,9 @@ namespace RD_AAOW
 			// Успешно
 			BW.Close ();
 			FS.Close ();
+
+			profileNames.Add (ProfileName);
+			profilePaths.Add (profileFile);
 			return true;
 			}
 
@@ -612,11 +604,19 @@ namespace RD_AAOW
 		public static void RemoveProfile (string ProfileName)
 			{
 			// Создание файла
+			int idx = profileNames.IndexOf (ProfileName);
+			if (idx < 0)
+				return;
+
 			try
 				{
-				File.Delete (RDGenerics.AppStartupPath + profilesSubDir + "\\" + ProfileName + ProfileExt);
+				/*File.Delete (RDGenerics.AppStartupPath + profilesSubDir + "\\" + ProfileName + ProfileExt);*/
+				File.Delete (profilePaths[idx]);
 				}
 			catch { }
+
+			profileNames.RemoveAt (idx);
+			profilePaths.RemoveAt (idx);
 			}
 
 		/// <summary>

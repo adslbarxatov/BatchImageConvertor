@@ -320,7 +320,7 @@
     <value>Conversion profile:</value>
   </data>
   <data name="bipfile" xml:space="preserve">
-    <value>BatchImageConvertor profile</value>
+    <value>BatchImageConvertor settings profile</value>
   </data>
   <data name="BadProfileMessage" xml:space="preserve">
     <value>The selected profile is unavailable or is not supported</value>

@@ -932,7 +932,7 @@ namespace RD_AAOW
 				ProfileCombo.Items.Add (name);
 				idx = ProfileCombo.Items.Count - 1;
 				}
-			/*ProfileCombo.SelectedIndex = ProfileCombo.Items.Count - 1;*/
+
 			ProfileCombo.SelectedIndex = idx;
 			ProfileCombo.Enabled = ProfileRemoveButton.Enabled = true;
 

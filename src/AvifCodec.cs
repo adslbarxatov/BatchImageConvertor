@@ -41,7 +41,7 @@ namespace RD_AAOW
 			try
 				{
 				Process p = new Process ();
-				p.StartInfo = new ProcessStartInfo (RDGenerics.AppStartupPath + codecApp,
+				p.StartInfo = new ProcessStartInfo (RDGenerics.StartupPath + codecApp,
 					"-i " + GetShortName (FilePath) +
 					" -o \"" + FilePath + ".png\"");
 				p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -124,7 +124,7 @@ namespace RD_AAOW
 		/// </summary>
 		public bool IsCodecAvailable (bool InternalLibraryUnavailable)
 			{
-			return File.Exists (RDGenerics.AppStartupPath + codecApp);
+			return File.Exists (RDGenerics.StartupPath + codecApp);
 			}
 
 		/// <summary>
