@@ -367,15 +367,20 @@ namespace RD_AAOW
 			{
 			// Запрос
 			string[] files;
-			string recommendedPath = RDGenerics.GetStoragePath (false);
+			bool updateRequired = false;
+			/*string recommendedPath = RDGenerics.GetStoragePath (false);*/
 			try
 				{
-				// Новая схема хранения
-				files = Directory.GetFiles (recommendedPath + profilesSubDir, "*" + ProfileExt);
+				// Новая схема
+				// !!! Временное решение: директория создаётся во избежание выпуска исключения
+				files = Directory.GetFiles (RDGenerics.GetStoragePath (true, profilesSubDir), "*" + ProfileExt);
 
 				// Старая схема хранения
 				if (files.Length < 1)
+					{
 					files = Directory.GetFiles (RDGenerics.StartupPath + profilesSubDir, "*" + ProfileExt);
+					updateRequired = (files.Length > 0);
+					}
 				}
 			catch
 				{
@@ -390,6 +395,23 @@ namespace RD_AAOW
 				{
 				profileNames.Add (Path.GetFileNameWithoutExtension (files[i]));
 				profilePaths.Add (files[i]);
+				}
+
+			// Миграция
+			if (updateRequired)
+				{
+				for (int i = 0; i < profilePaths.Count; i++)
+					try
+						{
+						string newPath = RDGenerics.GetStoragePath (true, profilesSubDir) +
+							Path.GetFileName (profilePaths[i]);
+
+						File.Copy (profilePaths[i], newPath);
+						File.Move (profilePaths[i], profilePaths[i] + ".bak");
+
+						profilePaths[i] = newPath;
+						}
+					catch { }
 				}
 
 			return profileNames.ToArray ();
@@ -592,8 +614,17 @@ namespace RD_AAOW
 			BW.Close ();
 			FS.Close ();
 
-			profileNames.Add (ProfileName);
-			profilePaths.Add (profileFile);
+			int idx = profileNames.IndexOf (ProfileName);
+			if (idx < 0)
+				{
+				profileNames.Add (ProfileName);
+				profilePaths.Add (profileFile);
+				}
+			else
+				{
+				profilePaths[idx] = profileFile;
+				}
+
 			return true;
 			}
 
