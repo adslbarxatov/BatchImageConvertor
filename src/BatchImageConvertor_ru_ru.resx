@@ -186,9 +186,6 @@
   <data name="IncorrectAlpha" xml:space="preserve">
     <value>Введённое значение альфа-канала некорректно. Допустимые значения – между 0 и 255 (включительно)</value>
   </data>
-  <data name="InputFolderDescription" xml:space="preserve">
-    <value>Выберите директорию, изображения из которой требуется преобразовать</value>
-  </data>
   <data name="InputPathNotSpecified" xml:space="preserve">
     <value>Директория с исходными изображениями не задана</value>
   </data>
@@ -205,7 +202,7 @@
     <value>Выберите файл для загрузки/извлечения палитры</value>
   </data>
   <data name="OutputFolderDescription" xml:space="preserve">
-    <value>Выберите директорию для сохранения преобразованных изображений. При совпадении имён файлов ПЕРЕЗАПИСЬ НЕ ВЫПОЛНЯЕТСЯ!</value>
+    <value>Внимание: при совпадении имён файлов перезапись не выполняется</value>
   </data>
   <data name="OutputPathNotSpecified" xml:space="preserve">
     <value>Директория для преобразованных изображений не задана</value>

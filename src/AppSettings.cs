@@ -5,6 +5,100 @@ using System.IO;
 namespace RD_AAOW
 	{
 	/// <summary>
+	/// Доступные режимы изменения размера изображения
+	/// </summary>
+	public enum ASResizingMode
+		{
+		/// <summary>
+		/// Размер в пикселях
+		/// </summary>
+		AbsoluteSize = 0,
+
+		/// <summary>
+		/// Размер в процентах
+		/// </summary>
+		RelativeSize = 1,
+
+		/// <summary>
+		/// Размер в процентах с обрезкой
+		/// </summary>
+		RelativeCrop = 2
+		}
+
+	/// <summary>
+	/// Доступные режимы изменения цветности изображения
+	/// </summary>
+	public enum ASColorMode
+		{
+		/// <summary>
+		/// Сохранение цветов
+		/// </summary>
+		AllColors = 0,
+
+		/// <summary>
+		/// Оттенки серого
+		/// </summary>
+		Greyscale = 1,
+
+		/// <summary>
+		/// Только чёрный и белый
+		/// </summary>
+		Bitmap = 2
+		}
+
+	/// <summary>
+	/// Доступные режимы отражения изображения
+	/// </summary>
+	public enum ASFlipType
+		{
+		/// <summary>
+		/// Без отражения
+		/// </summary>
+		None = 0,
+
+		/// <summary>
+		/// Горизонтальное
+		/// </summary>
+		Horizontal = 4,
+
+		/// <summary>
+		/// Вертикальное
+		/// </summary>
+		Vertical = 6,
+
+		/// <summary>
+		/// Оба
+		/// </summary>
+		Both = 2
+		}
+
+	/// <summary>
+	/// Доступные режимы поворота изображения
+	/// </summary>
+	public enum ASRotationType
+		{
+		/// <summary>
+		/// 0°
+		/// </summary>
+		None = 0,
+
+		/// <summary>
+		/// 90°
+		/// </summary>
+		Quarter = 1,
+
+		/// <summary>
+		/// 180°
+		/// </summary>
+		Half = 2,
+
+		/// <summary>
+		/// 270°
+		/// </summary>
+		HalfAndQuarter = 3
+		}
+
+	/// <summary>
 	/// Класс реализует хранилище настроек программы
 	/// </summary>
 	public static class AppSettings
@@ -368,7 +462,7 @@ namespace RD_AAOW
 			// Запрос
 			string[] files;
 			bool updateRequired = false;
-			/*string recommendedPath = RDGenerics.GetStoragePath (false);*/
+
 			try
 				{
 				// Новая схема
@@ -388,7 +482,6 @@ namespace RD_AAOW
 				}
 
 			// Сборка
-			/*List<string> names = [];*/
 			profileNames.Clear ();
 			profilePaths.Clear ();
 			for (int i = 0; i < files.Length; i++)
@@ -441,7 +534,6 @@ namespace RD_AAOW
 			FileStream FS;
 			try
 				{
-				/*FS = new FileStream (RDGenerics.AppStartupPath + profilesSubDir + "\\" + ProfileName + ProfileExt, FileMode.Open);*/
 				FS = new FileStream (profilePaths[idx], FileMode.Open);
 				}
 			catch
@@ -581,9 +673,6 @@ namespace RD_AAOW
 			string profileFile = RDGenerics.GetStoragePath (true, profilesSubDir) + "\\" + ProfileName + ProfileExt;
 			try
 				{
-				/*if (!Directory.Exists (RDGenerics.AppStartupPath + profilesSubDir))
-					Directory.CreateDirectory (RDGenerics.AppStartupPath + profilesSubDir);*/
-
 				FS = new FileStream (profileFile, FileMode.Create);
 				}
 			catch
@@ -641,7 +730,6 @@ namespace RD_AAOW
 
 			try
 				{
-				/*File.Delete (RDGenerics.AppStartupPath + profilesSubDir + "\\" + ProfileName + ProfileExt);*/
 				File.Delete (profilePaths[idx]);
 				}
 			catch { }
@@ -665,99 +753,5 @@ namespace RD_AAOW
 				}
 			}
 		private const string lastSelectedProfilePar = "LastSelectedProfile";
-		}
-
-	/// <summary>
-	/// Доступные режимы изменения размера изображения
-	/// </summary>
-	public enum ASResizingMode
-		{
-		/// <summary>
-		/// Размер в пикселях
-		/// </summary>
-		AbsoluteSize = 0,
-
-		/// <summary>
-		/// Размер в процентах
-		/// </summary>
-		RelativeSize = 1,
-
-		/// <summary>
-		/// Размер в процентах с обрезкой
-		/// </summary>
-		RelativeCrop = 2
-		}
-
-	/// <summary>
-	/// Доступные режимы изменения цветности изображения
-	/// </summary>
-	public enum ASColorMode
-		{
-		/// <summary>
-		/// Сохранение цветов
-		/// </summary>
-		AllColors = 0,
-
-		/// <summary>
-		/// Оттенки серого
-		/// </summary>
-		Greyscale = 1,
-
-		/// <summary>
-		/// Только чёрный и белый
-		/// </summary>
-		Bitmap = 2
-		}
-
-	/// <summary>
-	/// Доступные режимы отражения изображения
-	/// </summary>
-	public enum ASFlipType
-		{
-		/// <summary>
-		/// Без отражения
-		/// </summary>
-		None = 0,
-
-		/// <summary>
-		/// Горизонтальное
-		/// </summary>
-		Horizontal = 4,
-
-		/// <summary>
-		/// Вертикальное
-		/// </summary>
-		Vertical = 6,
-
-		/// <summary>
-		/// Оба
-		/// </summary>
-		Both = 2
-		}
-
-	/// <summary>
-	/// Доступные режимы поворота изображения
-	/// </summary>
-	public enum ASRotationType
-		{
-		/// <summary>
-		/// 0°
-		/// </summary>
-		None = 0,
-
-		/// <summary>
-		/// 90°
-		/// </summary>
-		Quarter = 1,
-
-		/// <summary>
-		/// 180°
-		/// </summary>
-		Half = 2,
-
-		/// <summary>
-		/// 270°
-		/// </summary>
-		HalfAndQuarter = 3
 		}
 	}

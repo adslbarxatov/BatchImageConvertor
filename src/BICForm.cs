@@ -224,12 +224,9 @@ namespace RD_AAOW
 
 			// Загрузка и сохранение
 			RDLocale.SetControlText (LoadingTab);
-			InputFolder.Description = RDLocale.GetText ("InputFolderDescription");
 			RDLocale.SetControlText (IncludeSubdirs);
 			RDLocale.SetControlText (InputLabel);
 			RDLocale.SetControlText (CreateOutdir);
-
-			OutputFolder.Description = RDLocale.GetText ("OutputFolderDescription");
 			RDLocale.SetControlText (OutputLabel);
 			RDLocale.SetControlText (OutputFormatLabel);
 			RDLocale.SetControlText (StartButton);
@@ -321,6 +318,9 @@ namespace RD_AAOW
 		// Выбор выходной папки
 		private void SetOutputPath_Click (object sender, EventArgs e)
 			{
+			RDInterface.LocalizedMessageBox (RDMessageFlags.Warning | RDMessageFlags.CenterText,
+				"OutputFolderDescription");
+
 			if (OutputFolder.ShowDialog () == DialogResult.OK)
 				OutputPath.Text = OutputFolder.SelectedPath;
 			}
@@ -914,6 +914,8 @@ namespace RD_AAOW
 
 			// Запрос имени
 			string name = RDInterface.LocalizedMessageBox ("ProfileNameMessage", true, 30);
+			if (string.IsNullOrWhiteSpace (name))
+				return;
 
 			// Попытка сохранения
 			if (!AppSettings.SaveProfile (name))

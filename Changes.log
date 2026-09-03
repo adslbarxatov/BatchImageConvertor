@@ -1,7 +1,7 @@
 Batch image convertor: changes log
 
-ToDo:
-- пропускаются пустые названия профилей!
+Version 5.3.4:
+• Fixed the abitily to add new profile without a name
 
 Version 5.3.3:
 • Updated the storage method for profile files
