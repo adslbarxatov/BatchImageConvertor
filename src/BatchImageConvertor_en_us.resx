@@ -210,7 +210,7 @@
   <data name="OutputPathUnavailable" xml:space="preserve">
     <value>cannot save: output file or directory are not writable</value>
   </data>
-  <data name="PalettesManager" xml:space="preserve">
+  <data name="MPalettes" xml:space="preserve">
     <value>Palettes &amp;manager</value>
   </data>
   <data name="PalettesNotFound" xml:space="preserve">
@@ -289,7 +289,7 @@
   <data name="UnsupportedOS" xml:space="preserve">
     <value>current OS doesn’t support conversion of this image format</value>
   </data>
-  <data name="SupportedExtButton" xml:space="preserve">
+  <data name="MSupportedExt" xml:space="preserve">
     <value>Supported formats</value>
   </data>
   <data name="WatermarkLabel" xml:space="preserve">
@@ -337,5 +337,8 @@ Try to specify another one</value>
   </data>
   <data name="CreateOutdir" xml:space="preserve">
     <value>Create output folder</value>
+  </data>
+  <data name="MOptions" xml:space="preserve">
+    <value>&amp;Options</value>
   </data>
 </root>

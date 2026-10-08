@@ -52,7 +52,7 @@ namespace RD_AAOW
 			// Начальная настройка
 			InitializeComponent ();
 			AcceptButton = StartButton;
-			CancelButton = ExitButton;
+			/*CancelButton = ExitButton;*/
 
 			// Язык интерфейса
 			LocalizeForm_Click (null, null);
@@ -102,7 +102,7 @@ namespace RD_AAOW
 				}
 
 			// Защита от входа без библиотеки
-			PalettesManager.Enabled = allowPalettes = !LibraryUnavailable;
+			MPalettes.Enabled = allowPalettes = !LibraryUnavailable;
 
 			// Запрос сохранённых настроек
 			RDGenerics.LoadWindowDimensions (this);
@@ -258,12 +258,14 @@ namespace RD_AAOW
 			RDLocale.SetControlText (DoNothingToRotation, doNothingAlias);
 
 			// Прочее
-			RDLocale.SetControlText (OthersTab);
-			RDLocale.SetControlText (PalettesManager);
-			RDLocale.SetDefaultControlText (ExitButton, RDLDefaultTexts.Button_Exit);
-			RDLocale.SetDefaultControlText (BLanguage, RDLDefaultTexts.Control_InterfaceLanguage);
-			RDLocale.SetDefaultControlText (AboutTheApp, RDLDefaultTexts.Control_AppAbout);
-			RDLocale.SetControlText (SupportedExtButton);
+			/*RDLocale.SetControlText (OthersTab);*/
+			RDLocale.SetControlText (MPalettes);
+			RDLocale.SetDefaultControlText (MExit, RDLDefaultTexts.Button_Exit);
+			RDLocale.SetDefaultControlText (MLanguage, RDLDefaultTexts.Control_InterfaceLanguage);
+			RDLocale.SetDefaultControlText (MAbout, RDLDefaultTexts.Control_AppAbout);
+			RDLocale.SetControlText (MSupportedExt);
+			RDLocale.SetControlText (MOptions);
+
 			RDLocale.SetControlText (ProfileLabel);
 
 			// Водяной знак
@@ -717,23 +719,23 @@ namespace RD_AAOW
 		private void SetInterfaceState (bool State)
 			{
 			SetInputPath.Enabled = SetOutputPath.Enabled = InputPath.Enabled = OutputPath.Enabled =
-				ImageTypeCombo.Enabled = StartButton.Enabled = ExitButton.Enabled =
+				ImageTypeCombo.Enabled = StartButton.Enabled = MExit.Enabled =
 				RotationCombo.Enabled = FlipCombo.Enabled = CWLabel.Enabled = FlipLabel.Enabled =
 				AbsoluteSize.Enabled = RelativeSize.Enabled = RelativeCrop.Enabled =
-				BLanguage.Enabled = IncludeSubdirs.Enabled = CreateOutdir.Enabled = State;
+				MLanguage.Enabled = IncludeSubdirs.Enabled = CreateOutdir.Enabled = State;
 
 			if (State)
 				{
 				ImageTypeCombo_SelectedIndexChanged (null, null);
 				AbsoluteSize_CheckedChanged (null, null);
 				BitmapRadio_CheckedChanged (null, null);
-				PalettesManager.Enabled = allowPalettes;
+				MPalettes.Enabled = allowPalettes;
 				}
 			else
 				{
 				SaveColorsRadio.Enabled = GreyscaleRadio.Enabled = BitmapRadio.Enabled =
 					AbsoluteWidth.Enabled = AbsoluteHeight.Enabled = RelativeWidth.Enabled = RelativeHeight.Enabled =
-					Label06.Enabled = BitmapEdgeTrack.Visible = PalettesManager.Enabled = State;
+					Label06.Enabled = BitmapEdgeTrack.Visible = MPalettes.Enabled = State;
 				}
 			}
 

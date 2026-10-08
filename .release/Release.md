@@ -1,15 +1,17 @@
 _en_us_
 
-- Fixed the abitily to add new profile without a name;
-- Updated the storage method for profile files;
-- Updated the profile file format
+- User videoguides have been added;
+- App interface has been rebuilt;
+- Added the regular window menu;
+- Fixed the abitily to add new profile without a name
 
 ⁂
 
 _ru_ru_
 
-- Исправлена возможность добавления профилей без названия;
-- Обновлён метод хранения файлов профилей;
-- Обновлён формат файла профиля
+- Добавлены видеоруководства пользователя;
+- Перестроен интерфейс приложения;
+- Добавлено стандартное оконное меню;
+- Исправлена возможность добавления профилей без названия
 
 ⁂

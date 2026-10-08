@@ -210,7 +210,7 @@
   <data name="OutputPathUnavailable" xml:space="preserve">
     <value>не удалось сохранить файл, т.к. файл или конечная директория недоступны для записи</value>
   </data>
-  <data name="PalettesManager" xml:space="preserve">
+  <data name="MPalettes" xml:space="preserve">
     <value>&amp;Менеджер палитр</value>
   </data>
   <data name="PalettesNotFound" xml:space="preserve">
@@ -289,7 +289,7 @@
   <data name="UnsupportedOS" xml:space="preserve">
     <value>текущая ОС не поддерживает преобразование этого типа изображений</value>
   </data>
-  <data name="SupportedExtButton" xml:space="preserve">
+  <data name="MSupportedExt" xml:space="preserve">
     <value>Поддерживаемые форматы</value>
   </data>
   <data name="WatermarkLabel" xml:space="preserve">
@@ -337,5 +337,8 @@
   </data>
   <data name="CreateOutdir" xml:space="preserve">
     <value>Создавать выходную папку</value>
+  </data>
+  <data name="MOptions" xml:space="preserve">
+    <value>&amp;Опции</value>
   </data>
 </root>

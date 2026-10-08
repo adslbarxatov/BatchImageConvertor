@@ -35,7 +35,7 @@ namespace RD_AAOW
 			RDGenerics.LoadWindowDimensions (this);
 
 			// Настройка контролов
-			this.Text = RDLocale.GetText ("PalettesManager").Replace ("&", "");
+			this.Text = RDLocale.GetText ("MPalettes").Replace ("&", "");
 
 			OFDialog.Title = RDLocale.GetText ("OpenPaletteDialogTitle");
 			SFDialog.Title = RDLocale.GetText ("SavePaletteDialogTitle");
